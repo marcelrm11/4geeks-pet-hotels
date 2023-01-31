@@ -19,7 +19,7 @@ static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../
 app = Flask(__name__)
 app.url_map.strict_slashes = False
 
-# database condiguration
+# database configuration
 db_url = os.getenv("DATABASE_URL")
 if db_url is not None:
     app.config['SQLALCHEMY_DATABASE_URI'] = db_url.replace("postgres://", "postgresql://")
