@@ -2,4 +2,4 @@ DATABASE_URL=postgres://waxtlhqa:OpRq--VxCNlL50sBlEjwnULh-jW_gDa3@manny.db.eleph
 Hostname: manny.db.elephantsql.com
 Database name: waxtlhqa
 username: waxtlhqa
-password: OpRq--VxCNlL50sBlEjwnULh-jW_gDa3
+password: OpRq--VxCNlL50sBlEjwnULh-jW_gDa3  
