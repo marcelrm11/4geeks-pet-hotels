@@ -17,9 +17,9 @@ class User(db.Model):
     def __repr__(self):
         return f'<User {self.email}>'
 
-    # NOTE: In a real application make sure to properly hash and salt passwords
-    def check_password(self, password):
-        return check_password(password, "password")
+    # # NOTE: In a real application make sure to properly hash and salt passwords
+    # def check_password(self, password):
+    #     return check_password(password, "password")
 
     def serialize(self):
         return {
