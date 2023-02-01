@@ -31,7 +31,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         try {
           const response = await fetch(
-            "https://3000-marcelrm11-4geekspethot-khhwppgad2k.ws-eu84.gitpod.io/login",
+            "https://3001-marcelrm11-4geekspethot-khhwppgad2k.ws-eu84.gitpod.io/login",
             opt
           );
           if (response.status !== 200) {
@@ -67,13 +67,13 @@ const getState = ({ getStore, getActions, setStore }) => {
       getMessage: async () => {
         const store = getStore();
         const opt = {
-          authorization: "bearer" + store.token,
+          headers: { Authorization: "Bearer " + store.token },
         };
 
         try {
           // fetching data from the backend
           const resp = await fetch(
-            "https://3000-marcelrm11-4geekspethot-khhwppgad2k.ws-eu84.gitpod.io/hello",
+            "https://3001-marcelrm11-4geekspethot-khhwppgad2k.ws-eu84.gitpod.io/hello",
             opt
           );
           const data = await resp.json();
