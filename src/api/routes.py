@@ -28,6 +28,7 @@ def get_users():
 
 @api.route('/user', methods=['POST'])
 def create_user():
+    try:
         email = request.json.get("email", None)
         password = request.json.get("password", None)
         first_name = request.json.get("first_name", None)
@@ -38,5 +39,6 @@ def create_user():
         user = User(email = email, password = password, first_name = first_name, last_name = last_name, country = country, zip_code = zip_code, phone_number = phone_number)
         db.session.add(user)
         db.session.commit()
-
         return jsonify(user.serialize()), 200
+    except:
+        return jsonify({'error': 'something wrong'})
