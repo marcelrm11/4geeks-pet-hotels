@@ -7,7 +7,7 @@ export const Login = () => {
   const { store, actions } = useContext(Context);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   console.log("this is the token num", store.token);
 
@@ -16,7 +16,7 @@ export const Login = () => {
   };
 
   if (store.token && store.token != "" && store.token != undefined)
-    history("/");
+    navigate("/");
 
   return (
     <div className="text-center mt-5">

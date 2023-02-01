@@ -73,15 +73,16 @@ const getState = ({ getStore, getActions, setStore }) => {
         try {
           // fetching data from the backend
           const resp = await fetch(
-            "https://3001-marcelrm11-4geekspethot-khhwppgad2k.ws-eu84.gitpod.io/hello",
+            "https://3001-marcelrm11-4geekspethot-khhwppgad2k.ws-eu84.gitpod.io/api/hello",
             opt
           );
           const data = await resp.json();
           setStore({ message: data.message });
+          console.log("funciono", data);
           // don't forget to return something, that is how the async resolves
           return data;
         } catch (error) {
-          console.log("Error loading message from backend", error);
+          console.error("Error loading message from backend", error);
         }
       },
       changeColor: (index, color) => {

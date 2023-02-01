@@ -97,8 +97,7 @@ def handle_login():
 
 @app.route('/logout')
 def logout():
-
-        return 'You log out'
+    pass
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
