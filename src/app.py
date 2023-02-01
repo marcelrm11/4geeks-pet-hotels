@@ -88,8 +88,8 @@ def handle_account():
 
 @app.route('/logout')
 def logout():
-    session.pop('email', None)
-    return redirect(url_for('home'))
+
+        return 'You log out'
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
