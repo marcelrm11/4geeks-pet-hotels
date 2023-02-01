@@ -19,22 +19,9 @@ def create_user():
     form = UserForm()
     if form.validate_on_submit():
         try:
-            email = form.email.data
-            password = form.password.data
-            first_name = form.first_name.data
-            last_name = form.last_name.data
-            country = form.country.data
-            zip_code = form.zip_code.data
-            phone_number = form.phone_number.data
-            user = User(
-                email=email, 
-                password=password, 
-                first_name=first_name, 
-                last_name=last_name,
-                country=country, 
-                zip_code=zip_code, 
-                phone_number=phone_number
-            )
+            user_data = {field: getattr(form, field).data for field in form._fields}
+            user = User(**user_data)
+
             db.session.add(user)
             db.session.commit()
             return jsonify(user.serialize()), 200
