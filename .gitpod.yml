@@ -8,7 +8,7 @@ ports:
     onOpen: open-preview
     visibility: public
   - port: 5432
-    onOpen: ignore
+    onOpen: notify
 tasks:
   - init: >
       (cp -n .env.example .env || true) &&
@@ -22,6 +22,10 @@ tasks:
       npm install &&
       python docs/assets/greeting.py front
     openMode: split-right
+  # - name: Install PostgreSQL
+  #   command: |
+  #     sudo apt-get update
+  #     sudo apt-get install -y postgresql postgresql-contrib
 
 vscode:
   extensions:

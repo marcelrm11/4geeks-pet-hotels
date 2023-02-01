@@ -6,11 +6,18 @@ from flask import Flask, request, jsonify, url_for, send_from_directory
 from flask_migrate import Migrate
 from flask_swagger import swagger
 from flask_cors import CORS
+from flask_jwt_extended import JWTManager
 from api.utils import APIException, generate_sitemap
-from api.models import db
+from api.models import db, User
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
+
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
+
+from flask_jwt_extended import JWTManager
 
 #from models import Person
 
@@ -18,6 +25,7 @@ ENV = os.getenv("FLASK_ENV")
 static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../public/')
 app = Flask(__name__)
 app.url_map.strict_slashes = False
+
 
 # database configuration
 db_url = os.getenv("DATABASE_URL")
@@ -29,6 +37,9 @@ else:
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 MIGRATE = Migrate(app, db, compare_type = True)
 db.init_app(app)
+
+app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
+jwt = JWTManager(app)
 
 # Allow CORS requests to this API
 CORS(app)
@@ -63,6 +74,21 @@ def serve_any_other_file(path):
     response.cache_control.max_age = 0 # avoid cache memory
     return response
 
+@app.route('/login', methods=['POST'])
+def handle_login():
+
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+    if email != "test" or password != "test":
+        return jsonify({"msg": "Bad email or password"}), 401
+
+    access_token = create_access_token(identity=email)
+    return jsonify(access_token=access_token)
+
+@app.route('/user/account', methods=['POST'])
+def handle_account():
+
+        return 'Succesfully log in'
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':

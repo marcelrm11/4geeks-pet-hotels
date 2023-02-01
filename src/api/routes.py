@@ -2,31 +2,55 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
+from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, current_user
 from api.models import db, User
 from api.utils import generate_sitemap, APIException
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
 
 api = Blueprint('api', __name__)
 
+@api.route('/token', methods=['POST'])
+def get_token():
+    email = request.json.get('email', None)
+    password = request.json.get('password', None)
+    if not email:
+        return jsonify({'msg': 'something is wrong'})
+    access_token = create_access_token(identity=email)
+    return jsonify(access_token=access_token)
 
-@api.route('/hello', methods=['POST', 'GET'])
-def handle_hello():
+@api.route('/protected', methods=['GET'])
+@jwt_required()
+def protected():
+    current_user = get_jwt_identity()
+    return jsonify(logged_in_as = current_user), 200
 
-    response_body = {
-        "message": "Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"
-    }
+@api.route("/login", methods=["POST"])
+def login():
+    username = request.json.get("username", None)
+    password = request.json.get("password", None)
 
-    return jsonify(response_body), 200
+    user = User.query.filter_by(username=username).one_or_none()
+    if not user or not user.check_password(password):
+        return jsonify("Wrong username or password"), 401
 
-@api.route('/users', methods=['GET'])
-def get_users():
+    # Notice that we are passing in the actual sqlalchemy user object here
+    access_token = create_access_token(identity=user)
+    return jsonify(access_token=access_token)
 
-    response_body = {
-        "message": "Hello! This is your GET/ users request"
-    }
+@api.route('/who_am_i', methods=['GET'])
+@jwt_required()
+def get_user():
+    # We can now access our sqlalchemy User object via `current_user`.
+    return jsonify(
+        id=current_user.id,
+        first_name=current_user.first_name,
+        last_name=current_user.last_name
+    ), 200
 
-    return jsonify(response_body), 200
 
-@api.route('/user', methods=['POST'])
+@api.route('/signup', methods=['POST'])
 def create_user():
     try:
         email = request.json.get("email", None)
@@ -42,3 +66,4 @@ def create_user():
         return jsonify(user.serialize()), 200
     except:
         return jsonify({'error': 'something wrong'})
+
