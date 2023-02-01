@@ -1,23 +1,6 @@
-import React, { useContext, useState } from "react";
-import { Context } from "../store/appContext";
-import "../../styles/home.css";
-import { useNavigate } from "react-router";
+import React from "react";
 
-export const Login = () => {
-  const { store, actions } = useContext(Context);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const history = useNavigate();
-
-  console.log("this is the token num", store.token);
-
-  const handleLogin = () => {
-    actions.login(email, password);
-  };
-
-  if (store.token && store.token != "" && store.token != undefined)
-    history("/");
-
+const LoginPage = () => {
   return (
     <div className="text-center mt-5">
       {store.token && store.token != "" && store.token != undefined ? (
@@ -42,3 +25,5 @@ export const Login = () => {
     </div>
   );
 };
+
+

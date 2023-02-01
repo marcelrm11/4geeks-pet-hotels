@@ -81,11 +81,6 @@ def handle_login():
     access_token = create_access_token(identity=email)
     return jsonify(access_token=access_token)
 
-@app.route('/user/account', methods=['POST'])
-def handle_account():
-
-        return 'Succesfully log in'
-
 @app.route('/logout')
 def logout():
 
