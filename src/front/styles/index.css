@@ -1,3 +1,8 @@
 /* 
     General Styles used on every website (Don't Repeat Yourself)
 */
+.forms > input{
+    display: block;
+    margin: 20px auto;
+
+}
