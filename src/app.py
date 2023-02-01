@@ -76,7 +76,6 @@ def serve_any_other_file(path):
 
 @app.route('/login', methods=['POST'])
 def handle_login():
-
     email = request.json.get("email", None)
     password = request.json.get("password", None)
     if email != "test" or password != "test":
@@ -87,12 +86,10 @@ def handle_login():
 
 @app.route('/user/account', methods=['POST'])
 def handle_account():
-
         return 'Succesfully log in'
 
 @app.route('/logout')
 def logout():
-
         return 'You log out'
 
 # this only runs if `$ python src/main.py` is executed
