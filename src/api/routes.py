@@ -41,4 +41,4 @@ def create_user():
         db.session.commit()
         return jsonify(user.serialize()), 200
     except:
-        return jsonify("error": "something wrong")
+        return jsonify({'error': 'something wrong'})
