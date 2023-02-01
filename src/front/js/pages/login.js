@@ -6,6 +6,9 @@ export const Login = () => {
   const { store, actions } = useContext(Context);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const token = localStorage.getItem("token");
+
+  console.log("this is the token num", token);
 
   const handleLogin = () => {
     const opt = {
@@ -29,7 +32,10 @@ export const Login = () => {
           return alert("there has been an error");
         }
       })
-      .then()
+      .then((data) => {
+        console.log("token", data.access_token);
+        localStorage.setItem("token", data.access_token);
+      })
       .catch((error) => {
         console.error(`there was am error, ${error}`);
       });
@@ -37,21 +43,25 @@ export const Login = () => {
 
   return (
     <div className="text-center mt-5">
-      <div>
-        <input
-          type="text"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button onClick={handleLogin}>Login</button>
-      </div>
+      {token && token != "" && token != undefined ? (
+        `You are logged in with ${token}`
+      ) : (
+        <div>
+          <input
+            type="text"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button onClick={handleLogin}>Login</button>
+        </div>
+      )}
     </div>
   );
 };
