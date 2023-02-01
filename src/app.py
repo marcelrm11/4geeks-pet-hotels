@@ -70,6 +70,16 @@ def serve_any_other_file(path):
     response.cache_control.max_age = 0 # avoid cache memory
     return response
 
+@app.route('/hello', methods=['GET'])
+@jwt_required()
+def handle_hello():
+
+    response_body = {
+        "message": "Hello world!"
+    }
+
+    return jsonify(response_body), 200
+
 @app.route('/login', methods=['POST'])
 def handle_login():
 

@@ -61,13 +61,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       logout: () => {
         sessionStorage.removeItem("token");
-        setStore({ token: null })
+        setStore({ token: null });
       },
 
       getMessage: async () => {
+        const store = getStore();
+        const opt = {
+          authorization: "bearer" + store.token,
+        };
+
         try {
           // fetching data from the backend
-          const resp = await fetch(process.env.BACKEND_URL + "/api/hello");
+          const resp = await fetch(
+            "https://3001-marcelrm11-4geekspethot-khhwppgad2k.ws-eu84.gitpod.io/hello",
+            opt
+          );
           const data = await resp.json();
           setStore({ message: data.message });
           // don't forget to return something, that is how the async resolves
