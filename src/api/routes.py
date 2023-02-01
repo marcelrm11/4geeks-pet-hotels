@@ -40,3 +40,8 @@ def create_user():
         db.session.commit()
 
         return jsonify(user.serialize()), 200
+
+
+
+
+
