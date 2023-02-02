@@ -14,7 +14,7 @@ api = Blueprint('api', __name__)
 @api.route('/signup', methods=['POST'])
 def create_user():
     form = UserForm()
-    access_token = create_access_token(form) #! token
+    # access_token = create_access_token(form) #! token
     if form.validate_on_submit():
         try:
             user_data = {field: getattr(form, field).data for field in form._fields}
