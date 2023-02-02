@@ -1,50 +1,27 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
+import { useNavigate } from "react-router";
 
 export const Login = () => {
   const { store, actions } = useContext(Context);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
 
-  console.log("this is the token num", token);
+  console.log("this is the token num", store.token);
 
   const handleLogin = () => {
-    const opt = {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        email: "test",
-        password: "test",
-      }),
-    };
-
-    fetch(
-      "https://3001-marcelrm11-4geekspethot-khhwppgad2k.ws-eu84.gitpod.io/login",
-      opt
-    )
-      .then((response) => {
-        if (response.status === 200) return response.json();
-        else {
-          return alert("there has been an error");
-        }
-      })
-      .then((data) => {
-        console.log("token", data.access_token);
-        localStorage.setItem("token", data.access_token);
-      })
-      .catch((error) => {
-        console.error(`there was am error, ${error}`);
-      });
+    actions.login(email, password);
   };
+
+  if (store.token && store.token != "" && store.token != undefined)
+    navigate("/");
 
   return (
     <div className="text-center mt-5">
-      {token && token != "" && token != undefined ? (
-        `You are logged in with ${token}`
+      {store.token && store.token != "" && store.token != undefined ? (
+        `You are logged in with ${store.token}`
       ) : (
         <div>
           <input

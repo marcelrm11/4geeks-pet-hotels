@@ -1,6 +1,7 @@
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
+      token: null,
       message: null,
       demo: [
         {
@@ -16,21 +17,72 @@ const getState = ({ getStore, getActions, setStore }) => {
       ],
     },
     actions: {
+      login: async (email, password) => {
+        const opt = {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            email: "test",
+            password: "test",
+          }),
+        };
+
+        try {
+          const response = await fetch(
+            "https://3001-marcelrm11-4geekspethot-khhwppgad2k.ws-eu84.gitpod.io/login",
+            opt
+          );
+          if (response.status !== 200) {
+            alert("there has been an error");
+            return false;
+          }
+
+          const data = await response.json();
+          console.log("token", data.access_token);
+          sessionStorage.setItem("token", data.access_token);
+          setStore({ token: data.access_token });
+          return true;
+        } catch (error) {
+          console.error(`there is an error`, error);
+        }
+      },
+
+      tokensessionStore: () => {
+        const token = sessionStorage.getItem("token");
+        if (token && token != "" && token != undefined)
+          setStore({ token: token });
+      },
       // Use getActions to call a function within a fuction
       exampleFunction: () => {
         getActions().changeColor(0, "green");
       },
 
+      logout: () => {
+        sessionStorage.removeItem("token");
+        setStore({ token: null });
+      },
+
       getMessage: async () => {
+        const store = getStore();
+        const opt = {
+          headers: { Authorization: "Bearer " + store.token },
+        };
+
         try {
           // fetching data from the backend
-          const resp = await fetch(process.env.BACKEND_URL + "/api/hello");
+          const resp = await fetch(
+            "https://3001-marcelrm11-4geekspethot-khhwppgad2k.ws-eu84.gitpod.io/api/hello",
+            opt
+          );
           const data = await resp.json();
           setStore({ message: data.message });
+          console.log("funciono", data);
           // don't forget to return something, that is how the async resolves
           return data;
         } catch (error) {
-          console.log("Error loading message from backend", error);
+          console.error("Error loading message from backend", error);
         }
       },
       changeColor: (index, color) => {
