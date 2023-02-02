@@ -12,11 +12,6 @@ from api.models import db, User
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
-
-from flask_jwt_extended import create_access_token
-from flask_jwt_extended import get_jwt_identity
-from flask_jwt_extended import jwt_required
-
 from flask_jwt_extended import JWTManager
 
 #from models import Person
@@ -74,26 +69,6 @@ def serve_any_other_file(path):
     response.cache_control.max_age = 0 # avoid cache memory
     return response
 
-@app.route('/login', methods=['POST'])
-def handle_login():
-
-    email = request.json.get("email", None)
-    password = request.json.get("password", None)
-    if email != "test" or password != "test":
-        return jsonify({"msg": "Bad email or password"}), 401
-
-    access_token = create_access_token(identity=email)
-    return jsonify(access_token=access_token)
-
-@app.route('/user/account', methods=['POST'])
-def handle_account():
-
-        return 'Succesfully log in'
-
-@app.route('/logout')
-def logout():
-
-        return 'You log out'
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':

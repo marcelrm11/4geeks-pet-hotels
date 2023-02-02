@@ -2,13 +2,9 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, current_user
 from api.models import db, User
-from api.utils import generate_sitemap, APIException
-from flask_jwt_extended import create_access_token
-from flask_jwt_extended import get_jwt_identity
-from flask_jwt_extended import jwt_required
 from forms import UserForm
+from flask_jwt_extended import create_access_token
 
 api = Blueprint('api', __name__)
 
@@ -19,22 +15,9 @@ def create_user():
     form = UserForm()
     if form.validate_on_submit():
         try:
-            email = form.email.data
-            password = form.password.data
-            first_name = form.first_name.data
-            last_name = form.last_name.data
-            country = form.country.data
-            zip_code = form.zip_code.data
-            phone_number = form.phone_number.data
-            user = User(
-                email=email, 
-                password=password, 
-                first_name=first_name, 
-                last_name=last_name,
-                country=country, 
-                zip_code=zip_code, 
-                phone_number=phone_number
-            )
+            user_data = {field: getattr(form, field).data for field in form._fields}
+            user = User(**user_data)
+
             db.session.add(user)
             db.session.commit()
             return jsonify(user.serialize()), 200
@@ -46,3 +29,21 @@ def create_user():
     else:
         errors = {field: errors[0] for field, errors in form.errors.items()}
         return jsonify({'error': 'validation error', 'errors': errors}), 400
+
+@api.route('/login', methods=['POST'])
+def handle_login():
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+    if email != "test" or password != "test":
+        return jsonify({"msg": "Bad email or password"}), 401
+
+    access_token = create_access_token(identity=email)
+    return jsonify(access_token=access_token)
+
+@api.route('/user/account', methods=['POST'])
+def handle_account():
+        return 'Succesfully log in'
+
+@api.route('/logout')
+def logout():
+        return 'You log out'
