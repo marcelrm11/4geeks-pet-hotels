@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField
+from wtforms import StringField, PasswordField, HiddenField
 from wtforms.validators import DataRequired, Email, Length, EqualTo, Regexp
 
 password_msg = 'Password must contain at least one uppercase, one lowercase, one digit and one special character.'
@@ -9,6 +9,7 @@ zip_code_regex = r'^\d{3,10}$'
 phone_regex = r'^(\+\d{1,3}[- ]?)?\d{10,12}$'
 
 class UserForm(FlaskForm):
+    csrf_token = HiddenField('CSRF Token')
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired(), Length(min=8), Regexp(password_regex, message=password_msg), EqualTo('confirm_password', message=password_error_msg)])
     confirm_password = PasswordField('Confirm Password')

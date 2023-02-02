@@ -14,10 +14,12 @@ api = Blueprint('api', __name__)
 @api.route('/signup', methods=['POST'])
 def create_user():
     form = UserForm()
+    access_token = create_access_token(form) #! token
     if form.validate_on_submit():
         try:
             user_data = {field: getattr(form, field).data for field in form._fields}
             user = User(**user_data)
+            # user.csrf_token = access_token #! token
 
             db.session.add(user)
             db.session.commit()
@@ -37,12 +39,15 @@ def handle_login():
     email = request.json.get("email", None)
     password = request.json.get("password", None)
 
-    user = User.query.filter_by(email=email).one_or_none()
+    try:
+        user = User.query.filter_by(email=email).one_or_none()
     # will return None if there is no user with email in your database, or an instance of class User if there is exactly one, or raises an exception if there are multiple.
-    if not user:
-        return jsonify({"msg": "No user with this email"}), 401
-    if not user.check_password(password):
-        return jsonify({"msg": "Wrong password"}), 401
+    except: #TODO user not found error
+        if not user:
+            return jsonify({"msg": "No user with this email"}), 401
+    # except: #TODO password error
+    #     if not user.check_password(password):
+    #         return jsonify({"msg": "Wrong password"}), 401
 
     access_token = create_access_token(identity=email)
     return jsonify(access_token=access_token)
