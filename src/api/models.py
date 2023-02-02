@@ -35,14 +35,9 @@ class User(db.Model):
 
 class Countries_zip_codes(db.Model):
     __tablename__ = 'countries_zip_codes'
-    id = db.Column(db.Integer, primary_key=True)
     country = db.Column(db.String)
-    country_iso = db.Column(db.String)
-    territories = db.Column(db.String)
-    term = db.Column(db.String)
+    country_iso = db.Column(db.String, primary_key=True)
     zip_regex = db.Column(db.String)
-    example = db.Column(db.String)
-    version_change = db.Column(db.String)
 
     def __repr__(self):
         return f'<{self.country_iso}: {self.country}>'
