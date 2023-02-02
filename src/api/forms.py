@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField
-from wtforms.validators import DataRequired, Email, Length
+from wtforms.validators import DataRequired, Email, Length, EqualTo, Regexp
 
 password_msg = 'Password must contain at least one uppercase, one lowercase, one digit and one special character.'
 password_regex = r'[A-Za-z0-9@#$%^&+=]'
@@ -15,8 +15,6 @@ class UserForm(FlaskForm):
     country = StringField('Country', validators=[DataRequired()])
     zip_code = StringField('Zip Code', validators=[DataRequired()])
     phone_number = StringField('Phone Number', validators=[DataRequired()])
-
-from wtforms.validators import EqualTo, Regexp
 
 class ShortUserForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
