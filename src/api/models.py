@@ -6,8 +6,8 @@ class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(80), unique=False, nullable=False)
-    confirm_password = db.Column(db.String(80), unique=False, nullable=False)
+    password = db.Column(db.String(32), unique=False, nullable=False)
+    confirm_password = db.Column(db.String(32), unique=False, nullable=False)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False, default=True)
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
@@ -32,3 +32,17 @@ class User(db.Model):
             "zip_code": self.zip_code
             # do not serialize the password, its a security breach
         }
+
+class Countries_zip_codes(db.Model):
+    __tablename__ = 'countries_zip_codes'
+    id = db.Column(db.Integer, primary_key=True)
+    country = db.Column(db.String)
+    country_iso = db.Column(db.String)
+    territories = db.Column(db.String)
+    term = db.Column(db.String)
+    zip_regex = db.Column(db.String)
+    example = db.Column(db.String)
+    version_change = db.Column(db.String)
+
+    def __repr__(self):
+        return f'<{self.country_iso}: {self.country}>'
