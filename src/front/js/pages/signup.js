@@ -64,6 +64,7 @@ export const Signup = () => {
     }
  
     setErrors(newErrors);
+
     handleSignupClick()
     console.log(formData)
     return Object.keys(newErrors).length === 0;

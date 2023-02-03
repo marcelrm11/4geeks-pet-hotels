@@ -7,7 +7,6 @@ from api.forms import UserForm
 from flask_jwt_extended import create_access_token
 
 api = Blueprint('api', __name__)
-
 # API Routes
 # ---------------------------------------------------------------
 @api.route('/signup', methods=['POST'])
