@@ -22,7 +22,8 @@ export const Signup = () => {
 
   const [errors, setErrors] = useState({});
 
-  const handleValidateForm = () => {
+  const handleValidateForm = (ev) => {
+    ev.preventDefault();
     let newErrors = {};
     // TODO Replace the ifs pattern with a loop
     if (!formData.first_name) {
@@ -77,26 +78,23 @@ export const Signup = () => {
   };
 
   const handleSignupClick = () => {
-    fetch(
-      process.env.BACKEND_URL "api/signup",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password,
-          confirm_password: formData.confirm_password,
-          first_name: formData.first_name,
-          last_name: formData.last_name,
-          country: formData.country,
-          zip_code: formData.zip_code,
-          phone_number: formData.phone_number,
-        }),
-        mode: "no-cors",
-      }
-    )
+    fetch(process.env.BACKEND_URL + "api/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: formData.email,
+        password: formData.password,
+        confirm_password: formData.confirm_password,
+        first_name: formData.first_name,
+        last_name: formData.last_name,
+        country: formData.country,
+        zip_code: formData.zip_code,
+        phone_number: formData.phone_number,
+      }),
+      mode: "no-cors", //? are we sure?
+    })
       .then((response) => response.json())
       .then((data) => console.log(data))
       .catch((error) => {
