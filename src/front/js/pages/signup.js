@@ -12,6 +12,12 @@ export const Signup = () => {
   // const [zip_code, setZip_code] = useState("");
   // const [phone_number, setPhone_number] = useState("");
 
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,32})/
+  const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+  const zipCodeRegex = /^\d{3,10}$/
+  const phoneNumberRegex = /^(\+\d{1,3}[- ]?)?\d{10,12}$/
+
+
   const [formData, setFormData] = useState({})
 
   const [errors, setErrors] = useState({})
@@ -28,50 +34,44 @@ export const Signup = () => {
  
     if (!formData.email) {
       newErrors.email = "Email is required";
+    } else if (!emailRegex.test(formData.email)) {
+      newErrors.email = "You have entered an invalid email address!";
     }
-    // } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-    //   newErrors.email = "Email is not valid";
-    // }
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,32})/
     if (!formData.password) {
       newErrors.password = "Password is required";
     } else if (!passwordRegex.test(formData.password)) {
-      newErrors.password = "Password is not valid";
+      newErrors.password = "You have entered an invalid password!";
     }
-
 
     if (!formData.confirm_password) {
       newErrors.confirm_password = "Please, confirm your password";
     } else if (formData.confirm_password !== formData.password) {
       newErrors.confirm_password = "Fields 'Password' and 'Confirm password' do not match";
     }
-
     if (!formData.country) {
       newErrors.country = "Country is required";
     }
-
-    const zipCodeRegex = /^\d{3,10}$/
     if (!formData.zip_code) {
       newErrors.zip_code = "Zip code is required";
     } else if (!zipCodeRegex.test(formData.zip_code)) {
-      newErrors.zip_code = "Zip code is not valid";
+      newErrors.zip_code = "You have entered an invalid zip code!";
     }
-    const phoneNumberRegex = /^(\+\d{1,3}[- ]?)?\d{10,12}$/
     if (!formData.phone_number) {
       newErrors.phone_number = "Phone number is required";
     } else if (!phoneNumberRegex.test(formData.phone_number)) {
-      newErrors.phone_number = "Phone number is not valid";
+      newErrors.phone_number = "You have entered an invalid phone number!";
     }
  
     setErrors(newErrors);
-
-    handleSignupClick()
-    console.log(formData)
+    if (Object.keys(newErrors).length === 0) {
+      handleSignupClick()
+    }
+    
+    console.log(newErrors)
     return Object.keys(newErrors).length === 0;
     
  };
  
-
   const handleChange = (ev) => {
     setFormData({...formData, [ev.target.id]: ev.target.value})
   }
