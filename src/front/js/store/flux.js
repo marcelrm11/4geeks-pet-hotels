@@ -31,7 +31,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         try {
           const response = await fetch(
-            "https://3001-marcelrm11-4geekspethot-khhwppgad2k.ws-eu84.gitpod.io/login",
+            "https://3001-marcelrm11-4geekspethot-khhwppgad2k.ws-eu84.gitpod.io/api/login",
             opt
           );
           if (response.status !== 200) {
