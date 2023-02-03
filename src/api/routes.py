@@ -4,8 +4,9 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User
 from api.forms import UserForm
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 import sys
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, set_access_cookies
+from sqlalchemy.exc import IntegrityError
 
 api = Blueprint('api', __name__)
 
@@ -14,22 +15,26 @@ api = Blueprint('api', __name__)
 # Signup --------------
 @api.route('/signup', methods=['POST'])
 def create_user():
-
-    form = UserForm()
-    # access_token = create_access_token(form) #! token
+    form = UserForm(meta={'csrf': False}) #! to disable the csrf protection
     if form.validate_on_submit():
         try:
             user_data = {field: getattr(form, field).data for field in form._fields}
             user = User(**user_data)
-            # user.csrf_token = access_token #! token
+            with db.session.begin_nested():
+                db.session.add(user)
+                db.session.commit()
 
-            db.session.add(user)
-            db.session.commit()
-            return jsonify(user.serialize()), 200
-        except:
+            access_token = create_access_token(identity=form.email.data)
+            response = jsonify(user.serialize())
+            set_access_cookies(response, access_token)
+            return response, 200
+        except IntegrityError as e:
+            db.session.rollback()
+            return jsonify({'error': 'email already exists'}), 400
+        except Exception as e:
             db.session.rollback()
             print(sys.exc_info())
-            return jsonify({'error': 'something went wrong'})
+            return jsonify({'error': str(e)}), 500
         finally:
             db.session.close()
     else:
