@@ -32,3 +32,12 @@ class User(db.Model):
             "zip_code": self.zip_code
             # do not serialize the password, its a security breach
         }
+
+class Countries_zip_codes(db.Model):
+    __tablename__ = 'countries_zip_codes'
+    country = db.Column(db.String)
+    country_iso = db.Column(db.String, primary_key=True)
+    zip_regex = db.Column(db.String)
+
+    def __repr__(self):
+        return f'<{self.country_iso}: {self.country}>'
