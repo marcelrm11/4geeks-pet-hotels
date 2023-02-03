@@ -24,7 +24,7 @@ export const Signup = () => {
 
   const handleValidateForm = () => {
     let newErrors = {};
-
+    // TODO Replace the ifs pattern with a loop
     if (!formData.first_name) {
       newErrors.first_name = "First name is required";
     }
@@ -78,7 +78,7 @@ export const Signup = () => {
 
   const handleSignupClick = () => {
     fetch(
-      "https://3001-marcelrm11-4geekspethot-tyge9jtrbzz.ws-eu85.gitpod.io/api/signup",
+      process.env.BACKEND_URL "api/signup",
       {
         method: "POST",
         headers: {
