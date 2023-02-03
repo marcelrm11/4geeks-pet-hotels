@@ -42,16 +42,16 @@ def handle_login():
 
     try:
         user = User.query.filter_by(email=email).one_or_none()
-    # will return None if there is no user with email in your database, or an instance of class User if there is exactly one, or raises an exception if there are multiple.
-    except: #TODO user not found error
+        
         if not user:
             return jsonify({"msg": "No user with this email"}), 401
-    # except: #TODO password error
-    #     if not user.check_password(password):
-    #         return jsonify({"msg": "Wrong password"}), 401
-
-    access_token = create_access_token(identity=email)
-    return jsonify(access_token=access_token)
+        elif user.password != password:# will return None if there is no user with email in your database, or an instance of class User if there is exactly one, or raises an exception if there are multiple.
+            return jsonify({"msg": "Wrong password"}), 401
+        access_token = create_access_token(identity=email)
+        return jsonify(access_token=access_token)
+    
+    except: #TODO user not found error
+        return jsonify({"msg": "error"})
 
 # User Profile ------------
 @api.route('/user/account', methods=['GET'])
