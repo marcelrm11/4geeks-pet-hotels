@@ -5,6 +5,7 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User
 from api.forms import UserForm
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+import sys
 
 api = Blueprint('api', __name__)
 
@@ -27,6 +28,7 @@ def create_user():
             return jsonify(user.serialize()), 200
         except:
             db.session.rollback()
+            print(sys.exc_info())
             return jsonify({'error': 'something went wrong'})
         finally:
             db.session.close()
