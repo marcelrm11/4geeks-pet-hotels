@@ -13,8 +13,8 @@ api = Blueprint('api', __name__)
 # Signup --------------
 @api.route('/signup', methods=['POST'])
 def create_user():
-
-    form = UserForm()
+    form = UserForm(meta={'csrf': False}) #! to disable the csrf protection,
+    access_token = create_access_token(identity=form.email.data)
     # access_token = create_access_token(form) #! token
     if form.validate_on_submit():
         try:

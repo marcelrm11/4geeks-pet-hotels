@@ -10,7 +10,6 @@ zip_code_regex = r'^\d{3,10}$'
 phone_regex = r'^(\+\d{1,3}[- ]?)?\d{10,12}$'
 
 class UserForm(FlaskForm):
-    # csrf_token = HiddenField('CSRF Token')
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired(), Length(min=8), Regexp(password_regex, message=password_msg), EqualTo('confirm_password', message=password_error_msg)])
     confirm_password = PasswordField('Confirm Password')
