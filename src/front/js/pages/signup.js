@@ -90,7 +90,7 @@ export const Signup = () => {
       body: JSON.stringify(formData),
       // mode: "no-cors", //? are we sure?
     });
-    console.log(response.headers);
+    console.log(response);
     const cookies = response.headers.get("set-cookie");
     console.log(cookies);
     const data = await response.json();

@@ -25,6 +25,7 @@ def create_user():
 
             access_token = create_access_token(identity=form.email.data)
             response = jsonify(user.serialize())
+            response.headers["Access-Control-Allow-Credentials"] = "true"
             set_access_cookies(response, access_token)
             return response, 200
         except IntegrityError as e:
