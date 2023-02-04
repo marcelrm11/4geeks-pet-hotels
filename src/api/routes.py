@@ -14,20 +14,19 @@ api = Blueprint('api', __name__)
 # Signup --------------
 @api.route('/signup', methods=['POST'])
 def create_user():
-    form = UserForm(meta={'csrf': False}) #! to disable the csrf protection
+    form = UserForm(meta={'csrf': False}) #! dangerous to disable the csrf protection
     if form.validate_on_submit():
         try:
             user_data = {field: getattr(form, field).data for field in form._fields}
             user = User(**user_data)
-            with db.session.begin_nested():
-                db.session.add(user)
-                db.session.commit()
+            db.session.add(user)
+            db.session.commit()
 
             access_token = create_access_token(identity=form.email.data)
             response = jsonify(user.serialize())
             set_access_cookies(response, access_token)
             return response, 200
-        except IntegrityError as e: #TODO Review class
+        except IntegrityError as e:
             db.session.rollback()
             return jsonify({'error': 'email already exists'}), 400
         except Exception as e:
@@ -47,16 +46,16 @@ def handle_login():
 
     try:
         user = User.query.filter_by(email=email).one_or_none()
-        
+
         if not user:
-            return jsonify({"msg": "No user with this email"}), 401
+            raise Exception("No user with this email")
         elif user.password != password:
-            return jsonify({"msg": "Wrong password"}), 401
+            raise Exception("Wrong password")
+
         access_token = create_access_token(identity=email)
         return jsonify(access_token=access_token)
-    
-    except: #TODO user not found error
-        return jsonify({"msg": "error"})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 401
 
 # User Profile ------------
 @api.route('/user/account', methods=['GET'])

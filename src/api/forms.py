@@ -8,7 +8,8 @@ password_regex = r'.*'
 # r'^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{8,32}$'
 password_error_msg = 'Passwords must match.'
 zip_code_regex = r'^\d{3,10}$'
-phone_regex = r'^(\+\d{1,3}[- ]?)?\d{10,12}$'
+phone_regex = r'^\d{8,14}$'
+# r'^(\+\d{1,3}[- ]?)?\d{10,12}$'
 
 class UserForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
