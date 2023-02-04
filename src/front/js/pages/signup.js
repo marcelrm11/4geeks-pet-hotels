@@ -4,13 +4,6 @@ import "../../styles/home.css";
 
 export const Signup = () => {
   const { store, actions } = useContext(Context);
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [first_name, setFirst_name] = useState("");
-  // const [last_name, setLast_name] = useState("");
-  // const [country, setCountry] = useState("");
-  // const [zip_code, setZip_code] = useState("");
-  // const [phone_number, setPhone_number] = useState("");
 
   const passwordRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,32})/;
