@@ -3,7 +3,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User
-from api.forms import UserForm
+from api.forms import UserForm, ShortUserForm
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, set_access_cookies
 from sqlalchemy.exc import IntegrityError
 
@@ -11,6 +11,7 @@ api = Blueprint('api', __name__)
 
 ### ------------------- API ROUTES -------------------------- ###
 ### --------------------------------------------------------- ###
+
 # Signup --------------
 @api.route('/signup', methods=['POST'])
 def create_user():
@@ -41,21 +42,24 @@ def create_user():
 # Login -------------
 @api.route('/login', methods=['POST'])
 def handle_login():
-    email = request.json.get("email", None)
-    password = request.json.get("password", None)
+    form = ShortUserForm(meta={'csrf': False})
+    if form.validate_on_submit():
+        try:
+            email = form.email.data
+            password = form.password.data
+            user = User.query.filter_by(email=email).one_or_none()
 
-    try:
-        user = User.query.filter_by(email=email).one_or_none()
+            if not user:
+                raise Exception("No user with this email")
+            elif user.password != password:
+                raise Exception("Wrong password")
 
-        if not user:
-            raise Exception("No user with this email")
-        elif user.password != password:
-            raise Exception("Wrong password")
-
-        access_token = create_access_token(identity=email)
-        return jsonify(access_token=access_token)
-    except Exception as e:
-        return jsonify({"error": str(e)}), 401
+            access_token = create_access_token(identity=email)
+            response = jsonify({"msg": "login successful"})
+            set_access_cookies(response, access_token)
+            return response, 200
+        except Exception as e:
+            return jsonify({"error": str(e)}), 401
 
 # User Profile ------------
 @api.route('/user/account', methods=['GET'])
