@@ -19,14 +19,16 @@ def create_user():
     if form.validate_on_submit():
         try:
             user_data = {field: getattr(form, field).data for field in form._fields}
+            print(user_data)
             user = User(**user_data)
-            with db.session.begin_nested():
-                db.session.add(user)
-                db.session.commit()
+            # with db.session.begin_nested():
+            db.session.add(user)
+            db.session.commit()
 
             access_token = create_access_token(identity=form.email.data)
             response = jsonify(user.serialize())
             set_access_cookies(response, access_token)
+            print(access_token)
             return response, 200
         except IntegrityError as e:
             db.session.rollback()
@@ -59,6 +61,18 @@ def handle_login():
     
     except: #TODO user not found error
         return jsonify({"msg": "error"})
+
+# Get all users in the database -------------
+@api.route('/users', methods=['GET'])
+def get_users():
+    users = User.query.all()
+    print(users)
+    users_list = list(map(lambda object : object.serialize(), users))
+    response_body = {
+        "msg": "Hey there, this is your GET /users response :)",
+        "users": users_list
+    }
+    return jsonify(response_body), 200
 
 # User Profile ------------
 @api.route('/user/account', methods=['GET'])

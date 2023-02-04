@@ -12,13 +12,23 @@ export const Signup = () => {
   // const [zip_code, setZip_code] = useState("");
   // const [phone_number, setPhone_number] = useState("");
 
+  // REGEXS
   const passwordRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,32})/;
   const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   const zipCodeRegex = /^\d{3,10}$/;
   const phoneNumberRegex = /^(\+\d{1,3}[- ]?)?\d{10,12}$/;
 
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    confirm_password: "",
+    country: "",
+    zip_code: "",
+    phone_number: ""
+  });
 
   const [errors, setErrors] = useState({});
 
@@ -26,43 +36,58 @@ export const Signup = () => {
     ev.preventDefault();
     let newErrors = {};
     // TODO Replace the ifs pattern with a loop
-    if (!formData.first_name) {
-      newErrors.first_name = "First name is required";
+    for (let field in formData) {
+      if (formData[field] === "") {
+        newErrors[field] = `${field} is required`
+      } else if (!emailRegex.test(Object.values(formData)[2])){
+        newErrors.email = "You have entered an invalid email address!"
+      } else if (!passwordRegex.test(Object.values(formData)[3])) {
+          newErrors.password = "You have entered an invalid password!";
+      } else if (Object.values(formData)[3] !== Object.values(formData)[4]) {
+          newErrors.confirm_password = "Fields 'Password' and 'Confirm password' do not match";
+      } else if (!zipCodeRegex.test(Object.values(formData)[6])) {
+          newErrors.zip_code = "You have entered an invalid zip code!";
+      } else if (!phoneNumberRegex.test(Object.values(formData)[7])) {
+          newErrors.phone_number = "You have entered an invalid phone number!";
+      }
     }
-    if (!formData.last_name) {
-      newErrors.last_name = "Last name is required";
-    }
+    // if (!formData.first_name) {
+    //   newErrors.first_name = "First name is required";
+    // }
+    // if (!formData.last_name) {
+    //   newErrors.last_name = "Last name is required";
+    // }
 
-    if (!formData.email) {
-      newErrors.email = "Email is required";
-    } else if (!emailRegex.test(formData.email)) {
-      newErrors.email = "You have entered an invalid email address!";
-    }
-    if (!formData.password) {
-      newErrors.password = "Password is required";
-    } else if (!passwordRegex.test(formData.password)) {
-      newErrors.password = "You have entered an invalid password!";
-    }
+    // if (!formData.email) {
+    //   newErrors.email = "Email is required";
+    // } else if (!emailRegex.test(formData.email)) {
+    //   newErrors.email = "You have entered an invalid email address!";
+    // }
+    // if (!formData.password) {
+    //   newErrors.password = "Password is required";
+    // } else if (!passwordRegex.test(formData.password)) {
+    //   newErrors.password = "You have entered an invalid password!";
+    // }
 
-    if (!formData.confirm_password) {
-      newErrors.confirm_password = "Please, confirm your password";
-    } else if (formData.confirm_password !== formData.password) {
-      newErrors.confirm_password =
-        "Fields 'Password' and 'Confirm password' do not match";
-    }
-    if (!formData.country) {
-      newErrors.country = "Country is required";
-    }
-    if (!formData.zip_code) {
-      newErrors.zip_code = "Zip code is required";
-    } else if (!zipCodeRegex.test(formData.zip_code)) {
-      newErrors.zip_code = "You have entered an invalid zip code!";
-    }
-    if (!formData.phone_number) {
-      newErrors.phone_number = "Phone number is required";
-    } else if (!phoneNumberRegex.test(formData.phone_number)) {
-      newErrors.phone_number = "You have entered an invalid phone number!";
-    }
+    // if (!formData.confirm_password) {
+    //   newErrors.confirm_password = "Please, confirm your password";
+    // } else if (formData.confirm_password !== formData.password) {
+    //   newErrors.confirm_password =
+    //     "Fields 'Password' and 'Confirm password' do not match";
+    // }
+    // if (!formData.country) {
+    //   newErrors.country = "Country is required";
+    // }
+    // if (!formData.zip_code) {
+    //   newErrors.zip_code = "Zip code is required";
+    // } else if (!zipCodeRegex.test(formData.zip_code)) {
+    //   newErrors.zip_code = "You have entered an invalid zip code!";
+    // }
+    // if (!formData.phone_number) {
+    //   newErrors.phone_number = "Phone number is required";
+    // } else if (!phoneNumberRegex.test(formData.phone_number)) {
+    //   newErrors.phone_number = "You have entered an invalid phone number!";
+    // }
 
     setErrors(newErrors);
     if (Object.keys(newErrors).length === 0) {
@@ -78,7 +103,7 @@ export const Signup = () => {
   };
 
   const handleSignupClick = () => {
-    fetch(process.env.BACKEND_URL + "api/signup", {
+    fetch(process.env.BACKEND_URL + "/api/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -93,7 +118,7 @@ export const Signup = () => {
         zip_code: formData.zip_code,
         phone_number: formData.phone_number,
       }),
-      mode: "no-cors", //? are we sure?
+      // mode: "no-cors", //? are we sure?
     })
       .then((response) => response.json())
       .then((data) => console.log(data))
