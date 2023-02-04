@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
+import {Input} from "../component/input.js"
 import "../../styles/home.css";
 
 export const Signup = () => {
@@ -13,8 +14,7 @@ export const Signup = () => {
   // const [phone_number, setPhone_number] = useState("");
 
   // REGEXS
-  const passwordRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,32})/;
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,32})/;
   const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   const zipCodeRegex = /^\d{3,10}$/;
   const phoneNumberRegex = /^(\+\d{1,3}[- ]?)?\d{10,12}$/;
@@ -105,6 +105,7 @@ export const Signup = () => {
   const handleSignupClick = () => {
     fetch(process.env.BACKEND_URL + "/api/signup", {
       method: "POST",
+      credentials: 'include',
       headers: {
         "Content-Type": "application/json",
       },
@@ -118,7 +119,7 @@ export const Signup = () => {
         zip_code: formData.zip_code,
         phone_number: formData.phone_number,
       }),
-      // mode: "no-cors", //? are we sure?
+      mode: "no-cors", //? are we sure?
     })
       .then((response) => response.json())
       .then((data) => console.log(data))
@@ -138,76 +139,68 @@ export const Signup = () => {
             value={formData.crsf_token}
             onChange={handleChange}
           />
-          <input
-            type="text"
-            placeholder="First name"
-            id="first_name"
-            value={formData.first_name}
-            onChange={handleChange}
-            required
+          <Input 
+          type="text" 
+          placeholder="First name" 
+          id="first_name" 
+          value={formData.first_name}
+          onChange={handleChange}
           />
           {errors.first_name && <p>{errors.first_name}</p>}
-          <input
-            type="text"
-            placeholder="Last name"
-            id="last_name"
-            value={formData.last_name}
-            onChange={handleChange}
-            required
+          <Input 
+          type="text" 
+          placeholder="Last name" 
+          id="last_name" 
+          value={formData.last_name}
+          onChange={handleChange}
           />
           {errors.last_name && <p>{errors.last_name}</p>}
-          <input
-            type="text"
-            placeholder="Email"
-            id="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
+          <Input 
+          type="text" 
+          placeholder="Email" 
+          id="email" 
+          value={formData.email}
+          onChange={handleChange}
           />
           {errors.email && <p>{errors.email}</p>}
-          <input
-            type="password"
-            placeholder="Password"
-            id="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
+          <Input 
+          type="password" 
+          placeholder="Password" 
+          id="password" 
+          value={formData.password}
+          onChange={handleChange}
           />
           {errors.password && <p>{errors.password}</p>}
-          <input
-            type="password"
-            placeholder="Confirm password"
-            id="confirm_password"
-            value={formData.confirm_password}
-            onChange={handleChange}
-            required
+          <Input 
+          type="password" 
+          placeholder="Confirm password" 
+          id="confirm_password" 
+          value={formData.confirm_password}
+          onChange={handleChange}
           />
           {errors.confirm_password && <p>{errors.confirm_password}</p>}
-          <input
-            type="text"
-            placeholder="Country"
-            id="country"
-            value={formData.country}
-            onChange={handleChange}
-            required
+          <Input 
+          type="text" 
+          placeholder="Country" 
+          id="country" 
+          value={formData.country}
+          onChange={handleChange}
           />
           {errors.country && <p>{errors.country}</p>}
-          <input
-            type="text"
-            placeholder="Zip code"
-            id="zip_code"
-            value={formData.zip_code}
-            onChange={handleChange}
-            required
+          <Input 
+          type="text" 
+          placeholder="Zip code" 
+          id="zip_code" 
+          value={formData.zip_code}
+          onChange={handleChange}
           />
           {errors.zip_code && <p>{errors.zip_code}</p>}
-          <input
-            type="number"
-            placeholder="Phone number"
-            id="phone_number"
-            value={formData.phone_number}
-            onChange={handleChange}
-            required
+          <Input 
+          type="text" 
+          placeholder="Phone number" 
+          id="phone_number" 
+          value={formData.phone_number}
+          onChange={handleChange}
           />
           {errors.phone_number && <p>{errors.phone_number}</p>}
           <button onClick={handleValidateForm}>Sign up</button>
