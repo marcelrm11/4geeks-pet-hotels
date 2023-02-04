@@ -27,7 +27,7 @@ def create_user():
             response = jsonify(user.serialize())
             set_access_cookies(response, access_token)
             return response, 200
-        except IntegrityError as e:
+        except IntegrityError as e: #TODO Review class
             db.session.rollback()
             return jsonify({'error': 'email already exists'}), 400
         except Exception as e:
@@ -50,7 +50,7 @@ def handle_login():
         
         if not user:
             return jsonify({"msg": "No user with this email"}), 401
-        elif user.password != password:# will return None if there is no user with email in your database, or an instance of class User if there is exactly one, or raises an exception if there are multiple.
+        elif user.password != password:
             return jsonify({"msg": "Wrong password"}), 401
         access_token = create_access_token(identity=email)
         return jsonify(access_token=access_token)

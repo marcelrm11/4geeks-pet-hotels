@@ -25,7 +25,19 @@ export const Signup = () => {
   const handleValidateForm = (ev) => {
     ev.preventDefault();
     let newErrors = {};
+
     // TODO Replace the ifs pattern with a loop
+
+    // for (let field in formData) {
+    //   if (!field) {
+    //     newErrors[field] = `${field} is required`
+    //   } else if (field is email OR password etc) {
+    //     test regexp
+    //   } 
+    // mas o menos es la idea.
+    
+    }
+
     if (!formData.first_name) {
       newErrors.first_name = "First name is required";
     }
