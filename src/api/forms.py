@@ -2,15 +2,17 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, HiddenField
 from wtforms.validators import DataRequired, Email, Length, EqualTo, Regexp
+import re
 
 password_msg = 'Password must contain at least one uppercase, one lowercase, one digit and one special character.'
-password_regex = r'^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{8,32}$'
+password_regex = re.compile(r'^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\$%\^&\*\(\)\-\_\+=\{\}\[\]\|;:\'\"<>,\.\?\/\\\^`~]).{8,32}$')
+# r'.*'
 password_error_msg = 'Passwords must match.'
 zip_code_regex = r'^\d{3,10}$'
-phone_regex = r'^(\+\d{1,3}[- ]?)?\d{10,12}$'
+phone_regex = r'^\d{8,14}$'
+# r'^(\+\d{1,3}[- ]?)?\d{10,12}$'
 
 class UserForm(FlaskForm):
-    # csrf_token = HiddenField('CSRF Token')
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired(), Length(min=8), Regexp(password_regex, message=password_msg), EqualTo('confirm_password', message=password_error_msg)])
     confirm_password = PasswordField('Confirm Password')
@@ -23,4 +25,4 @@ class UserForm(FlaskForm):
 
 class ShortUserForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired(), Length(min=8), Regexp(password_regex, message=password_msg), EqualTo('confirm_password', message=password_error_msg)])
+    password = PasswordField('Password', validators=[DataRequired(), Length(min=8), Regexp(password_regex, message=password_msg)])
