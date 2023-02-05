@@ -21,11 +21,11 @@ const getState = ({ getStore, getActions, setStore }) => {
         const opt = {
           method: "POST",
           headers: {
-            "content-type": "application/json",
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            email: "test",
-            password: "test",
+            email: email,
+            password: password,
           }),
         };
 
