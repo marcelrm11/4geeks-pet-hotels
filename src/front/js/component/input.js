@@ -3,6 +3,7 @@ export const Input = ({
   type = "text",
   placeholder,
   id,
+  name = id,
   value,
   onChange,
   required = false,
@@ -10,6 +11,7 @@ export const Input = ({
   return (
     <input
       type={type}
+      name={name}
       placeholder={placeholder}
       id={id}
       value={value}

@@ -3,15 +3,7 @@ import { Context } from "../store/appContext";
 import { Input } from "./input.js";
 
 export const SignUpForm = ({ formData, handleChange, handleValidate }) => {
-  const { store } = useContext(Context);
-
-  const capitalize = (word) => {
-    const wordArr = word.split("");
-    return wordArr[0].toUpperCase() + wordArr.slice(1).join("");
-  };
-  const removeUnderscores = (word) => {
-    return word.replaceAll("_", " ");
-  };
+  const { store, actions } = useContext(Context);
 
   return (
     <form>
@@ -27,7 +19,7 @@ export const SignUpForm = ({ formData, handleChange, handleValidate }) => {
             <Input
               type={field.includes("password") ? "password" : undefined}
               id={field}
-              placeholder={removeUnderscores(capitalize(field))}
+              placeholder={actions.removeUnderscores(actions.capitalize(field))}
               value={value}
               onChange={handleChange}
             />
