@@ -4,7 +4,8 @@ from wtforms import StringField, PasswordField, HiddenField
 from wtforms.validators import DataRequired, Email, Length, EqualTo, Regexp
 
 password_msg = 'Password must contain at least one uppercase, one lowercase, one digit and one special character.'
-password_regex = r'^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{8,32}$'
+password_regex = r'.*'
+# r'^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{8,32}$'
 password_error_msg = 'Passwords must match.'
 zip_code_regex = r'^\d{3,10}$'
 phone_regex = r'^(\+\d{1,3}[- ]?)?\d{10,12}$'
