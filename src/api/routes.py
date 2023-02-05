@@ -67,7 +67,7 @@ def handle_login():
                 "msg": "login successful", 
                 "access_token": access_token
             })
-            response.access_token = access_token
+            response.headers["Access-Control-Allow-Credentials"] = "true"
             set_access_cookies(response, access_token)
             return response, 200
         except Exception as e:
