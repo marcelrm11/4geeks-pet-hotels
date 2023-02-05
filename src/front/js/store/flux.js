@@ -12,6 +12,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         phoneNumberRegex: /^\d{8,14}$/,
       },
       errors: {},
+      signupSuccessful: false,
     },
     actions: {
       login: async (email, password) => {
@@ -32,10 +33,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             opt
           );
           if (response.status !== 200) {
-            alert("there has been an error");
-            return false;
+            throw Error("Bad Request");
           }
-
           const data = await response.json();
           console.log("token", data.access_token);
           sessionStorage.setItem("token", data.access_token);
@@ -81,21 +80,20 @@ const getState = ({ getStore, getActions, setStore }) => {
               "You have entered an invalid phone number!";
           }
         }
-
-        setStore({ errors: newErrors });
         if (Object.keys(newErrors).length === 0) {
           actions.handleSignupClick(formData);
+        } else {
+          setStore({ errors: newErrors });
+          console.log("errors", newErrors);
         }
 
-        console.log("errors", newErrors);
         return Object.keys(newErrors).length === 0;
       },
 
       handleSignupClick: async (formData) => {
         console.log("sent form:", formData);
-
         const store = getStore();
-
+        store.signupSuccessful = false;
         try {
           const response = await fetch(process.env.BACKEND_URL + "api/signup", {
             method: "POST",
@@ -106,15 +104,15 @@ const getState = ({ getStore, getActions, setStore }) => {
             // mode: "no-cors", //? are we sure?
           });
           console.log(response);
-          const cookies = response.headers.get("set-cookie");
+          // const cookies = response.headers.get("set-cookie");
           // console.log(cookies);
-          const data = await response.json();
-          console.log(data);
-
-          setStore({ redirectSignUp: true });
-
-          // console.log(Cookies.get("access_token_cookie"));
-          // setToken(Cookies.get('access_token_cookie'))
+          if (response.ok) {
+            const data = await response.json();
+            console.log(data);
+            setStore({ signupSuccessful: true });
+            return true;
+          }
+          throw Error("response not ok");
         } catch (e) {
           console.log("error:", e);
         }
