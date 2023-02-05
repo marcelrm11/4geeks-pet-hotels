@@ -2,33 +2,27 @@ import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import {Input} from "../component/input.js"
 import "../../styles/home.css";
+import Cookies from "js-cookie";
 
 export const Signup = () => {
   const { store, actions } = useContext(Context);
+  const [token, setToken] = useState(store.token);
+  const [formData, setFormData] = useState({});
+  const [errors, setErrors] = useState({});
+
 
   // REGEXS
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,32})/;
   const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   const zipCodeRegex = /^\d{3,10}$/;
-  const phoneNumberRegex = /^(\+\d{1,3}[- ]?)?\d{10,12}$/;
-
-  const [formData, setFormData] = useState({
-    first_name: "",
-    last_name: "",
-    email: "",
-    password: "",
-    confirm_password: "",
-    country: "",
-    zip_code: "",
-    phone_number: ""
-  });
-
-  const [errors, setErrors] = useState({});
+  const phoneNumberRegex = /^\d{8,14}$/;
+  // /^(\+\d{1,3}[- ]?)?\d{10,12}$/;
 
   const handleValidateForm = (ev) => {
     ev.preventDefault();
     let newErrors = {};
-    // TODO Replace the ifs pattern with a loop
+
+    // TODO Improve the pattern with a better loop
     for (let field in formData) {
       if (formData[field] === "") {
         newErrors[field] = `${field} is required`
@@ -87,7 +81,7 @@ export const Signup = () => {
       handleSignupClick();
     }
 
-    console.log(newErrors);
+    console.log("errors", newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
@@ -95,20 +89,26 @@ export const Signup = () => {
     setFormData({ ...formData, [ev.target.id]: ev.target.value });
   };
 
-  const handleSignupClick = () => {
-    fetch(process.env.BACKEND_URL + "api/signup", {
+  const handleSignupClick = async () => {
+    const response = await fetch(process.env.BACKEND_URL + "api/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
       // mode: "no-cors", //? are we sure?
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => {
-        "There was an error: ", error;
-      });
+    });
+    console.log(response);
+    const cookies = response.headers.get("set-cookie");
+    console.log(cookies);
+    const data = await response.json();
+    console.log(data);
+    console.log(Cookies.get("access_token_cookie"));
+    // setToken(Cookies.get('access_token_cookie'))
+
+    // .catch((error) => {
+    //   "There was an error: ", error;
+    // });
   };
 
   return (
