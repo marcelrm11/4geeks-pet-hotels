@@ -13,7 +13,7 @@ class User(db.Model):
     last_name = db.Column(db.String(50), nullable=False)
     country = db.Column(db.String(30), nullable=False)
     zip_code = db.Column(db.String(30), nullable=False)
-    phone_number = db.Column(db.String, nullable=False)
+    phone_number = db.Column(db.String(), nullable=False)
 
     def __repr__(self):
         return f'<User {self.email}>'

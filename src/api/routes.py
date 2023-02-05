@@ -19,6 +19,7 @@ def create_user():
     if form.validate_on_submit():
         try:
             user_data = {field: getattr(form, field).data for field in form._fields}
+            print(user_data)
             user = User(**user_data)
             db.session.add(user)
             db.session.commit()
@@ -30,12 +31,14 @@ def create_user():
             response = jsonify(user_dict)
             response.headers["Access-Control-Allow-Credentials"] = "true"
             set_access_cookies(response, access_token)
+            print(access_token)
             return response, 200
         except IntegrityError as e:
             db.session.rollback()
             return jsonify({'error': 'email already exists'}), 400
         except Exception as e:
             db.session.rollback()
+            print(sys.exc_info())
             return jsonify({'error': str(e)}), 500
         finally:
             db.session.close()
@@ -68,6 +71,18 @@ def handle_login():
             return response, 200
         except Exception as e:
             return jsonify({"error": str(e)}), 401
+
+# Get all users in the database -------------
+@api.route('/users', methods=['GET'])
+def get_users():
+    users = User.query.all()
+    print(users)
+    users_list = list(map(lambda object : object.serialize(), users))
+    response_body = {
+        "msg": "Hey there, this is your GET /users response :)",
+        "users": users_list
+    }
+    return jsonify(response_body), 200
 
 # User Profile ------------
 @api.route('/user/account', methods=['GET'])
