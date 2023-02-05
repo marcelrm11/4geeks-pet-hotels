@@ -1,9 +1,12 @@
 import React, { useContext, useState } from "react";
+import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import Cookies from "js-cookie";
 import { SignUpForm } from "../component/signUpForm";
+import { Navigate } from "react-router-dom";
 
 export const Signup = () => {
+  const { store } = useContext(Context);
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -18,6 +21,10 @@ export const Signup = () => {
   const handleChange = (ev) => {
     setFormData({ ...formData, [ev.target.id]: ev.target.value });
   };
+
+  if (store.redirectSignUp) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <div className="text-center mt-5">

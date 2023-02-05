@@ -1,5 +1,7 @@
+
 const getState = ({ getStore, getActions, setStore }) => {
   return {
+    redirectSignUp: false,
     store: {
       token: null,
       regexs: {
@@ -54,7 +56,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         const regexs = getStore().regexs;
 
         console.log(regexs);
-
         ev.preventDefault();
         let newErrors = {};
 
@@ -92,6 +93,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       handleSignupClick: async (formData) => {
         console.log("sent form:", formData);
+
+        const store = getStore();
+
         try {
           const response = await fetch(process.env.BACKEND_URL + "api/signup", {
             method: "POST",
@@ -106,6 +110,9 @@ const getState = ({ getStore, getActions, setStore }) => {
           // console.log(cookies);
           const data = await response.json();
           console.log(data);
+
+          setStore({ redirectSignUp: true });
+
           // console.log(Cookies.get("access_token_cookie"));
           // setToken(Cookies.get('access_token_cookie'))
         } catch (e) {
