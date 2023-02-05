@@ -91,25 +91,26 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       handleSignupClick: async (formData) => {
-        const response = await fetch(process.env.BACKEND_URL + "/api/signup", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-          // mode: "no-cors", //? are we sure?
-        });
-        console.log(response);
-        const cookies = response.headers.get("set-cookie");
-        console.log(cookies);
-        const data = await response.json();
-        console.log(data);
-        console.log(Cookies.get("access_token_cookie"));
-        // setToken(Cookies.get('access_token_cookie'))
-
-        // .catch((error) => {
-        //   "There was an error: ", error;
-        // });
+        console.log("sent form:", formData);
+        try {
+          const response = await fetch(process.env.BACKEND_URL + "api/signup", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+            // mode: "no-cors", //? are we sure?
+          });
+          console.log(response);
+          const cookies = response.headers.get("set-cookie");
+          // console.log(cookies);
+          const data = await response.json();
+          console.log(data);
+          // console.log(Cookies.get("access_token_cookie"));
+          // setToken(Cookies.get('access_token_cookie'))
+        } catch (e) {
+          console.log("error:", e);
+        }
       },
 
       logout: () => {
