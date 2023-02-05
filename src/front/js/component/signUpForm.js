@@ -77,7 +77,7 @@ export const SignUpForm = ({ formData, handleChange }) => {
         onChange={handleChange}
       />
       {store.errors.phone_number && <p>{store.errors.phone_number}</p>}
-      <button onClick={(formData) => actions.handleValidateForm(formData)}>
+      <button onClick={(e) => actions.handleValidateForm(e, formData)}>
         Sign up
       </button>
     </form>
