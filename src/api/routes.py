@@ -24,7 +24,10 @@ def create_user():
             db.session.commit()
 
             access_token = create_access_token(identity=form.email.data)
-            response = jsonify(user.serialize())
+            user_dict = user.serialize()
+            user_dict['access_token'] = access_token
+
+            response = jsonify(user_dict)
             response.headers["Access-Control-Allow-Credentials"] = "true"
             set_access_cookies(response, access_token)
             return response, 200
@@ -56,7 +59,11 @@ def handle_login():
                 raise Exception("Wrong password")
 
             access_token = create_access_token(identity=email)
-            response = jsonify({"msg": "login successful"})
+            response = jsonify({
+                "msg": "login successful", 
+                "access_token": access_token
+            })
+            response.access_token = access_token
             set_access_cookies(response, access_token)
             return response, 200
         except Exception as e:
