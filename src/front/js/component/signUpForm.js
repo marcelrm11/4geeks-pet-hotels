@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import { Input } from "./input.js";
 
-export const SignUpForm = ({ formData, handleChange }) => {
-  const { store, actions } = useContext(Context);
+export const SignUpForm = ({ formData, handleChange, handleValidate }) => {
+  const { store } = useContext(Context);
 
   return (
     <form>
@@ -77,9 +77,7 @@ export const SignUpForm = ({ formData, handleChange }) => {
         onChange={handleChange}
       />
       {store.errors.phone_number && <p>{store.errors.phone_number}</p>}
-      <button onClick={(e) => actions.handleValidateForm(e, formData)}>
-        Sign up
-      </button>
+      <button onClick={handleValidate}>Sign up</button>
     </form>
   );
 };

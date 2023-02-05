@@ -1,9 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "../../styles/home.css";
-import Cookies from "js-cookie";
+import { Context } from "../store/appContext";
 import { SignUpForm } from "../component/signUpForm";
+import { Navigate } from "react-router";
 
 export const Signup = () => {
+  const { store, actions } = useContext(Context);
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -19,11 +21,17 @@ export const Signup = () => {
     setFormData({ ...formData, [ev.target.id]: ev.target.value });
   };
 
-  return (
+  return store.signupSuccessful ? (
+    <Navigate to="/login" />
+  ) : (
     <div className="text-center mt-5">
       <h1>Sign up</h1>
       <div className="forms">
-        <SignUpForm formData={formData} handleChange={handleChange} />
+        <SignUpForm
+          formData={formData}
+          handleChange={handleChange}
+          handleValidate={(e) => actions.handleValidateForm(e, formData)}
+        />
       </div>
     </div>
   );
