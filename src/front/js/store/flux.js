@@ -34,7 +34,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             throw Error("Bad Request");
           }
           const data = await response.json();
-          console.log("token", data.access_token);
           sessionStorage.setItem("token", data.access_token);
           setStore({ token: data.access_token });
           return true;
@@ -45,38 +44,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       tokenSessionStore: () => {
         const token = sessionStorage.getItem("token");
-        if (token && token != "" && token != undefined)
-          setStore({ token: token });
+        if (token) setStore({ token: token });
       },
+
       handleValidateForm: (ev, formData) => {
         const actions = getActions();
         const regexs = getStore().regexs;
-
         ev.preventDefault();
         let newErrors = {};
-
-        // TODO Improve the pattern with a better loop
         for (let field in formData) {
+          const camelField = actions.kebabToCamel(field);
           if (formData[field] === "") {
             newErrors[field] = `${field} is required`;
-          } else if (!regexs) {
-            // TODO Complete here
-          } else if (!regexs.emailRegex.test(Object.values(formData)[2])) {
-            newErrors.email = "You have entered an invalid email address!";
-          } else if (!regexs.passwordRegex.test(Object.values(formData)[3])) {
-            newErrors.password = "You have entered an invalid password!";
           } else if (
-            Object.values(formData)[3] !== Object.values(formData)[4]
+            ["email", "password", "zip_code", "phone_number"].includes(field)
           ) {
+            if (!regexs[`${camelField}Regex`].test(formData[field])) {
+              newErrors[
+                field
+              ] = `You have entered an invalid ${actions.removeUnderscores(
+                field
+              )}!`;
+            }
+          }
+          if (formData.password !== formData.confirm_password) {
             newErrors.confirm_password =
               "Fields 'Password' and 'Confirm password' do not match";
-          } else if (!regexs.zipCodeRegex.test(Object.values(formData)[6])) {
-            newErrors.zip_code = "You have entered an invalid zip code!";
-          } else if (
-            !regexs.phoneNumberRegex.test(Object.values(formData)[7])
-          ) {
-            newErrors.phone_number =
-              "You have entered an invalid phone number!";
           }
         }
         if (Object.keys(newErrors).length === 0) {
@@ -120,6 +113,20 @@ const getState = ({ getStore, getActions, setStore }) => {
       logout: () => {
         sessionStorage.removeItem("token");
         setStore({ token: null });
+      },
+      // helper functions
+      camelToKebab: (word) => {
+        return word.replace(/([a-z0-9])([A-Z])/g, "$1_$2").toLowerCase();
+      },
+      kebabToCamel: (word) => {
+        return word.replace(/[-_]([a-z])/g, (match) => match[1].toUpperCase());
+      },
+      capitalize: (word) => {
+        const wordArr = word.split("");
+        return wordArr[0].toUpperCase() + wordArr.slice(1).join("");
+      },
+      removeUnderscores: (word) => {
+        return word.replaceAll("_", " ");
       },
     },
   };

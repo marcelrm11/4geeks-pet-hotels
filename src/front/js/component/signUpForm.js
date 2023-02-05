@@ -25,7 +25,7 @@ export const SignUpForm = ({ formData, handleChange, handleValidate }) => {
         return (
           <React.Fragment key={field}>
             <Input
-              type={field.includes("password") && "password"}
+              type={field.includes("password") ? "password" : undefined}
               id={field}
               placeholder={removeUnderscores(capitalize(field))}
               value={value}
