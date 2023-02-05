@@ -36,8 +36,9 @@ const getState = ({ getStore, getActions, setStore }) => {
             throw Error("Bad Request");
           }
           const data = await response.json();
-          console.log(data);
+          // console.log(data);
           sessionStorage.setItem("token", data.access_token);
+          sessionStorage.setItem("user", JSON.stringify(data.user));
           setStore({ token: data.access_token, user: data.user });
           return true;
         } catch (error) {
@@ -45,6 +46,10 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
+      getUserFromSessionStorage: () => {
+        const user = JSON.parse(sessionStorage.getItem("user"));
+        if (user) setStore({ user: user });
+      },
       tokenSessionStore: () => {
         const token = sessionStorage.getItem("token");
         if (token) setStore({ token: token });
@@ -115,6 +120,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       logout: () => {
         sessionStorage.removeItem("token");
+        sessionStorage.removeItem("user");
         setStore({ token: null, user: {} });
       },
       // helper functions
