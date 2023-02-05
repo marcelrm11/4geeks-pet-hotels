@@ -6,6 +6,7 @@ from api.models import db, User
 from api.forms import UserForm, ShortUserForm
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, set_access_cookies
 from sqlalchemy.exc import IntegrityError
+import sys
 
 api = Blueprint('api', __name__)
 
@@ -66,7 +67,7 @@ def handle_login():
                 "msg": "login successful", 
                 "access_token": access_token
             })
-            response.access_token = access_token
+            response.headers["Access-Control-Allow-Credentials"] = "true"
             set_access_cookies(response, access_token)
             return response, 200
         except Exception as e:

@@ -1,31 +1,18 @@
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
-      token: null,
-      message: null,
-      demo: [
-        {
-          title: "FIRST",
-          background: "white",
-          initial: "white",
-        },
-        {
-          title: "SECOND",
-          background: "white",
-          initial: "white",
-        },
-      ],
+      token: null
     },
     actions: {
       login: async (email, password) => {
         const opt = {
           method: "POST",
           headers: {
-            "content-type": "application/json",
+            "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            email: "test",
-            password: "test",
+            email: email,
+            password: password,
           }),
         };
 
@@ -49,56 +36,45 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      tokensessionStore: () => {
+      tokenSessionStore: () => {
         const token = sessionStorage.getItem("token");
         if (token && token != "" && token != undefined)
           setStore({ token: token });
       },
-      // Use getActions to call a function within a fuction
-      exampleFunction: () => {
-        getActions().changeColor(0, "green");
+      handleValidateForm: (ev) => {
+        ev.preventDefault();
+        let newErrors = {};
+    
+        // TODO Improve the pattern with a better loop
+        for (let field in formData) {
+          if (formData[field] === "") {
+            newErrors[field] = `${field} is required`
+          } else if (!emailRegex.test(Object.values(formData)[2])){
+            newErrors.email = "You have entered an invalid email address!"
+          } else if (!passwordRegex.test(Object.values(formData)[3])) {
+              newErrors.password = "You have entered an invalid password!";
+          } else if (Object.values(formData)[3] !== Object.values(formData)[4]) {
+              newErrors.confirm_password = "Fields 'Password' and 'Confirm password' do not match";
+          } else if (!zipCodeRegex.test(Object.values(formData)[6])) {
+              newErrors.zip_code = "You have entered an invalid zip code!";
+          } else if (!phoneNumberRegex.test(Object.values(formData)[7])) {
+              newErrors.phone_number = "You have entered an invalid phone number!";
+          }
+        }
+    
+        setErrors(newErrors);
+        if (Object.keys(newErrors).length === 0) {
+          handleSignupClick();
+        }
+    
+        console.log("errors", newErrors);
+        return Object.keys(newErrors).length === 0;
       },
 
       logout: () => {
         sessionStorage.removeItem("token");
         setStore({ token: null });
-      },
-
-      getMessage: async () => {
-        const store = getStore();
-        const opt = {
-          headers: { Authorization: "Bearer " + store.token },
-        };
-
-        try {
-          // fetching data from the backend
-          const resp = await fetch(
-            "https://3001-marcelrm11-4geekspethot-khhwppgad2k.ws-eu84.gitpod.io/api/hello",
-            opt
-          );
-          const data = await resp.json();
-          setStore({ message: data.message });
-          console.log("funciono", data);
-          // don't forget to return something, that is how the async resolves
-          return data;
-        } catch (error) {
-          console.error("Error loading message from backend", error);
-        }
-      },
-      changeColor: (index, color) => {
-        //get the store
-        const store = getStore();
-
-        //we have to loop the entire demo array to look for the respective index
-        //and change its color
-        const demo = store.demo.map((elm, i) => {
-          if (i === index) elm.background = color;
-          return elm;
-        });
-
-        //reset the global store
-        setStore({ demo: demo });
-      },
+      }
     },
   };
 };
