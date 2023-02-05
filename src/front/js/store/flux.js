@@ -11,6 +11,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       errors: {},
       signupSuccessful: false,
+      user: {},
     },
     actions: {
       login: async (e, email, password) => {
@@ -35,8 +36,9 @@ const getState = ({ getStore, getActions, setStore }) => {
             throw Error("Bad Request");
           }
           const data = await response.json();
+          console.log(data);
           sessionStorage.setItem("token", data.access_token);
-          setStore({ token: data.access_token });
+          setStore({ token: data.access_token, user: data.user });
           return true;
         } catch (error) {
           console.error(`there is an error`, error);
@@ -113,7 +115,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       logout: () => {
         sessionStorage.removeItem("token");
-        setStore({ token: null });
+        setStore({ token: null, user: {} });
       },
       // helper functions
       camelToKebab: (word) => {

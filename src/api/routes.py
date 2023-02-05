@@ -65,7 +65,8 @@ def handle_login():
             access_token = create_access_token(identity=email)
             response = jsonify({
                 "msg": "login successful", 
-                "access_token": access_token
+                "access_token": access_token,
+                "user": user.serialize()
             })
             response.headers["Access-Control-Allow-Credentials"] = "true"
             set_access_cookies(response, access_token)
