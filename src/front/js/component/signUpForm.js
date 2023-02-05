@@ -25,10 +25,10 @@ export const SignUpForm = ({ formData, handleChange, handleValidate }) => {
         return (
           <React.Fragment key={field}>
             <Input
-              type={field.includes("password") ? "password" : "text"}
+              type={field.includes("password") && "password"}
               id={field}
               placeholder={removeUnderscores(capitalize(field))}
-              value={formData[field]}
+              value={value}
               onChange={handleChange}
             />
             {store.errors[field] && <p>{store.errors[field]}</p>}

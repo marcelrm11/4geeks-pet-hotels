@@ -59,6 +59,8 @@ const getState = ({ getStore, getActions, setStore }) => {
         for (let field in formData) {
           if (formData[field] === "") {
             newErrors[field] = `${field} is required`;
+          } else if (!regexs) {
+            // TODO Complete here
           } else if (!regexs.emailRegex.test(Object.values(formData)[2])) {
             newErrors.email = "You have entered an invalid email address!";
           } else if (!regexs.passwordRegex.test(Object.values(formData)[3])) {

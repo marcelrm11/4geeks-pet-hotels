@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { Navigate } from "react-router";
+import { Input } from "../component/input";
 
 export const Login = () => {
   const { store, actions } = useContext(Context);
@@ -14,7 +15,7 @@ export const Login = () => {
 
   return (
     <div className="text-center mt-5">
-      {store.token && store.token != "" && store.token != undefined ? (
+      {store.token ? (
         <Navigate to="/" />
       ) : (
         <div className="input-container">
@@ -24,13 +25,13 @@ export const Login = () => {
               alt="logo"
             />
           </figure>
-          <input
-            type="text"
+          <Input
+            type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <input
+          <Input
             type="password"
             placeholder="Password"
             value={password}
