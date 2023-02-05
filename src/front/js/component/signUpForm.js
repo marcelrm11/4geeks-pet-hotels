@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import { Input } from "./input.js";
+import { Button } from "./button";
 
 export const SignUpForm = ({ formData, handleChange, handleValidate }) => {
   const { store, actions } = useContext(Context);
@@ -27,7 +28,9 @@ export const SignUpForm = ({ formData, handleChange, handleValidate }) => {
           </React.Fragment>
         );
       })}
-      <button onClick={handleValidate}>Sign up</button>
+      <Button buttonClass="log-btn" onClick={handleValidate}>
+        Sign up
+      </Button>
     </form>
   );
 };
