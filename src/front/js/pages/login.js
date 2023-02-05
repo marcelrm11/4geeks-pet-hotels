@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { useNavigate } from "react-router";
-import logo from "../../img/logo.png";
 
 export const Login = () => {
   const { store, actions } = useContext(Context);
@@ -43,7 +42,9 @@ export const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button className="log-btn" onClick={handleLogin}>Login</button>
+          <button className="log-btn" onClick={handleLogin}>
+            Login
+          </button>
         </div>
       )}
     </div>
