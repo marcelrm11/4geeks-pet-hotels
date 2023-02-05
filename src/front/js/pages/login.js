@@ -11,8 +11,8 @@ export const Login = () => {
     password: "",
   });
 
-  const handleLogin = () => {
-    actions.login(email, password);
+  const handleLogin = (e) => {
+    actions.login(e, credentials.email, credentials.password);
   };
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });

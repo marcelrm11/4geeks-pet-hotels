@@ -13,7 +13,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       signupSuccessful: false,
     },
     actions: {
-      login: async (email, password) => {
+      login: async (e, email, password) => {
+        e.preventDefault();
         const opt = {
           method: "POST",
           headers: {
@@ -104,7 +105,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             setStore({ signupSuccessful: true });
             return true;
           }
-          throw Error("response not ok");
+          throw Error(response.statusText);
         } catch (e) {
           console.log("error:", e);
         }
