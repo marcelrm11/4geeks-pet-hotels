@@ -53,6 +53,8 @@ const getState = ({ getStore, getActions, setStore }) => {
         const actions = getActions();
         const regexs = getStore().regexs;
 
+        console.log(regexs);
+
         ev.preventDefault();
         let newErrors = {};
 
