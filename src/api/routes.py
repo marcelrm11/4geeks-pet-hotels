@@ -6,6 +6,7 @@ from api.models import db, User
 from api.forms import UserForm, ShortUserForm
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, set_access_cookies
 from sqlalchemy.exc import IntegrityError
+import sys
 
 api = Blueprint('api', __name__)
 
