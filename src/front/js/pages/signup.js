@@ -5,13 +5,6 @@ import "../../styles/home.css";
 
 export const Signup = () => {
   const { store, actions } = useContext(Context);
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [first_name, setFirst_name] = useState("");
-  // const [last_name, setLast_name] = useState("");
-  // const [country, setCountry] = useState("");
-  // const [zip_code, setZip_code] = useState("");
-  // const [phone_number, setPhone_number] = useState("");
 
   // REGEXS
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,32})/;
@@ -103,23 +96,13 @@ export const Signup = () => {
   };
 
   const handleSignupClick = () => {
-    fetch(process.env.BACKEND_URL + "/api/signup", {
+    fetch(process.env.BACKEND_URL + "api/signup", {
       method: "POST",
-      credentials: 'include',
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        email: formData.email,
-        password: formData.password,
-        confirm_password: formData.confirm_password,
-        first_name: formData.first_name,
-        last_name: formData.last_name,
-        country: formData.country,
-        zip_code: formData.zip_code,
-        phone_number: formData.phone_number,
-      }),
-      mode: "no-cors", //? are we sure?
+      body: JSON.stringify(formData),
+      // mode: "no-cors", //? are we sure?
     })
       .then((response) => response.json())
       .then((data) => console.log(data))

@@ -31,7 +31,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         try {
           const response = await fetch(
-            process.env.BACKEND_URL + "/api/login",
+            process.env.BACKEND_URL + "api/login",
             opt
           );
           if (response.status !== 200) {
