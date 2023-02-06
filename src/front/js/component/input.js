@@ -1,19 +1,22 @@
-import React, { useState } from "react";
-
-export const Input = (props) => {
-    const [inputValue, setInputValue] = useState("")
-
-    const handleOnChange = () => {
-
-    }
-    return (
-        <input 
-        type={props.type}
-        placeholder={props.placeholder}
-        id={props.id}
-        value={props.value}
-        onChange={props.onChange}
-        required
-        />
-    )
-}
+import React from "react";
+export const Input = ({
+  type = "text",
+  placeholder,
+  id,
+  name = id,
+  value,
+  onChange,
+  required = false,
+}) => {
+  return (
+    <input
+      type={type}
+      name={name}
+      placeholder={placeholder}
+      id={id}
+      value={value}
+      onChange={onChange}
+      required={required}
+    />
+  );
+};
