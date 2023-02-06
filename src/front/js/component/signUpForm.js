@@ -18,11 +18,12 @@ export const SignUpForm = ({ formData, handleChange, handleValidate }) => {
         return (
           <React.Fragment key={field}>
             <Input
-              type={field.includes("password") ? "password" : undefined}
+              type={field.includes("password") ? "password" : "text"}
               id={field}
               placeholder={actions.removeUnderscores(actions.capitalize(field))}
               value={value}
               onChange={handleChange}
+              required
             />
             {store.errors[field] && <p>{store.errors[field]}</p>}
           </React.Fragment>

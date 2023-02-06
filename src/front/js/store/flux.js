@@ -36,9 +36,11 @@ const getState = ({ getStore, getActions, setStore }) => {
             throw Error("Bad Request");
           }
           const data = await response.json();
-          // console.log(data);
+          console.log(data);
           sessionStorage.setItem("token", data.access_token);
+          console.log(sessionStorage.getItem("token"));
           sessionStorage.setItem("user", JSON.stringify(data.user));
+          console.log(JSON.parse(sessionStorage.getItem("user")));
           setStore({ token: data.access_token, user: data.user });
           return true;
         } catch (error) {
