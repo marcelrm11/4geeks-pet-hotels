@@ -1,5 +1,7 @@
+
 const getState = ({ getStore, getActions, setStore }) => {
   return {
+    redirectSignUp: false,
     store: {
       token: null,
       regexs: {

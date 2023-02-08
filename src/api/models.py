@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 class User(db.Model):
-    __tablename__ = 'users'
+    __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(32), unique=False, nullable=False)
@@ -14,6 +14,7 @@ class User(db.Model):
     country = db.Column(db.String(30), nullable=False)
     zip_code = db.Column(db.String(30), nullable=False)
     phone_number = db.Column(db.String(), nullable=False)
+    pets = db.relationship('Pets', backref=db.backref("users"))
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -41,3 +42,60 @@ class Countries_zip_codes(db.Model):
 
     def __repr__(self):
         return f'<{self.country_iso}: {self.country}>'
+
+class Pets(db.Model):
+    __tablename__ = 'pets'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    pet_type = db.Column(db.String(50), nullable=False)
+    race = db.Column(db.String(50), nullable=True)
+    age = db.Column(db.Integer, nullable=False)
+    health = db.Column(db.String(50), nullable=False)
+    pet_owner = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+
+    def __repr__(self):
+        return f'<Pets {self.name}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "Name": self.name,
+            "Pet_type": self.pet_type,
+            "Race": self.race,
+            "Age": self.age,
+            "Health": self.health
+            # do not serialize the password, its a security breach
+        }
+        
+class Booking(db.Model):
+    __tablename__ = 'booking'
+    id = db.Column(db.Integer, primary_key=True) 
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    user_name = db.Column(db.String(50), db.ForeignKey("user.first_name"), nullable=False)
+    user_email = db.Column(db.String(50), db.ForeignKey("user.email"), nullable=False)
+    hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.id"), nullable=False)
+    create_date = db.Column(db.Integer, nullable=True)
+    stay_date = db.Column(db.Integer, nullable=True)
+    hotel_email = db.Column(db.String(50), db.ForeignKey("hotel.email"),nullable=False)
+    hotel_name = db.Column(db.String(50), db.ForeignKey("hotel.name"),nullable=False)
+    price = db.Column(db.Integer, nullable=False)
+    user = db.relationship("User", backref=db.backref("users", lazy='dynamic'), foreign_keys=[user_id])
+
+    def __repr__(self):
+        return f'<Booking {self.id}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "User_id": self.user_id,
+            "User_name": self.user_name,
+            "User_email": self.user_email,
+            "Create_date": self.create_date,
+            "Stay_date": self.stay_date,
+            "Hotel_id": self.hotel_id,
+            "Hotel_email": self.hotel_email,
+            "Hotel_name": self.hotel_name,
+            "Price": self.price
+            # do not serialize the password, its a security breach
+        }
+

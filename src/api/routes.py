@@ -86,6 +86,15 @@ def get_users():
     }
     return jsonify(response_body), 200
 
+@api.route('/pets', methods=['GET'])
+def get_pets():
+
+    
+
+    return jsonify(response_body), 200
+
+
+
 # User Profile ------------
 @api.route('/user/account', methods=['GET'])
 @jwt_required()
