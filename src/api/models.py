@@ -14,8 +14,7 @@ class User(db.Model):
     country = db.Column(db.String(30), nullable=False)
     zip_code = db.Column(db.String(30), nullable=False)
     phone_number = db.Column(db.String(), nullable=False)
-    pets = db.relationship('Pets', backref=db.backref("user"))
-    booking = db.relationship('Booking', backref=db.backref("user"))
+    pets = db.relationship('Pets', backref=db.backref("users"))
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -72,7 +71,7 @@ class Booking(db.Model):
     __tablename__ = 'booking'
     id = db.Column(db.Integer, primary_key=True) 
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-    user_name = db.Column(db.String(50), db.ForeignKey("user.name"), nullable=False)
+    user_name = db.Column(db.String(50), db.ForeignKey("user.first_name"), nullable=False)
     user_email = db.Column(db.String(50), db.ForeignKey("user.email"), nullable=False)
     hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.id"), nullable=False)
     create_date = db.Column(db.Integer, nullable=True)
@@ -80,9 +79,10 @@ class Booking(db.Model):
     hotel_email = db.Column(db.String(50), db.ForeignKey("hotel.email"),nullable=False)
     hotel_name = db.Column(db.String(50), db.ForeignKey("hotel.name"),nullable=False)
     price = db.Column(db.Integer, nullable=False)
+    user = db.relationship("User", backref=db.backref("users", lazy='dynamic'), foreign_keys=[user_id])
 
     def __repr__(self):
-        return f'<Booking {self.}>'
+        return f'<Booking {self.id}>'
 
     def serialize(self):
         return {
