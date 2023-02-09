@@ -13,40 +13,7 @@ api = Blueprint('api', __name__)
 ### ------------------- API ROUTES -------------------------- ###
 ### --------------------------------------------------------- ###
 
-# Signup --------------
-@api.route('/signup', methods=['POST'])
-def create_user():
-    form = UserForm(meta={'csrf': False}) #! dangerous to disable the csrf protection
-    if form.validate_on_submit():
-        try:
-            user_data = {field: getattr(form, field).data for field in form._fields}
-            print(user_data)
-            user = User(**user_data)
-            db.session.add(user)
-            db.session.commit()
-
-            access_token = create_access_token(identity=form.email.data)
-            user_dict = user.serialize()
-            user_dict['access_token'] = access_token
-
-            response = jsonify(user_dict)
-            response.headers["Access-Control-Allow-Credentials"] = "true"
-            set_access_cookies(response, access_token)
-            print(access_token)
-            return response, 200
-        except IntegrityError as e:
-            db.session.rollback()
-            return jsonify({'error': 'email already exists'}), 400
-        except Exception as e:
-            db.session.rollback()
-            print(sys.exc_info())
-            return jsonify({'error': str(e)}), 500
-        finally:
-            db.session.close()
-    else:
-        errors = {field: errors[0] for field, errors in form.errors.items()}
-        return jsonify({'error': 'validation error', 'errors': errors}), 400
-
+### AUTHENTICATION ----------------------------------------------
 # Login -------------
 @api.route('/login', methods=['POST'])
 def handle_login():
@@ -74,6 +41,53 @@ def handle_login():
         except Exception as e:
             return jsonify({"error": str(e)}), 401
 
+# Get User ID ------------
+@api.route('/user/account', methods=['GET'])
+@jwt_required()
+def access_account():
+    current_user = get_jwt_identity()
+    return jsonify(logged_in_as=current_user), 200
+
+# Logout -----------------
+@api.route('/logout')
+def logout():
+    return 'You log out'
+
+### USERS ----------------------------------------------------------
+# Create User (aka Signup) --------------
+@api.route('/signup', methods=['POST'])
+def create_user():
+    form = UserForm(meta={'csrf': False}) #! dangerous to disable the csrf protection
+    if form.validate_on_submit():
+        try:
+            user_data = {field: getattr(form, field).data for field in form._fields}
+            print(user_data)
+            user = User(**user_data)
+            db.session.add(user)
+            db.session.commit()
+
+            #? what are we doing with this token?
+            access_token = create_access_token(identity=form.email.data)
+            user_dict = user.serialize()
+            user_dict['access_token'] = access_token
+
+            response = jsonify(user_dict)
+            response.headers["Access-Control-Allow-Credentials"] = "true"
+            set_access_cookies(response, access_token)
+            return response, 200
+        except IntegrityError as e:
+            db.session.rollback()
+            return jsonify({'error': 'email already exists'}), 400
+        except Exception as e:
+            db.session.rollback()
+            print(sys.exc_info())
+            return jsonify({'error': str(e)}), 500
+        finally:
+            db.session.close()
+    else:
+        errors = {field: errors[0] for field, errors in form.errors.items()}
+        return jsonify({'error': 'validation error', 'errors': errors}), 400
+
 # Get all users in the database -------------
 @api.route('/users', methods=['GET'])
 def get_users():
@@ -96,17 +110,3 @@ def get_pets():
         "pets": pets_list
     }
     return jsonify(response_body), 200
-
-
-
-# User Profile ------------
-@api.route('/user/account', methods=['GET'])
-@jwt_required()
-def access_account():
-    current_user = get_jwt_identity()
-    return jsonify(logged_in_as=current_user), 200
-
-# Logout -----------------
-@api.route('/logout')
-def logout():
-    return 'You log out'
