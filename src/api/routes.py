@@ -129,7 +129,9 @@ def update_user(user_id):
 # DELETE: user account ---------
 @api.route('/user/<int:user_id>/delete', methods=['DELETE'])
 def delete_user(user_id):
-    user = 
+    user = User.query.filter_by(id=user_id).delete()
+    db.session.commit()
+    return jsonify({'msg': 'user deleted successfully'}), 200
 
 # READ: all pets ---------------
 @api.route('/pets', methods=['GET'])
