@@ -40,9 +40,9 @@ const getState = ({ getStore, getActions, setStore }) => {
           const data = await response.json();
           console.log(data);
           sessionStorage.setItem("token", data.access_token);
-          console.log(sessionStorage.getItem("token"));
+          // console.log(sessionStorage.getItem("token"));
           sessionStorage.setItem("user", JSON.stringify(data.user));
-          console.log(JSON.parse(sessionStorage.getItem("user")));
+          // console.log(JSON.parse(sessionStorage.getItem("user")));
           setStore({ token: data.access_token, user: data.user });
           return true;
         } catch (error) {
