@@ -50,7 +50,7 @@ class Pets(db.Model):
     age = db.Column(db.Integer, nullable=False)
     health = db.Column(db.String(50), nullable=False)
     pet_owner = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-    user_pet = db.relationship('User', backref=db.backref("users"))
+    user_pet = db.relationship('User', backref=db.backref("pets"))
 
 
     def __repr__(self):
@@ -78,7 +78,7 @@ class Hotel(db.Model):
     location = db.Column(db.String(70), nullable=False)
     services = db.Column(db.String(100), nullable=False)
     hotel_owner = db.Column(db.Integer, db.ForeignKey("owner.id"), nullable=False)
-    owner = db.relationship("Owner", backref=db.backref("owners"))
+    owner = db.relationship("Owner", backref=db.backref("hotels"))
 
    
 
