@@ -140,7 +140,7 @@ class Booking(db.Model):
     pet_id = db.Column(db.Integer, db.ForeignKey("pets.id"), nullable=False)
     hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.id"), nullable=False)
     room_id = db.Column(db.Integer, db.ForeignKey("room.id"), nullable=False)
-    create_date = db.Column(db.DateTime, nullable=False)
+    create_date = db.Column(db.DateTime, nullable=False, default=func.now())
     entry_date = db.Column(db.DateTime, nullable=False)
     checkout_date = db.Column(db.DateTime, nullable=False)
     price = db.Column(db.Float(precision=2), nullable=False)
