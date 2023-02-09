@@ -133,6 +133,14 @@ def delete_user(user_id):
     db.session.commit()
     return jsonify({'msg': 'user deleted successfully'}), 200
 
+# READ: user bookings ----------
+@api.route('/user/<int:user_id>/bookings', methods=['GET'])
+def get_user_bookings(user_id):
+    bookings = Booking.query.filter_by(user_id=user_id).all()
+    bookings_list = [b.serialize() for b in bookings]
+    db.session.commit()
+    return jsonify({'bookings': bookings_list}), 200
+
 # READ: all pets ---------------
 @api.route('/pets', methods=['GET'])
 def get_pets():
