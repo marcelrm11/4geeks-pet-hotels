@@ -54,7 +54,7 @@ def logout():
     return 'You log out'
 
 ### USERS ----------------------------------------------------------
-# Create User (aka Signup) --------------
+# CREATE: User (aka Signup) --------------
 @api.route('/signup', methods=['POST'])
 def create_user():
     form = UserForm(meta={'csrf': False}) #! dangerous to disable the csrf protection
@@ -88,7 +88,7 @@ def create_user():
         errors = {field: errors[0] for field, errors in form.errors.items()}
         return jsonify({'error': 'validation error', 'errors': errors}), 400
 
-# Get all users in the database -------------
+# READ: all users -------------
 @api.route('/users', methods=['GET'])
 def get_users():
     users = User.query.all()
@@ -100,7 +100,23 @@ def get_users():
     }
     return jsonify(response_body), 200
 
-# Get all pets in the database --------
+# READ: one user -------------
+@api.route('/user/<int:user_id>', methods=['GET'])
+def get_user(user_id):
+    try:
+        if not user_id:
+            return jsonify({'error': 'Bad Request: user_id is required'}), 400
+        user = User.query.filter_by(id=user_id).first()
+        if user:
+            return jsonify(user.serialize()), 200
+        else:
+            return jsonify({'error': 'User not found'}), 404
+    except Exception as e:
+        print(sys.exc_info())
+        return jsonify({'error': str(e)}), 500
+    
+
+# READ: all pets --------------
 @api.route('/pets', methods=['GET'])
 def get_pets():
     pets = Pets.query.all()
