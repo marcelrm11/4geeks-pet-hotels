@@ -59,3 +59,5 @@ DELETE:	/favorite/<:id>/delete
 
 CREATE:	 /invoice/create
 READ: 		/invoice/<:id>
+
+## CHECK AVAILABILITY AND SEARCH FUNCTIONALITIES ??
