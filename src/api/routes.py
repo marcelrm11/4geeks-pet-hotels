@@ -114,9 +114,24 @@ def get_user(user_id):
     except Exception as e:
         print(sys.exc_info())
         return jsonify({'error': str(e)}), 500
-    
 
-# READ: all pets --------------
+# UPDATE: user info ------------   
+@api.route('/user/<int:user_id>/update', methods=['PUT'])
+def update_user(user_id):
+    updated_user = request.get_json() # see signup for form validation
+    user = User.query.filter_by(id=user_id).first()
+    for field, value in updated_user.items():
+        setattr(user, field, value)
+    db.session.commit()
+    updated_user = User.query.filter_by(id=user_id).first()
+    return jsonify({'updated user': updated_user.serialize()}), 200
+
+# DELETE: user account ---------
+@api.route('/user/<int:user_id>/delete', methods=['DELETE'])
+def delete_user(user_id):
+    user = 
+
+# READ: all pets ---------------
 @api.route('/pets', methods=['GET'])
 def get_pets():
     pets = Pets.query.all()
