@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, User, Pets, Hotel, Booking, Owner, Invoice, Favorite
 from api.forms import UserForm, ShortUserForm
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, set_access_cookies
 from sqlalchemy.exc import IntegrityError
@@ -86,11 +86,15 @@ def get_users():
     }
     return jsonify(response_body), 200
 
+# Get all pets in the database --------
 @api.route('/pets', methods=['GET'])
 def get_pets():
-
-    
-
+    pets = Pets.query.all()
+    pets_list = list(map(lambda obj : obj.serialize(), pets))
+    response_body = {
+        "msg": "Hey there, this is your GET /pets response :)",
+        "pets": pets_list
+    }
     return jsonify(response_body), 200
 
 
