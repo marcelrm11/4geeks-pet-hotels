@@ -35,8 +35,8 @@ class User(db.Model):
             "country": self.country,
             "zip_code": self.zip_code,
             "user_pets": [pet.serialize() for pet in self.user_pets],
-            "user_bookings": [booking.serialize() for booking in self.user_bookings],
-            "favorites": [fav.serialize() for fav in self.favorites]
+            "user_bookings": [booking.serialize() for booking in self.user_bookings], # could we remove this?
+            "favorites": [fav.serialize() for fav in self.favorites] # could we remove this?
             # do not serialize the password, its a security breach
         }
 
@@ -54,11 +54,11 @@ class Pets(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     pet_type = db.Column(db.String(50), nullable=False)
-    race = db.Column(db.String(50), nullable=False, default="N/A")
+    breed = db.Column(db.String(50), nullable=False, default="N/A")
     age = db.Column(db.Integer, nullable=False)
     health = db.Column(db.String(50), nullable=False)
-    pet_owner = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-
+    pet_owner_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    bookings = db.relationship("Booking", backref=db.backref("pets"))
 
     def __repr__(self):
         return f'<Pet {self.name}>'
@@ -70,7 +70,8 @@ class Pets(db.Model):
             "pet_type": self.pet_type,
             "race": self.race,
             "age": self.age,
-            "health": self.health
+            "health": self.health,
+            "pet_owner": self.user.serialize()
             # do not serialize the password, its a security breach
         }
     
@@ -84,10 +85,11 @@ class Hotel(db.Model):
     phone_number = db.Column(db.String(), nullable=False)
     location = db.Column(db.String(70), nullable=False)
     services = db.Column(db.String(100), nullable=False)
-    hotel_owner = db.Column(db.Integer, db.ForeignKey("owner.id"), nullable=False)
+    hotel_owner_id = db.Column(db.Integer, db.ForeignKey("owner.id"), nullable=False)
     hotel_bookings = db.relationship("Booking", backref=db.backref("hotel"))
     invoices = db.relationship("Invoice", backref=db.backref("hotel"))
     favorites = db.relationship("Favorite", backref=db.backref("hotel"))
+    rooms = db.relationship("Room", backref=db.backref("hotel"))
 
 
     def __repr__(self):
@@ -106,15 +108,38 @@ class Hotel(db.Model):
             "phone_number": self.phone_number,
             "country": self.country,
             "zip_code": self.zip_code,
-            "hotel_bookings": [booking.serialize() for booking in self.hotel_bookings]
+            "hotel_bookings": [booking.serialize() for booking in self.hotel_bookings],
+            "hotel_owner": self.owner.serialize()
             # do not serialize the password, its a security breach
         }
+
+class Room(db.Model):
+    __tablename__ = "room"
+    id = db.Column(db.Integer, primary_key=True) 
+    pet_type = db.Column(db.String(30), nullable=False, default="any")
+    hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.id"), nullable=False)
+    bookings = db.relationship("Booking", backref=db.backref("room"))
+
+    def __repr__(self):
+        return f'<Room_id {self.id}>'
+
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "pet_type": self.pet_type,
+            "hotel_id": self.hotel_id,
+            "bookings": [booking.serialize() for booking in self.bookings]
+        }
+
         
 class Booking(db.Model):
     __tablename__ = 'booking'
     id = db.Column(db.Integer, primary_key=True) 
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    pet_id = db.Column(db.Integer, db.ForeignKey("pets.id"), nullable=False)
     hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.id"), nullable=False)
+    room_id = db.Column(db.Integer, db.ForeignKey("room.id"), nullable=False)
     create_date = db.Column(db.DateTime, nullable=False)
     entry_date = db.Column(db.DateTime, nullable=False)
     checkout_date = db.Column(db.DateTime, nullable=False)
@@ -135,8 +160,7 @@ class Booking(db.Model):
             "hotel_id": self.hotel_id,
             "price": self.price,
             "currency": self.currency,
-            "invoice": self.invoice.serialize()
-            # do not serialize the password, its a security breach
+            "invoice": self.invoice.serialize() # could we remove this?
         }
 
 
