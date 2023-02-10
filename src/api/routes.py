@@ -67,6 +67,8 @@ def logout():
 def create_user():
     # ! dangerous to disable the csrf protection
     form = UserForm(meta={"csrf": False})
+    # csrf_token = form.csrf_token.data
+    # print('CSRF token: {}'.format(csrf_token))
     if form.validate_on_submit():
         try:
             user_data = {field: getattr(
