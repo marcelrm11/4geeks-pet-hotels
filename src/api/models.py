@@ -149,6 +149,7 @@ class Hotel(db.Model):
             "phone_number": self.phone_number,
             "country": self.country,
             "zip_code": self.zip_code,
+            "rooms": [r.serialize() for r in self.rooms],
             "hotel_bookings": [booking.serialize() for booking in self.hotel_bookings],
             "hotel_owner": self.owner.serialize()
         }

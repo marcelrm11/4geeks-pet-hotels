@@ -33,10 +33,11 @@ DELETE: /hotel/<:id>/delete
 
 CREATE: /room/create
 READ: /rooms
-READ: /hotel/<:hotel_id>/rooms
 READ: /rooms/<:pet_type>
 DELETE: /rooms/<:room_id>/delete
 UPDATE: /rooms/<:room_id>/update
+
+<!-- not sure about keeping update room if we can do it from hotel -->
 
 ## BOOKING
 
