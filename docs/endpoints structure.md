@@ -6,8 +6,6 @@ CREATE: /signup
 READ: /user/<:id>
 UPDATE: /user/<:id>/update
 DELETE: /user/<:id>/delete
-READ: /user/<:user_id>/bookings
-READ: user/<:user_id>/favorites
 
 ## PETS
 
@@ -22,8 +20,6 @@ CREATE: /owner/create
 READ: /owner/<:id>
 UPDATE: /owner/<:id>/update
 DELETE: /owner/<:id>/delete
-READ: /owner/<:owner_id>/bookings
-READ: /owner/<:owner_id>/hotels
 
 ## HOTELS
 

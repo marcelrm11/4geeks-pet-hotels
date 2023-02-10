@@ -102,6 +102,7 @@ class Owner(db.Model):
     zip_code = db.Column(db.String(30), nullable=False)
     phone_number = db.Column(db.String(), nullable=False)
     hotels = db.relationship("Hotel", backref=db.backref("owner"))
+    bookings = db.relationship("Booking", backref=db.backref("owner"))
 
     def __repr__(self):
         return f"<Hotel_owner {self.email}>"
@@ -114,7 +115,8 @@ class Owner(db.Model):
             "last_name": self.last_name,
             "country": self.country,
             "zip_code": self.zip_code,
-            "hotels": [h.serialize() for h in self.hotels]
+            "hotels": [h.serialize() for h in self.hotels],
+            "bookings": [b.serialize() for b in self.bookings]
         }
 
 
@@ -197,6 +199,7 @@ class Booking(db.Model):
             "create_date": self.create_date,
             "entry_date": self.entry_date,
             "checkout_date": self.checkout_date,
+            "owner_id": self.owner_id,
             "hotel_id": self.hotel_id,
             "price": self.price,
             "currency": self.currency,
