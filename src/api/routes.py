@@ -390,6 +390,8 @@ def delete_room(room_id):
         db.session.rollback()
         print(sys.exc_info())
         return jsonify({"error": str(e)}), 500
+    finally:
+            db.session.close()
 
 @api.route("/room/<int:room_id>/update", methods=["PUT"])
 def update_room(room_id):
