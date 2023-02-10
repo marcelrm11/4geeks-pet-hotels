@@ -358,3 +358,20 @@ def create_invoice():
     else:
         errors = {field: errors[0] for field, errors in form.errors.items()}
         return jsonify({"error": "validation error", "errors": errors}), 400
+
+# READ: get invoice --------------
+
+
+@api.route("/invoice/<int:invoice_id>", methods=["GET"])
+def get_invoice(invoice_id):
+    try:
+        if not invoice_id:
+            return jsonify({"error": "Bad Request: invoice_id is required"}), 400
+        invoice = Invoice.query.filter_by(id=invoice_id).one_or_none()
+        if invoice:
+            return jsonify(invoice.serialize()), 200
+        else:
+            return jsonify({"error": "invoice not found"}), 404
+    except Exception as e:
+        print(sys.exc_info())
+        return jsonify({"error": str(e)}), 500

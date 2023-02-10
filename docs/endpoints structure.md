@@ -58,6 +58,6 @@ UPDATE: /rooms/<:room_id>/update
 ## INVOICES
 
 - CREATE: /invoice/create
-  READ: /invoice/<:id>
+- READ: /invoice/<:id>
 
 ## CHECK AVAILABILITY AND SEARCH FUNCTIONALITIES ??
