@@ -1,7 +1,7 @@
 
 import datetime
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, DateTimeField, DateField, DecimalField
+from wtforms import StringField, PasswordField, DateTimeField, DateField, DecimalField, IntegerField
 from wtforms.validators import InputRequired, Email, Length, EqualTo, Regexp, ValidationError
 import re
 
@@ -39,6 +39,11 @@ def checkout_date_validator(form, field):
 
 
 class BookingForm(FlaskForm):
+    user_id = IntegerField("User ID", validators=[InputRequired()])
+    pet_id = IntegerField("Pet ID", validators=[InputRequired()])
+    owner_id = IntegerField("Owner ID", validators=[InputRequired()])
+    hotel_id = IntegerField("Hotel ID", validators=[InputRequired()])
+    room_id = IntegerField("Room ID", validators=[InputRequired()])
     create_date = DateTimeField(
         "Creation Date", default=datetime.datetime.now())
     entry_date = DateField("Entry Date", validators=[InputRequired()])
@@ -47,3 +52,20 @@ class BookingForm(FlaskForm):
     price = DecimalField("Price", validators=[InputRequired()])
     currency = StringField("Currency", validators=[
                            InputRequired()], default="euro")
+
+
+class FavoriteForm(FlaskForm):
+    user_id = IntegerField("User ID", validators=[InputRequired()])
+    hotel_id = IntegerField("Hotel ID", validators=[InputRequired()])
+
+
+class InvoiceForm(FlaskForm):
+    pet_id = IntegerField("Pet ID", validators=[InputRequired()])
+    pet_id = IntegerField("Pet ID", validators=[InputRequired()])
+    pet_id = IntegerField("Pet ID", validators=[InputRequired()])
+    amount = DecimalField("Price", validators=[InputRequired()])
+    currency = StringField("Currency", validators=[
+                           InputRequired()], default="euro")
+    billing_address = StringField(
+        "Billing Address", validators=[InputRequired])
+    payment_ref = StringField("Payment Ref")
