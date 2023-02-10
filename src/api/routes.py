@@ -754,7 +754,7 @@ def delete_booking(booking_id):
 # CREATE: add favorite -------------
 
 
-@api.route("/user/<int:user_id>/hotel/<int:hotel_id>/favorite")
+@api.route("/user/<int:user_id>/hotel/<int:hotel_id>/favorite", methods=["POST"])
 def add_favorite(user_id, hotel_id):
     try:
         favorite = Favorite(user_id=user_id, hotel_id=hotel_id)
@@ -769,7 +769,7 @@ def add_favorite(user_id, hotel_id):
 # DELETE: remove favorite --------------
 
 
-@api.route("/favorite/<int:favorite_id>/delete")
+@api.route("/favorite/<int:favorite_id>/delete", methods=["DELETE"])
 def delete_favorite(favorite_id):
     try:
         del_favorite = Favorite.query.filter_by(id=favorite_id).one_or_none()
