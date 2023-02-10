@@ -63,7 +63,7 @@ def logout():
 # CREATE: User (aka Signup) --------------
 
 
-@api.route("/signup", methods=["POST"])
+@api.route("/signup/user", methods=["POST"])
 def create_user():
     # ! dangerous to disable the csrf protection
     form = UserForm(meta={"csrf": False})
@@ -106,7 +106,7 @@ def get_users():
     try:
         users = User.query.all()
         print(users)
-        users_list = list(map(lambda object: object.serialize(), users))
+        users_list = [u.serialize() for u in users]
         response_body = {
             "msg": "Hey there, this is your GET /users response :)",
             "users": users_list
@@ -141,12 +141,11 @@ def update_user(user_id):
 
     updated_user = request.get_json()  # see signup for form validation
     user = User.query.filter_by(id=user_id).first()
-    form = UserForm(obj=user)
+    form = UserForm(obj=updated_user)
 
     if form.validate_on_submit():
         for field, value in updated_user.items():
-            if hasattr(form, field):  # check if field exists in form
-                setattr(user, field, value)
+            setattr(user, field, value)
         try:
             db.session.commit()
         except Exception as e:
