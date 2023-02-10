@@ -193,7 +193,7 @@ def get_pets():
 
 
 # BOOKINGS ------------------------------------------------------
-# CREATE: all bookings ------------
+# CREATE: a booking ------------
 
 @api.route("/booking/create", methods=["POST"])
 def create_booking():
@@ -215,3 +215,15 @@ def create_booking():
     else:
         errors = {field: errors[0] for field, errors in form.errors.items()}
         return jsonify({"error": "validation error", "errors": errors}), 400
+
+# READ: all bookings ------------
+
+
+@api.route("/bookings", methods=["GET"])
+def get_all_bookings():
+    try:
+        bookings = Booking.query.all()
+        bookings_list = [b.serialize() for b in bookings]
+        return jsonify({"bookings": bookings_list}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
