@@ -1,8 +1,8 @@
 
 import datetime
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, DateTimeField, DateField, DecimalField, IntegerField
-from wtforms.validators import InputRequired, Email, Length, EqualTo, Regexp, ValidationError
+from wtforms import StringField, PasswordField, DateTimeField, DateField, DecimalField, IntegerField, DateField, IntegerField
+from wtforms.validators import InputRequired, Email, Length, EqualTo, Regexp, ValidationError, NumberRange
 import re
 
 password_msg = "Password must contain at least one uppercase, one lowercase, one digit and one special character."
@@ -33,6 +33,34 @@ class ShortUserForm(FlaskForm):
         min=8), Regexp(password_regex, message=password_msg)])
 
 
+class PetForm(FlaskForm):
+    name = StringField("Name", validators=[InputRequired()])
+    pet_type = StringField("Pet Type", validators=[InputRequired()])
+    breed = StringField("Breed", validators=[InputRequired()])
+    birth_date = StringField("Birth Date", validators=[InputRequired()])
+    health = StringField("Health", validators=[InputRequired()])
+    pet_owner_id = IntegerField("Pet Owner ID", validators=[InputRequired()])
+
+
+class HotelForm(FlaskForm):
+    name = StringField("Name", validators=[InputRequired()])
+    email = StringField("Email", validators=[InputRequired(), Email()])
+    country = StringField("Country", validators=[InputRequired()])
+    zip_code = StringField("Zip Code", validators=[
+                           InputRequired(), Regexp(zip_code_regex)])
+    phone_number = StringField("Phone Number", validators=[
+                               InputRequired(), Regexp(phone_regex)])
+    location = StringField("Location", validators=[InputRequired()])
+    services = StringField("Services", validators=[InputRequired()])
+    hotel_owner_id = IntegerField(
+        "Hotel Owner ID", validators=[InputRequired()])
+
+
+class FavoriteForm(FlaskForm):
+    user_id = IntegerField("User ID", validators=[InputRequired()])
+    hotel_id = IntegerField("Hotel ID", validators=[InputRequired()])
+
+
 def checkout_date_validator(form, field):
     if field.data < form.entry_date.data:
         raise ValidationError("Checkout date can't be earlier than entry date")
@@ -52,11 +80,6 @@ class BookingForm(FlaskForm):
     price = DecimalField("Price", validators=[InputRequired()])
     currency = StringField("Currency", validators=[
                            InputRequired()], default="euro")
-
-
-class FavoriteForm(FlaskForm):
-    user_id = IntegerField("User ID", validators=[InputRequired()])
-    hotel_id = IntegerField("Hotel ID", validators=[InputRequired()])
 
 
 class InvoiceForm(FlaskForm):

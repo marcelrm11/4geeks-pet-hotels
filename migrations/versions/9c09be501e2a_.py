@@ -1,8 +1,14 @@
 """empty message
 
-Revision ID: fdee597004bf
+<<<<<<<< HEAD:migrations/versions/a0a797ecdb9a_.py
+Revision ID: a0a797ecdb9a
 Revises: 
-Create Date: 2023-02-09 13:40:15.945490
+Create Date: 2023-02-10 18:26:02.341352
+========
+Revision ID: 9c09be501e2a
+Revises: 
+Create Date: 2023-02-10 11:48:11.978518
+>>>>>>>> development:migrations/versions/9c09be501e2a_.py
 
 """
 from alembic import op
@@ -10,7 +16,11 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'fdee597004bf'
+<<<<<<<< HEAD:migrations/versions/a0a797ecdb9a_.py
+revision = 'a0a797ecdb9a'
+========
+revision = '9c09be501e2a'
+>>>>>>>> development:migrations/versions/9c09be501e2a_.py
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -70,7 +80,7 @@ def upgrade():
     sa.Column('name', sa.String(length=50), nullable=False),
     sa.Column('pet_type', sa.String(length=50), nullable=False),
     sa.Column('breed', sa.String(length=50), nullable=False),
-    sa.Column('age', sa.Integer(), nullable=False),
+    sa.Column('birth_date', sa.String(), nullable=False),
     sa.Column('health', sa.String(length=50), nullable=False),
     sa.Column('pet_owner_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['pet_owner_id'], ['user.id'], ),
@@ -95,6 +105,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('pet_id', sa.Integer(), nullable=False),
+    sa.Column('owner_id', sa.Integer(), nullable=False),
     sa.Column('hotel_id', sa.Integer(), nullable=False),
     sa.Column('room_id', sa.Integer(), nullable=False),
     sa.Column('create_date', sa.DateTime(), nullable=False),
@@ -103,6 +114,7 @@ def upgrade():
     sa.Column('price', sa.Float(precision=2), nullable=False),
     sa.Column('currency', sa.String(length=20), nullable=False),
     sa.ForeignKeyConstraint(['hotel_id'], ['hotel.id'], ),
+    sa.ForeignKeyConstraint(['owner_id'], ['owner.id'], ),
     sa.ForeignKeyConstraint(['pet_id'], ['pets.id'], ),
     sa.ForeignKeyConstraint(['room_id'], ['room.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),

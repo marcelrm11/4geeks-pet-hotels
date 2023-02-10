@@ -2,13 +2,13 @@
 
 ## USERS
 
-- CREATE: /signup
+- CREATE: /signup/user
 - READ: /users
 - READ: /user/<:id>
 - UPDATE: /user/<:id>/update
 - DELETE: /user/<:id>/delete
 
-## PETS
+## PETS VICTORIA
 
 CREATE: /pet/create
 READ: /pets
@@ -18,13 +18,13 @@ DELETE: /pet/<:id>/delete
 
 ## OWNERS
 
-CREATE: /owner/create
+CREATE: /signup/owner
 READ: /owners
 READ: /owner/<:id>
 UPDATE: /owner/<:id>/update
 DELETE: /owner/<:id>/delete
 
-## HOTELS
+## HOTELS VICTORIA
 
 CREATE: /hotel/create
 READ: /hotels/
@@ -37,8 +37,8 @@ DELETE: /hotel/<:id>/delete
 CREATE: /room/create
 READ: /rooms
 READ: /rooms/<:pet_type>
-DELETE: /rooms/<:room_id>/delete
 UPDATE: /rooms/<:room_id>/update
+DELETE: /rooms/<:room_id>/delete
 
 <!-- not sure about keeping update room if we can do it from hotel -->
 
