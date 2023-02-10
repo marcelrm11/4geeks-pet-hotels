@@ -3,7 +3,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Pets, Hotel, Booking, Owner, Invoice, Favorite
-from api.forms import UserForm, ShortUserForm
+from api.forms import BookingForm, UserForm, ShortUserForm
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, set_access_cookies
 from sqlalchemy.exc import IntegrityError
 import sys
@@ -190,3 +190,28 @@ def get_pets():
         "pets": pets_list
     }
     return jsonify(response_body), 200
+
+
+# BOOKINGS ------------------------------------------------------
+# CREATE: all bookings ------------
+
+@api.route("/booking/create", methods=["POST"])
+def create_booking():
+    form = BookingForm()
+    if form.validate_on_submit():
+        try:
+            booking_data = {field: getattr(
+                form, field).data for field in form._fields}
+            booking = Booking(**booking_data)
+            db.session.add(booking)
+            db.session.commit()
+            return jsonify({"msg": "booking created successfully", "data": booking.serialize()}), 200
+        except Exception as e:
+            db.session.rollback()
+            print(sys.exc_info())
+            return jsonify({"error": str(e)}), 500
+        finally:
+            db.session.close()
+    else:
+        errors = {field: errors[0] for field, errors in form.errors.items()}
+        return jsonify({"error": "validation error", "errors": errors}), 400

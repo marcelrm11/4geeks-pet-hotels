@@ -11,13 +11,15 @@
 ## PETS
 
 CREATE: /pet/create
+READ: /pets
 READ: /pet/<:id>
 UPDATE: /pet/<:id>/update
 DELETE: /pet/<:id>/delete
 
-## OWNER
+## OWNERS
 
 CREATE: /owner/create
+READ: /owners
 READ: /owner/<:id>
 UPDATE: /owner/<:id>/update
 DELETE: /owner/<:id>/delete
@@ -40,9 +42,10 @@ UPDATE: /rooms/<:room_id>/update
 
 <!-- not sure about keeping update room if we can do it from hotel -->
 
-## BOOKING
+## BOOKINGS
 
 CREATE: /booking/create
+READ: /bookings
 READ: /booking/<:id>
 UPDATE: /booking/<:id>/update
 DELETE: /booking/<:id>/delete
