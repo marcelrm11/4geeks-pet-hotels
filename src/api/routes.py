@@ -316,3 +316,20 @@ def add_favorite(user_id, hotel_id):
         db.session.rollback()
         print(sys.exc_info())
         return jsonify({"error": str(e)}), 500
+
+# DELETE: remove favorite --------------
+
+
+@api.route("/favorite/<int:favorite_id>/delete")
+def delete_favorite(favorite_id):
+    try:
+        del_favorite = Favorite.query.filter_by(id=favorite_id).one_or_none()
+        if not del_favorite:
+            return jsonify({"error": "favorite not found"}), 404
+        del_favorite.delete()
+        db.session.commit()
+        return jsonify({"success": "favorite deleted successfully"}), 200
+    except Exception as e:
+        db.session.rollback()
+        print(sys.exc_info())
+        return jsonify({"error": str(e)}), 500

@@ -53,7 +53,7 @@ UPDATE: /rooms/<:room_id>/update
 ## FAVORITES
 
 - CREATE: /user/<:user_id>/hotel/<:hotel_id>/favorite
-  DELETE: /favorite/<:id>/delete
+- DELETE: /favorite/<:id>/delete
 
 ## INVOICES
 
