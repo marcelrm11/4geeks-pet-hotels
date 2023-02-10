@@ -40,15 +40,6 @@ class User(db.Model):
             # do not serialize the password, its a security breach
         }
 
-class Countries_zip_codes(db.Model):
-    __tablename__ = 'countries_zip_codes'
-    country = db.Column(db.String)
-    country_iso = db.Column(db.String, primary_key=True)
-    zip_regex = db.Column(db.String)
-
-    def __repr__(self):
-        return f'<{self.country_iso}: {self.country}>'
-
 class Pets(db.Model):
     __tablename__ = 'pets'
     id = db.Column(db.Integer, primary_key=True)
@@ -72,7 +63,51 @@ class Pets(db.Model):
             "age": self.age,
             "health": self.health,
             "pet_owner": self.user.serialize()
-            # do not serialize the password, its a security breach
+        }
+
+class Favorite(db.Model):
+    __tablename__ = "favorite"
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.id"), nullable=False)
+
+    def __repr__(self):
+        return f'<Favorite_id {self.id}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "hotel": self.hotel.serialize(),
+            "hotel_id": self.hotel_id
+        }
+
+class Owner(db.Model):
+    __tablename__ = 'owner'
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(32), unique=False, nullable=False)
+    confirm_password = db.Column(db.String(32), unique=False, nullable=False)
+    is_active = db.Column(db.Boolean(), unique=False, nullable=False, default=False) #? what is this doing here?
+    first_name = db.Column(db.String(50), nullable=False)
+    last_name = db.Column(db.String(50), nullable=False)
+    country = db.Column(db.String(30), nullable=False)
+    zip_code = db.Column(db.String(30), nullable=False)
+    phone_number = db.Column(db.String(), nullable=False)
+    hotels = db.relationship("Hotel", backref=db.backref("owner"))
+
+    def __repr__(self):
+        return f'<Hotel_owner {self.email}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "email": self.email,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "country": self.country,
+            "zip_code": self.zip_code,
+            "hotels": [h.serialize() for h in self.hotels]
         }
     
 class Hotel(db.Model):
@@ -91,13 +126,8 @@ class Hotel(db.Model):
     favorites = db.relationship("Favorite", backref=db.backref("hotel"))
     rooms = db.relationship("Room", backref=db.backref("hotel"))
 
-
     def __repr__(self):
         return f'<Hotel {self.name}>'
-
-    # # NOTE: In a real application make sure to properly hash and salt passwords
-    # def check_password(self, password):
-    #     return check_password(password, "password")
 
     def serialize(self):
         return {
@@ -110,7 +140,6 @@ class Hotel(db.Model):
             "zip_code": self.zip_code,
             "hotel_bookings": [booking.serialize() for booking in self.hotel_bookings],
             "hotel_owner": self.owner.serialize()
-            # do not serialize the password, its a security breach
         }
 
 class Room(db.Model):
@@ -123,7 +152,6 @@ class Room(db.Model):
     def __repr__(self):
         return f'<Room_id {self.id}>'
 
-
     def serialize(self):
         return {
             "id": self.id,
@@ -131,7 +159,6 @@ class Room(db.Model):
             "hotel_id": self.hotel_id,
             "bookings": [booking.serialize() for booking in self.bookings]
         }
-
         
 class Booking(db.Model):
     __tablename__ = 'booking'
@@ -162,41 +189,6 @@ class Booking(db.Model):
             "currency": self.currency,
             "invoice": self.invoice.serialize() # could we remove this?
         }
-
-
-class Owner(db.Model):
-    __tablename__ = 'owner'
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(32), unique=False, nullable=False)
-    confirm_password = db.Column(db.String(32), unique=False, nullable=False)
-    is_active = db.Column(db.Boolean(), unique=False, nullable=False, default=False) #? what is this doing here?
-    first_name = db.Column(db.String(50), nullable=False)
-    last_name = db.Column(db.String(50), nullable=False)
-    country = db.Column(db.String(30), nullable=False)
-    zip_code = db.Column(db.String(30), nullable=False)
-    phone_number = db.Column(db.String(), nullable=False)
-    hotels = db.relationship("Hotel", backref=db.backref("owner"))
-
-
-    def __repr__(self):
-        return f'<Hotel_owner {self.email}>'
-
-    # # NOTE: In a real application make sure to properly hash and salt passwords
-    # def check_password(self, password):
-    #     return check_password(password, "password")
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "email": self.email,
-            "first_name": self.first_name,
-            "last_name": self.last_name,
-            "country": self.country,
-            "zip_code": self.zip_code,
-            "hotels": [h.serialize() for h in self.hotels]
-            # do not serialize the password, its a security breach
-        }
     
 class Invoice(db.Model):
     __tablename__ = "invoice"
@@ -224,19 +216,11 @@ class Invoice(db.Model):
             "hotel_id": self.hotel_id
         }
 
-class Favorite(db.Model):
-    __tablename__ = "favorite"
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-    hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.id"), nullable=False)
+class Countries_zip_codes(db.Model):
+    __tablename__ = 'countries_zip_codes'
+    country = db.Column(db.String)
+    country_iso = db.Column(db.String, primary_key=True)
+    zip_regex = db.Column(db.String)
 
     def __repr__(self):
-        return f'<Favorite_id {self.id}>'
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "user_id": self.user_id,
-            "hotel": self.hotel.serialize(),
-            "hotel_id": self.hotel_id
-        }
+        return f'<{self.country_iso}: {self.country}>'
