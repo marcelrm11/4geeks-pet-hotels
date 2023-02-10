@@ -300,3 +300,19 @@ def delete_booking(booking_id):
         return jsonify({"error": str(e)}), 500
     finally:
         db.session.close()
+
+# FAVORITES -----------------------------------------------------------
+# CREATE: add favorite -------------
+
+
+@api.route("/user/<int:user_id>/hotel/<int:hotel_id>/favorite")
+def add_favorite(user_id, hotel_id):
+    try:
+        favorite = Favorite(user_id=user_id, hotel_id=hotel_id)
+        db.session.add(favorite)
+        db.session.commit()
+        return jsonify({"success": "favorite added successfully"}), 200
+    except Exception as e:
+        db.session.rollback()
+        print(sys.exc_info())
+        return jsonify({"error": str(e)}), 500
