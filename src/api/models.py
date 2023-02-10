@@ -48,7 +48,7 @@ class Pets(db.Model):
     name = db.Column(db.String(50), nullable=False)
     pet_type = db.Column(db.String(50), nullable=False)
     breed = db.Column(db.String(50), nullable=False, default="N/A")
-    age = db.Column(db.Integer, nullable=False)
+    birth_date = db.Column(db.String(), nullable=False)
     health = db.Column(db.String(50), nullable=False)
     pet_owner_id = db.Column(
         db.Integer, db.ForeignKey("user.id"), nullable=False)
@@ -62,10 +62,10 @@ class Pets(db.Model):
             "id": self.id,
             "name": self.name,
             "pet_type": self.pet_type,
-            "race": self.race,
-            "age": self.age,
+            "breed": self.breed,
+            "birth_date": self.birth_date,
             "health": self.health,
-            "pet_owner": self.user.serialize()
+            "pet_owner_id": self.pet_owner_id
         }
 
 
@@ -151,7 +151,7 @@ class Hotel(db.Model):
             "zip_code": self.zip_code,
             "rooms": [r.serialize() for r in self.rooms],
             "hotel_bookings": [booking.serialize() for booking in self.hotel_bookings],
-            "hotel_owner": self.owner.serialize()
+            "hotel_owner_id": self.hotel_owner_id
         }
 
 
