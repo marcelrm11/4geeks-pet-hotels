@@ -140,7 +140,9 @@ def get_user(user_id):
 def update_user(user_id):
 
     updated_user = request.get_json()  # see signup for form validation
-    user = User.query.filter_by(id=user_id).first()
+    user = User.query.filter_by(id=user_id).one_or_none()
+    if not user:
+        return jsonify({"error": "no user with this id"}), 404
     form = UserForm(obj=updated_user)
 
     if form.validate_on_submit():
@@ -246,3 +248,33 @@ def get_booking(booking_id):
     except Exception as e:
         print(sys.exc_info())
         return jsonify({"error": str(e)}), 500
+
+# UPDATE: edit a booking ------------
+
+
+@api.route("/booking/<int:booking_id>/update", methods=["PUT"])
+def update_booking(booking_id):
+
+    updated_booking = request.get_json()
+    booking = Booking.query.filter_by(id=booking_id).one_or_none()
+    if not booking:
+        return jsonify({"error": "no booking with this id"}), 404
+    form = BookingForm(obj=updated_booking)
+
+    if form.validate_on_submit():
+        for field, value in updated_booking.items():
+            setattr(booking, field, value)
+        try:
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            print(sys.exc_info())
+            return jsonify({"error": str(e)}), 500
+        finally:
+            db.session.close()
+
+        updated_booking = Booking.query.filter_by(id=booking_id).first()
+        return jsonify({"updated booking": updated_booking.serialize()}), 200
+    else:
+        errors = {field: errors[0] for field, errors in form.errors.items()}
+        return jsonify({"error": "validation error", "errors": errors}), 400
