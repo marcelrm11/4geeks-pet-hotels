@@ -167,9 +167,16 @@ def update_user(user_id):
 
 @api.route("/user/<int:user_id>/delete", methods=["DELETE"])
 def delete_user(user_id):
-    user = User.query.filter_by(id=user_id).delete()
-    db.session.commit()
-    return jsonify({"msg": "user deleted successfully"}), 200
+    try:
+        user = User.query.filter_by(id=user_id).delete()
+        db.session.commit()
+        return jsonify({"msg": "user deleted successfully"}), 200
+    except Exception as e:
+        db.session.rollback()
+        print(sys.exc_info())
+        return jsonify({"error": str(e)}), 500
+    finally:
+        db.session.close()
 
 # PETS ----------------------------------------------------------
 # READ: all pets ---------------
