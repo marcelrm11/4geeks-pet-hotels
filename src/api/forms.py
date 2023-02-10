@@ -61,8 +61,8 @@ class FavoriteForm(FlaskForm):
 
 class InvoiceForm(FlaskForm):
     pet_id = IntegerField("Pet ID", validators=[InputRequired()])
-    pet_id = IntegerField("Pet ID", validators=[InputRequired()])
-    pet_id = IntegerField("Pet ID", validators=[InputRequired()])
+    user_id = IntegerField("User ID", validators=[InputRequired()])
+    hotel_id = IntegerField("Hotel ID", validators=[InputRequired()])
     amount = DecimalField("Price", validators=[InputRequired()])
     currency = StringField("Currency", validators=[
                            InputRequired()], default="euro")
