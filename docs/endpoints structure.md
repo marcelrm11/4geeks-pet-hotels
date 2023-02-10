@@ -2,11 +2,11 @@
 
 ## USERS
 
-CREATE: /signup
-READ: /users
-READ: /user/<:id>
-UPDATE: /user/<:id>/update
-DELETE: /user/<:id>/delete
+- CREATE: /signup
+- READ: /users
+- READ: /user/<:id>
+- UPDATE: /user/<:id>/update
+- DELETE: /user/<:id>/delete
 
 ## PETS
 
