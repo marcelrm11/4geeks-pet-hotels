@@ -197,11 +197,12 @@ class Booking(db.Model):
         return {
             "id": self.id,
             "user_id": self.user_id,
+            "pet_id": self.pet_id,
+            "owner_id": self.owner_id,
+            "hotel_id": self.hotel_id,
             "create_date": self.create_date,
             "entry_date": self.entry_date,
             "checkout_date": self.checkout_date,
-            "owner_id": self.owner_id,
-            "hotel_id": self.hotel_id,
             "price": self.price,
             "currency": self.currency,
             "invoice": self.invoice.serialize()  # could we remove this?
@@ -244,5 +245,3 @@ class Countries_zip_codes(db.Model):
 
     def __repr__(self):
         return f"<{self.country_iso}: {self.country}>"
-
-
