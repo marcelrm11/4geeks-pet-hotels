@@ -2,22 +2,24 @@
 
 ## USERS
 
-* CREATE: /signup
-* READ: /users
-* READ: /user/<:id>
-* UPDATE: /user/<:id>/update
-* DELETE: /user/<:id>/delete
+- CREATE: /signup/user
+- READ: /users
+- READ: /user/<:id>
+- UPDATE: /user/<:id>/update
+- DELETE: /user/<:id>/delete
 
 ## PETS VICTORIA
 
 CREATE: /pet/create
+READ: /pets
 READ: /pet/<:id>
 UPDATE: /pet/<:id>/update
 DELETE: /pet/<:id>/delete
 
-## OWNER
+## OWNERS
 
-CREATE: /owner/create
+CREATE: /signup/owner
+READ: /owners
 READ: /owner/<:id>
 UPDATE: /owner/<:id>/update
 DELETE: /owner/<:id>/delete
@@ -35,27 +37,27 @@ DELETE: /hotel/<:id>/delete
 CREATE: /room/create
 READ: /rooms
 READ: /rooms/<:pet_type>
-DELETE: /rooms/<:room_id>/delete
 UPDATE: /rooms/<:room_id>/update
+DELETE: /rooms/<:room_id>/delete
 
 <!-- not sure about keeping update room if we can do it from hotel -->
 
-## BOOKING
+## BOOKINGS
 
-CREATE: /booking/create
-READ: /booking/<:id>
-UPDATE: /booking/<:id>/update
-DELETE: /booking/<:id>/delete
-READ: /booking/<:booking_id>/invoice
+- CREATE: /booking/create
+- READ: /bookings
+- READ: /booking/<:id>
+- UPDATE: /booking/<:id>/update
+- DELETE: /booking/<:id>/delete
 
 ## FAVORITES
 
-CREATE: /user/<:user_id>/favorite/create
-DELETE: /favorite/<:id>/delete
+- CREATE: /user/<:user_id>/hotel/<:hotel_id>/favorite
+- DELETE: /favorite/<:id>/delete
 
 ## INVOICES
 
-CREATE: /invoice/create
-READ: /invoice/<:id>
+- CREATE: /invoice/create
+- READ: /invoice/<:id>
 
 ## CHECK AVAILABILITY AND SEARCH FUNCTIONALITIES ??
