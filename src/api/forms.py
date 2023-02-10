@@ -67,5 +67,5 @@ class InvoiceForm(FlaskForm):
     currency = StringField("Currency", validators=[
                            InputRequired()], default="euro")
     billing_address = StringField(
-        "Billing Address", validators=[InputRequired])
+        "Billing Address", validators=[InputRequired()])
     payment_ref = StringField("Payment Ref")
