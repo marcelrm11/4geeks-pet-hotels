@@ -1,7 +1,7 @@
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, HiddenField
-from wtforms.validators import DataRequired, Email, Length, EqualTo, Regexp
+from wtforms import StringField, PasswordField, HiddenField, DateField
+from wtforms.validators import DataRequired, Email, Length, EqualTo, Regexp, NumberRange
 import re
 
 password_msg = 'Password must contain at least one uppercase, one lowercase, one digit and one special character.'
@@ -26,3 +26,11 @@ class UserForm(FlaskForm):
 class ShortUserForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired(), Length(min=8), Regexp(password_regex, message=password_msg)])
+
+
+class PetForm(FlaskForm):
+    name = StringField("Name", validators=[DataRequired()])
+    pet_type = StringField("Pet Type", validators=[DataRequired()])
+    breed = StringField("Breed", validators=[DataRequired()])
+    birth_date = StringField("Birth Date", validators=[DataRequired()])
+    health = StringField("Health", validators=[DataRequired()])
