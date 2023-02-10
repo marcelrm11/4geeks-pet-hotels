@@ -420,6 +420,120 @@ def delete_owner(owner_id):
     finally:
         db.session.close()
 
+# HOTELS ----------------------------------------------------------
+# CREATE: Hotel ----------------
+
+
+@api.route("/hotel/create", methods=["POST"])
+def create_hotel():
+    # ! dangerous to disable the csrf protection
+    form = HotelForm(meta={"csrf": False})
+    if form.validate_on_submit():
+        try:
+            hotel_data = {field: getattr(
+                form, field).data for field in form._fields}
+            hotel = Hotel(**hotel_data)
+            db.session.add(hotel)
+            db.session.commit()
+
+            hotel_dict = hotel.serialize()
+            response = jsonify(hotel_dict)
+            return response, 200
+        except IntegrityError as e:
+            db.session.rollback()
+            return jsonify({"error": "database information check failed"}), 400
+        except Exception as e:
+            db.session.rollback()
+            print(sys.exc_info())
+            return jsonify({"error": str(e)}), 500
+        finally:
+            db.session.close()
+    else:
+        errors = {field: errors[0] for field, errors in form.errors.items()}
+        return jsonify({"error": "validation error", "errors": errors}), 400
+
+
+# READ: all hotels ---------------
+
+
+@api.route("/hotels", methods=["GET"])
+def get_hotels():
+    try:
+        hotels = Hotel.query.all()
+        hotels_list = [hotel.serialize() for hotel in hotels]
+        response_body = {
+            "hotels": hotels_list
+        }
+        return jsonify(response_body), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+# READ: one hotel ---------------
+
+
+@api.route("/hotel/<int:hotel_id>", methods=["GET"])
+def get_hotel(hotel_id):
+    try:
+        if not hotel_id:
+            return jsonify({"error": "Bad Request: hotel_id is required"}), 400
+        hotel = Hotel.query.filter_by(id=hotel_id).first()
+        if hotel:
+            return jsonify(hotel.serialize()), 200
+        else:
+            return jsonify({"error": "Hotel not found"}), 404
+    except Exception as e:
+        print(sys.exc_info())
+        return jsonify({"error": str(e)}), 500
+
+
+# UPDATE: hotel info ----------------
+
+
+@api.route("/hotel/<int:hotel_id>/update", methods=["PUT"])
+def update_hotel(hotel_id):
+
+    update_hotel = request.get_json()
+    hotel = Hotel.query.filter_by(id=hotel_id).first()
+    form = HotelForm(meta={"csrf": False}, obj=update_hotel)
+
+    if form.validate_on_submit():
+        for field, value in update_hotel.items():
+            setattr(hotel, field, value)
+        try:
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            print(sys.exc_info())
+            return jsonify({"error": str(e)}), 500
+        finally:
+            db.session.close()
+
+        updated_hotel = Hotel.query.filter_by(id=hotel_id).first()
+        return jsonify({"updated hotel": updated_hotel.serialize()}), 200
+    else:
+        errors = {field: errors[0] for field, errors in form.errors.items()}
+        return jsonify({"error": "validation error", "errors": errors}), 400
+
+# DELETE: Hotel ---------------
+
+
+@api.route("/hotel/<int:hotel_id>/delete", methods=["DELETE"])
+def delete_hotel(hotel_id):
+    try:
+        hotel = Hotel.query.filter_by(id=hotel_id).first()
+        if not hotel:
+            return jsonify({"msg": "Hotel not found"}), 404
+        Hotel.query.filter_by(id=hotel_id).delete()
+        db.session.commit()
+        return jsonify({"msg": "hotel deleted successfully"}), 200
+    except Exception as e:
+        db.session.rollback()
+        print(sys.exc_info())
+        return jsonify({"error": str(e)}), 500
+    finally:
+        db.session.close()
+
+
 # ROOMS --------------------------------------------------------
 # CREATE: ROOM ---------------------------------
 
@@ -711,116 +825,3 @@ def get_invoice(invoice_id):
         print(sys.exc_info())
         return jsonify({"error": str(e)}), 500
 
-
-# HOTELS ----------------------------------------------------------
-# CREATE: Hotel ----------------
-
-
-@api.route("/hotel/create", methods=["POST"])
-def create_hotel():
-    # ! dangerous to disable the csrf protection
-    form = HotelForm(meta={"csrf": False})
-    if form.validate_on_submit():
-        try:
-            hotel_data = {field: getattr(
-                form, field).data for field in form._fields}
-            hotel = Hotel(**hotel_data)
-            db.session.add(hotel)
-            db.session.commit()
-
-            hotel_dict = hotel.serialize()
-            response = jsonify(hotel_dict)
-            return response, 200
-        except IntegrityError as e:
-            db.session.rollback()
-            return jsonify({"error": "database information check failed"}), 400
-        except Exception as e:
-            db.session.rollback()
-            print(sys.exc_info())
-            return jsonify({"error": str(e)}), 500
-        finally:
-            db.session.close()
-    else:
-        errors = {field: errors[0] for field, errors in form.errors.items()}
-        return jsonify({"error": "validation error", "errors": errors}), 400
-
-
-# READ: all hotels ---------------
-
-
-@api.route("/hotels", methods=["GET"])
-def get_hotels():
-    try:
-        hotels = Hotel.query.all()
-        hotels_list = [hotel.serialize() for hotel in hotels]
-        response_body = {
-            "hotels": hotels_list
-        }
-        return jsonify(response_body), 200
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-# READ: one hotel ---------------
-
-
-@api.route("/hotel/<int:hotel_id>", methods=["GET"])
-def get_hotel(hotel_id):
-    try:
-        if not hotel_id:
-            return jsonify({"error": "Bad Request: hotel_id is required"}), 400
-        hotel = Hotel.query.filter_by(id=hotel_id).first()
-        if hotel:
-            return jsonify(hotel.serialize()), 200
-        else:
-            return jsonify({"error": "Hotel not found"}), 404
-    except Exception as e:
-        print(sys.exc_info())
-        return jsonify({"error": str(e)}), 500
-
-
-# UPDATE: hotel info ----------------
-
-
-@api.route("/hotel/<int:hotel_id>/update", methods=["PUT"])
-def update_hotel(hotel_id):
-
-    update_hotel = request.get_json()
-    hotel = Hotel.query.filter_by(id=hotel_id).first()
-    form = HotelForm(meta={"csrf": False}, obj=update_hotel)
-
-    if form.validate_on_submit():
-        for field, value in update_hotel.items():
-            setattr(hotel, field, value)
-        try:
-            db.session.commit()
-        except Exception as e:
-            db.session.rollback()
-            print(sys.exc_info())
-            return jsonify({"error": str(e)}), 500
-        finally:
-            db.session.close()
-
-        updated_hotel = Hotel.query.filter_by(id=hotel_id).first()
-        return jsonify({"updated hotel": updated_hotel.serialize()}), 200
-    else:
-        errors = {field: errors[0] for field, errors in form.errors.items()}
-        return jsonify({"error": "validation error", "errors": errors}), 400
-
-# DELETE: Hotel ---------------
-
-
-@api.route("/hotel/<int:hotel_id>/delete", methods=["DELETE"])
-def delete_hotel(hotel_id):
-    try:
-        hotel = Hotel.query.filter_by(id=hotel_id).first()
-        if not hotel:
-            return jsonify({"msg": "Hotel not found"}), 404
-        Hotel.query.filter_by(id=hotel_id).delete()
-        db.session.commit()
-        return jsonify({"msg": "hotel deleted successfully"}), 200
-    except Exception as e:
-        db.session.rollback()
-        print(sys.exc_info())
-        return jsonify({"error": str(e)}), 500
-    finally:
-        db.session.close()
