@@ -44,12 +44,12 @@ UPDATE: /rooms/<:room_id>/update
 
 ## BOOKINGS
 
-CREATE: /booking/create
-READ: /bookings
-READ: /booking/<:id>
-UPDATE: /booking/<:id>/update
-DELETE: /booking/<:id>/delete
-READ: /booking/<:booking_id>/invoice
+- CREATE: /booking/create
+- READ: /bookings
+  READ: /booking/<:id>
+  UPDATE: /booking/<:id>/update
+  DELETE: /booking/<:id>/delete
+  READ: /booking/<:booking_id>/invoice
 
 ## FAVORITES
 

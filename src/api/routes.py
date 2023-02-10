@@ -227,3 +227,22 @@ def get_all_bookings():
         return jsonify({"bookings": bookings_list}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400
+
+# READ: one booking ---------------
+
+
+@api.route("/booking/<int:booking_id>", methods=["GET"])
+def get_booking(booking_id):
+    try:
+        if not booking_id:
+            return jsonify({"error": "Bad Request: booking_id is required"}), 400
+        booking = Booking.query.filter_by(id=booking_id).one_or_none()
+
+        if not booking:
+            return jsonify({"error": "no booking with this id"}), 404
+
+        return jsonify({"booking": booking.serialize()}), 200
+
+    except Exception as e:
+        print(sys.exc_info())
+        return jsonify({"error": str(e)}), 500
