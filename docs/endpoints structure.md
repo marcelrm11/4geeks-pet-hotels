@@ -47,9 +47,8 @@ UPDATE: /rooms/<:room_id>/update
 - CREATE: /booking/create
 - READ: /bookings
 - READ: /booking/<:id>
-  UPDATE: /booking/<:id>/update
-  DELETE: /booking/<:id>/delete
-  READ: /booking/<:booking_id>/invoice
+- UPDATE: /booking/<:id>/update
+- DELETE: /booking/<:id>/delete
 
 ## FAVORITES
 

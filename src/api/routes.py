@@ -169,7 +169,10 @@ def update_user(user_id):
 @api.route("/user/<int:user_id>/delete", methods=["DELETE"])
 def delete_user(user_id):
     try:
-        user = User.query.filter_by(id=user_id).delete()
+        user = User.query.filter_by(id=user_id).first()
+        if not user:
+            return jsonify({"error": "no user with this id"}), 404
+        user.delete()
         db.session.commit()
         return jsonify({"msg": "user deleted successfully"}), 200
     except Exception as e:
@@ -278,3 +281,22 @@ def update_booking(booking_id):
     else:
         errors = {field: errors[0] for field, errors in form.errors.items()}
         return jsonify({"error": "validation error", "errors": errors}), 400
+
+# DELETE: remove a booking -------------
+
+
+@api.route("/booking/<int:booking_id>/delete", methods=["DELETE"])
+def delete_booking(booking_id):
+    try:
+        booking = Booking.query.filter_by(id=booking_id).one_or_none()
+        if not booking:
+            return jsonify({"error": "no booking with this id"}), 404
+        booking.delete()
+        db.session.commit()
+        return jsonify({"success": "booking deleted successfully"}), 200
+    except Exception as e:
+        db.session.rollback()
+        print(sys.exc_info())
+        return jsonify({"error": str(e)}), 500
+    finally:
+        db.session.close()
