@@ -3,7 +3,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Pets, Hotel, Booking, Owner, Invoice, Favorite
-from api.forms import UserForm, ShortUserForm, PetForm
+from api.forms import UserForm, ShortUserForm, PetForm, HotelForm
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, set_access_cookies
 from sqlalchemy.exc import IntegrityError
 import sys
@@ -323,3 +323,81 @@ def get_hotel(hotel_id):
         return jsonify({"error": str(e)}), 500
 
 # CREATE: Hotel ----------------
+
+@api.route("/hotel/create", methods=["POST"])
+def create_hotel():
+    # ! dangerous to disable the csrf protection
+    form = HotelForm(meta={"csrf": False})
+    if form.validate_on_submit():
+        try:
+            hotel_data = {field: getattr(
+                form, field).data for field in form._fields}
+            hotel = Hotel(**hotel_data)
+            db.session.add(hotel)
+            db.session.commit()
+
+            # ? what are we doing with this token?
+            # access_token = create_access_token(identity=form.email.data)
+            # user_dict = user.serialize()
+            # user_dict["access_token"] = access_token
+            hotel_dict = hotel.serialize()
+            response = jsonify(hotel_dict)
+            # response.headers["Access-Control-Allow-Credentials"] = "true"
+            # set_access_cookies(response, access_token)
+            return response, 200
+        except IntegrityError as e:
+            db.session.rollback()
+            return jsonify({"error": "database information check failed"}), 400
+        except Exception as e:
+            db.session.rollback()
+            print(sys.exc_info())
+            return jsonify({"error": str(e)}), 500
+        finally:
+            db.session.close()
+    else:
+        errors = {field: errors[0] for field, errors in form.errors.items()}
+        return jsonify({"error": "validation error", "errors": errors}), 400
+
+# UPDATE: hotel info ----------------
+
+@api.route("/hotel/<int:hotel_id>/update", methods=["PUT"])
+def update_hotel(hotel_id):
+
+    update_hotel = request.get_json()
+    hotel = Hotel.query.filter_by(id=hotel_id).first()
+    form = HotelForm(meta={"csrf": False}, obj=update_hotel)
+
+    if form.validate_on_submit():
+        for field, value in update_hotel.items():
+            setattr(hotel, field, value)
+        try:
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            print(sys.exc_info())
+            return jsonify({"error": str(e)}), 500
+        finally:
+            db.session.close()
+
+        updated_hotel = Hotel.query.filter_by(id=hotel_id).first()
+        return jsonify({"updated hotel": updated_hotel.serialize()}), 200
+    else:
+        errors = {field: errors[0] for field, errors in form.errors.items()}
+        return jsonify({"error": "validation error", "errors": errors}), 400
+
+# DELETE: Hotel ---------------
+@api.route("/hotel/<int:hotel_id>/delete", methods=["DELETE"])
+def delete_hotel(hotel_id):
+    try:
+        hotel = Hotel.query.filter_by(id=hotel_id).first()
+        if not hotel:
+            return jsonify({"msg": "Hotel not found"}), 404
+        Hotel.query.filter_by(id=hotel_id).delete()
+        db.session.commit()
+        return jsonify({"msg": "hotel deleted successfully"}), 200
+    except Exception as e:
+        db.session.rollback()
+        print(sys.exc_info())
+        return jsonify({"error": str(e)}), 500
+    finally:
+        db.session.close()

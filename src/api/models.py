@@ -65,7 +65,7 @@ class Pets(db.Model):
             "breed": self.breed,
             "birth_date": self.birth_date,
             "health": self.health,
-            "pet_owner": self.pet_owner_id
+            "pet_owner_id": self.pet_owner_id
         }
 
 
@@ -151,7 +151,7 @@ class Hotel(db.Model):
             "zip_code": self.zip_code,
             "rooms": [r.serialize() for r in self.rooms],
             "hotel_bookings": [booking.serialize() for booking in self.hotel_bookings],
-            "hotel_owner": self.owner.serialize()
+            "hotel_owner_id": self.hotel_owner_id
         }
 
 

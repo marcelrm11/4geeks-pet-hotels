@@ -1,6 +1,6 @@
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, HiddenField, DateField
+from wtforms import StringField, PasswordField, HiddenField, DateField, IntegerField
 from wtforms.validators import DataRequired, Email, Length, EqualTo, Regexp, NumberRange
 import re
 
@@ -34,3 +34,15 @@ class PetForm(FlaskForm):
     breed = StringField("Breed", validators=[DataRequired()])
     birth_date = StringField("Birth Date", validators=[DataRequired()])
     health = StringField("Health", validators=[DataRequired()])
+    pet_owner_id = IntegerField("Pet Owner ID", validators=[DataRequired()])
+
+class HotelForm(FlaskForm):
+    name = StringField("Name", validators=[DataRequired()])
+    email = StringField("Email", validators=[DataRequired(), Email()])
+    country = StringField("Country", validators=[DataRequired()])
+    zip_code = StringField("Zip Code", validators=[DataRequired(), Regexp(zip_code_regex)])
+    phone_number = StringField("Phone Number", validators=[DataRequired(), Regexp(phone_regex)])
+    location = StringField("Location", validators=[DataRequired()])
+    services = StringField("Services", validators=[DataRequired()])
+    hotel_owner_id = IntegerField("Hotel Owner ID", validators=[DataRequired()])
+
