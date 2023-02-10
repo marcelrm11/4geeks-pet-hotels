@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Pets, Hotel, Booking, Owner, Invoice, Favorite
+from api.models import db, User, Pets, Hotel, Booking, Owner, Invoice, Favorite, Room
 from api.forms import UserForm, ShortUserForm
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, set_access_cookies
 from sqlalchemy.exc import IntegrityError
@@ -166,10 +166,15 @@ def update_user(user_id):
 
 @api.route("/user/<int:user_id>/delete", methods=["DELETE"])
 def delete_user(user_id):
+
     try:
-        user = User.query.filter_by(id=user_id).delete()
+        user = User.query.filter_by(id=user_id).first()
+        if not user:
+            return jsonify({"error": "User not found"}), 404
+        
+        User.query.filter_by(id=user_id).delete()
         db.session.commit()
-        return jsonify({"msg": "user deleted successfully"}), 200
+        return jsonify({"msg": "User deleted successfully"}), 200
     except Exception as e:
         db.session.rollback()
         print(sys.exc_info())
@@ -212,7 +217,7 @@ def create_owner():
             owner_dict = owner.serialize()
             owner_dict["access_token"] = access_token
 
-            response = jsonify(user_dict)
+            response = jsonify(owner_dict)
             response.headers["Access-Control-Allow-Credentials"] = "true"
             set_access_cookies(response, access_token)
             return response, 200
@@ -233,7 +238,7 @@ def create_owner():
 
 
 @api.route("/owners", methods=["GET"])
-def get_users():
+def get_owners():
     try:
         owners = Owner.query.all()
         print(owners)
@@ -271,7 +276,7 @@ def update_owner(owner_id):
 
     updated_owner = request.get_json()
     owner = Owner.query.filter_by(id=owner_id).first()
-    form = UserForm(obj=updated_owner)
+    form = UserForm(obj=updated_owner, meta={"csrf": False})
 
     if form.validate_on_submit():
         for field, value in updated_owner.items():
@@ -296,10 +301,15 @@ def update_owner(owner_id):
 
 @api.route("/owner/<int:owner_id>/delete", methods=["DELETE"])
 def delete_owner(owner_id):
+
     try:
-        owner = Owner.query.filter_by(id=owner_id).delete()
+        owner = Owner.query.filter_by(id=owner_id).first()
+        if not owner:
+            return jsonify({"error": "Owner not found"}), 404
+        
+        Owner.query.filter_by(id=owner_id).delete()
         db.session.commit()
-        return jsonify({"msg": "owner deleted successfully"}), 200
+        return jsonify({"msg": "Owner deleted successfully"}), 200
     except Exception as e:
         db.session.rollback()
         print(sys.exc_info())
@@ -331,13 +341,13 @@ def create_room():
     if not room_data:
         return "No data received", 400
 
-    required_fields = ['room', 'pet_type']
+    required_fields = ['pet_type']
     for field in required_fields:
         if field not in room_data:
             return f"Missing required field: {field}", 400
     
     # Create a new room object using the data
-    new_room = Room(room=room_data['room'], pet_type=room_data['pet_type'])
+    new_room = Room(pet_type=room_data['pet_type'])
     db.session.add(new_room)
     db.session.commit()
     
@@ -355,10 +365,11 @@ def get_rooms_pet_type(pet_type):
     
         room_list = [r.serialize() for r in rooms]
         response_body = {
-            "rooms_by_pet_type": rooms_list
+            "rooms_by_pet_type": room_list
         }
 
         return jsonify(response_body), 200
+
     except Exception as e:
         print(sys.exc_info())
         return jsonify({"error": str(e)}), 500
@@ -388,21 +399,23 @@ def update_room(room_id):
             if not room:
                 return jsonify({"error": "Room not found"}), 404
         
-        data = request.get_json()
-        if not data:
-            return jsonify({"error": "Bad Request: No data provided"}), 400
+            data = request.get_json()
+            if not data:
+                return jsonify({"error": "Bad Request: No data provided"}), 400
         
-        pet_type = data.get("pet_type")
+            pet_type = data.get("pet_type")
 
-        if pet_type:
-            room.pet_type = pet_type
+            if pet_type:
+                room.pet_type = pet_type
 
-        db.session.commit()
-        return jsonify(room.serialize()), 200
-    except Exception as e:
-        db.session.rollback()
-        print(sys.exc_info())
-        return jsonify({"error": str(e)}), 500
+                db.session.commit()
+                return jsonify(room.serialize()), 200
+        except Exception as e:
+            db.session.rollback()
+            print(sys.exc_info())
+            return jsonify({"error": str(e)}), 500
+        finally:
+            db.session.close()
 
 
 
