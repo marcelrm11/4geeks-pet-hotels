@@ -244,3 +244,5 @@ class Countries_zip_codes(db.Model):
 
     def __repr__(self):
         return f"<{self.country_iso}: {self.country}>"
+
+
