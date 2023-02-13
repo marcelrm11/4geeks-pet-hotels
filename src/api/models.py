@@ -17,14 +17,14 @@ class User(db.Model):
     last_name = db.Column(db.String(50), nullable=False)
     country = db.Column(db.String(30), nullable=False)
     zip_code = db.Column(db.String(30), nullable=False)
-    phone_number = db.Column(db.String(), nullable=False)
+    phone_number = db.Column(db.String(20), nullable=False)
     user_pets = db.relationship("Pets", backref=db.backref("user"))
     user_bookings = db.relationship("Booking", backref=db.backref("user"))
     invoices = db.relationship("Invoice", backref=db.backref("user"))
     favorites = db.relationship("Favorite", backref=db.backref("user"))
 
     def __repr__(self):
-        return f"<User {self.email}>"
+        return f"<User {self.id}: {self.first_name} {self.last_name}>"
 
     def serialize(self):
         return {
@@ -33,6 +33,7 @@ class User(db.Model):
             "first_name": self.first_name,
             "last_name": self.last_name,
             "country": self.country,
+            "phone_number": self.phone_number,
             "zip_code": self.zip_code,
             "user_pets": [pet.serialize() for pet in self.user_pets],
             # could we remove this?
@@ -55,7 +56,7 @@ class Pets(db.Model):
     bookings = db.relationship("Booking", backref=db.backref("pets"))
 
     def __repr__(self):
-        return f"<Pet {self.name}>"
+        return f"<Pet {self.id}: {self.name} ({self.pet_type})>"
 
     def serialize(self):
         return {
@@ -76,7 +77,7 @@ class Favorite(db.Model):
     hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.id"), nullable=False)
 
     def __repr__(self):
-        return f"<Favorite_id {self.id}>"
+        return f"<Favorite: User {self.user_id} - Hotel {self.hotel_id}>"
 
     def serialize(self):
         return {
@@ -105,7 +106,7 @@ class Owner(db.Model):
     bookings = db.relationship("Booking", backref=db.backref("owner"))
 
     def __repr__(self):
-        return f"<Hotel_owner {self.email}>"
+        return f"<Owner {self.id}: {self.first_name} {self.last_name}>"
 
     def serialize(self):
         return {
@@ -114,9 +115,10 @@ class Owner(db.Model):
             "first_name": self.first_name,
             "last_name": self.last_name,
             "country": self.country,
+            "phone_number": self.phone_number,
             "zip_code": self.zip_code,
             "hotels": [h.serialize() for h in self.hotels],
-            "bookings": [b.serialize() for b in self.bookings]
+            "bookings": {"id": b.id for b in self.bookings}
         }
 
 
@@ -138,7 +140,7 @@ class Hotel(db.Model):
     rooms = db.relationship("Room", backref=db.backref("hotel"))
 
     def __repr__(self):
-        return f"<Hotel {self.name}>"
+        return f"<Hotel {self.id}: {self.name}>"
 
     def serialize(self):
         return {
@@ -150,6 +152,7 @@ class Hotel(db.Model):
             "country": self.country,
             "zip_code": self.zip_code,
             "rooms": [r.serialize() for r in self.rooms],
+            "services": self.services,
             "hotel_bookings": [booking.serialize() for booking in self.hotel_bookings],
             "hotel_owner_id": self.hotel_owner_id
         }
@@ -163,7 +166,7 @@ class Room(db.Model):
     bookings = db.relationship("Booking", backref=db.backref("room"))
 
     def __repr__(self):
-        return f"<Room_id {self.id}>"
+        return f"<Room {self.id}: Hotel {self.hotel_id} ({self.pet_type})>"
 
     def serialize(self):
         return {
@@ -191,7 +194,7 @@ class Booking(db.Model):
     invoice = db.relationship("Invoice", backref=db.backref("booking"))
 
     def __repr__(self):
-        return f"<Booking {self.id}>"
+        return f"<Booking {self.id}: Hotel {self.hotel_id} - Entry: {self.entry_date}>"
 
     def serialize(self):
         return {
@@ -200,12 +203,13 @@ class Booking(db.Model):
             "pet_id": self.pet_id,
             "owner_id": self.owner_id,
             "hotel_id": self.hotel_id,
+            "room_id": self.room_id,
             "create_date": self.create_date,
             "entry_date": self.entry_date,
             "checkout_date": self.checkout_date,
             "price": self.price,
             "currency": self.currency,
-            "invoice": self.invoice.serialize()  # could we remove this?
+            "invoice_id": self.invoice.id if self.invoice else None
         }
 
 
@@ -222,7 +226,7 @@ class Invoice(db.Model):
     payment_ref = db.Column(db.String(), nullable=True)
 
     def __repr__(self):
-        return f"<Invoice_id {self.id}>"
+        return f"<Invoice ID: {self.id} - Ref: {self.payment_ref}>"
 
     def serialize(self):
         return {

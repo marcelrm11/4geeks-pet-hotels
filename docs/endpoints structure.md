@@ -1,5 +1,7 @@
 # ENDPOINTS
 
+The following endpoints ...
+
 ## USERS
 
 - CREATE: /signup/user

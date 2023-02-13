@@ -3,9 +3,9 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Pets, Hotel, Booking, Owner, Invoice, Favorite, Room
-from api.forms import BookingForm, InvoiceForm, UserForm, ShortUserForm, PetForm, HotelForm
+from api.forms import BookingForm, FavoriteForm, InvoiceForm, UserForm, ShortUserForm, PetForm, HotelForm
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, set_access_cookies
-from sqlalchemy.exc import IntegrityError
+from sqlalchemy.exc import IntegrityError, NoForeignKeysError
 import sys
 
 api = Blueprint("api", __name__)
@@ -140,12 +140,15 @@ def get_user(user_id):
 
 @api.route("/user/<int:user_id>/update", methods=["PUT"])
 def update_user(user_id):
+    # ? it is creating a "session" cookie, seen in the response
+    # this cookie is in the session storage, we need to know exactly where and when it is being created.
 
     updated_user = request.get_json()  # see signup for form validation
     user = User.query.filter_by(id=user_id).one_or_none()
+    # TODO add a validation to check if the user is changing the email address, and if he is, raise an error if another user has it.
     if not user:
         return jsonify({"error": "no user with this id"}), 404
-    form = UserForm(obj=updated_user)
+    form = UserForm(obj=updated_user, meta={"csrf": False})
 
     if form.validate_on_submit():
         for field, value in updated_user.items():
@@ -175,9 +178,10 @@ def delete_user(user_id):
         user = User.query.filter_by(id=user_id).first()
         if not user:
             return jsonify({"error": "no user with this id"}), 404
-        user.delete()
+        email = user.email
+        db.session.delete(user)
         db.session.commit()
-        return jsonify({"msg": "User deleted successfully"}), 200
+        return jsonify({"msg": f"User {email} deleted successfully"}), 200
     except Exception as e:
         db.session.rollback()
         print(sys.exc_info())
@@ -288,9 +292,10 @@ def delete_pet(pet_id):
         pet = Pets.query.filter_by(id=pet_id).first()
         if not pet:
             return jsonify({"msg": "Pet not found"}), 404
-        Pets.query.filter_by(id=pet_id).delete()
+        name = pet.name
+        db.session.delete(pet)
         db.session.commit()
-        return jsonify({"msg": "pet deleted successfully"}), 200
+        return jsonify({"msg": f"pet {name} deleted successfully"}), 200
     except Exception as e:
         db.session.rollback()
         print(sys.exc_info())
@@ -410,7 +415,7 @@ def delete_owner(owner_id):
         if not owner:
             return jsonify({"error": "Owner not found"}), 404
 
-        Owner.query.filter_by(id=owner_id).delete()
+        db.session.delete(owner)
         db.session.commit()
         return jsonify({"msg": "Owner deleted successfully"}), 200
     except Exception as e:
@@ -421,6 +426,7 @@ def delete_owner(owner_id):
         db.session.close()
 
         # HOTELS ----------------------------------------------------------
+
 # CREATE: Hotel ----------------
 
 
@@ -522,10 +528,12 @@ def delete_hotel(hotel_id):
     try:
         hotel = Hotel.query.filter_by(id=hotel_id).first()
         if not hotel:
-            return jsonify({"msg": "Hotel not found"}), 404
-        Hotel.query.filter_by(id=hotel_id).delete()
+            return jsonify({"error": "Hotel not found"}), 404
+        name = hotel.name
+        db.session.delete(hotel)
         db.session.commit()
-        return jsonify({"msg": "hotel deleted successfully"}), 200
+        return jsonify({"msg": f"hotel {name} deleted successfully"}), 200
+
     except Exception as e:
         db.session.rollback()
         print(sys.exc_info())
@@ -543,19 +551,19 @@ def create_room():
 
     room_data = request.get_json()
     if not room_data:
-        return "No data received", 400
+        return jsonify({"error": "No data received"}), 400
 
     required_fields = ['pet_type']
     for field in required_fields:
         if field not in room_data:
-            return f"Missing required field: {field}", 400
+            return jsonify({"error": f"Missing required field: {field}"}), 400
 
     # Create a new room object using the data
-    new_room = Room(pet_type=room_data['pet_type'])
+    new_room = Room(**room_data)
     db.session.add(new_room)
     db.session.commit()
 
-    return "Room created successfully", 200
+    return jsonify({"msg": "Room created successfully"}), 200
 
 # READ: ROOMS ---------------------------------
 
@@ -583,7 +591,7 @@ def get_rooms_pet_type(pet_type):
     try:
         rooms = Room.query.filter_by(pet_type=pet_type).all()
         if not rooms:
-            return "No rooms found for pet type: " + pet_type, 404
+            return jsonify({"error": "No rooms found for pet type: " + pet_type}), 404
 
         room_list = [r.serialize() for r in rooms]
         response_body = {
@@ -635,9 +643,9 @@ def delete_room(room_id):
         if not room:
             return jsonify({"error": "Room not found"}), 404
 
-        Room.query.filter_by(id=room_id).delete()
+        db.session.delete(room)
         db.session.commit()
-        return jsonify({"msg": "Room deleted successfully"}), 200
+        return jsonify({"msg": f"Room {room_id} deleted successfully"}), 200
     except Exception as e:
         db.session.rollback()
         print(sys.exc_info())
@@ -651,7 +659,7 @@ def delete_room(room_id):
 
 @api.route("/booking/create", methods=["POST"])
 def create_booking():
-    form = BookingForm()
+    form = BookingForm(meta={"csrf": False})
     if form.validate_on_submit():
         try:
             booking_data = {field: getattr(
@@ -711,7 +719,7 @@ def update_booking(booking_id):
     booking = Booking.query.filter_by(id=booking_id).one_or_none()
     if not booking:
         return jsonify({"error": "no booking with this id"}), 404
-    form = BookingForm(obj=updated_booking)
+    form = BookingForm(obj=updated_booking, meta={"csrf": False})
 
     if form.validate_on_submit():
         for field, value in updated_booking.items():
@@ -740,9 +748,9 @@ def delete_booking(booking_id):
         booking = Booking.query.filter_by(id=booking_id).one_or_none()
         if not booking:
             return jsonify({"error": "no booking with this id"}), 404
-        booking.delete()
+        db.session.delete(booking)
         db.session.commit()
-        return jsonify({"success": "booking deleted successfully"}), 200
+        return jsonify({"msg": f"booking {booking_id} deleted successfully"}), 200
     except Exception as e:
         db.session.rollback()
         print(sys.exc_info())
@@ -754,17 +762,26 @@ def delete_booking(booking_id):
 # CREATE: add favorite -------------
 
 
-@api.route("/user/<int:user_id>/hotel/<int:hotel_id>/favorite", methods=["POST"])
-def add_favorite(user_id, hotel_id):
-    try:
-        favorite = Favorite(user_id=user_id, hotel_id=hotel_id)
-        db.session.add(favorite)
-        db.session.commit()
-        return jsonify({"success": "favorite added successfully"}), 200
-    except Exception as e:
-        db.session.rollback()
-        print(sys.exc_info())
-        return jsonify({"error": str(e)}), 500
+@api.route("/favorite/create", methods=["POST"])
+def add_favorite():
+    form = FavoriteForm(meta={"csrf": False})
+    if form.validate_on_submit():
+        try:
+            favorite_data = {field: getattr(
+                form, field).data for field in form._fields}
+            favorite = Favorite(**favorite_data)
+            db.session.add(favorite)
+            db.session.commit()
+            return jsonify({"msg": "favorite added successfully"}), 200
+        except Exception as e:
+            db.session.rollback()
+            print(sys.exc_info())
+            return jsonify({"error": str(e)}), 500
+        finally:
+            db.session.close()
+    else:
+        errors = {field: errors[0] for field, errors in form.errors.items()}
+        return jsonify({"error": "validation error", "errors": errors}), 400
 
 # DELETE: remove favorite --------------
 
@@ -775,9 +792,9 @@ def delete_favorite(favorite_id):
         del_favorite = Favorite.query.filter_by(id=favorite_id).one_or_none()
         if not del_favorite:
             return jsonify({"error": "favorite not found"}), 404
-        del_favorite.delete()
+        db.session.delete(del_favorite)
         db.session.commit()
-        return jsonify({"success": "favorite deleted successfully"}), 200
+        return jsonify({"msg": "favorite deleted successfully"}), 200
     except Exception as e:
         db.session.rollback()
         print(sys.exc_info())
@@ -789,7 +806,7 @@ def delete_favorite(favorite_id):
 
 @api.route("/invoice/create", methods=["POST"])
 def create_invoice():
-    form = InvoiceForm()
+    form = InvoiceForm(meta={"csrf": False})
     if form.validate_on_submit():
         try:
             invoice_data = {field: getattr(
@@ -797,7 +814,7 @@ def create_invoice():
             invoice = Invoice(**invoice_data)
             db.session.add(invoice)
             db.session.commit()
-            return jsonify({"success": "invoice created successfully"}), 200
+            return jsonify({"msg": f"invoice for booking {invoice.booking_id} created successfully"}), 200
         except Exception as e:
             db.session.rollback()
             print(sys.exc_info())
@@ -824,5 +841,3 @@ def get_invoice(invoice_id):
     except Exception as e:
         print(sys.exc_info())
         return jsonify({"error": str(e)}), 500
-
-
