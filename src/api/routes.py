@@ -85,6 +85,7 @@ def create_user():
 
             response = jsonify(user_dict)
             response.headers["Access-Control-Allow-Credentials"] = "true"
+            response.headers["Access-Control-Allow-Origin"] = "*"
             set_access_cookies(response, access_token)
             return response, 200
         except IntegrityError as e:
