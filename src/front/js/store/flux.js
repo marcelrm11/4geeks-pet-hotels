@@ -1,103 +1,148 @@
 const getState = ({ getStore, getActions, setStore }) => {
   return {
+    redirectSignUp: false,
     store: {
       token: null,
-      message: null,
-      demo: [
-        {
-          title: "FIRST",
-          background: "white",
-          initial: "white",
-        },
-        {
-          title: "SECOND",
-          background: "white",
-          initial: "white",
-        },
-      ],
+      regexs: {
+        passwordRegex:
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,32})/,
+        emailRegex: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+        zipCodeRegex: /^\d{3,10}$/,
+        phoneNumberRegex: /^\d{8,14}$/,
+      },
+      errors: {},
+      signupSuccessful: false,
+      user: {},
     },
     actions: {
-      login: async (email, password) => {
+      login: async (e, email, password) => {
+        e.preventDefault();
         const opt = {
           method: "POST",
           headers: {
-            "content-type": "application/json",
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            email: "test",
-            password: "test",
+            email: email,
+            password: password,
           }),
+          //mode: "no-cors",
         };
 
         try {
           const response = await fetch(
-            process.env.BACKEND_URL + "api/login",
+            process.env.BACKEND_URL + "/api/login",
             opt
           );
           if (response.status !== 200) {
-            alert("there has been an error");
-            return false;
+            throw Error("Bad Request");
           }
-
           const data = await response.json();
-          console.log("token", data.access_token);
+          console.log(data);
           sessionStorage.setItem("token", data.access_token);
-          setStore({ token: data.access_token });
+          // console.log(sessionStorage.getItem("token"));
+          sessionStorage.setItem("user", JSON.stringify(data.user));
+          // console.log(JSON.parse(sessionStorage.getItem("user")));
+          setStore({ token: data.access_token, user: data.user });
           return true;
         } catch (error) {
           console.error(`there is an error`, error);
         }
       },
 
-      tokensessionStore: () => {
-        const token = sessionStorage.getItem("token");
-        if (token && token != "" && token != undefined)
-          setStore({ token: token });
+      getUserFromSessionStorage: () => {
+        const user = JSON.parse(sessionStorage.getItem("user"));
+        if (user) setStore({ user: user });
       },
-      // Use getActions to call a function within a fuction
-      exampleFunction: () => {
-        getActions().changeColor(0, "green");
+      tokenSessionStore: () => {
+        const token = sessionStorage.getItem("token");
+        if (token) setStore({ token: token });
+      },
+
+      handleValidateForm: (ev, formData) => {
+        const actions = getActions();
+        const regexs = getStore().regexs;
+        ev.preventDefault();
+        let newErrors = {};
+        for (let field in formData) {
+          const camelField = actions.kebabToCamel(field);
+          if (formData[field] === "") {
+            newErrors[field] = `${field} is required`;
+          } else if (
+            ["email", "password", "zip_code", "phone_number"].includes(field)
+          ) {
+            if (!regexs[`${camelField}Regex`].test(formData[field])) {
+              newErrors[
+                field
+              ] = `You have entered an invalid ${actions.removeUnderscores(
+                field
+              )}!`;
+            }
+          }
+          if (formData.password !== formData.confirm_password) {
+            newErrors.confirm_password =
+              "Fields 'Password' and 'Confirm password' do not match";
+          }
+        }
+        if (Object.keys(newErrors).length === 0) {
+          actions.handleSignupClick(formData);
+        } else {
+          setStore({ errors: newErrors });
+          console.log("errors", newErrors);
+        }
+
+        return Object.keys(newErrors).length === 0;
+      },
+
+      handleSignupClick: async (formData) => {
+        console.log("sent form:", formData);
+        const store = getStore();
+        store.signupSuccessful = false;
+        try {
+          const response = await fetch(
+            process.env.BACKEND_URL + "/api/signup/user",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(formData),
+              mode: "no-cors", //? are we sure?
+            }
+          );
+          console.log(response);
+          // const cookies = response.headers.get("set-cookie");
+          // console.log(cookies);
+          if (response.ok) {
+            const data = await response.json();
+            console.log(data);
+            setStore({ signupSuccessful: true });
+            return true;
+          }
+          throw Error(response.statusText);
+        } catch (e) {
+          console.log("error:", e);
+        }
       },
 
       logout: () => {
         sessionStorage.removeItem("token");
-        setStore({ token: null });
+        sessionStorage.removeItem("user");
+        setStore({ token: null, user: {} });
       },
-
-      getMessage: async () => {
-        const store = getStore();
-        const opt = {
-          headers: { Authorization: "Bearer " + store.token },
-        };
-
-        try {
-          // fetching data from the backend
-          const resp = await fetch(
-            "https://3001-marcelrm11-4geekspethot-khhwppgad2k.ws-eu84.gitpod.io/api/hello",
-            opt
-          );
-          const data = await resp.json();
-          setStore({ message: data.message });
-          console.log("funciono", data);
-          // don't forget to return something, that is how the async resolves
-          return data;
-        } catch (error) {
-          console.error("Error loading message from backend", error);
-        }
+      // helper functions
+      camelToKebab: (word) => {
+        return word.replace(/([a-z0-9])([A-Z])/g, "$1_$2").toLowerCase();
       },
-      changeColor: (index, color) => {
-        //get the store
-        const store = getStore();
-
-        //we have to loop the entire demo array to look for the respective index
-        //and change its color
-        const demo = store.demo.map((elm, i) => {
-          if (i === index) elm.background = color;
-          return elm;
-        });
-
-        //reset the global store
-        setStore({ demo: demo });
+      kebabToCamel: (word) => {
+        return word.replace(/[-_]([a-z])/g, (match) => match[1].toUpperCase());
+      },
+      capitalize: (word) => {
+        const wordArr = word.split("");
+        return wordArr[0].toUpperCase() + wordArr.slice(1).join("");
+      },
+      removeUnderscores: (word) => {
+        return word.replaceAll("_", " ");
       },
     },
   };
