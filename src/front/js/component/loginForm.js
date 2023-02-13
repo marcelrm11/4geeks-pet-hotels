@@ -4,17 +4,14 @@ import { Input } from "./input.js";
 import { Image } from "./image";
 import { Button } from "./button";
 import { Link } from "react-router-dom";
+import logo from "../../img/dog_logo.png";
 
 export const LoginForm = ({ credentials, onChange, onLogin }) => {
   const { actions } = useContext(Context);
 
   return (
     <form className="input-container">
-      <Image
-        figureClass="img-container"
-        src="https://media.istockphoto.com/id/1223125490/es/vector/cuidado-de-mascotas-logotipo-de-la-cl%C3%ADnica-veterinaria-tamplate-logotipo-de-dise%C3%B1o-de-perro.jpg?s=612x612&w=0&k=20&c=QBYam8XzBsu__CfZxL2y-dXAFBFwScHkk1TEKuNOfAs="
-        altText="logo"
-      />
+      <Image figureClass="img-container" src={logo} altText="logo" />
       {Object.entries(credentials).map(([field, value]) => {
         return (
           <Input
@@ -27,9 +24,23 @@ export const LoginForm = ({ credentials, onChange, onLogin }) => {
           />
         );
       })}
-      <Button buttonClass={"log-btn"} onClick={onLogin} data-bs-dismiss="modal">
-        <Link to="/">Login</Link>
+      <p className="password_forget">Forgot your password?</p>
+      <Button buttonClass={"log-btn access_btn"} onClick={onLogin} data-bs-dismiss="modal">
+        <Link to="/" className="log_color">
+          Log In
+        </Link>
       </Button>
+      <Button buttonClass={"log-btn log_socialMedia"} onClick={onLogin} data-bs-dismiss="modal">
+        <Link to="/" className="log_color">
+          Log In with Google
+        </Link>
+      </Button>
+      <Button buttonClass={"log-btn log_socialMedia"} onClick={onLogin} data-bs-dismiss="modal">
+        <Link to="/" className="log_color">
+          Log In with Facebook
+        </Link>
+      </Button>
+      <div className="footer"></div>
     </form>
   );
 };

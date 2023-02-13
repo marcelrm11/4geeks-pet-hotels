@@ -19,24 +19,24 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="navbar navbar-light bg-light">
+    <nav className="navbar navbar_background">
       <div className="container">
         <Link to="/">
-          <span className="navbar-brand mb-0 h1">React Boilerplate</span>
+          <span className="navbar-brand mb-0 h1">PetCasa</span>
         </Link>
         <div className="ml-auto">
           <Link to="/signup">
-            <button className="btn btn-danger">signup</button>
+            <button className="btn btn-danger signUp_Btn">Sign Up</button>
           </Link>
           {!store.token ? (
             <>
               <button
                 type="button"
-                className="btn btn-primary"
+                className="btn btn-primary logIn_Btn"
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModal"
               >
-                Log in
+                Log In
               </button>
               <LoginModal
                 onLogin={handleLogin}
