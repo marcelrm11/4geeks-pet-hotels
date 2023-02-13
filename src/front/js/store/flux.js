@@ -99,7 +99,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         const store = getStore();
         store.signupSuccessful = false;
         try {
-          const response = await fetch(process.env.BACKEND_URL + "api/signup", {
+          const response = await fetch(process.env.BACKEND_URL + "/signup/user", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
