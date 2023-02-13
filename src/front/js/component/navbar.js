@@ -1,9 +1,21 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
+import { LoginModal } from "./loginmodal";
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
+  const [credentials, setCredentials] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleLogin = (e) => {
+    actions.login(e, credentials.email, credentials.password);
+  };
+  const handleChange = (e) => {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  };
 
   return (
     <nav className="navbar navbar-light bg-light">
@@ -13,11 +25,25 @@ export const Navbar = () => {
         </Link>
         <div className="ml-auto">
           {!store.token ? (
-            <Link to="/login">
-              <button className="btn btn-primary">Log in</button>
-            </Link>
+            <>
+              <button
+                type="button"
+                className="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+              >
+                Log in
+              </button>
+              <LoginModal
+                onLogin={handleLogin}
+                onChange={handleChange}
+                credentials={credentials}
+              />
+            </>
           ) : (
-            <button onClick={() => actions.logout()} className="btn btn-danger">Log out</button>
+            <button onClick={() => actions.logout()} className="btn btn-danger">
+              Log out
+            </button>
           )}
         </div>
       </div>
