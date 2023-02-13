@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import { Input } from "./input.js";
 import { Image } from "./image";
 import { Button } from "./button";
+import { Link } from "react-router-dom";
 
 export const LoginForm = ({ credentials, onChange, onLogin }) => {
   const { actions } = useContext(Context);
@@ -27,7 +28,7 @@ export const LoginForm = ({ credentials, onChange, onLogin }) => {
         );
       })}
       <Button buttonClass={"log-btn"} onClick={onLogin} data-bs-dismiss="modal">
-        Login
+        <Link to="/">Login</Link>
       </Button>
     </form>
   );

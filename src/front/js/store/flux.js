@@ -107,7 +107,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify(formData),
-              mode: "no-cors", //? are we sure?
+              //mode: "no-cors", //? are we sure?
             }
           );
           console.log(response);

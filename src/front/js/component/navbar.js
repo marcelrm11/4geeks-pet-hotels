@@ -25,6 +25,9 @@ export const Navbar = () => {
           <span className="navbar-brand mb-0 h1">React Boilerplate</span>
         </Link>
         <div className="ml-auto">
+          <Link to="/signup">
+            <button className="btn btn-danger">signup</button>
+          </Link>
           {!store.token ? (
             <>
               <button
@@ -42,9 +45,14 @@ export const Navbar = () => {
               />
             </>
           ) : (
-            <button onClick={() => actions.logout()} className="btn btn-danger">
-              Log out
-            </button>
+            <Link to="/">
+              <button
+                onClick={() => actions.logout()}
+                className="btn btn-danger"
+              >
+                Log out
+              </button>
+            </Link>
           )}
         </div>
       </div>
