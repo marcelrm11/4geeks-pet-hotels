@@ -26,7 +26,7 @@ export const LoginForm = ({ credentials, onChange, onLogin }) => {
           />
         );
       })}
-      <Button buttonClass={"log-btn"} onClick={onLogin}>
+      <Button buttonClass={"log-btn"} onClick={onLogin} data-bs-dismiss="modal">
         Login
       </Button>
     </form>
