@@ -1,4 +1,3 @@
-
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     redirectSignUp: false,
@@ -27,11 +26,12 @@ const getState = ({ getStore, getActions, setStore }) => {
             email: email,
             password: password,
           }),
+          //mode: "no-cors",
         };
 
         try {
           const response = await fetch(
-            process.env.BACKEND_URL + "api/login",
+            process.env.BACKEND_URL + "/api/login",
             opt
           );
           if (response.status !== 200) {
@@ -99,14 +99,17 @@ const getState = ({ getStore, getActions, setStore }) => {
         const store = getStore();
         store.signupSuccessful = false;
         try {
-          const response = await fetch(process.env.BACKEND_URL + "api/signup", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
-            // mode: "no-cors", //? are we sure?
-          });
+          const response = await fetch(
+            process.env.BACKEND_URL + "/api/signup/user",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(formData),
+              mode: "no-cors", //? are we sure?
+            }
+          );
           console.log(response);
           // const cookies = response.headers.get("set-cookie");
           // console.log(cookies);

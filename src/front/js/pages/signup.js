@@ -22,7 +22,7 @@ export const Signup = () => {
   };
 
   return store.signupSuccessful ? (
-    <Navigate to="/login" />
+    <Navigate to="/" />
   ) : (
     <div className="text-center mt-5">
       <h1 className="signUp">Sign up</h1>

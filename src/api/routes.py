@@ -425,8 +425,8 @@ def delete_owner(owner_id):
     finally:
         db.session.close()
 
+        # HOTELS ----------------------------------------------------------
 
-# HOTELS ----------------------------------------------------------
 # CREATE: Hotel ----------------
 
 
@@ -533,6 +533,7 @@ def delete_hotel(hotel_id):
         db.session.delete(hotel)
         db.session.commit()
         return jsonify({"msg": f"hotel {name} deleted successfully"}), 200
+
     except Exception as e:
         db.session.rollback()
         print(sys.exc_info())
