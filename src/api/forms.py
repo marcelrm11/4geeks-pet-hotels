@@ -11,6 +11,7 @@ password_regex = re.compile(
 password_error_msg = "Passwords must match."
 zip_code_regex = r"^\d{3,10}$"
 phone_regex = r"^\d{8,14}$"
+phone_msg = "Phone number is invalid."
 
 
 class UserForm(FlaskForm):
@@ -24,7 +25,7 @@ class UserForm(FlaskForm):
     zip_code = StringField("Zip Code", validators=[
                            InputRequired(), Regexp(zip_code_regex)])
     phone_number = StringField("Phone Number", validators=[
-                               InputRequired(), Regexp(phone_regex)])
+                               InputRequired(), Regexp(phone_regex, message=phone_msg)])
 
 
 class ShortUserForm(FlaskForm):
@@ -78,17 +79,15 @@ class BookingForm(FlaskForm):
     checkout_date = DateField("Checkout Date", validators=[
                               InputRequired(), checkout_date_validator])
     price = DecimalField("Price", validators=[InputRequired()])
-    currency = StringField("Currency", validators=[
-                           InputRequired()], default="euro")
+    currency = StringField("Currency", default="euro")
 
 
 class InvoiceForm(FlaskForm):
-    pet_id = IntegerField("Pet ID", validators=[InputRequired()])
+    booking_id = IntegerField("Pet ID", validators=[InputRequired()])
     user_id = IntegerField("User ID", validators=[InputRequired()])
     hotel_id = IntegerField("Hotel ID", validators=[InputRequired()])
     amount = DecimalField("Price", validators=[InputRequired()])
-    currency = StringField("Currency", validators=[
-                           InputRequired()], default="euro")
+    currency = StringField("Currency", default="euro")
     billing_address = StringField(
         "Billing Address", validators=[InputRequired()])
     payment_ref = StringField("Payment Ref")
