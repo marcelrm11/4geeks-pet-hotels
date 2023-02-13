@@ -4,7 +4,7 @@ set -o errexit
 
 npm install
 
-source ./.venv/Scripts/activate
+source ./.venv/bin/activate
 pipenv install -r requirements.txt
 
 pipenv run upgrade
