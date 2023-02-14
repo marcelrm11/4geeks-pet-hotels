@@ -2,6 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
+from api.google_places_api import find_nearby_places
 from api.models import db, User, Pets, Hotel, Booking, Owner, Invoice, Favorite, Room
 from api.forms import BookingForm, FavoriteForm, InvoiceForm, UserForm, ShortUserForm, PetForm, HotelForm
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, set_access_cookies
@@ -473,6 +474,15 @@ def get_hotels():
         return jsonify(response_body), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+# SEARCH: nearby places -------------
+
+
+@api.route("/nearby/<keyword>/<rankby>", methods=["GET"])
+@api.route("/nearby/", methods=["GET"])
+def nearby_search(keyword="residencia canina", rankby="distance"):
+    response = find_nearby_places(keyword, rankby)
+    return jsonify(response)
 
 # READ: one hotel ---------------
 

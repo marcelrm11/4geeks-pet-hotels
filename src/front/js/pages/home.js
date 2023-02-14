@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
+import { Hotels } from "../components/hotels.jsx";
 
 export const Home = () => {
   const { store } = useContext(Context);
@@ -12,6 +13,7 @@ export const Home = () => {
       <p>
         <img src={rigoImageUrl} />
       </p>
+      <Hotels />
       <p>
         This boilerplate comes with lots of documentation:{" "}
         <a href="https://start.4geeksacademy.com/starters/react-flask">

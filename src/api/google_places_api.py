@@ -1,6 +1,8 @@
 import requests
 import os
 from api.utils import replace_spaces_with_underscores
+from flask import jsonify, Flask
+
 
 # Get Location data from IPAPI
 # ---------------------------------------------------------------
@@ -36,18 +38,20 @@ def get_location():
 # ---------------------------------------------------------------
 
 
-def find_nearby_places(search_query="residencia canina", rankby="distance"):
-    loc = get_location()
-    print(loc)
-    lat = loc['latitude']
-    lng = loc['longitude']
-    search_query = replace_spaces_with_underscores(search_query)
-    api_key = os.getenv('GOOGLE_API_KEY')
-    url = f'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={lat},{lng}&rankby={rankby}&keyword={search_query}&key={api_key}'
+def find_nearby_places(search_query, rankby):
+    try:
+        loc = get_location()
+        lat = loc.get('latitude', 41.346176)
+        lng = loc.get('longitude', 2.168365)
+        search_query = replace_spaces_with_underscores(search_query)
+        api_key = os.getenv('GOOGLE_API_KEY')
+        url = f'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={lat},{lng}&rankby={rankby}&keyword={search_query}&key={api_key}'
 
-    response = requests.get(url)
-    data = response.json()
-    return data
+        response = requests.get(url)
+        data = response.json()
+        return data
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
     # Search using a keyword and location with Google Places API - Nearby Search (don't need radius if rankby=distance)
     # https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={lat},{lng}&rankby=distance&keyword={search_query}&key={os.getenv('GOOGLE_API_KEY')}
@@ -85,7 +89,7 @@ def find_place_details(place_id):
     return data
 
 # Get a Photo by Ref using Google Places API
-# ---------------------------------------------------------------
+# --------------------------------------------------------------- (don't need it a priori)
 
 
 def get_photo_by_ref(photo_ref, maxwidth="400"):
