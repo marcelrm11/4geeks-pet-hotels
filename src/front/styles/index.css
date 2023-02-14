@@ -1,10 +1,32 @@
-/* 
-    General Styles used on every website (Don't Repeat Yourself)
-*/
+:root {
+  --salmon: #fb5652;
+  --darkRed: #702625;
+  --turquoise: #00968c;
+  --lighterBlue: #def2f1;
+  --darkBlue: #193236;
+  --lightBlue: #90bcba;
+  --blackLetters: rgb(19, 18, 18);
+  --whiteLetters: #ffffff;
+  --btnRadius: 3px;
+  --fontSize-XS: 0.8rem;
+  --fontSize-S: 1.6rem;
+  --fontSize-m: 2rem;
+  --fontSize-L: 2.4rem;
+}
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: var(--whiteLetters);
+}
+
+a:hover {
+  color: var(--whiteLetters);
 }
 
 .forms > input {
@@ -18,18 +40,60 @@ body {
   font-size: 62.5%;
 }
 
+/*Navbar*/
+
+.navbar_background {
+  background-color: var(--darkBlue);
+}
+
+.signUp_Btn {
+  border-color: var(--salmon);
+  background-color: var(--salmon);
+}
+
+.signUp_Btn:hover {
+  border-color: var(--darkRed);
+  background-color: var(--darkRed);
+}
+
+.logIn_Btn {
+  border-color: var(--lightBlue);
+  background-color: var(--lightBlue);
+  color: var(--blackLetters);
+  margin-left: 1rem;
+}
+
+.logIn_Btn:hover {
+  border-color: var(--turquoise);
+  background-color: var(--turquoise);
+}
+
+/*login-signup*/
+
+.modal_background {
+  background-color: var(--darkBlue);
+  color: var(--whiteLetters);
+}
+
+.password_forget {
+  color: var(--whiteLetters);
+  margin: 0;
+}
+
 .input-container {
   display: grid;
   place-content: center;
-  gap: 6%;
+  gap: 3%;
   margin-top: 10%;
 }
 
 .input-container input {
-  height: 50px;
+  min-width: 180px;
+  min-height: 30px;
+  height: auto;
   border: none;
-  border-radius: 25px;
-  background-color: #e6d3a7;
+  border-radius: var(--btnRadius);
+  background-color: var(--lighterBlue);
   padding: 2% 5%;
 }
 
@@ -45,12 +109,48 @@ body {
 }
 
 .log-btn {
-  width: 100%;
-  height: 50px;
-  font-size: 1.4rem;
+  min-width: 160px;
+  height: 30px;
   border: none;
-  border-radius: 15px;
-  color: white;
-  background-color: #83580b;
+  border-radius: var(--btnRadius);
+  background-color: var(--salmon);
 }
 
+.access_btn {
+  margin: 1rem 0;
+}
+
+.logIn_access:hover {
+  background-color: var(--darkRed);
+}
+
+.log_socialMedia {
+  background-color: var(--lightBlue);
+}
+
+.log_socialMedia:hover {
+  background-color: var(--turquoise);
+}
+
+.log_color {
+  color: var(--whiteLetters);
+  font-size: var(--fontSize-XS);
+}
+
+.btn-x {
+  background-color: var(--salmon);
+  padding: 0.5rem 1.5rem;
+}
+
+.btn-x:hover {
+  background-color: var(--lightBlue);
+}
+
+.footer {
+  height: 100px;
+  margin: 0.4rem 0;
+}
+
+.signUp_title {
+  padding: 0rem 0 3rem;
+}

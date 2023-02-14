@@ -2,12 +2,13 @@ import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import { Input } from "./input.js";
 import { Button } from "./button";
+import { Link } from "react-router-dom";
 
 export const SignUpForm = ({ formData, handleChange, handleValidate }) => {
   const { store, actions } = useContext(Context);
 
   return (
-    <form>
+    <form className="input-container">
       <input
         type="hidden"
         id="crsf_token"
@@ -29,8 +30,19 @@ export const SignUpForm = ({ formData, handleChange, handleValidate }) => {
           </React.Fragment>
         );
       })}
-      <Button buttonClass="log-btn" onClick={handleValidate}>
-        Sign up
+      <Button buttonClass="log-btn access_btn" onClick={handleValidate}>
+        <span className="log_color">Sign up</span>
+      </Button>
+      <p>--------------- Or ---------------</p>
+      <Button buttonClass={"log-btn log_socialMedia"} data-bs-dismiss="modal">
+        <Link to="/" className="log_color">
+          Log In with Google
+        </Link>
+      </Button>
+      <Button buttonClass={"log-btn log_socialMedia"} data-bs-dismiss="modal">
+        <Link to="/" className="log_color">
+          Log In with Facebook
+        </Link>
       </Button>
     </form>
   );
