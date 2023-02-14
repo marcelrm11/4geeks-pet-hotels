@@ -8,6 +8,7 @@ import injectContext from "./store/appContext";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { Signup } from "./pages/signup";
+import { HotelListing } from "./pages/hotelListing";
 
 const Layout = () => {
   const basename = process.env.BASENAME || "";
@@ -20,6 +21,7 @@ const Layout = () => {
           <Routes>
             <Route element={<Home />} path="/" />
             <Route element={<Signup />} path="/signup" />
+            <Route element={<HotelListing />} path="/hotelListing" />
             <Route element={<h1>Not found!</h1>} />
           </Routes>
           <Footer />
