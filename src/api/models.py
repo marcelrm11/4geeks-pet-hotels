@@ -132,12 +132,15 @@ class Hotel(db.Model):
     phone_number = db.Column(db.String(), nullable=False)
     location = db.Column(db.String(70), nullable=False)
     services = db.Column(db.String(100), nullable=False)
+    hotel_description = db.Column(db.String(500), nullable=False)
     hotel_owner_id = db.Column(
         db.Integer, db.ForeignKey("owner.id"), nullable=False)
     hotel_bookings = db.relationship("Booking", backref=db.backref("hotel"))
     invoices = db.relationship("Invoice", backref=db.backref("hotel"))
     favorites = db.relationship("Favorite", backref=db.backref("hotel"))
     rooms = db.relationship("Room", backref=db.backref("hotel"))
+    reviews = db.relationship("Review", backref=db.backref("hotel"))
+    photos = db.relationship("Photo", backref=db.backref("hotel"))
 
     def __repr__(self):
         return f"<Hotel {self.id}: {self.name}>"
@@ -153,10 +156,50 @@ class Hotel(db.Model):
             "zip_code": self.zip_code,
             "rooms": [r.serialize() for r in self.rooms],
             "services": self.services,
+            "hotel_description": self.hotel_description,
             "hotel_bookings": [booking.serialize() for booking in self.hotel_bookings],
-            "hotel_owner_id": self.hotel_owner_id
+            "hotel_owner_id": self.hotel_owner_id,
+            "reviews": [rev.serialize() for rev in self.reviews],
+            "photos": [photo.serialize() for photo in self.photos]
         }
 
+class Review(db.Model):
+    __tablename__ = "review"
+    id = db.Column(db.Integer, primary_key=True)
+    review_text = db.Column(db.String(200), nullable=False)
+    rating = db.Column(db.Float(precision=2), nullable=False)
+    date = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
+    author = db.Column(db.String(50), nullable=False)
+    hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.id"), nullable=False)
+
+    def __repr__(self):
+        return f"<Review {self.id}: Hotel {self.hotel_id}>"
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "review_text": self.review_text,
+            "rating": self.rating,
+            "date": self.date,
+            "author": self.author,
+            "hotel_id": self.hotel_id
+        }
+
+class Photo(db.Model):
+    __tablename__ = "photo"
+    id = db.Column(db.Integer, primary_key=True)
+    photo_url = db.Column(db.String())
+    hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.id"), nullable=False)
+
+    def __repr__(self):
+        return f"<Photo {self.id}: Hotel {self.hotel_id}>"
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "photo_url": self.photo_url,
+            "hotel_id": self.hotel_id
+        }
 
 class Room(db.Model):
     __tablename__ = "room"

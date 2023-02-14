@@ -53,8 +53,21 @@ class HotelForm(FlaskForm):
                                InputRequired(), Regexp(phone_regex)])
     location = StringField("Location", validators=[InputRequired()])
     services = StringField("Services", validators=[InputRequired()])
+    hotel_description = StringField("Hotel Description", validators=[InputRequired()])
     hotel_owner_id = IntegerField(
         "Hotel Owner ID", validators=[InputRequired()])
+
+class ReviewForm(FlaskForm):
+    review_text = StringField("Review Text", validators=[InputRequired()])
+    rating = DecimalField("Rating", validators=[InputRequired()])
+    date = DateTimeField("Date", default=datetime.datetime.now())
+    author = StringField("Author", validators=[InputRequired()])
+    hotel_id = IntegerField("Hotel ID", validators=[InputRequired()])
+
+class PhotoForm(FlaskForm):
+    photo_url = StringField("Photo URL", validators=[InputRequired()])
+    hotel_id = IntegerField("Hotel ID", validators=[InputRequired()])
+
 
 
 class FavoriteForm(FlaskForm):
