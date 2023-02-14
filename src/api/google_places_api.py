@@ -65,6 +65,7 @@ def find_nearby_places(search_query="residencia canina", rankby="distance"):
 
 def find_place_id_by_name(place_name):
     api_key = os.getenv('GOOGLE_API_KEY')
+    place_name = replace_spaces_with_underscores(place_name)
     url = f"https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input={place_name}&inputtype=textquery&key={api_key}"
 
     response = requests.get(url)
