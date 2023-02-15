@@ -25,7 +25,6 @@ export const Signup = () => {
     <Navigate to="/" />
   ) : (
     <div className="text-center mt-5">
-      <h1 className="signUp_title">Join us now</h1>
       <div className="forms">
         <SignUpForm
           formData={formData}
