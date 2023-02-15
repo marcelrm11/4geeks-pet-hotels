@@ -1,7 +1,4 @@
-from flask import Flask, request
-from bs4 import BeautifulSoup
-import requests
-from flask import jsonify, url_for
+from flask import url_for
 
 
 class APIException(Exception):
