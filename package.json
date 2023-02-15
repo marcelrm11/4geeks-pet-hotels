@@ -73,13 +73,10 @@
 		]
 	},
 	"dependencies": {
-<<<<<<< HEAD
 		"axios": "^1.3.3",
-=======
 		"@fortawesome/fontawesome-svg-core": "^6.3.0",
 		"@fortawesome/free-solid-svg-icons": "^6.3.0",
 		"@fortawesome/react-fontawesome": "^0.2.0",
->>>>>>> 80667f296252f0e1232d621ac209659db6903efa
 		"js-cookie": "^3.0.1",
 		"prop-types": "^15.6.1",
 		"react": "^16.8.4",
