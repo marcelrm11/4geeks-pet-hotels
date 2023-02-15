@@ -1,6 +1,7 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
+import datetime
 import json
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.google_places_api import find_nearby_places
@@ -634,6 +635,59 @@ def get_rooms_pet_type(pet_type):
 
     except Exception as e:
         print(sys.exc_info())
+        return jsonify({"error": str(e)}), 500
+
+# SEARCH: AVAILABLE ROOMS ----------------------------------------------------------------
+
+
+@api.route('/rooms/available', methods=["GET"])
+def get_available_rooms():
+    try:
+        pet_type = request.args.get('pet_type')
+        entry_date = datetime.datetime.strptime(
+            request.args.get('entry_date'), '%Y-%m-%d')
+        checkout_date = datetime.datetime.strptime(
+            request.args.get('checkout_date'), '%Y-%m-%d')
+
+        available_rooms = (
+            db.session.query(Hotel, Room)
+            .join(Room, Hotel.id == Room.hotel_id)
+            .filter(Room.pet_type == pet_type)
+            .outerjoin(Booking, Booking.room_id == Room.id)
+            .filter(
+                db.or_(
+                    Booking.checkout_date <= entry_date,
+                    Booking.entry_date >= checkout_date,
+                    Booking.id == None
+                )
+            )
+            .order_by(Hotel.id, Room.id)
+            .all()
+        )
+
+        # group available rooms by hotel
+        result = {}
+        for hotel, room in available_rooms:
+            if hotel.id not in result:
+                result[hotel.id] = {
+                    'id': hotel.id,
+                    'email': hotel.email,
+                    'name': hotel.name,
+                    'country': hotel.country,
+                    'zip_code': hotel.zip_code,
+                    'phone_number': hotel.phone_number,
+                    'location': hotel.location,
+                    'services': hotel.services,
+                    'rooms': []
+                }
+            result[hotel.id]['rooms'].append({
+                'id': room.id,
+                'pet_type': room.pet_type,
+                'hotel_id': room.hotel_id
+            })
+
+        return jsonify(list(result.values()))
+    except Exception as e:
         return jsonify({"error": str(e)}), 500
 
 # UPDATE: ROOM -------------------------------------
