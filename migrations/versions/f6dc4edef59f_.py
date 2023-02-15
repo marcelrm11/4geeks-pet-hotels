@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: bb36b6c4cd04
+Revision ID: f6dc4edef59f
 Revises: 
-Create Date: 2023-02-13 13:16:38.575257
+Create Date: 2023-02-14 10:43:16.588745
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'bb36b6c4cd04'
+revision = 'f6dc4edef59f'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -61,6 +61,7 @@ def upgrade():
     sa.Column('phone_number', sa.String(), nullable=False),
     sa.Column('location', sa.String(length=70), nullable=False),
     sa.Column('services', sa.String(length=100), nullable=False),
+    sa.Column('hotel_description', sa.String(length=500), nullable=False),
     sa.Column('hotel_owner_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['hotel_owner_id'], ['owner.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -82,6 +83,23 @@ def upgrade():
     sa.Column('hotel_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['hotel_id'], ['hotel.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('photo',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('photo_url', sa.String(), nullable=True),
+    sa.Column('hotel_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['hotel_id'], ['hotel.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('review',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('review_text', sa.String(length=200), nullable=False),
+    sa.Column('rating', sa.Float(precision=2), nullable=False),
+    sa.Column('date', sa.DateTime(), nullable=False),
+    sa.Column('author', sa.String(length=50), nullable=False),
+    sa.Column('hotel_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['hotel_id'], ['hotel.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('room',
@@ -132,6 +150,8 @@ def downgrade():
     op.drop_table('invoice')
     op.drop_table('booking')
     op.drop_table('room')
+    op.drop_table('review')
+    op.drop_table('photo')
     op.drop_table('favorite')
     op.drop_table('pets')
     op.drop_table('hotel')
