@@ -1,8 +1,13 @@
+import React, { useEffect } from "react";
+
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     redirectSignUp: false,
     store: {
       token: null,
+      loading: true,
+      favorites: [],
+      hotels: [],
       regexs: {
         passwordRegex:
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,32})/,
@@ -107,7 +112,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify(formData),
-              mode: "no-cors", //? are we sure?
+              //mode: "no-cors", //? are we sure?
             }
           );
           console.log(response);
@@ -143,6 +148,11 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       removeUnderscores: (word) => {
         return word.replaceAll("_", " ");
+      },
+
+      addFavorites: (id) => {
+        const store = getStore();
+        console.log(id);
       },
     },
   };
