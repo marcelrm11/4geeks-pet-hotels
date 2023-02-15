@@ -2,6 +2,10 @@ from bs4 import BeautifulSoup
 import requests
 
 # Extract hotels data from https://www.hogarmania.com/mascotas/mejores-hoteles-residencias-para-mascotas.html
+# Other websites:
+# https://www.durmecan.com/residencias/
+# https://www.expertoanimal.com/espana/busqueda?q=residencias
+# https://www.consumer.es/mascotas/residencias-de-lujo-para-perros-en-espana-cinco-estrellas-para-los-clientes-caninos.html
 
 
 def scrap_hotels_info():
@@ -41,6 +45,7 @@ def scrap_hotels_info():
 
     # Step 5: Search place details in Google Places API - Place Details by ID
     # https://maps.googleapis.com/maps/api/place/details/json?fields=address_components%2Cadr_address%2Cbusiness_status%2Cformatted_address%2Cgeometry%2Cicon%2Cicon_mask_base_uri%2Cicon_background_color%2Cname%2Cphotos%2Cplace_id%2Cplus_code%2Ctype%2Curl%2Cutc_offset%2Cvicinity%2Cwheelchair_accessible_entrance&place_id={place_id}&key={os.getenv('GOOGLE_API_KEY')}
+
 
     # Step 6: Store the relevant information in your database
     # (You can use a library or API of your choice to do this)

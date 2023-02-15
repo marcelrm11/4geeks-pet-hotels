@@ -9,7 +9,8 @@ from flask import jsonify, Flask
 
 
 def get_location():
-    url = 'https://ipapi.co/json/'
+    api_key = os.getenv('IPAPI_KEY')
+    url = f'https://ipapi.co/json/?key={api_key}'
     response = requests.get(url)
     data = response.json()
     return data

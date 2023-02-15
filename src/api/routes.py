@@ -641,6 +641,7 @@ def get_rooms_pet_type(pet_type):
 
 
 @api.route('/rooms/available', methods=["GET"])
+# example: '/rooms/available?pet_type=dog&entry_date=2023-02-25&checkout_date=2023-03-01'
 def get_available_rooms():
     try:
         pet_type = request.args.get('pet_type')
