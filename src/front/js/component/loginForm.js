@@ -11,7 +11,7 @@ export const LoginForm = ({ credentials, onChange, onLogin }) => {
 
   return (
     <form className="input-container">
-      <Image figureClass="img-container" src={logo} altText="logo" />
+      <Image figureClass="img-container login_logo_image" src={logo} altText="logo" />
       {Object.entries(credentials).map(([field, value]) => {
         return (
           <Input

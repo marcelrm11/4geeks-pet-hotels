@@ -11,7 +11,12 @@ const HotelCard = ({ hotel, index }) => {
   return (
     <div key={index} className="card card_section" style={{ width: "16rem" }}>
       <img src={labrador} className="card-img-top hotel_image" alt="..." />
-      <FontAwesomeIcon className="favorites_icon" icon={faHeart} />
+      <button
+        onClick={() => actions.addFavorites(hotel.id)}
+        className="favoritesBtn"
+      >
+        <FontAwesomeIcon icon={faHeart} className="favorites_icon" />
+      </button>
       <div className="card-body">
         <div className="hotel_title_section">
           <h5 className="card-title">{actions.capitalize(hotel.name)}</h5>

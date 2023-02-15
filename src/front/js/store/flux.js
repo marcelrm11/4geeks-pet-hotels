@@ -6,6 +6,7 @@ const getState = ({ getStore, getActions, setStore }) => {
     store: {
       token: null,
       loading: true,
+      favorites: [],
       hotels: [],
       regexs: {
         passwordRegex:
@@ -19,7 +20,6 @@ const getState = ({ getStore, getActions, setStore }) => {
       user: {},
     },
     actions: {
-
       login: async (e, email, password) => {
         e.preventDefault();
         const opt = {
@@ -148,6 +148,11 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       removeUnderscores: (word) => {
         return word.replaceAll("_", " ");
+      },
+
+      addFavorites: (id) => {
+        const store = getStore();
+        console.log(id);
       },
     },
   };

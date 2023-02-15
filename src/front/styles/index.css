@@ -82,11 +82,15 @@ body {
 }
 
 .input-container {
+  display: grid;
+  place-content: center;
+  gap: 2%;
   margin-top: 10%;
 }
 
 .input-container input {
-  min-width: 180px;
+  min-width: 200px;
+  max-width: 220px;
   min-height: 40px;
   height: auto;
   border: none;
@@ -95,15 +99,16 @@ body {
   padding: 2% 5%;
 }
 
-.img-container {
+.login_logo_image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-img-container {
   width: 100%;
   display: flex;
   justify-content: center;
-}
-
-.img-container img {
-  width: 60%;
-  height: fit-content;
 }
 
 .log-btn {
@@ -153,9 +158,10 @@ body {
   margin-bottom: 3rem;
 }
 
-.img-container img {
-  border-radius: 5rem;
+.signup_img-container img {
+  border-radius: 3rem;
   overflow: hidden;
+  margin-left: 2rem;
 }
 
 /*Listing Hotels*/
@@ -299,6 +305,18 @@ body {
   margin: 0;
 }
 
+.favoritesBtn {
+  position: absolute;
+  right: 0.4rem;
+  top: 0.3rem;
+  border: none;
+}
+
+.favoritesBtn:hover {
+  background-color: transparent;
+  border: transparent;
+}
+
 .favorites_icon {
   position: absolute;
   font-size: var(--fontSize-S);
@@ -340,8 +358,13 @@ body {
 
 /*media queries*/
 
-@media (min-width: 300px) {
-  .input-container {
+@media (max-width: 768px) {
+  .login_logo_image img {
+    width: 60%;
+    height: fit-content;
+  }
+
+  .signup-input-container {
     display: grid;
     gap: 3%;
   }
@@ -384,7 +407,12 @@ body {
   }
 }
 
-@media (min-width: 700px) {
+@media (min-width: 769px) {
+  .hotel_listing_container {
+    display: grid;
+    place-content: center;
+  }
+
   .signup_img-container {
     display: block;
   }
@@ -400,9 +428,13 @@ body {
     width: 100%;
   }
 
-  .input-container {
+  .signup-input-container {
     display: flex;
     margin-right: 1rem;
+  }
+
+  .input-container input {
+    min-width: 180px;
   }
 
   .signUp_title {
@@ -417,7 +449,7 @@ body {
   }
 
   .signup_info {
-    margin: 2% 8% 0 0;
+    margin: 2% 4% 0 0;
   }
 
   .access_btn {
@@ -444,7 +476,12 @@ body {
   }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 992px) {
+  .login_logo_image img {
+    max-width: 210px;
+    height: fit-content;
+  }
+
   .signup_img-container img {
     width: 70%;
     min-width: 350px;
@@ -452,7 +489,7 @@ body {
     margin-left: 3rem;
   }
 
-  .input-container {
+  .signup-input-container {
     justify-content: center;
     margin-top: 6%;
     margin-left: 2rem;
@@ -462,7 +499,7 @@ body {
     margin: 2% 15% 0 2%;
   }
 
-  .input-container input {
+  .signup-input-container input {
     min-width: 200px;
     min-height: 40px;
   }

@@ -2,8 +2,10 @@ import React, { useContext, useState, useEffect } from "react";
 import "../../styles/home.css";
 import HotelCard from "../component/hotelCard";
 import HotelListingSearch from "../component/hotelListingSearch";
+import { Context } from "../store/appContext";
 
 export const HotelListing = () => {
+  const { store } = useContext(Context);
   const [hotels, setHotels] = useState([]);
   const [loading, setLoading] = useState(true);
 

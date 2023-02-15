@@ -10,7 +10,7 @@ export const SignUpForm = ({ formData, handleChange, handleValidate }) => {
   const { store, actions } = useContext(Context);
 
   return (
-    <form className="input-container">
+    <form className="signup-input-container input-container">
       <div>
         <Image
           className="signUp_image"
