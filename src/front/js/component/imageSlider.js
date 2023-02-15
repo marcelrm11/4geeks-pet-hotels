@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { GrCaretNext, GrCaretPrevious } from 'react-icons/gr'; 
+import { FcPrevious, FcNext } from 'react-icons/fc'; 
 
 export const ImageSlider = ({ photos }) => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -29,8 +31,8 @@ export const ImageSlider = ({ photos }) => {
             <div className="detailsPhoto">
                 {photos && <img src={accessPhotosUrl()[currentImageIndex]}/>}
                 <div className="sliderBtns">
-                    <button onClick={previousSlide}><i className="fa-solid fa-circle-chevron-left btnIcon"></i></button>
-                    <button onClick={nextSlide}><i className="fa-solid fa-circle-chevron-right btnIcon"></i></button>
+                    <button onClick={previousSlide}><FcPrevious className="btnIcon" style={{ color: 'red' }}/></button>
+                    <button onClick={nextSlide}><FcNext className="btnIcon"/></button>
                 </div>
             </div>
     </section>
