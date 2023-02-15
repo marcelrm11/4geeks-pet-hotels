@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200&display=swap");
+
 :root {
   --salmon: #fb5652;
   --darkRed: #702625;
@@ -39,6 +41,7 @@ body {
   width: 100vw;
   height: 100vh;
   font-size: 62.5%;
+  font-family: "Source Sans Pro", sans-serif;
 }
 
 /*Navbar*/
@@ -356,6 +359,81 @@ body {
   margin-right: 0.3rem;
 }
 
+/*Booking section*/
+
+.preSubmmit_section {
+  width: 90%;
+  padding: 4rem 1rem;
+}
+
+.preSubmmit_section h2 {
+  font-size: var(--fontSize-XS);
+}
+
+.booking_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.booking_container p {
+  font-size: var(--fontSize-XS);
+}
+
+.bookingSub_section {
+  width: 90%;
+  height: fit-content;
+  border-radius: 1rem;
+  background-color: var(--darkBlue);
+  color: var(--whiteLetters);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.bookingSub_section hr {
+  width: 90%;
+  border: 1px solid var(--lighterBlue);
+  opacity: 1;
+  margin: 0.5rem 0;
+}
+
+.bookingSub_header {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+}
+
+.bookingSub_header img {
+  width: 40%;
+  height: fit-content;
+  border-radius: 1rem;
+  margin: 1rem;
+}
+
+.bookingSub_info_header {
+  width: 100%;
+  padding: 0.5rem 1rem 0 1rem;
+  font-size: var(--fontSize-XS);
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.bookingSub_info_body {
+  width: 100%;
+  padding: 1.5rem;
+}
+
+.bookingSub_info_footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem;
+}
+
 /*media queries*/
 
 @media (max-width: 768px) {
@@ -537,6 +615,26 @@ body {
 
   .checkout_date label {
     padding-right: 1.5rem;
+  }
+
+  .booking_container {
+    flex-direction: row;
+  }
+
+  .bookingSub_section {
+    margin: 4rem;
+  }
+
+  .submit_space {
+    min-height: 240px;
+  }
+
+  .preSubmmit_section {
+    padding: 4rem;
+  }
+
+  .bookingSub_section {
+    width: 85%;
   }
 }
 
