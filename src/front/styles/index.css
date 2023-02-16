@@ -296,12 +296,12 @@ h5 {
   }
 }
 
-  .signup_img-container img {
-    border-radius: 3rem;
-    overflow: hidden;
-    margin-left: 2rem;
-  }
+.signup_img-container img {
+  border-radius: 3rem;
+  overflow: hidden;
+  margin-left: 2rem;
 }
+
 /*Listing Hotels*/
 
 .hotelListing_search_bar {
