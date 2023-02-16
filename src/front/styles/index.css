@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;1,200;1,300;1,400;1,600;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;1,200;1,300;1,400;1,600;1,700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200&display=swap");
 
 :root {
@@ -161,7 +161,7 @@ body {
 .signUp_title {
   padding: 0rem 0 3rem;
 }
-.detailsPhoto{
+.detailsPhoto {
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -174,7 +174,7 @@ body {
   height: 100%;
   max-width: 100%;
   max-height: 100%;
-  object-fit: contain; 
+  object-fit: contain;
 }
 .sliderBtns {
   margin: auto;
@@ -188,7 +188,6 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1;
-
 }
 .sliderBtns button {
   border: none;
@@ -200,105 +199,108 @@ body {
   border-radius: 3px;
   color: white;
 }
-.basicInfo{
+.basicInfo {
   margin: 20px;
   padding: 10px 0px 10px 0px;
   background-color: #def2f1;
 }
-.basicInfo p, .hotelServices{
+.basicInfo p,
+.hotelServices {
   margin: 5px;
   font-size: 16px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
-.hotelDescription{
-  margin:20px;
+.hotelDescription {
+  margin: 20px;
   font-size: 16px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   text-align: justify;
 }
-h5{
+h5 {
   text-align: left;
   margin: 20px;
   font-size: 22px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
-.reviewStar{
+.reviewStar {
   color: #fb5652;
 }
-.hotelReview p{
+.hotelReview p {
   font-size: 16px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   text-align: left;
   margin: 20px;
 }
-.hotelReview p:first-child, .hotelReview p:nth-child(2){
+.hotelReview p:first-child,
+.hotelReview p:nth-child(2) {
   color: #5e6766;
   margin: 0px 20px 0 20px;
 }
-.hideOnMobile{
+.hideOnMobile {
   display: none;
 }
 
-@media screen and (min-width: 768px){
-  .hotelServices{
+@media screen and (min-width: 768px) {
+  .hotelServices {
     display: inline-block;
     padding: 20px;
   }
-  .hideOnMobile{
+  .hideOnMobile {
     display: block;
     background-color: #193236;
     height: 300px;
     margin: 20px;
     border-radius: 10px;
   }
-  .hideOnMobile *{
+  .hideOnMobile * {
     color: white;
     font-family: "Source Sans Pro", sans-serif;
     text-align: left;
   }
-  .hideOnMobile p:first-child{
+  .hideOnMobile p:first-child {
     padding: 40px 0px 0px 20px;
     text-align: left;
   }
-  .hideOnMobile p:nth-child(2){
+  .hideOnMobile p:nth-child(2) {
     text-align: left;
     padding: 0px 0px 5px 20px;
     border-bottom: 1px solid white;
   }
-  .placeDetailsDateInput{
+  .placeDetailsDateInput {
     display: inline-flex;
     margin: 0px;
   }
-  .bookedServices{
+  .bookedServices {
     text-align: left;
     padding: 0px 0px 5px 0px;
     border-bottom: 1px solid white;
   }
-  .entryDate label, .checkoutDate label {
+  .entryDate label,
+  .checkoutDate label {
     display: block;
   }
-  .totalEur p{
+  .totalEur p {
     display: inline;
   }
   .flex-container {
     display: flex;
   }
-  
+
   .component1 {
     flex: 1;
   }
-  
+
   .components2 {
     flex: 2;
     margin-bottom: 3rem;
-}
+  }
 
-.signup_img-container img {
-  border-radius: 3rem;
-  overflow: hidden;
-  margin-left: 2rem;
+  .signup_img-container img {
+    border-radius: 3rem;
+    overflow: hidden;
+    margin-left: 2rem;
+  }
 }
-
 /*Listing Hotels*/
 
 .hotelListing_search_bar {

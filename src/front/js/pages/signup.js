@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import "../../styles/home.css";
 import { Context } from "../store/appContext";
-import { SignUpForm } from "../components/signUpForm";
+import { SignUpForm } from "../component/signUpForm";
 import { Navigate } from "react-router";
 
 export const Signup = () => {
