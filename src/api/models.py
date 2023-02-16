@@ -22,6 +22,7 @@ class User(db.Model):
     user_bookings = db.relationship("Booking", backref=db.backref("user"))
     invoices = db.relationship("Invoice", backref=db.backref("user"))
     favorites = db.relationship("Favorite", backref=db.backref("user"))
+    reviews = db.relationship("Review", backref=db.backref("user"))
 
     def __repr__(self):
         return f"<User {self.id}: {self.first_name} {self.last_name}>"
@@ -163,13 +164,16 @@ class Hotel(db.Model):
             "photos": [photo.serialize() for photo in self.photos]
         }
 
+
 class Review(db.Model):
     __tablename__ = "review"
     id = db.Column(db.Integer, primary_key=True)
     review_text = db.Column(db.String(200), nullable=False)
     rating = db.Column(db.Float(precision=2), nullable=False)
-    date = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
-    author = db.Column(db.String(50), nullable=False)
+    date = db.Column(db.DateTime, nullable=False,
+                     default=datetime.datetime.now)
+    author_id = db.Column(
+        db.String(50), db.ForeignKey("user.id"), nullable=False)
     hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.id"), nullable=False)
 
     def __repr__(self):
@@ -181,9 +185,10 @@ class Review(db.Model):
             "review_text": self.review_text,
             "rating": self.rating,
             "date": self.date,
-            "author": self.author,
+            "author_id": self.author_id,
             "hotel_id": self.hotel_id
         }
+
 
 class Photo(db.Model):
     __tablename__ = "photo"
@@ -200,6 +205,7 @@ class Photo(db.Model):
             "photo_url": self.photo_url,
             "hotel_id": self.hotel_id
         }
+
 
 class Room(db.Model):
     __tablename__ = "room"
