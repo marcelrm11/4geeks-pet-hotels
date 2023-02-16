@@ -2,7 +2,7 @@ import React from "react";
 import BookingSubmit from "../component/bookingSbmit";
 import { Button } from "../component/button";
 
-const Booking = () => {
+export const Booking = () => {
   return (
     <>
       <div className="booking_container">
@@ -27,4 +27,3 @@ const Booking = () => {
   );
 };
 
-export default Booking;

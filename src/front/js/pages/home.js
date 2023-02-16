@@ -1,23 +1,35 @@
 import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
+import HomeSearch from "../component/homeSearch";
 
 export const Home = () => {
   const { store } = useContext(Context);
 
   return (
     <div className="text-center mt-5">
-      <h1>Hello {store.user.first_name}!!</h1>
-      <p>
-        <img src={rigoImageUrl} />
-      </p>
-      <p>
-        This boilerplate comes with lots of documentation:{" "}
-        <a href="https://start.4geeksacademy.com/starters/react-flask">
-          Read documentation
-        </a>
-      </p>
+      <section className="home_image_searchbar">
+        <div>
+          <figure>
+            <img src="" alt="" />
+          </figure>
+          <div>
+            <div>
+              <HomeSearch />
+            </div>
+            <div>
+              <h1>Petcasa</h1>
+              <p>Alojamientos de mascota con profesionales</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="home_hotels"></section>
+
+      <section className="home_welcome_info"></section>
+
+      <section className="home_value"></section>
     </div>
   );
 };
