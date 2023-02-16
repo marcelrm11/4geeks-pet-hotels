@@ -55,6 +55,17 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
+      listing: useEffect(() => {
+        const store = getStore();
+        fetch(process.env.BACKEND_URL + "/api/hotels")
+          .then((response) => response.json())
+          .then((data) =>
+            setStore({ hotels: [...store.hotels, ...data.hotels] })
+          );
+
+        setStore({ loading: false });
+      }, []),
+
       getUserFromSessionStorage: () => {
         const user = JSON.parse(sessionStorage.getItem("user"));
         if (user) setStore({ user: user });

@@ -10,18 +10,22 @@ export const Home = () => {
   return (
     <div className="text-center mt-5">
       <section className="home_image_searchbar">
+        <figure className="home_img_container">
+          <img
+            className="home_image"
+            src={landing_image}
+            alt="dog welcoming image"
+          />
+        </figure>
+        <div className="home_image_info_searchBar">
+          <div className="home_search_bar_container">
+            <HomeSearch />
+          </div>
+        </div>
         <div>
-          <figure>
-            <img src={landing_image} alt="" />
-          </figure>
-          <div>
-            <div>
-              <HomeSearch />
-            </div>
-            <div>
-              <h1>Petcasa</h1>
-              <p>Alojamientos de mascota con profesionales</p>
-            </div>
+          <div className="home_welcome_title">
+            <h1>Petcasa</h1>
+            <p>Alojamientos de mascota con profesionales</p>
           </div>
         </div>
       </section>
