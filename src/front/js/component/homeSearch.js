@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "../component/button";
 
 const HomeSearch = () => {
   return (
@@ -28,6 +29,9 @@ const HomeSearch = () => {
         <div>
           <label>Search</label>
           <input type="text" placeholder="Search" />
+          <Button buttonClass="log-btn access_btn">
+            <span className="log_color search_btn">Search</span>
+          </Button>
         </div>
         <div></div>
       </div>

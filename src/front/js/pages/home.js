@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import HomeSearch from "../component/homeSearch";
+import landing_image from "../../img/homeLandingImage.jpg";
 
 export const Home = () => {
   const { store } = useContext(Context);
@@ -11,7 +12,7 @@ export const Home = () => {
       <section className="home_image_searchbar">
         <div>
           <figure>
-            <img src="" alt="" />
+            <img src={landing_image} alt="" />
           </figure>
           <div>
             <div>

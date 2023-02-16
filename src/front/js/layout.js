@@ -9,9 +9,9 @@ import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { Signup } from "./pages/signup";
 import { Hotel } from "./pages/hotel";
-import Booking from "./pages/booking.js";
+import { Booking } from "./pages/booking.js";
 import { HotelListing } from "./pages/hotelListing";
-import Favorites from "./pages/favorites.js";
+import { Favorites } from "./pages/favorites.js";
 
 const Layout = () => {
   const basename = process.env.BASENAME || "";
