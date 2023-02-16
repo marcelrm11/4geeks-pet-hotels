@@ -1,7 +1,10 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
+import datetime
+import json
 from flask import Flask, request, jsonify, url_for, Blueprint
+from api.google_places_api import find_nearby_places
 from api.models import db, User, Pets, Hotel, Booking, Owner, Invoice, Favorite, Room
 from api.forms import BookingForm, FavoriteForm, InvoiceForm, UserForm, ShortUserForm, PetForm, HotelForm
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, set_access_cookies
@@ -475,10 +478,40 @@ def get_hotels():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+# SEARCH: nearby places -------------
+
+
+@api.route("/nearby/<keyword>/<rankby>", methods=["GET"])
+@api.route("/nearby/", methods=["GET"])
+def nearby_search(keyword="residencia canina", rankby="distance"):
+    try:
+        print("start")
+        response = find_nearby_places(keyword, rankby)
+        results = []
+        if response['status'] != "OK":
+            return jsonify({"error": "Error fetching data"})
+        else:
+            for result in response['results']:
+                item = {
+                    "location": result['geometry']['location'],
+                    "name": result['name'],
+                    "photos": result.get('photos', None),
+                    "place_id": result['place_id'],
+                    "rating": result['rating'],
+                    "types": result['types'],
+                    "user_ratings_total": result['user_ratings_total'],
+                    "address": result['vicinity']
+
+                }
+                results.append(item)
+        return jsonify({"results": results, "next_page_token": response.get('next_page_token', None)}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 # READ: one hotel ---------------
 
 
-@api.route("/hotel/<int:hotel_id>", methods=["GET"])
+@ api.route("/hotel/<int:hotel_id>", methods=["GET"])
 def get_hotel(hotel_id):
     try:
         if not hotel_id:
@@ -496,7 +529,7 @@ def get_hotel(hotel_id):
 # UPDATE: hotel info ----------------
 
 
-@api.route("/hotel/<int:hotel_id>/update", methods=["PUT"])
+@ api.route("/hotel/<int:hotel_id>/update", methods=["PUT"])
 def update_hotel(hotel_id):
 
     update_hotel = request.get_json()
@@ -524,7 +557,7 @@ def update_hotel(hotel_id):
 # DELETE: Hotel ---------------
 
 
-@api.route("/hotel/<int:hotel_id>/delete", methods=["DELETE"])
+@ api.route("/hotel/<int:hotel_id>/delete", methods=["DELETE"])
 def delete_hotel(hotel_id):
     try:
         hotel = Hotel.query.filter_by(id=hotel_id).first()
@@ -547,7 +580,7 @@ def delete_hotel(hotel_id):
 # CREATE: ROOM ---------------------------------
 
 
-@api.route('/room/create', methods=['POST'])
+@ api.route('/room/create', methods=['POST'])
 def create_room():
 
     room_data = request.get_json()
@@ -569,7 +602,7 @@ def create_room():
 # READ: ROOMS ---------------------------------
 
 
-@api.route("/rooms", methods=["GET"])
+@ api.route("/rooms", methods=["GET"])
 def get_rooms():
     try:
         rooms = Room.query.all()
@@ -586,7 +619,7 @@ def get_rooms():
 # READ: ROOMS PET TYPE -----------------------------------------------------------------
 
 
-@api.route('/rooms/<pet_type>', methods=['GET'])
+@ api.route('/rooms/<pet_type>', methods=['GET'])
 def get_rooms_pet_type(pet_type):
 
     try:
@@ -605,10 +638,64 @@ def get_rooms_pet_type(pet_type):
         print(sys.exc_info())
         return jsonify({"error": str(e)}), 500
 
+# SEARCH: AVAILABLE ROOMS ----------------------------------------------------------------
+
+
+@api.route('/rooms/available', methods=["GET"])
+# example: '/rooms/available?pet_type=dog&entry_date=2023-02-25&checkout_date=2023-03-01'
+def get_available_rooms():
+    try:
+        pet_type = request.args.get('pet_type')
+        entry_date = datetime.datetime.strptime(
+            request.args.get('entry_date'), '%Y-%m-%d')
+        checkout_date = datetime.datetime.strptime(
+            request.args.get('checkout_date'), '%Y-%m-%d')
+
+        available_rooms = (
+            db.session.query(Hotel, Room)
+            .join(Room, Hotel.id == Room.hotel_id)
+            .filter(Room.pet_type == pet_type)
+            .outerjoin(Booking, Booking.room_id == Room.id)
+            .filter(
+                db.or_(
+                    Booking.checkout_date <= entry_date,
+                    Booking.entry_date >= checkout_date,
+                    Booking.id == None
+                )
+            )
+            .order_by(Hotel.id, Room.id)
+            .all()
+        )
+
+        # group available rooms by hotel
+        result = {}
+        for hotel, room in available_rooms:
+            if hotel.id not in result:
+                result[hotel.id] = {
+                    'id': hotel.id,
+                    'email': hotel.email,
+                    'name': hotel.name,
+                    'country': hotel.country,
+                    'zip_code': hotel.zip_code,
+                    'phone_number': hotel.phone_number,
+                    'location': hotel.location,
+                    'services': hotel.services,
+                    'rooms': []
+                }
+            result[hotel.id]['rooms'].append({
+                'id': room.id,
+                'pet_type': room.pet_type,
+                'hotel_id': room.hotel_id
+            })
+
+        return jsonify(list(result.values()))
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 # UPDATE: ROOM -------------------------------------
 
 
-@api.route("/room/<int:room_id>/update", methods=["PUT"])
+@ api.route("/room/<int:room_id>/update", methods=["PUT"])
 def update_room(room_id):
 
     try:
@@ -637,7 +724,7 @@ def update_room(room_id):
 # DELETE: ROOM -----------------------------------------------------------------
 
 
-@api.route("/room/<int:room_id>/delete", methods=["DELETE"])
+@ api.route("/room/<int:room_id>/delete", methods=["DELETE"])
 def delete_room(room_id):
     try:
         room = Room.query.filter_by(id=room_id).first()
@@ -658,7 +745,7 @@ def delete_room(room_id):
 # BOOKINGS ------------------------------------------------------
 # CREATE: a booking ------------
 
-@api.route("/booking/create", methods=["POST"])
+@ api.route("/booking/create", methods=["POST"])
 def create_booking():
     form = BookingForm(meta={"csrf": False})
     if form.validate_on_submit():
@@ -682,7 +769,7 @@ def create_booking():
 # READ: all bookings ------------
 
 
-@api.route("/bookings", methods=["GET"])
+@ api.route("/bookings", methods=["GET"])
 def get_all_bookings():
     try:
         bookings = Booking.query.all()
@@ -694,7 +781,7 @@ def get_all_bookings():
 # READ: one booking ---------------
 
 
-@api.route("/booking/<int:booking_id>", methods=["GET"])
+@ api.route("/booking/<int:booking_id>", methods=["GET"])
 def get_booking(booking_id):
     try:
         if not booking_id:
@@ -713,7 +800,7 @@ def get_booking(booking_id):
 # UPDATE: edit a booking ------------
 
 
-@api.route("/booking/<int:booking_id>/update", methods=["PUT"])
+@ api.route("/booking/<int:booking_id>/update", methods=["PUT"])
 def update_booking(booking_id):
 
     updated_booking = request.get_json()
@@ -743,7 +830,7 @@ def update_booking(booking_id):
 # DELETE: remove a booking -------------
 
 
-@api.route("/booking/<int:booking_id>/delete", methods=["DELETE"])
+@ api.route("/booking/<int:booking_id>/delete", methods=["DELETE"])
 def delete_booking(booking_id):
     try:
         booking = Booking.query.filter_by(id=booking_id).one_or_none()
@@ -763,7 +850,7 @@ def delete_booking(booking_id):
 # CREATE: add favorite -------------
 
 
-@api.route("/favorite/create", methods=["POST"])
+@ api.route("/favorite/create", methods=["POST"])
 def add_favorite():
     form = FavoriteForm(meta={"csrf": False})
     if form.validate_on_submit():
@@ -787,7 +874,7 @@ def add_favorite():
 # DELETE: remove favorite --------------
 
 
-@api.route("/favorite/<int:favorite_id>/delete", methods=["DELETE"])
+@ api.route("/favorite/<int:favorite_id>/delete", methods=["DELETE"])
 def delete_favorite(favorite_id):
     try:
         del_favorite = Favorite.query.filter_by(id=favorite_id).one_or_none()
@@ -805,7 +892,7 @@ def delete_favorite(favorite_id):
 # CREATE: new invoice -------------
 
 
-@api.route("/invoice/create", methods=["POST"])
+@ api.route("/invoice/create", methods=["POST"])
 def create_invoice():
     form = InvoiceForm(meta={"csrf": False})
     if form.validate_on_submit():
@@ -829,7 +916,7 @@ def create_invoice():
 # READ: get invoice --------------
 
 
-@api.route("/invoice/<int:invoice_id>", methods=["GET"])
+@ api.route("/invoice/<int:invoice_id>", methods=["GET"])
 def get_invoice(invoice_id):
     try:
         if not invoice_id:
