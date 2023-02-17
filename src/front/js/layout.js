@@ -9,6 +9,7 @@ import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { Signup } from "./pages/signup";
 import { Hotel } from "./pages/hotel";
+import { AddHotel } from "./pages/addHotel";
 import { Booking } from "./pages/booking.js";
 import { HotelListing } from "./pages/hotelListing";
 import { Favorites } from "./pages/favorites.js";
@@ -23,6 +24,7 @@ const Layout = () => {
           <Navbar />
           <Routes>
             <Route element={<Home />} path="/" />
+            <Route element={<AddHotel />} path="/addHotel" />
             <Route element={<Signup />} path="/signup" />
             <Route element={<Hotel />} path="/hotel/:id" />
             <Route element={<Booking />} path="/booking" />

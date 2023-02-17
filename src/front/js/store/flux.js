@@ -17,6 +17,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       errors: {},
       signupSuccessful: false,
+      addHotelSuccessful: false,
       user: {},
     },
     actions: {
@@ -164,6 +165,64 @@ const getState = ({ getStore, getActions, setStore }) => {
       addFavorites: (id) => {
         const store = getStore();
         console.log(id);
+      },
+
+      handleValidateHotelForm: (ev, hotelData) => {
+        const actions = getActions();
+        const regexs = getStore().regexs;
+        ev.preventDefault();
+        let newErrors = {};
+        for (let field in hotelData) {
+          const camelField = actions.kebabToCamel(field);
+          if (hotelData[field] === "") {
+            newErrors[field] = `${field} is required`;
+          } else if (["email", "zip_code", "phone_number"].includes(field)) {
+            if (!regexs[`${camelField}Regex`].test(hotelData[field])) {
+              newErrors[
+                field
+              ] = `You have entered an invalid ${actions.removeUnderscores(
+                field
+              )}!`;
+            }
+          }
+        }
+        if (Object.keys(newErrors).length === 0) {
+          actions.handleAddHotelData(hotelData);
+        } else {
+          setStore({ errors: newErrors });
+          console.log("errors", newErrors);
+        }
+
+        return Object.keys(newErrors).length === 0;
+      },
+
+      handleAddHotelData: async (hotelData) => {
+        console.log("sent form:", hotelData);
+        const store = getStore();
+        store.addHotelSuccessful = false;
+        try {
+          const response = await fetch(
+            process.env.BACKEND_URL + "/api/hotel/create",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(hotelData),
+            }
+          );
+          console.log(response);
+          if (response.ok) {
+            const data = await response.json();
+            console.log(data);
+            setStore({ addHotelSuccessful: true });
+            setTimeout(() => setStore({ addHotelSuccessful: false }), 4000);
+            return true;
+          }
+          throw Error(response.statusText);
+        } catch (e) {
+          console.log("error:", e);
+        }
       },
     },
   };

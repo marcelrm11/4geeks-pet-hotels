@@ -674,7 +674,6 @@ h5 {
   .home_search_date {
     flex-direction: column;
   }
-
 }
 
 @media (min-width: 769px) {
@@ -743,6 +742,10 @@ h5 {
 
   .access_btn {
     margin: 3rem 0 0.8rem 0;
+  }
+
+  .add_hotel .access_btn {
+    margin: 4rem 0 0.8rem 0;
   }
 
   .hotelServices {
@@ -827,13 +830,11 @@ h5 {
     width: 70%;
     min-width: 350px;
     height: fit-content;
-    margin-left: 3rem;
   }
 
   .signup-input-container {
     justify-content: center;
     margin-top: 6%;
-    margin-left: 2rem;
   }
 
   .signup_info {
