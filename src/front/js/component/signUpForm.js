@@ -30,25 +30,29 @@ export const SignUpForm = ({ formData, handleChange, handleValidate }) => {
           />
           {Object.entries(formData).map(([field, value]) => {
             return (
-              <React.Fragment key={field}>
-                <Input
-                  type={
-                    field.includes("password")
-                      ? "password"
-                      : field.includes("email")
-                      ? "email"
-                      : "text"
-                  }
-                  id={field}
-                  placeholder={actions.removeUnderscores(
-                    actions.capitalize(field)
-                  )}
-                  value={value}
-                  onChange={handleChange}
-                  required
-                />
-                {store.errors[field] && <p>{store.errors[field]}</p>}
-              </React.Fragment>
+              <Input
+                key={field}
+                type={
+                  field.includes("password")
+                    ? "password"
+                    : field.includes("email")
+                    ? "email"
+                    : "text"
+                }
+                id={field}
+                placeholder={actions.removeUnderscores(
+                  actions.capitalize(field)
+                )}
+                value={value}
+                onChange={handleChange}
+                required
+              >
+                {store.errors[field] && (
+                  <span className="input-error">
+                    {actions.removeUnderscores(store.errors[field])}
+                  </span>
+                )}
+              </Input>
             );
           })}
         </div>

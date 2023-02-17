@@ -51,6 +51,14 @@ body {
 
 input {
   font-size: 0.8rem;
+  margin-top: 0.4em;
+}
+.input-error {
+  font-size: 0.6rem;
+  position: absolute;
+  bottom: -14px;
+  color: var(--salmon);
+  display: block;
 }
 
 /*Navbar*/

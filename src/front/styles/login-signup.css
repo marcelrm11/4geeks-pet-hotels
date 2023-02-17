@@ -104,7 +104,7 @@
     display: grid;
     place-content: center;
     grid-template-columns: auto;
-    gap: 3%;
+    gap: 4%;
   }
 
   .btn_container {
