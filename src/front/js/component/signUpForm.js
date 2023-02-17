@@ -20,7 +20,7 @@ export const SignUpForm = ({ formData, handleChange, handleValidate }) => {
         />
       </div>
       <div className="signup_info">
-        <h1 className="signUp_title">Join us now</h1>
+        <h1 className="signUp_title title-font">Join us now</h1>
         <div className="inputs_section">
           <input
             type="hidden"

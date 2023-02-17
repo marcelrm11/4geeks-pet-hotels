@@ -22,7 +22,7 @@ export const Navbar = () => {
     <nav className="navbar navbar_background">
       <div className="container">
         <Link to="/">
-          <span className="navbar-brand mb-0 h1">PetCasa</span>
+          <span className="navbar-brand mb-0 h1 title-font">PetCasa</span>
         </Link>
         <div className="ml-auto">
           <Link to="/signup">

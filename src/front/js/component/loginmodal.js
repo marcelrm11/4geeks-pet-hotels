@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import { LoginForm } from "./loginForm";
+import "../../styles/login-signup.css";
 
 export const LoginModal = ({ credentials, onChange, onLogin }) => {
   const { store } = useContext(Context);
