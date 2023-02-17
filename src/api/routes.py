@@ -45,6 +45,9 @@ def handle_login():
             return response, 200
         except Exception as e:
             return jsonify({"error": str(e)}), 401
+    else:
+        errors = {field: errors[0] for field, errors in form.errors.items()}
+        return jsonify({"error": "validation error", "errors": errors}), 400
 
 # Get User ID ------------
 

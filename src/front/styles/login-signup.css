@@ -17,8 +17,7 @@
 }
 
 .input-container input {
-  min-width: 200px;
-  max-width: 220px;
+  width: 100%;
   min-height: 40px;
   height: auto;
   border: none;
@@ -75,9 +74,6 @@
   margin: 0.4rem 0;
 }
 
-.signUp_title {
-  padding: 0rem 0 3rem;
-}
 .signup-img-container {
   width: 100%;
   display: flex;
@@ -104,7 +100,8 @@
     display: grid;
     place-content: center;
     grid-template-columns: auto;
-    gap: 4%;
+    gap: 3%;
+    min-height: 32em;
   }
 
   .btn_container {
@@ -112,7 +109,6 @@
     display: grid;
     grid-template-columns: auto;
     gap: 4%;
-    margin: 1rem 6rem;
   }
 
   .signup_img-container {
@@ -120,7 +116,7 @@
   }
 
   .access_btn {
-    margin: 2rem 0;
+    margin: 1.5rem 0;
   }
 }
 
@@ -143,10 +139,6 @@
   .signup-input-container {
     display: flex;
     margin-right: 1rem;
-  }
-
-  .input-container input {
-    min-width: 180px;
   }
 
   .signUp_title {

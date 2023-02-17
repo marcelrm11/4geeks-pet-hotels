@@ -17,7 +17,10 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       errors: {},
       signupSuccessful: false,
-      user: {},
+      loginSuccessful: false,
+      user: {
+        email: "",
+      },
     },
     actions: {
       login: async (e, email, password) => {
@@ -39,11 +42,12 @@ const getState = ({ getStore, getActions, setStore }) => {
             process.env.BACKEND_URL + "/api/login",
             opt
           );
-          if (response.status !== 200) {
-            throw Error("Bad Request");
-          }
+
           const data = await response.json();
-          console.log(data);
+          console.log(data, response.status);
+          if (response.status !== 200) {
+            throw Error(data);
+          }
           sessionStorage.setItem("token", data.access_token);
           // console.log(sessionStorage.getItem("token"));
           sessionStorage.setItem("user", JSON.stringify(data.user));
@@ -51,13 +55,22 @@ const getState = ({ getStore, getActions, setStore }) => {
           setStore({ token: data.access_token, user: data.user });
           return true;
         } catch (error) {
-          console.error(`there is an error`, error);
+          setStore({ errors: error.errors });
+          console.error(error);
         }
       },
 
       getUserFromSessionStorage: () => {
-        const user = JSON.parse(sessionStorage.getItem("user"));
-        if (user) setStore({ user: user });
+        const user = sessionStorage.getItem("user");
+        try {
+          if (user) {
+            const parsedUser = JSON.parse(user);
+            setStore({ user: parsedUser });
+          }
+        } catch (error) {
+          console.error("Error parsing user from session storage:", error);
+          setStore({ user: { email: "" } });
+        }
       },
       tokenSessionStore: () => {
         const token = sessionStorage.getItem("token");
@@ -77,16 +90,11 @@ const getState = ({ getStore, getActions, setStore }) => {
             ["email", "password", "zip_code", "phone_number"].includes(field)
           ) {
             if (!regexs[`${camelField}Regex`].test(formData[field])) {
-              newErrors[
-                field
-              ] = `You have entered an invalid ${actions.removeUnderscores(
-                field
-              )}!`;
+              newErrors[field] = `Invalid ${actions.removeUnderscores(field)}!`;
             }
           }
           if (formData.password !== formData.confirm_password) {
-            newErrors.confirm_password =
-              "Fields 'Password' and 'Confirm password' do not match";
+            newErrors.confirm_password = "Passwords do not match";
           }
         }
         if (Object.keys(newErrors).length === 0) {

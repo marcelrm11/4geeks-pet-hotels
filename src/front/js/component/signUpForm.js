@@ -65,7 +65,7 @@ export const SignUpForm = ({ formData, handleChange, handleValidate }) => {
             data-bs-dismiss="modal"
           >
             <Link to="/" className="log_color">
-              Log In with Google
+              Sign up with Google
             </Link>
           </Button>
           <Button
@@ -73,7 +73,7 @@ export const SignUpForm = ({ formData, handleChange, handleValidate }) => {
             data-bs-dismiss="modal"
           >
             <Link to="/" className="log_color">
-              Log In with Facebook
+              Sign up with Facebook
             </Link>
           </Button>
         </div>

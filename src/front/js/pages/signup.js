@@ -24,7 +24,7 @@ export const Signup = () => {
   return store.signupSuccessful ? (
     <Navigate to="/" />
   ) : (
-    <div className="text-center mt-5">
+    <div className="text-center mt-4">
       <div className="forms">
         <SignUpForm
           formData={formData}
