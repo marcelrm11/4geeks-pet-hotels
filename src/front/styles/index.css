@@ -818,6 +818,24 @@ h5 {
   .home_search_date {
     flex-direction: column;
   }
+
+  .add_hotel_img {
+    width: 80%;
+  }
+
+  .add_hotel_img img {
+    margin: 0;
+  }
+
+  .add_hotel .signUp_title {
+    padding: 0rem 0 0rem;
+  }
+
+  .add_hotel_img_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 @media (min-width: 992px) {

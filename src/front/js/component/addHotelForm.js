@@ -3,22 +3,22 @@ import { Context } from "../store/appContext";
 import { Input } from "./input.js";
 import { Button } from "./button";
 import { Image } from "./image";
-import signupImage from "../../img/signup_image.jpg";
+import cobayita from "../../img/cobaya.png";
 
 export const AddHotelData = ({ hotelData, handleChange, handleValidate }) => {
   const { store, actions } = useContext(Context);
 
   return (
     <form className="signup-input-container input-container">
-      <div>
+      <div className="add_hotel_img_container">
         <Image
           className="signUp_image"
-          figureClass="signup_img-container"
-          src={signupImage}
+          figureClass="signup_img-container add_hotel_img"
+          src={cobayita}
           altText="logo"
         />
       </div>
-      <div className="signup_info">
+      <div className="signup_info add_hotel">
         <h1 className="signUp_title">Add Hotel</h1>
         <div className="inputs_section">
           {Object.entries(hotelData).map(([field, value]) => {
