@@ -8,12 +8,14 @@ import cobayita from "../../img/cobaya.png";
 export const AddHotelData = ({
   hotelData,
   handleChange,
-  handleValidate
+  handleValidate,
+  uploadImage
 }) => {
   const { store, actions } = useContext(Context);
 
   return (
     <form
+      onSubmit={uploadImage}
       className="signup-input-container input-container"
     >
       <div className="add_hotel_img_container">
@@ -31,7 +33,9 @@ export const AddHotelData = ({
             return (
               <React.Fragment key={field}>
                 <Input
-                  type={field.includes("email")
+                  type={field.includes("photo")
+                  ? "file" : 
+                  field.includes("email")
                       ? "email"
                       : "text"
                   }

@@ -183,7 +183,6 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       addFavorites: (id) => {
-        const store = getStore();
         console.log(id);
       },
 

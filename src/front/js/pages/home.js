@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import landing_image from "../../img/homeLandingImage.jpg";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
   const { store } = useContext(Context);
@@ -21,6 +22,16 @@ export const Home = () => {
             src={landing_image}
             alt="dog welcoming image"
           />
+          <div className="home_shortcut_btn">
+            <Link to="/hotelListing">
+              <button className="btn btn-danger addHotel_Btn">
+                Hotel list
+              </button>
+            </Link>
+            <Link to="/favorites">
+              <button className="btn btn-danger addHotel_Btn">Favorites</button>
+            </Link>
+          </div>
         </figure>
       </section>
 

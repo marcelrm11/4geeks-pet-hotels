@@ -13,6 +13,21 @@
   position: relative;
 }
 
+.home_shortcut_btn {
+  position: absolute;
+  top: 15%;
+  right: 15%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
+}
+
+.home_shortcut_btn button {
+  margin: 1rem;
+}
+
 .home_image {
   width: 100%;
   max-height: 550px;

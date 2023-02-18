@@ -10,7 +10,7 @@ export const HotelListing = () => {
 
   useEffect(() => {
     actions.listing;
-  });
+  }, []);
 
   const hotelsInfo = store.hotels.map((hotel, index) => {
     return <HotelCard hotel={hotel} key={index} index={index} />;

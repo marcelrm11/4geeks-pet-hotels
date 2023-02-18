@@ -8,8 +8,6 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 const HotelCard = (props) => {
   const { store, actions } = useContext(Context);
 
-  console.log(props.hotel);
-
   return (
     <div
       key={props.index}
@@ -18,7 +16,7 @@ const HotelCard = (props) => {
     >
       <img src={labrador} className="card-img-top hotel_image" alt="..." />
       <button
-        onClick={() => actions.addFavorites(hotel.id)}
+        onClick={() => actions.addFavorites(props.hotel.id)}
         className="favoritesBtn"
       >
         <FontAwesomeIcon icon={faHeart} className="favorites_icon" />

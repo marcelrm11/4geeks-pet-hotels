@@ -441,8 +441,6 @@ def delete_owner(owner_id):
         # HOTELS ----------------------------------------------------------
 
 # CREATE: Hotel ----------------
-
-
 @api.route("/hotel/create", methods=["POST"])
 def create_hotel():
     # ! dangerous to disable the csrf protection
@@ -473,21 +471,6 @@ def create_hotel():
         return jsonify({"error": "validation error", "errors": errors}), 400
 
 
-# READ: all hotels ---------------
-
-
-@api.route("/hotels", methods=["GET"])
-def get_hotels():
-    try:
-        hotels = Hotel.query.all()
-        hotels_list = [hotel.serialize() for hotel in hotels]
-        response_body = {
-            "hotels": hotels_list
-        }
-        return jsonify(response_body), 200
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
 #hotel photo -------------------------------------------------------------------------
 
 @api.route('/hotel/<int:hotel_id>/image', methods=['PUT'])
@@ -509,6 +492,23 @@ def handle_upload(hotel_id):
         return jsonify(hotel1.serialize()), 200
     else:
         raise APIException('Missing profile_image on the FormData')
+
+
+# READ: all hotels ---------------
+
+
+@api.route("/hotels", methods=["GET"])
+def get_hotels():
+    try:
+        hotels = Hotel.query.all()
+        hotels_list = [hotel.serialize() for hotel in hotels]
+        response_body = {
+            "hotels": hotels_list
+        }
+        return jsonify(response_body), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 # SEARCH: nearby places -------------
 
