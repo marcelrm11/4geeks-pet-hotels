@@ -2,11 +2,11 @@ import React, { useContext, useState, useEffect } from "react";
 import "../../styles/hoteldetail.css";
 import { Context } from "../store/appContext";
 import { useLocation, useParams } from "react-router";
-import { HotelBasicInfo } from "../component/hotelBasicInfo";
 import { HotelServices } from "../component/hotelServices";
 import { HotelDescription } from "../component/hotelDescription";
 import { HotelReviews } from "../component/hotelReviews";
 import { PlaceDetailsSearch } from "../component/placeDetailsSearch";
+import { Button } from "../component/button";
 
 export const Hotel = () => {
   const { store, actions } = useContext(Context);
@@ -33,10 +33,6 @@ export const Hotel = () => {
     return splitList;
   };
 
-  console.log("this", details);
-
-  // const reviews = reviews.map((review) => {return <HotelReviews review={review}/>})
-
   return (
     <div className="text-center mt-5">
       <h1 className="hotel_details_section">{`Hotel details`}</h1>
@@ -45,15 +41,8 @@ export const Hotel = () => {
           <PlaceDetailsSearch details={details} overallRating={overallRating} />
         </div>
         <div className="component2">
-          <HotelBasicInfo
-            name={details.name}
-            address={details.location}
-            phone={details.phone_number}
-            email={details.email}
-          />
-
+          <h2>Services</h2>
           <div className="detail_services_section">
-            <h2>Services:</h2>
             {services().map((service) => {
               return <HotelServices service={service} />;
             })}
@@ -61,6 +50,9 @@ export const Hotel = () => {
         </div>
       </div>
       <HotelDescription description={details.hotel_description} />
+      <Button buttonClass="log-btn access_btn hotel_detail_btn">
+        <span className="log_color">Reserve</span>
+      </Button>
       <h5>
         Reviews
         <i className="fa-solid fa-star reviewStar"></i>

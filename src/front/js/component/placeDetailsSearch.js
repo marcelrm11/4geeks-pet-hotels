@@ -1,5 +1,7 @@
 import React from "react";
 import cobaya from "../../img/cobaya.png";
+import { DetailBooking } from "./detailBooking";
+import { HotelBasicInfo } from "../component/hotelBasicInfo";
 
 export const PlaceDetailsSearch = ({ details, overallRating }) => {
   return (
@@ -10,26 +12,19 @@ export const PlaceDetailsSearch = ({ details, overallRating }) => {
       <div>
         <p>{overallRating}</p>
       </div>
-      <div className="place_details_booking">
-        <div className="">
-          <div className="">
-            <label>Llegada</label>
-            <input type="date" id="fecha-entrada" name="fecha-entrada" />
-          </div>
-
-          <div className="">
-            <label>Salida</label>
-            <input type="date" id="fecha-salida" name="fecha-salida" />
-          </div>
+      <section className="information_section">
+        <div className="hotel_detail_preBooking">
+          <DetailBooking details={details} />
         </div>
-        <div className="">
-          <p>Booked services:</p>
+        <div className="hotel_detail_information">
+          <HotelBasicInfo
+            name={details.name}
+            address={details.location}
+            phone={details.phone_number}
+            email={details.email}
+          />
         </div>
-        <div className="">
-          <p>Total (EUR)</p>
-          <p>1500</p>
-        </div>
-      </div>
+      </section>
     </div>
   );
 };

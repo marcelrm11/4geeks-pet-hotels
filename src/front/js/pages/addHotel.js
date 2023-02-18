@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import "../../styles/home.css";
+import "../../styles/addHotel.css";
 import { Context } from "../store/appContext";
 import { AddHotelData } from "../component/addHotelForm";
 
@@ -14,7 +14,7 @@ export const AddHotel = () => {
     zip_code: "",
     phone_number: "",
     hotel_description: "lcbqilubfqibfiwbfe",
-    hotel_owner_id: "",
+    hotel_owner_id: "", // hay que tomar el owner id
   });
 
   const handleChange = (ev) => {
@@ -23,7 +23,9 @@ export const AddHotel = () => {
 
   return store.addHotelSuccessful ? (
     <>
-      <h2>Your hotel was added successfuly</h2>
+      <div className="successful_hotel_added">
+        <h2>Your hotel was added successfuly</h2>
+      </div>
     </>
   ) : (
     <div className="text-center mt-5">

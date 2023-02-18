@@ -15,9 +15,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: 2rem;
   }
 
   .add_hotel .access_btn {
     margin: 4rem 0 0.8rem 0;
+  }
+
+  .add_hotel input {
+    width: 155px;
+  }
+
+  .add_hotel {
+    margin: 2% 18% 0 0;
   }
 }
