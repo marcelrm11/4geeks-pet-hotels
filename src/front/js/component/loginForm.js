@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import logo from "../../img/dog_logo.png";
 
 export const LoginForm = ({ credentials, onChange, onLogin }) => {
-  const { actions } = useContext(Context);
+  const { store, actions } = useContext(Context);
 
   return (
     <form className="input-container">
@@ -32,7 +32,7 @@ export const LoginForm = ({ credentials, onChange, onLogin }) => {
       <Button
         buttonClass={"log-btn access_btn"}
         onClick={onLogin}
-        data-bs-dismiss=""
+        data-bs-dismiss="modal"
       >
         <Link to="/" className="log_color">
           Log In

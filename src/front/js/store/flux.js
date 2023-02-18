@@ -17,13 +17,14 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       errors: {},
       signupSuccessful: false,
-      loginSuccessful: false,
+      showModal: false,
       user: {
         email: "",
       },
     },
     actions: {
       login: async (e, email, password) => {
+        const store = getStore();
         e.preventDefault();
         const opt = {
           method: "POST",
@@ -46,18 +47,29 @@ const getState = ({ getStore, getActions, setStore }) => {
           const data = await response.json();
           console.log(data, response.status);
           if (response.status !== 200) {
-            throw Error(data);
+            throw Error(data.error);
+          } else {
+            sessionStorage.setItem("token", data.access_token);
+            // console.log(sessionStorage.getItem("token"));
+            sessionStorage.setItem("user", JSON.stringify(data.user));
+            // console.log(JSON.parse(sessionStorage.getItem("user")));
+            setStore({
+              token: data.access_token,
+              user: data.user,
+            });
           }
-          sessionStorage.setItem("token", data.access_token);
-          // console.log(sessionStorage.getItem("token"));
-          sessionStorage.setItem("user", JSON.stringify(data.user));
-          // console.log(JSON.parse(sessionStorage.getItem("user")));
-          setStore({ token: data.access_token, user: data.user });
-          return true;
         } catch (error) {
           setStore({ errors: error.errors });
-          console.error(error);
+          console.error(error, store.errors);
         }
+      },
+
+      showModal: () => {
+        console.log("trying to show modal");
+        setStore({ showModal: true });
+      },
+      hideModal: () => {
+        setStore({ showModal: false });
       },
 
       getUserFromSessionStorage: () => {

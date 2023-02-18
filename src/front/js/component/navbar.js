@@ -25,16 +25,17 @@ export const Navbar = () => {
           <span className="navbar-brand mb-0 h1 title-font">PetCasa</span>
         </Link>
         <div className="ml-auto">
-          <Link to="/signup">
-            <button className="btn btn-danger signUp_Btn">Sign Up</button>
-          </Link>
           {!store.token ? (
             <>
+              <Link to="/signup">
+                <button className="btn btn-danger signUp_Btn">Sign Up</button>
+              </Link>
+
               <button
                 type="button"
                 className="btn btn-primary logIn_Btn"
                 data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
+                data-bs-target="#loginModal"
               >
                 Log In
               </button>
