@@ -64,11 +64,6 @@ class ReviewForm(FlaskForm):
     author = StringField("Author", validators=[InputRequired()])
     hotel_id = IntegerField("Hotel ID", validators=[InputRequired()])
 
-class PhotoForm(FlaskForm):
-    photo_url = StringField("Photo URL", validators=[InputRequired()])
-    hotel_id = IntegerField("Hotel ID", validators=[InputRequired()])
-
-
 
 class FavoriteForm(FlaskForm):
     user_id = IntegerField("User ID", validators=[InputRequired()])

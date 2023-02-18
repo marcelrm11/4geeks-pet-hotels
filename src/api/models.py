@@ -173,7 +173,7 @@ class Review(db.Model):
     date = db.Column(db.DateTime, nullable=False,
                      default=datetime.datetime.now)
     author_id = db.Column(
-        db.String(50), db.ForeignKey("user.id"), nullable=False)
+        db.Integer, db.ForeignKey("user.id"), nullable=False)
     hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.id"), nullable=False)
 
     def __repr__(self):

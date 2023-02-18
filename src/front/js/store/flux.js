@@ -17,15 +17,11 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       errors: {},
       signupSuccessful: false,
-<<<<<<< HEAD
       addHotelSuccessful: false,
-      user: {},
-=======
       showModal: false,
       user: {
         email: "",
       },
->>>>>>> development
     },
     actions: {
       login: async (e, email, password) => {
@@ -69,7 +65,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-<<<<<<< HEAD
       listing: useEffect(() => {
         const store = getStore();
         fetch(process.env.BACKEND_URL + "/api/hotels")
@@ -80,7 +75,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         setStore({ loading: false });
       }, []),
-=======
+
       showModal: () => {
         console.log("trying to show modal");
         setStore({ showModal: true });
@@ -88,7 +83,6 @@ const getState = ({ getStore, getActions, setStore }) => {
       hideModal: () => {
         setStore({ showModal: false });
       },
->>>>>>> development
 
       getUserFromSessionStorage: () => {
         const user = sessionStorage.getItem("user");
@@ -237,7 +231,7 @@ const getState = ({ getStore, getActions, setStore }) => {
               body: JSON.stringify(hotelData),
             }
           );
-          
+
           console.log(response);
           if (response.ok) {
             const data = await response.json();

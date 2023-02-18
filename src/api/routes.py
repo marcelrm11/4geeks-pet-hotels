@@ -449,8 +449,6 @@ def create_hotel():
     form = HotelForm(meta={"csrf": False})
     if form.validate_on_submit():
         try:
-            print(request.files)
-            #cloudinary.uploader.upload(request.files["profile_image"])
             hotel_data = {field: getattr(
                 form, field).data for field in form._fields}
             hotel = Hotel(**hotel_data)
@@ -489,6 +487,28 @@ def get_hotels():
         return jsonify(response_body), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+#hotel photo -------------------------------------------------------------------------
+
+@api.route('/hotel/<int:hotel_id>/image', methods=['PUT'])
+def handle_upload(hotel_id):
+
+    # validate that the front-end request was built correctly
+    if 'profile_image' in request.files:
+        # upload file to uploadcare
+        result = cloudinary.uploader.upload(request.files['profile_image'])
+
+        # fetch for the user
+        hotel1 = User.query.get(hotel_id)
+        # update the user with the given cloudinary image URL
+        hotel1.profile_image_url = result['secure_url']
+
+        db.session.add(hotel1)
+        db.session.commit()
+
+        return jsonify(hotel1.serialize()), 200
+    else:
+        raise APIException('Missing profile_image on the FormData')
 
 # SEARCH: nearby places -------------
 
