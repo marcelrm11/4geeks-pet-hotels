@@ -7,12 +7,12 @@ import cobayita from "../../img/cobaya.png";
 
 export const AddHotelData = ({ hotelData, handleChange, handleValidate }) => {
   const { store, actions } = useContext(Context);
-  const [files, setFiles] = useState(null);
+  const [files, setFiles] = useState([]);
 
   const uploadImage = (e) => {
     e.preventDefault();
     let body = new FormData();
-    body.append("profile_image", files[0]);
+    body.append("profile_image_url", files[0]);
 
     const options = {
       body,

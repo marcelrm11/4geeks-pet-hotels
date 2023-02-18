@@ -446,8 +446,8 @@ def create_hotel():
     form = HotelForm(meta={"csrf": False})
     if form.validate_on_submit():
         try:
-            #print(request.files["profile_image"])
-            cloudinary.uploader.upload(request.files["profile_image"])
+            print(request.files)
+            #cloudinary.uploader.upload(request.files["profile_image"])
             hotel_data = {field: getattr(
                 form, field).data for field in form._fields}
             hotel = Hotel(**hotel_data)
