@@ -41,8 +41,24 @@ a:hover {
 body {
   width: 100vw;
   height: 100vh;
-  font-size: 62.5%;
+  font-family: "Montserrat", sans-serif;
+  overflow-x: hidden;
+}
+
+.title-font {
   font-family: "Source Sans Pro", sans-serif;
+}
+
+input {
+  font-size: 0.8rem;
+  margin-top: 0.4em;
+}
+.input-error {
+  font-size: 0.6rem;
+  position: absolute;
+  bottom: -14px;
+  color: var(--salmon);
+  display: block;
 }
 
 
@@ -63,90 +79,7 @@ body {
   flex-direction: start;
 }
 
-/*login-signup*/
-
-.modal_background {
-  background-color: var(--darkBlue);
-  color: var(--whiteLetters);
-}
-
-.password_forget {
-  color: var(--whiteLetters);
-  margin: 0;
-}
-
-.input-container {
-  display: grid;
-  place-content: center;
-  gap: 2%;
-  margin-top: 10%;
-}
-
-.input-container input {
-  min-width: 200px;
-  max-width: 220px;
-  min-height: 40px;
-  height: auto;
-  border: none;
-  border-radius: var(--btnRadius);
-  background-color: var(--lighterBlue);
-  padding: 2% 5%;
-}
-
-.login_logo_image {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.signup-img-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.log-btn {
-  min-width: 160px;
-  height: 30px;
-  border: none;
-  border-radius: var(--btnRadius);
-  background-color: var(--salmon);
-}
-
-.access_btn {
-  margin: 1rem 0;
-}
-
-.logIn_access:hover {
-  background-color: var(--darkRed);
-}
-
-.log_socialMedia {
-  background-color: var(--lightBlue);
-}
-
-.log_socialMedia:hover {
-  background-color: var(--turquoise);
-}
-
-.log_color {
-  color: var(--whiteLetters);
-  font-size: var(--fontSize-XS);
-}
-
-.btn-x {
-  background-color: var(--salmon);
-  padding: 0.5rem 1.5rem;
-}
-
-.btn-x:hover {
-  background-color: var(--lightBlue);
-}
-
-.footer {
-  height: 100px;
-  margin: 0.4rem 0;
-}
+/* ?? */
 
 .signUp_title {
   padding: 0rem 0 3rem;
@@ -162,151 +95,42 @@ body {
 /*media queries*/
 
 @media (max-width: 768px) {
-
-  .login_logo_image img {
-    width: 60%;
-    height: fit-content;
-  }
-
-  .signup-input-container {
+  .hotel_listing_container {
     display: grid;
-    gap: 3%;
-  }
-
-  .inputs_section {
-    display: grid;
+    grid-template-columns: auto;
     place-content: center;
-    grid-template-columns: auto;
-    gap: 3%;
   }
 
-  .btn_container {
-    min-width: 160px;
-    display: grid;
-    grid-template-columns: auto;
-    gap: 4%;
-    margin: 1rem 6rem;
-  }
-
-  .signup_img-container {
-    display: none;
-  }
-
-  .access_btn {
-    margin: 2rem 0;
-  }
-
-  .date select,
-  .date input {
-    min-width: 100px;
-    height: 30px;
-    margin: 0.3rem 0.5rem 0 0;
+  .hotelListing_search_bar {
+    min-width: 300px;
   }
 
 }
 
 @media (min-width: 769px) {
-
-  .signup_img-container {
-    display: block;
-  }
-
-  .signup_img-container {
-    width: 70%;
-    height: fit-content;
-    margin-left: 1rem;
-    min-width: 300px;
-  }
-
-  .signup_img-container img {
-    width: 100%;
-  }
-
-  .signup-input-container {
-    display: flex;
-    margin-right: 1rem;
-  }
-
-  .input-container input {
-    min-width: 180px;
-  }
-
-  .signUp_title {
-    margin-top: 0;
-    margin-bottom: 6%;
-  }
-
-  .inputs_section {
+  .hotel_listing_container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6%;
-  }
-
-  .signup_info {
-    margin: 2% 4% 0 0;
-  }
-
-  .access_btn {
-    margin: 5rem 0 0.8rem 0;
-  }
-
-  .btn_container {
-    display: grid;
-    grid-template-columns: auto;
     place-content: center;
   }
-
-  .google_signup_btn {
-    margin-bottom: 6%;
-  }
-
-  .log-btn {
-    min-width: 160px;
-    height: 40px;
-  }
-
-  .access_btn {
-    margin: 3rem 0 0.8rem 0;
-  }
-
-  .date select,
-  .date input {
-    min-width: 150px;
-    height: 40px;
-    margin: 0.3rem 0.5rem 0 0;
-  }
-
 }
 
 @media (min-width: 992px) {
-  .login_logo_image img {
-    max-width: 210px;
-    height: fit-content;
+  .listing_section {
+    display: flex;
   }
 
-  .signup_img-container img {
-    width: 70%;
-    min-width: 350px;
-    height: fit-content;
+  .hotelListing_search_bar {
+    min-width: 180px;
+    margin: 3rem;
   }
 
-  .signup-input-container {
-    justify-content: center;
-    margin-top: 6%;
+  .listing_search_bar input {
+    width: 280px;
   }
 
-  .signup_info {
-    margin: 2% 15% 0 2%;
-  }
-
-  .signup-input-container input {
-    min-width: 200px;
-    min-height: 40px;
-  }
-
-  .log-btn {
-    min-width: 200px;
-    height: 40px;
+  .listing_date_input {
+    grid-template-columns: auto;
+    margin: 1rem 0;
   }
 
   .entry_date {
@@ -343,10 +167,16 @@ body {
 }
 
 @media (min-width: 1200px) {
-  .signup_img-container img {
-    width: 70%;
-    min-width: 400px;
-    height: fit-content;
-    margin-left: 10rem;
+  .hotel_listing_container {
+    grid-template-columns: auto auto;
+    gap: 0 5%;
+    margin-right: 10%;
+  }
+
+  .listing_hotel_btn {
+    width: 200px;
+    height: 40px;
+    background-color: var(--salmon);
+    border: none;
   }
 }

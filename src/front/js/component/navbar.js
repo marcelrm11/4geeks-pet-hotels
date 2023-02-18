@@ -22,22 +22,29 @@ export const Navbar = () => {
     <nav className="navbar navbar_background">
       <div className="container">
         <Link to="/">
-          <span className="navbar-brand mb-0 h1">PetCasa</span>
+          <span className="navbar-brand mb-0 h1 title-font">PetCasa</span>
         </Link>
         <div className="ml-auto">
+<<<<<<< HEAD
           <Link to="/addHotel">
             <button className="btn btn-danger addHotel_Btn">Add hotel</button>
           </Link>
           <Link to="/signup">
             <button className="btn btn-danger signUp_Btn">Sign Up</button>
           </Link>
+=======
+>>>>>>> development
           {!store.token ? (
             <>
+              <Link to="/signup">
+                <button className="btn btn-danger signUp_Btn">Sign Up</button>
+              </Link>
+
               <button
                 type="button"
                 className="btn btn-primary logIn_Btn"
                 data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
+                data-bs-target="#loginModal"
               >
                 Log In
               </button>

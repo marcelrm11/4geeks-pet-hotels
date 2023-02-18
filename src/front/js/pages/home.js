@@ -9,6 +9,12 @@ export const Home = () => {
 
   return (
     <div className="text-center mt-5">
+      <h2 className="title-font">
+        {store.token
+          ? `Hola, ${store.user.first_name}!`
+          : `Bienvenido a PetCasa`}
+      </h2>
+
       <section className="home_image_searchbar">
         <figure className="home_img_container">
           <img
