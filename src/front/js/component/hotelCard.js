@@ -35,7 +35,7 @@ const HotelCard = (props) => {
         <p className="card-text">{props.hotel.location}</p>
         <p>25€ noche</p>
         <div className="hotel_listing_btnCotainer">
-          <Link to={`/ruta_de_details/${props.hotel.id}`}>
+          <Link to={`/hotel/${props.hotel.id}`}>
             <button className="btn btn-primary listing_hotel_btn">
               View details
             </button>

@@ -3,6 +3,7 @@ import "../../styles/home.css";
 import HotelCard from "../component/hotelCard";
 import HotelListingSearch from "../component/hotelListingSearch";
 import { Context } from "../store/appContext";
+import "../../styles/hotelListing.css";
 
 export const HotelListing = () => {
   const { store, actions } = useContext(Context);

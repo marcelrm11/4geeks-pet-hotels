@@ -211,6 +211,7 @@ const getState = ({ getStore, getActions, setStore }) => {
               body: JSON.stringify(hotelData),
             }
           );
+          
           console.log(response);
           if (response.ok) {
             const data = await response.json();

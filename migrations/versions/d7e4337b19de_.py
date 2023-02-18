@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 75f8867d6c3f
+Revision ID: d7e4337b19de
 Revises: 
-Create Date: 2023-02-17 11:32:55.673754
+Create Date: 2023-02-18 09:51:12.587001
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '75f8867d6c3f'
+revision = 'd7e4337b19de'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -61,6 +61,7 @@ def upgrade():
     sa.Column('phone_number', sa.String(), nullable=False),
     sa.Column('location', sa.String(length=70), nullable=False),
     sa.Column('services', sa.String(length=100), nullable=False),
+    sa.Column('profile_image_url', sa.String(length=255), nullable=True),
     sa.Column('hotel_description', sa.String(length=500), nullable=False),
     sa.Column('hotel_owner_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['hotel_owner_id'], ['owner.id'], ),
@@ -83,13 +84,6 @@ def upgrade():
     sa.Column('hotel_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['hotel_id'], ['hotel.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
-    sa.PrimaryKeyConstraint('id')
-    )
-    op.create_table('photo',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('photo_url', sa.String(), nullable=True),
-    sa.Column('hotel_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['hotel_id'], ['hotel.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('review',
@@ -151,7 +145,6 @@ def downgrade():
     op.drop_table('booking')
     op.drop_table('room')
     op.drop_table('review')
-    op.drop_table('photo')
     op.drop_table('favorite')
     op.drop_table('pets')
     op.drop_table('hotel')

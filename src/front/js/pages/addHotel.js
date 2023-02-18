@@ -1,8 +1,6 @@
 import React, { useContext, useState } from "react";
 import "../../styles/home.css";
 import { Context } from "../store/appContext";
-import { Navigate } from "react-router";
-import { Link } from "react-router-dom";
 import { AddHotelData } from "../component/addHotelForm";
 
 export const AddHotel = () => {

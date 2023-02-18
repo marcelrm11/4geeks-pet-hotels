@@ -10,6 +10,11 @@ from api.forms import BookingForm, FavoriteForm, InvoiceForm, UserForm, ShortUse
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, set_access_cookies
 from sqlalchemy.exc import IntegrityError, NoForeignKeysError
 import sys
+from werkzeug.utils import secure_filename
+import cloudinary
+import cloudinary.uploader
+
+UPLOAD_FOLDER = '/src/api/img'
 
 api = Blueprint("api", __name__)
 
@@ -331,6 +336,7 @@ def create_owner():
 
             response = jsonify(owner_dict)
             response.headers["Access-Control-Allow-Credentials"] = "true"
+            response.headers["Access-Control-Allow-Origin"] = "*"
             set_access_cookies(response, access_token)
             return response, 200
         except IntegrityError as e:
@@ -440,6 +446,8 @@ def create_hotel():
     form = HotelForm(meta={"csrf": False})
     if form.validate_on_submit():
         try:
+            #print(request.files["profile_image"])
+            cloudinary.uploader.upload(request.files["profile_image"])
             hotel_data = {field: getattr(
                 form, field).data for field in form._fields}
             hotel = Hotel(**hotel_data)
@@ -448,6 +456,7 @@ def create_hotel():
 
             hotel_dict = hotel.serialize()
             response = jsonify(hotel_dict)
+            response.headers["Access-Control-Allow-Origin"] = "*"
             return response, 200
         except IntegrityError as e:
             db.session.rollback()
