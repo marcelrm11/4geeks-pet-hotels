@@ -1,7 +1,8 @@
 import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
-import HomeSearch from "../component/homeSearch";
+import landing_image from "../../img/homeLandingImage.jpg";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
   const { store } = useContext(Context);
@@ -15,20 +16,23 @@ export const Home = () => {
       </h2>
 
       <section className="home_image_searchbar">
-        <div>
-          <figure>
-            <img src="" alt="" />
-          </figure>
-          <div>
-            <div>
-              <HomeSearch />
-            </div>
-            <div>
-              <h1>Petcasa</h1>
-              <p>Alojamientos de mascota con profesionales</p>
-            </div>
+        <figure className="home_img_container">
+          <img
+            className="home_image"
+            src={landing_image}
+            alt="dog welcoming image"
+          />
+          <div className="home_shortcut_btn">
+            <Link to="/hotelListing">
+              <button className="btn btn-danger addHotel_Btn">
+                Hotel list
+              </button>
+            </Link>
+            <Link to="/favorites">
+              <button className="btn btn-danger addHotel_Btn">Favorites</button>
+            </Link>
           </div>
-        </div>
+        </figure>
       </section>
 
       <section className="home_hotels"></section>

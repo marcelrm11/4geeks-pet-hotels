@@ -1,6 +1,7 @@
 import React from "react";
 import BookingSubmit from "../component/bookingSbmit";
 import { Button } from "../component/button";
+import "../../styles/booking.css";
 
 export const Booking = () => {
   return (
@@ -26,4 +27,3 @@ export const Booking = () => {
     </>
   );
 };
-

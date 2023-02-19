@@ -3,30 +3,20 @@ import "../../styles/home.css";
 import HotelCard from "../component/hotelCard";
 import HotelListingSearch from "../component/hotelListingSearch";
 import { Context } from "../store/appContext";
+import "../../styles/hotelListing.css";
 
 export const HotelListing = () => {
-  const { store } = useContext(Context);
-  const [hotels, setHotels] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const listing = async () => {
-    await fetch(process.env.BACKEND_URL + "/api/hotels")
-      .then((response) => response.json())
-      .then((data) => setHotels(data.hotels));
-    setLoading(false);
-  };
+  const { store, actions } = useContext(Context);
 
   useEffect(() => {
-    listing();
+    actions.listing;
   }, []);
 
-  if (loading) return <h1>loading</h1>;
-
-  console.log(hotels);
-
-  const hotelsInfo = hotels.map((hotel, index) => {
+  const hotelsInfo = store.hotels.map((hotel, index) => {
     return <HotelCard hotel={hotel} key={index} index={index} />;
   });
+
+  if (store.loading) return <h1>Loading</h1>;
 
   return (
     <div className="listing_section">
