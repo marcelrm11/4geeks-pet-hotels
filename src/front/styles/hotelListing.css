@@ -11,7 +11,7 @@
 
 .home_search_bar button {
   min-width: 150px;
-  top: 48%;
+  top: 44%;
 }
 
 .listing_section {
@@ -199,7 +199,7 @@
 }
 
 .listing_hotel_btn {
-  width: 200px;
+  width: 130px;
   height: 40px;
   background-color: var(--salmon);
   border: none;
@@ -283,7 +283,6 @@
   }
 
   .listing_hotel_btn {
-    width: 200px;
     height: 40px;
     background-color: var(--salmon);
     border: none;

@@ -19,7 +19,7 @@ const HotelCard = (props) => {
         alt="..."
       />
       <button
-        onClick={() => actions.addFavorites(props.hotel.id)}
+        onClick={() => actions.addFavorites(props.hotel.id, props.hotel.name)}
         className="favoritesBtn"
       >
         <FontAwesomeIcon icon={faHeart} className="favorites_icon" />
