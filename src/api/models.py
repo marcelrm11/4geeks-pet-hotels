@@ -22,6 +22,7 @@ class User(db.Model):
     user_bookings = db.relationship("Booking", backref=db.backref("user"))
     invoices = db.relationship("Invoice", backref=db.backref("user"))
     favorites = db.relationship("Favorite", backref=db.backref("user"))
+    reviews = db.relationship("Review", backref=db.backref("user"))
 
     def __repr__(self):
         return f"<User {self.id}: {self.first_name} {self.last_name}>"
@@ -132,6 +133,7 @@ class Hotel(db.Model):
     phone_number = db.Column(db.String(), nullable=False)
     location = db.Column(db.String(70), nullable=False)
     services = db.Column(db.String(100), nullable=False)
+    profile_image_url = db.Column(db.String(255), unique=False, nullable=True)
     hotel_description = db.Column(db.String(500), nullable=False)
     hotel_owner_id = db.Column(
         db.Integer, db.ForeignKey("owner.id"), nullable=False)
@@ -140,7 +142,6 @@ class Hotel(db.Model):
     favorites = db.relationship("Favorite", backref=db.backref("hotel"))
     rooms = db.relationship("Room", backref=db.backref("hotel"))
     reviews = db.relationship("Review", backref=db.backref("hotel"))
-    photos = db.relationship("Photo", backref=db.backref("hotel"))
 
     def __repr__(self):
         return f"<Hotel {self.id}: {self.name}>"
@@ -154,22 +155,25 @@ class Hotel(db.Model):
             "phone_number": self.phone_number,
             "country": self.country,
             "zip_code": self.zip_code,
+            "profile_image_url": self.profile_image_url,
             "rooms": [r.serialize() for r in self.rooms],
             "services": self.services,
             "hotel_description": self.hotel_description,
             "hotel_bookings": [booking.serialize() for booking in self.hotel_bookings],
             "hotel_owner_id": self.hotel_owner_id,
             "reviews": [rev.serialize() for rev in self.reviews],
-            "photos": [photo.serialize() for photo in self.photos]
         }
+
 
 class Review(db.Model):
     __tablename__ = "review"
     id = db.Column(db.Integer, primary_key=True)
     review_text = db.Column(db.String(200), nullable=False)
     rating = db.Column(db.Float(precision=2), nullable=False)
-    date = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
-    author = db.Column(db.String(50), nullable=False)
+    date = db.Column(db.DateTime, nullable=False,
+                     default=datetime.datetime.now)
+    author_id = db.Column(
+        db.Integer, db.ForeignKey("user.id"), nullable=False)
     hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.id"), nullable=False)
 
     def __repr__(self):
@@ -181,25 +185,10 @@ class Review(db.Model):
             "review_text": self.review_text,
             "rating": self.rating,
             "date": self.date,
-            "author": self.author,
+            "author_id": self.author_id,
             "hotel_id": self.hotel_id
         }
 
-class Photo(db.Model):
-    __tablename__ = "photo"
-    id = db.Column(db.Integer, primary_key=True)
-    photo_url = db.Column(db.String())
-    hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.id"), nullable=False)
-
-    def __repr__(self):
-        return f"<Photo {self.id}: Hotel {self.hotel_id}>"
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "photo_url": self.photo_url,
-            "hotel_id": self.hotel_id
-        }
 
 class Room(db.Model):
     __tablename__ = "room"

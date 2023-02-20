@@ -2,12 +2,19 @@ import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import landing_image from "../../img/homeLandingImage.jpg";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
   const { store } = useContext(Context);
 
   return (
     <div className="text-center mt-5">
+      <h2 className="title-font">
+        {store.token
+          ? `Hola, ${store.user.first_name}!`
+          : `Bienvenido a PetCasa`}
+      </h2>
+
       <section className="home_image_searchbar">
         <figure className="home_img_container">
           <img
@@ -15,13 +22,26 @@ export const Home = () => {
             src={landing_image}
             alt="dog welcoming image"
           />
+          <div className="home_shortcut_btn">
+            <Link to="/hotelListing">
+              <button className="btn btn-danger addHotel_Btn">
+                Hotel list
+              </button>
+            </Link>
+            <Link to="/favorites">
+              <button className="btn btn-danger addHotel_Btn">Favorites</button>
+            </Link>
+          </div>
         </figure>
+<<<<<<< HEAD
         <div>
           <div className="home_welcome_title">
             <h1>Petcasa</h1>
             <p>Alojamientos de mascota con profesionales</p>
           </div>
         </div>
+=======
+>>>>>>> 629180d5498f86d5ab09fa04124e2dfd48858d63
       </section>
 
       <section className="home_hotels"></section>

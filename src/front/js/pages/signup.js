@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import "../../styles/home.css";
+import "../../styles/login-signup.css";
 import { Context } from "../store/appContext";
 import { SignUpForm } from "../component/signUpForm";
 import { Navigate } from "react-router";
@@ -24,7 +24,7 @@ export const Signup = () => {
   return store.signupSuccessful ? (
     <Navigate to="/" />
   ) : (
-    <div className="text-center mt-5">
+    <div className="text-center mt-4">
       <div className="forms">
         <SignUpForm
           formData={formData}

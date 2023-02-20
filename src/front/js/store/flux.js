@@ -17,11 +17,15 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       errors: {},
       signupSuccessful: false,
-      addHotelSuccesful: false,
-      user: {},
+      addHotelSuccessful: false,
+      showModal: false,
+      user: {
+        email: "",
+      },
     },
     actions: {
       login: async (e, email, password) => {
+        const store = getStore();
         e.preventDefault();
         const opt = {
           method: "POST",
@@ -40,19 +44,24 @@ const getState = ({ getStore, getActions, setStore }) => {
             process.env.BACKEND_URL + "/api/login",
             opt
           );
-          if (response.status !== 200) {
-            throw Error("Bad Request");
-          }
+
           const data = await response.json();
-          console.log(data);
-          sessionStorage.setItem("token", data.access_token);
-          // console.log(sessionStorage.getItem("token"));
-          sessionStorage.setItem("user", JSON.stringify(data.user));
-          // console.log(JSON.parse(sessionStorage.getItem("user")));
-          setStore({ token: data.access_token, user: data.user });
-          return true;
+          console.log(data, response.status);
+          if (response.status !== 200) {
+            throw Error(data.error);
+          } else {
+            sessionStorage.setItem("token", data.access_token);
+            // console.log(sessionStorage.getItem("token"));
+            sessionStorage.setItem("user", JSON.stringify(data.user));
+            // console.log(JSON.parse(sessionStorage.getItem("user")));
+            setStore({
+              token: data.access_token,
+              user: data.user,
+            });
+          }
         } catch (error) {
-          console.error(`there is an error`, error);
+          setStore({ errors: error.errors });
+          console.error(error, store.errors);
         }
       },
 
@@ -67,9 +76,25 @@ const getState = ({ getStore, getActions, setStore }) => {
         setStore({ loading: false });
       }, []),
 
+      showModal: () => {
+        console.log("trying to show modal");
+        setStore({ showModal: true });
+      },
+      hideModal: () => {
+        setStore({ showModal: false });
+      },
+
       getUserFromSessionStorage: () => {
-        const user = JSON.parse(sessionStorage.getItem("user"));
-        if (user) setStore({ user: user });
+        const user = sessionStorage.getItem("user");
+        try {
+          if (user) {
+            const parsedUser = JSON.parse(user);
+            setStore({ user: parsedUser });
+          }
+        } catch (error) {
+          console.error("Error parsing user from session storage:", error);
+          setStore({ user: { email: "" } });
+        }
       },
       tokenSessionStore: () => {
         const token = sessionStorage.getItem("token");
@@ -89,16 +114,11 @@ const getState = ({ getStore, getActions, setStore }) => {
             ["email", "password", "zip_code", "phone_number"].includes(field)
           ) {
             if (!regexs[`${camelField}Regex`].test(formData[field])) {
-              newErrors[
-                field
-              ] = `You have entered an invalid ${actions.removeUnderscores(
-                field
-              )}!`;
+              newErrors[field] = `Invalid ${actions.removeUnderscores(field)}!`;
             }
           }
           if (formData.password !== formData.confirm_password) {
-            newErrors.confirm_password =
-              "Fields 'Password' and 'Confirm password' do not match";
+            newErrors.confirm_password = "Passwords do not match";
           }
         }
         if (Object.keys(newErrors).length === 0) {
@@ -163,11 +183,10 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       addFavorites: (id) => {
-        const store = getStore();
         console.log(id);
       },
 
-      handleHotelValidateForm: (ev, hotelData) => {
+      handleValidateHotelForm: (ev, hotelData) => {
         const actions = getActions();
         const regexs = getStore().regexs;
         ev.preventDefault();
@@ -187,7 +206,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           }
         }
         if (Object.keys(newErrors).length === 0) {
-          actions.handleSignupClick(hotelData);
+          actions.handleAddHotelData(hotelData);
         } else {
           setStore({ errors: newErrors });
           console.log("errors", newErrors);
@@ -196,10 +215,10 @@ const getState = ({ getStore, getActions, setStore }) => {
         return Object.keys(newErrors).length === 0;
       },
 
-      handleAddHotelClick: async (hotelData) => {
+      handleAddHotelData: async (hotelData) => {
         console.log("sent form:", hotelData);
         const store = getStore();
-        store.addHotelSuccesful = false;
+        store.addHotelSuccessful = false;
         try {
           const response = await fetch(
             process.env.BACKEND_URL + "/api/hotel/create",
@@ -209,16 +228,15 @@ const getState = ({ getStore, getActions, setStore }) => {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify(hotelData),
-              //mode: "no-cors", //? are we sure?
             }
           );
+
           console.log(response);
-          // const cookies = response.headers.get("set-cookie");
-          // console.log(cookies);
           if (response.ok) {
             const data = await response.json();
             console.log(data);
-            setStore({ addHotelSuccesful: true });
+            setStore({ addHotelSuccessful: true });
+            setTimeout(() => setStore({ addHotelSuccessful: false }), 4000);
             return true;
           }
           throw Error(response.statusText);

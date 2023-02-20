@@ -41,42 +41,27 @@ a:hover {
 body {
   width: 100vw;
   height: 100vh;
-  font-size: 62.5%;
+  font-family: "Montserrat", sans-serif;
+  overflow-x: hidden;
+}
+
+.title-font {
   font-family: "Source Sans Pro", sans-serif;
 }
 
-/*home section*/
-
-.home_image_searchbar {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+input {
+  font-size: 0.8rem;
+  margin-top: 0.4em;
 }
-
-.home_img_container {
-  width: 100%;
-  position: relative;
-}
-
-.home_image {
-  width: 100%;
-  max-height: 600px;
-  object-fit: cover;
-  object-position: left top;
-}
-
-.home_image_info_searchBar {
-  width: 40%;
-  min-height: 200px;
-  border-radius: 1rem;
+.input-error {
+  font-size: 0.6rem;
   position: absolute;
-  top: 45%;
-  right: 2%;
-  background-color: var(--lighterBlue);
+  bottom: -14px;
+  color: var(--salmon);
+  display: block;
 }
 
+<<<<<<< HEAD
 .home_welcome_title {
   width: fit-content;
   position: absolute;
@@ -102,6 +87,8 @@ body {
   width: 100%;
   display: flex;
 }
+=======
+>>>>>>> 629180d5498f86d5ab09fa04124e2dfd48858d63
 
 .date {
   display: flex;
@@ -120,6 +107,7 @@ body {
   flex-direction: start;
 }
 
+<<<<<<< HEAD
 /*Navbar*/
 
 .navbar_background {
@@ -238,87 +226,12 @@ body {
   height: 100px;
   margin: 0.4rem 0;
 }
+=======
+/* ?? */
+>>>>>>> 629180d5498f86d5ab09fa04124e2dfd48858d63
 
 .signUp_title {
   padding: 0rem 0 4rem;
-}
-.detailsPhoto {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  display: flex;
-  flex-wrap: wrap;
-  position: relative;
-}
-.detailsPhoto img {
-  width: 100%;
-  height: 100%;
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-}
-.sliderBtns {
-  margin: auto;
-  position: absolute;
-  bottom: 0;
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  padding: 5px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-}
-.sliderBtns button {
-  border: none;
-  background-color: transparent;
-}
-.btnIcon {
-  font-size: 25px;
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 3px;
-  color: white;
-}
-.basicInfo {
-  margin: 20px;
-  padding: 10px 0px 10px 0px;
-  background-color: #def2f1;
-}
-.basicInfo p,
-.hotelServices {
-  margin: 5px;
-  font-size: 16px;
-  font-family: "Montserrat", sans-serif;
-}
-.hotelDescription {
-  margin: 20px;
-  font-size: 16px;
-  font-family: "Montserrat", sans-serif;
-  text-align: justify;
-}
-h5 {
-  text-align: left;
-  margin: 20px;
-  font-size: 22px;
-  font-family: "Montserrat", sans-serif;
-}
-.reviewStar {
-  color: #fb5652;
-}
-.hotelReview p {
-  font-size: 16px;
-  font-family: "Montserrat", sans-serif;
-  text-align: left;
-  margin: 20px;
-}
-.hotelReview p:first-child,
-.hotelReview p:nth-child(2) {
-  color: #5e6766;
-  margin: 0px 20px 0 20px;
-}
-.hideOnMobile {
-  display: none;
 }
 
 .signup_img-container img {
@@ -327,276 +240,11 @@ h5 {
   margin-left: 2rem;
 }
 
-/*Listing Hotels*/
-
-.hotelListing_search_bar {
-  background-color: var(--lighterBlue);
-  height: fit-content;
-  padding: 1rem;
-  margin: 1rem;
-  border: none;
-  border-radius: 5px;
-}
-
-.listing_section {
-  width: 100vw;
-  height: max-content;
-  display: grid;
-  place-content: center;
-  font-size: var(--fontSize-XS);
-}
-
-.radio_inputs {
-  display: flex;
-}
-
-.radio_inputs input {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 0.5rem 1.2rem;
-}
-
-.radio_inputs label {
-  display: flex;
-  justify-content: center;
-}
-
-.radio_input_container {
-  margin-bottom: 1rem;
-}
-
-.listing_date_input {
-  display: grid;
-  grid-template-columns: auto auto;
-}
-
-.listing_date_input input {
-  border: none;
-  width: 150px;
-  height: 40px;
-  padding: 0.5rem;
-}
-
-.listing_section label {
-  margin-bottom: 0.5rem;
-}
-
-.listing_search_bar {
-  display: flex;
-  flex-direction: column;
-  margin: 0.5rem 0;
-}
-
-.listing_search_bar input {
-  background-color: #ffa07a;
-  border-radius: var(--btnRadius);
-  border: none;
-  width: 300px;
-  height: 40px;
-  padding: 0.5rem;
-}
-
-.radio_type_input {
-  appearance: none;
-  border: 1px solid var(--salmon);
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-  outline: none;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.radio_type_input:before {
-  content: "";
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background-color: var(--salmon);
-  border-radius: 50%;
-  opacity: 0;
-}
-
-.radio_type_input:checked:before {
-  opacity: 1;
-}
-
-/*hotel listing cards*/
-
-.hotel_image {
-  border-radius: 12px 12px 0 0;
-  position: relative;
-}
-
-.card_section {
-  margin: 3rem 0;
-  border: none;
-  overflow: hidden;
-}
-
-.card-body {
-  border-radius: 0 0 12px 12px;
-  background-color: #285452;
-  color: var(--whiteLetters);
-}
-
-.card-body h1 {
-  font-size: var(--fontSize-S);
-}
-
-.card-body p {
-  font-size: var(--fontSize-XS);
-  display: flex;
-  flex-direction: column;
-}
-
-.card-body hr {
-  height: 2px;
-  color: var(--lighterBlue);
-  opacity: 1;
-}
-
-.contact_hotel {
-  margin-bottom: 0.5rem;
-}
-
-.contact_hotel p {
-  margin: 0;
-}
-
-.favoritesBtn {
-  position: absolute;
-  right: 0.4rem;
-  top: 0.3rem;
-  border: none;
-}
-
-.favoritesBtn:hover {
-  background-color: transparent;
-  border: transparent;
-}
-
-.favorites_icon {
-  position: absolute;
-  font-size: var(--fontSize-S);
-  right: 0.8rem;
-  top: 0.6rem;
-  color: var(--lighterBlue);
-  opacity: 0.9;
-}
-
-.favorites_icon:hover {
-  color: var(--salmon);
-}
-
-.listing_hotel_btn {
-  width: 200px;
-  height: 40px;
-  background-color: var(--salmon);
-  border: none;
-}
-
-.listing_hotel_btn:hover {
-  background-color: var(--darkRed);
-}
-
-.hotel_listing_btnCotainer {
-  display: grid;
-  place-content: center;
-  margin: 1rem;
-}
-
-.hotel_title_section {
-  display: flex;
-  justify-content: space-between;
-}
-
-.stars {
-  margin-right: 0.3rem;
-}
-
-/*Booking section*/
-
-.preSubmmit_section {
-  width: 90%;
-  padding: 4rem 1rem;
-}
-
-.preSubmmit_section h2 {
-  font-size: var(--fontSize-XS);
-}
-
-.booking_container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-.booking_container p {
-  font-size: var(--fontSize-XS);
-}
-
-.bookingSub_section {
-  width: 90%;
-  height: fit-content;
-  border-radius: 1rem;
-  background-color: var(--darkBlue);
-  color: var(--whiteLetters);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.bookingSub_section hr {
-  width: 90%;
-  border: 1px solid var(--lighterBlue);
-  opacity: 1;
-  margin: 0.5rem 0;
-}
-
-.bookingSub_header {
-  width: 100%;
-  height: fit-content;
-  display: flex;
-}
-
-.bookingSub_header img {
-  width: 40%;
-  height: fit-content;
-  border-radius: 1rem;
-  margin: 1rem;
-}
-
-.bookingSub_info_header {
-  width: 100%;
-  padding: 0.5rem 1rem 0 1rem;
-  font-size: var(--fontSize-XS);
-  display: flex;
-  flex-direction: column;
-  margin-top: 1rem;
-}
-
-.bookingSub_info_body {
-  width: 100%;
-  padding: 1.5rem;
-}
-
-.bookingSub_info_footer {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  padding: 1.5rem;
-}
 
 /*media queries*/
 
 @media (max-width: 768px) {
+<<<<<<< HEAD
   .login_logo_image img {
     width: 60%;
     height: fit-content;
@@ -630,6 +278,8 @@ h5 {
     margin: 4rem 0;
   }
 
+=======
+>>>>>>> 629180d5498f86d5ab09fa04124e2dfd48858d63
   .hotel_listing_container {
     display: grid;
     grid-template-columns: auto;
@@ -640,6 +290,7 @@ h5 {
     min-width: 280px;
   }
 
+<<<<<<< HEAD
   .listing_section {
     grid-template-columns: auto;
   }
@@ -647,6 +298,8 @@ h5 {
   .listing_date_input input {
     width: 120px;
   }
+=======
+>>>>>>> 629180d5498f86d5ab09fa04124e2dfd48858d63
 }
 
 @media (min-width: 769px) {
@@ -654,6 +307,7 @@ h5 {
     display: grid;
     place-content: center;
   }
+<<<<<<< HEAD
 
   .signup_img-container {
     display: block;
@@ -821,6 +475,11 @@ h5 {
     height: 40px;
   }
 
+=======
+}
+
+@media (min-width: 992px) {
+>>>>>>> 629180d5498f86d5ab09fa04124e2dfd48858d63
   .listing_section {
     display: flex;
   }
@@ -873,13 +532,6 @@ h5 {
 }
 
 @media (min-width: 1200px) {
-  .signup_img-container img {
-    width: 70%;
-    min-width: 400px;
-    height: fit-content;
-    margin-left: 10rem;
-  }
-
   .hotel_listing_container {
     grid-template-columns: auto auto;
     gap: 0 5%;

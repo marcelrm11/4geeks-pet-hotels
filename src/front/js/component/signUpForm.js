@@ -20,7 +20,7 @@ export const SignUpForm = ({ formData, handleChange, handleValidate }) => {
         />
       </div>
       <div className="signup_info">
-        <h1 className="signUp_title">Join us now</h1>
+        <h1 className="signUp_title title-font">Join us now</h1>
         <div className="inputs_section">
           <input
             type="hidden"
@@ -30,25 +30,29 @@ export const SignUpForm = ({ formData, handleChange, handleValidate }) => {
           />
           {Object.entries(formData).map(([field, value]) => {
             return (
-              <React.Fragment key={field}>
-                <Input
-                  type={
-                    field.includes("password")
-                      ? "password"
-                      : field.includes("email")
-                      ? "email"
-                      : "text"
-                  }
-                  id={field}
-                  placeholder={actions.removeUnderscores(
-                    actions.capitalize(field)
-                  )}
-                  value={value}
-                  onChange={handleChange}
-                  required
-                />
-                {store.errors[field] && <p>{store.errors[field]}</p>}
-              </React.Fragment>
+              <Input
+                key={field}
+                type={
+                  field.includes("password")
+                    ? "password"
+                    : field.includes("email")
+                    ? "email"
+                    : "text"
+                }
+                id={field}
+                placeholder={actions.removeUnderscores(
+                  actions.capitalize(field)
+                )}
+                value={value}
+                onChange={handleChange}
+                required
+              >
+                {store.errors[field] && (
+                  <span className="input-error">
+                    {actions.removeUnderscores(store.errors[field])}
+                  </span>
+                )}
+              </Input>
             );
           })}
         </div>
@@ -61,7 +65,7 @@ export const SignUpForm = ({ formData, handleChange, handleValidate }) => {
             data-bs-dismiss="modal"
           >
             <Link to="/" className="log_color">
-              Log In with Google
+              Sign up with Google
             </Link>
           </Button>
           <Button
@@ -69,7 +73,7 @@ export const SignUpForm = ({ formData, handleChange, handleValidate }) => {
             data-bs-dismiss="modal"
           >
             <Link to="/" className="log_color">
-              Log In with Facebook
+              Sign up with Facebook
             </Link>
           </Button>
         </div>

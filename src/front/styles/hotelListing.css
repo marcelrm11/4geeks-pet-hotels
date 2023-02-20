@@ -1,0 +1,249 @@
+/*Listing Hotels*/
+
+.hotelListing_search_bar {
+  background-color: var(--lighterBlue);
+  height: fit-content;
+  padding: 1rem;
+  margin: 1rem;
+  border: none;
+  border-radius: 5px;
+}
+
+.listing_section {
+  width: 100vw;
+  height: max-content;
+  display: grid;
+  place-content: center;
+  font-size: var(--fontSize-XS);
+}
+
+.radio_inputs {
+  display: flex;
+}
+
+.radio_inputs input {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0.5rem 1.2rem;
+}
+
+.radio_inputs label {
+  display: flex;
+  justify-content: center;
+}
+
+.radio_input_container {
+  margin-bottom: 1rem;
+}
+
+.listing_date_input {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.listing_date_input input {
+  border: none;
+  width: 150px;
+  height: 40px;
+  padding: 0.5rem;
+}
+
+.listing_section label {
+  margin-bottom: 0.5rem;
+}
+
+.listing_search_bar {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5rem 0;
+}
+
+.listing_search_bar input {
+  background-color: #ffa07a;
+  border-radius: var(--btnRadius);
+  border: none;
+  width: 300px;
+  height: 40px;
+  padding: 0.5rem;
+}
+
+.radio_type_input {
+  appearance: none;
+  border: 1px solid var(--salmon);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.radio_type_input:before {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: var(--salmon);
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.radio_type_input:checked:before {
+  opacity: 1;
+}
+
+/*hotel listing cards*/
+
+.hotel_image {
+  border-radius: 12px 12px 0 0;
+  position: relative;
+}
+
+.card_section {
+  margin: 3rem 0;
+  border: none;
+  overflow: hidden;
+}
+
+.card-body {
+  border-radius: 0 0 12px 12px;
+  background-color: #285452;
+  color: var(--whiteLetters);
+}
+
+.card-body h1 {
+  font-size: var(--fontSize-S);
+}
+
+.card-body p {
+  font-size: var(--fontSize-XS);
+  display: flex;
+  flex-direction: column;
+}
+
+.card-body hr {
+  height: 2px;
+  color: var(--lighterBlue);
+  opacity: 1;
+}
+
+.contact_hotel {
+  margin-bottom: 0.5rem;
+}
+
+.contact_hotel p {
+  margin: 0;
+}
+
+.favoritesBtn {
+  position: absolute;
+  right: 0.4rem;
+  top: 0.3rem;
+  border: none;
+}
+
+.favoritesBtn:hover {
+  background-color: transparent;
+  border: transparent;
+}
+
+.favorites_icon {
+  position: absolute;
+  font-size: var(--fontSize-S);
+  right: 0.8rem;
+  top: 0.6rem;
+  color: var(--lighterBlue);
+  opacity: 0.9;
+}
+
+.favorites_icon:hover {
+  color: var(--salmon);
+}
+
+.listing_hotel_btn {
+  width: 200px;
+  height: 40px;
+  background-color: var(--salmon);
+  border: none;
+}
+
+.listing_hotel_btn:hover {
+  background-color: var(--darkRed);
+}
+
+.hotel_listing_btnCotainer {
+  display: grid;
+  place-content: center;
+  margin: 1rem;
+}
+
+.hotel_title_section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.stars {
+  margin-right: 0.3rem;
+}
+
+@media (max-width: 768px) {
+  .hotel_listing_container {
+    display: grid;
+    grid-template-columns: auto;
+    place-content: center;
+  }
+
+  .hotelListing_search_bar {
+    min-width: 300px;
+  }
+
+  .listing_section {
+    grid-template-columns: auto;
+  }
+}
+
+@media (min-width: 769px) {
+  .hotel_listing_container {
+    display: grid;
+    place-content: center;
+  }
+}
+
+@media (min-width: 992px) {
+  .listing_section {
+    display: flex;
+  }
+
+  .hotelListing_search_bar {
+    min-width: 180px;
+    margin: 3rem;
+  }
+
+  .listing_search_bar input {
+    width: 280px;
+  }
+
+  .listing_date_input {
+    grid-template-columns: auto;
+    margin: 1rem 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  .hotel_listing_container {
+    grid-template-columns: auto auto;
+    gap: 0 5%;
+    margin-right: 10%;
+  }
+
+  .listing_hotel_btn {
+    width: 200px;
+    height: 40px;
+    background-color: var(--salmon);
+    border: none;
+  }
+}

@@ -7,16 +7,20 @@ export const Input = ({
   value,
   onChange,
   required = false,
+  children,
 }) => {
   return (
-    <input
-      type={type}
-      name={name}
-      placeholder={placeholder}
-      id={id}
-      value={value}
-      onChange={onChange}
-      required={required}
-    />
+    <div className="d-inline position-relative">
+      <input
+        type={type}
+        name={name}
+        placeholder={placeholder}
+        id={id}
+        value={value}
+        onChange={onChange}
+        required={required}
+      />
+      {children}
+    </div>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import { LoginForm } from "./loginForm";
+import "../../styles/login-signup.css";
 
 export const LoginModal = ({ credentials, onChange, onLogin }) => {
   const { store } = useContext(Context);
@@ -8,9 +9,9 @@ export const LoginModal = ({ credentials, onChange, onLogin }) => {
     <>
       <div
         className="modal fade"
-        id="exampleModal"
+        id="loginModal"
         tabIndex="-1"
-        aria-labelledby="exampleModalLabel"
+        aria-labelledby="loginModalLabel"
         aria-hidden="true"
       >
         <div className="modal-dialog">
@@ -18,7 +19,7 @@ export const LoginModal = ({ credentials, onChange, onLogin }) => {
             <div className="modal-header modal_background">
               <h1
                 className="modal-title fs-5 modal_background"
-                id="exampleModalLabel"
+                id="loginModalLabel"
               >
                 Log in
               </h1>
