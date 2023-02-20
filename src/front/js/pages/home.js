@@ -33,15 +33,6 @@ export const Home = () => {
             </Link>
           </div>
         </figure>
-<<<<<<< HEAD
-        <div>
-          <div className="home_welcome_title">
-            <h1>Petcasa</h1>
-            <p>Alojamientos de mascota con profesionales</p>
-          </div>
-        </div>
-=======
->>>>>>> 629180d5498f86d5ab09fa04124e2dfd48858d63
       </section>
 
       <section className="home_hotels"></section>

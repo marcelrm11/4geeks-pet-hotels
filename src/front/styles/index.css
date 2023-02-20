@@ -61,7 +61,6 @@ input {
   display: block;
 }
 
-<<<<<<< HEAD
 .home_welcome_title {
   width: fit-content;
   position: absolute;
@@ -87,8 +86,6 @@ input {
   width: 100%;
   display: flex;
 }
-=======
->>>>>>> 629180d5498f86d5ab09fa04124e2dfd48858d63
 
 .date {
   display: flex;
@@ -107,7 +104,6 @@ input {
   flex-direction: start;
 }
 
-<<<<<<< HEAD
 /*Navbar*/
 
 .navbar_background {
@@ -226,9 +222,6 @@ input {
   height: 100px;
   margin: 0.4rem 0;
 }
-=======
-/* ?? */
->>>>>>> 629180d5498f86d5ab09fa04124e2dfd48858d63
 
 .signUp_title {
   padding: 0rem 0 4rem;
@@ -244,7 +237,6 @@ input {
 /*media queries*/
 
 @media (max-width: 768px) {
-<<<<<<< HEAD
   .login_logo_image img {
     width: 60%;
     height: fit-content;
@@ -278,8 +270,6 @@ input {
     margin: 4rem 0;
   }
 
-=======
->>>>>>> 629180d5498f86d5ab09fa04124e2dfd48858d63
   .hotel_listing_container {
     display: grid;
     grid-template-columns: auto;
@@ -290,7 +280,6 @@ input {
     min-width: 280px;
   }
 
-<<<<<<< HEAD
   .listing_section {
     grid-template-columns: auto;
   }
@@ -298,8 +287,6 @@ input {
   .listing_date_input input {
     width: 120px;
   }
-=======
->>>>>>> 629180d5498f86d5ab09fa04124e2dfd48858d63
 }
 
 @media (min-width: 769px) {
@@ -307,7 +294,6 @@ input {
     display: grid;
     place-content: center;
   }
-<<<<<<< HEAD
 
   .signup_img-container {
     display: block;
@@ -475,11 +461,6 @@ input {
     height: 40px;
   }
 
-=======
-}
-
-@media (min-width: 992px) {
->>>>>>> 629180d5498f86d5ab09fa04124e2dfd48858d63
   .listing_section {
     display: flex;
   }

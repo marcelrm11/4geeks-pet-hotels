@@ -27,12 +27,6 @@ export const Navbar = () => {
         <div className="ml-auto">
           <Link to="/addHotel">
             <button className="btn btn-danger addHotel_Btn">Add hotel</button>
-<<<<<<< HEAD
-          </Link>
-          <Link to="/signup">
-            <button className="btn btn-danger signUp_Btn">Sign Up</button>
-=======
->>>>>>> 629180d5498f86d5ab09fa04124e2dfd48858d63
           </Link>
           {!store.token ? (
             <>
