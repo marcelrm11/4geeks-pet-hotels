@@ -1,4 +1,5 @@
 import datetime
+from enum import Enum
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -44,11 +45,19 @@ class User(db.Model):
         }
 
 
+class PetType(Enum):
+    DOG = 'dog',
+    CAT = 'cat',
+    RODENT = 'rodent',
+    BIRD = 'bird',
+    OTHER = 'other'
+
+
 class Pets(db.Model):
     __tablename__ = "pets"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
-    pet_type = db.Column(db.String(50), nullable=False)
+    pet_type = db.Column(db.Enum(PetType, name='pet_type'), nullable=False)
     breed = db.Column(db.String(50), nullable=False, default="N/A")
     birth_date = db.Column(db.String(), nullable=False)
     health = db.Column(db.String(50), nullable=False)
@@ -193,7 +202,7 @@ class Review(db.Model):
 class Room(db.Model):
     __tablename__ = "room"
     id = db.Column(db.Integer, primary_key=True)
-    pet_type = db.Column(db.String(30), nullable=False, default="any")
+    pet_type = db.Column(db.Enum(PetType, name='pet_type'), default='any')
     hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.id"), nullable=False)
     bookings = db.relationship("Booking", backref=db.backref("room"))
 
@@ -275,9 +284,10 @@ class Invoice(db.Model):
 
 class Countries_zip_codes(db.Model):
     __tablename__ = "countries_zip_codes"
+    id = db.Column(db.Integer, primary_key=True)
     country = db.Column(db.String)
-    country_iso = db.Column(db.String, primary_key=True)
-    zip_regex = db.Column(db.String)
+    country_iso = db.Column(db.String, nullable=True)
+    zip_regex = db.Column(db.String, nullable=True)
 
     def __repr__(self):
-        return f"<{self.country_iso}: {self.country}>"
+        return f"<{self.country}>"
