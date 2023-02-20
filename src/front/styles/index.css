@@ -103,16 +103,6 @@ body {
   display: flex;
 }
 
-.home_search_bar {
-  position: relative;
-}
-
-.home_search_bar button {
-  position: absolute;
-  top: -30%;
-  right: 0%;
-}
-
 .date {
   display: flex;
   flex-direction: column;
@@ -134,6 +124,12 @@ body {
 
 .navbar_background {
   background-color: var(--darkBlue);
+}
+
+.addHotel_Btn {
+  border-color: var(--turquoise);
+  background-color: var(--turquoise);
+  margin-right: 1rem;
 }
 
 .signUp_Btn {
@@ -244,7 +240,7 @@ body {
 }
 
 .signUp_title {
-  padding: 0rem 0 3rem;
+  padding: 0rem 0 4rem;
 }
 .detailsPhoto {
   width: 100%;
@@ -630,8 +626,8 @@ h5 {
     display: none;
   }
 
-  .access_btn {
-    margin: 2rem 0;
+  .hotel_form .access_btn {
+    margin: 4rem 0;
   }
 
   .hotel_listing_container {
@@ -641,40 +637,16 @@ h5 {
   }
 
   .hotelListing_search_bar {
-    min-width: 300px;
+    min-width: 280px;
   }
 
   .listing_section {
     grid-template-columns: auto;
   }
 
-  .home_welcome_title {
-    top: 28%;
-    left: 50%;
+  .listing_date_input input {
+    width: 120px;
   }
-
-  .home_image_info_searchBar {
-    position: static;
-    width: 90%;
-    margin: 1rem;
-  }
-
-  .home_search_bar button {
-    max-width: 130px;
-    top: -6%;
-  }
-
-  .date select,
-  .date input {
-    min-width: 100px;
-    height: 30px;
-    margin: 0.3rem 0.5rem 0 0;
-  }
-
-  .home_search_date {
-    flex-direction: column;
-  }
-
 }
 
 @media (min-width: 769px) {
@@ -799,21 +771,16 @@ h5 {
     margin-bottom: 3rem;
   }
 
-  .home_image_info_searchBar {
-    position: static;
-    width: 90%;
-    margin: 1rem;
+  .addHotel_img {
+    margin-top: 9rem;
   }
 
-  .date select,
-  .date input {
-    min-width: 150px;
-    height: 40px;
-    margin: 0.3rem 0.5rem 0 0;
+  .addHotel_btn_container {
+    margin-top: 2rem;
   }
 
-  .home_search_date {
-    flex-direction: column;
+  .hotel_form .signUp_title {
+    margin-bottom: 3%;
   }
 }
 
@@ -843,6 +810,10 @@ h5 {
   .signup-input-container input {
     min-width: 200px;
     min-height: 40px;
+  }
+
+  .hotel_form .signUp_title {
+    padding: 0rem 0 0rem;
   }
 
   .log-btn {
@@ -896,8 +867,8 @@ h5 {
     padding: 4rem;
   }
 
-  .bookingSub_section {
-    width: 85%;
+  .addHotel_img {
+    margin-top: 5rem;
   }
 }
 

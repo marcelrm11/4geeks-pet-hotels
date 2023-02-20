@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "../component/button";
 
 const HotelListinSearch = () => {
   return (
@@ -62,9 +63,12 @@ const HotelListinSearch = () => {
           <input type="date" id="fecha-salida" name="fecha-salida" />
         </div>
       </div>
-      <div className="listing_search_bar">
+      <div className="home_search_bar date">
         <label>Search</label>
-        <input type="text" placeholder="Search" />
+        <input className="home_search_input" type="text" placeholder="Search" />
+        <Button buttonClass="log-btn access_btn">
+          <span className="log_color search_btn">Search</span>
+        </Button>
       </div>
     </div>
   );

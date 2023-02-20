@@ -25,6 +25,9 @@ export const Navbar = () => {
           <span className="navbar-brand mb-0 h1">PetCasa</span>
         </Link>
         <div className="ml-auto">
+          <Link to="/addHotel">
+            <button className="btn btn-danger addHotel_Btn">Add hotel</button>
+          </Link>
           <Link to="/signup">
             <button className="btn btn-danger signUp_Btn">Sign Up</button>
           </Link>

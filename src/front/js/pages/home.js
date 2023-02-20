@@ -1,7 +1,6 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
-import HomeSearch from "../component/homeSearch";
 import landing_image from "../../img/homeLandingImage.jpg";
 
 export const Home = () => {
@@ -17,11 +16,6 @@ export const Home = () => {
             alt="dog welcoming image"
           />
         </figure>
-        <div className="home_image_info_searchBar">
-          <div className="home_search_bar_container">
-            <HomeSearch />
-          </div>
-        </div>
         <div>
           <div className="home_welcome_title">
             <h1>Petcasa</h1>
