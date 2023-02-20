@@ -70,7 +70,7 @@ input {
 /*buttons*/
 
 .general_button {
-  max-width: 150px;
+  max-width: 180px;
   font-size: var(--fontSize-S);
   border: none;
   border-radius: var(--btnRadius);

@@ -12,11 +12,13 @@
 
 .input-container {
   display: grid;
+  place-content: center;
   gap: 2%;
 }
 
 .input-container input {
   width: 100%;
+  max-width: 230px;
   min-height: 40px;
   height: auto;
   border: none;
@@ -73,7 +75,10 @@
 }
 
 .log_in_buttons {
-  margin: 1rem 0 2rem 0;
+  margin: 1rem 0 3rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .google_log_in {

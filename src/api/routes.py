@@ -472,25 +472,31 @@ def create_hotel():
 
 #hotel photo -------------------------------------------------------------------------
 
-@api.route('/hotel/<int:hotel_id>/image', methods=['PUT'])
-def handle_upload(hotel_id):
+# @api.route('/hotel/<int:hotel_id>/image', methods=['PUT'])
+# def handle_upload(hotel_id):
+#     try:
+#         # validate that the front-end request was built correctly
+#         if 'profile_image' in request.files:
+#             # upload file to uploadcare
+#             result = cloudinary.uploader.upload(request.files['profile_image'])
 
-    # validate that the front-end request was built correctly
-    if 'profile_image' in request.files:
-        # upload file to uploadcare
-        result = cloudinary.uploader.upload(request.files['profile_image'])
+#             # fetch for the user
+#             hotel1 = User.query.get(hotel_id)
+#             # update the user with the given cloudinary image URL
+#             hotel1.profile_image_url = result['secure_url']
 
-        # fetch for the user
-        hotel1 = User.query.get(hotel_id)
-        # update the user with the given cloudinary image URL
-        hotel1.profile_image_url = result['secure_url']
+#             db.session.add(hotel1)
+#             db.session.commit()
 
-        db.session.add(hotel1)
-        db.session.commit()
-
-        return jsonify(hotel1.serialize()), 200
-    else:
-        raise APIException('Missing profile_image on the FormData')
+#             return jsonify(hotel1.serialize()), 200
+#         else:
+#             raise APIException('Missing profile_image on the FormData')
+#     except Exception as e:
+#         db.session.rollback()
+#         print(sys.exc_info())
+#         return jsonify({"error": str(e)}), 500
+#     finally:
+#         db.session.close()
 
 
 # READ: all hotels ---------------
