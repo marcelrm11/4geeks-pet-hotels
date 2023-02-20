@@ -4,7 +4,7 @@ import { Button } from "./button";
 export const DetailBooking = ({ details }) => {
   return (
     <>
-      <div className="place_details_booking">
+      <div className="place_details_booking white_letter">
         <div>
           <div className="detail_dates_container">
             <h5>Dates:</h5>
@@ -27,8 +27,8 @@ export const DetailBooking = ({ details }) => {
             <p>Total (EUR)</p>
             <p>1500</p>
           </div>
-          <Button buttonClass="log-btn access_btn reserve_btn">
-            <span className="log_color">Reserve</span>
+          <Button buttonClass="general_button red_Btn reserve_btn">
+            <span className="white_letter">Reserve</span>
           </Button>
         </div>
       </div>

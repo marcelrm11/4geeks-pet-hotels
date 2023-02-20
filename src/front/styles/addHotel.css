@@ -1,3 +1,9 @@
+@media (max-width: 768px) {
+  .addHotel_form_submit {
+    margin-top: 2rem;
+  }
+}
+
 @media (min-width: 769px) {
   .add_hotel_img {
     width: 80%;
@@ -15,11 +21,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 2rem;
-  }
-
-  .add_hotel .access_btn {
-    margin: 4rem 0 0.8rem 0;
+    margin: 0 1rem 0 7rem;
   }
 
   .add_hotel input {
@@ -28,5 +30,9 @@
 
   .add_hotel {
     margin: 2% 18% 0 0;
+  }
+
+  .add_hotel_btn_section{
+    margin-top: 4rem;
   }
 }

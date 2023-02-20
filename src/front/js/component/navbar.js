@@ -26,17 +26,21 @@ export const Navbar = () => {
         </Link>
         <div className="ml-auto">
           <Link to="/addHotel">
-            <button className="btn btn-danger addHotel_Btn">Add hotel</button>
+            <button className="btn btn-danger general_button turquoise_Btn">
+              Add hotel
+            </button>
           </Link>
           {!store.token ? (
             <>
               <Link to="/signup">
-                <button className="btn btn-danger signUp_Btn">Sign Up</button>
+                <button className="btn btn-danger general_button red_Btn">
+                  Sign Up
+                </button>
               </Link>
 
               <button
                 type="button"
-                className="btn btn-primary logIn_Btn"
+                className="btn btn-primary blue_Btn general_button"
                 data-bs-toggle="modal"
                 data-bs-target="#loginModal"
               >

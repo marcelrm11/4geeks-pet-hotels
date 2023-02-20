@@ -9,7 +9,7 @@ export const AddHotelData = ({
   hotelData,
   handleChange,
   handleValidate,
-  uploadImage
+  uploadImage,
 }) => {
   const { store, actions } = useContext(Context);
 
@@ -33,9 +33,10 @@ export const AddHotelData = ({
             return (
               <React.Fragment key={field}>
                 <Input
-                  type={field.includes("photo")
-                  ? "file" : 
-                  field.includes("email")
+                  type={
+                    field.includes("photo")
+                      ? "file"
+                      : field.includes("email")
                       ? "email"
                       : "text"
                   }
@@ -52,9 +53,12 @@ export const AddHotelData = ({
             );
           })}
         </div>
-        <div className="btn_container add_hotel">
-          <Button buttonClass="log-btn access_btn" onClick={handleValidate}>
-            <span className="log_color">Add hotel</span>
+        <div className="btn_container add_hotel_btn_section">
+          <Button
+            buttonClass="general_button red_Btn addHotel_form_submit"
+            onClick={handleValidate}
+          >
+            <span className="white_letter">Add hotel</span>
           </Button>
         </div>
       </div>

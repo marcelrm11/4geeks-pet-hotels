@@ -114,3 +114,9 @@
     flex-direction: column;
   }
 }
+
+@media (min-width: 992px) {
+  .home_search_bar button {
+    top: -56%;
+  }
+}

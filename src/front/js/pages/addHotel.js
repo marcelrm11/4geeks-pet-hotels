@@ -16,32 +16,32 @@ export const AddHotel = () => {
     phone_number: "",
     hotel_description: "lcbqilubfqibfiwbfe",
     hotel_owner_id: "", // hay que tomar el owner id
-    photo: "",
+    //photo: "",
   });
 
-  const uploadImage = (e) => {
-    e.preventDefault();
-    // we are about to send this to the backend.
-    console.log("This are the files", files);
-    let body = new FormData();
-    body.append("profile_image", files[0]);
-    const options = {
-      body,
-      method: "POST",
-    };
-    // you need to have the user_id in the localStorage
-    const currentHotelId = localStorage.getItem("hotel_id");
-    fetch(
-      `${process.env.BACKEND_URL}/api/hotel/${currentHotelId}/image`,
-      options
-    )
-      .then((resp) => resp.json())
-      .then((data) => console.log("Success!!!!", data))
-      .catch((error) => console.error("ERRORRRRRR!!!", error));
-  };
+  // const uploadImage = (e) => {
+  //   e.preventDefault();
+  //   // we are about to send this to the backend.
+  //   console.log("This are the files", files);
+  //   let body = new FormData();
+  //   body.append("profile_image", files[0]);
+  //   const options = {
+  //     body,
+  //     method: "POST",
+  //   };
+  //   // you need to have the user_id in the localStorage
+  //   const currentHotelId = localStorage.getItem("hotel_id");
+  //   fetch(
+  //     `${process.env.BACKEND_URL}/api/hotel/${currentHotelId}/image`,
+  //     options
+  //   )
+  //     .then((resp) => resp.json())
+  //     .then((data) => console.log("Success!!!!", data))
+  //     .catch((error) => console.error("ERRORRRRRR!!!", error));
+  // };
 
   const handleChange = (ev) => {
-    setFiles(ev.target.files);
+    //setFiles(ev.target.files);
     setHotelData({ ...hotelData, [ev.target.name]: ev.target.value });
   };
 
@@ -55,7 +55,7 @@ export const AddHotel = () => {
     <div className="text-center mt-5">
       <div className="forms">
         <AddHotelData
-          uploadImage={uploadImage}
+          //uploadImage={uploadImage}
           hotelData={hotelData}
           handleChange={handleChange}
           handleValidate={(e) => actions.handleValidateHotelForm(e, hotelData)}

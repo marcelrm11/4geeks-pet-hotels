@@ -1,37 +1,6 @@
 /*Navbar*/
-.addHotel_Btn {
-  border-color: var(--turquoise);
-  background-color: var(--turquoise);
-  margin-right: 1rem;
-}
-
-.signUp_Btn:hover {
-  border-color: var(--darkBlue);
-  background-color: var(--darkBlue);
-}
 
 .navbar_background {
   background-color: var(--darkBlue);
 }
 
-.signUp_Btn {
-  border-color: var(--salmon);
-  background-color: var(--salmon);
-}
-
-.signUp_Btn:hover {
-  border-color: var(--darkRed);
-  background-color: var(--darkRed);
-}
-
-.logIn_Btn {
-  border-color: var(--lightBlue);
-  background-color: var(--lightBlue);
-  color: var(--blackLetters);
-  margin-left: 1rem;
-}
-
-.logIn_Btn:hover {
-  border-color: var(--turquoise);
-  background-color: var(--turquoise);
-}

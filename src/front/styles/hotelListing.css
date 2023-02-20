@@ -9,6 +9,11 @@
   border-radius: 5px;
 }
 
+.home_search_bar button {
+  min-width: 150px;
+  top: 44%;
+}
+
 .listing_section {
   width: 100vw;
   height: max-content;
@@ -96,6 +101,35 @@
   opacity: 1;
 }
 
+.entry_date label {
+  margin-right: 1rem;
+}
+
+.checkout_date {
+  margin-top: 0.5rem;
+}
+
+.checkout_date label {
+  margin-right: 2rem;
+}
+
+.home_search_bar {
+  display: flex;
+  flex-direction: column;
+}
+
+.home_search_bar input {
+  height: 40px;
+}
+
+.entry_date input,
+.checkout_date input,
+.home_search_bar input {
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+
 /*hotel listing cards*/
 
 .hotel_image {
@@ -165,7 +199,7 @@
 }
 
 .listing_hotel_btn {
-  width: 200px;
+  width: 130px;
   height: 40px;
   background-color: var(--salmon);
   border: none;
@@ -204,6 +238,14 @@
   .listing_section {
     grid-template-columns: auto;
   }
+
+  .listing_date_input {
+    grid-template-columns: auto;
+  }
+
+  .date {
+    margin-top: 2rem;
+  }
 }
 
 @media (min-width: 769px) {
@@ -241,7 +283,6 @@
   }
 
   .listing_hotel_btn {
-    width: 200px;
     height: 40px;
     background-color: var(--salmon);
     border: none;

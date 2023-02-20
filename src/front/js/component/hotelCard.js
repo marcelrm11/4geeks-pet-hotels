@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
-import labrador from "../../img/labrador.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
@@ -14,9 +13,13 @@ const HotelCard = (props) => {
       className="card card_section"
       style={{ width: "16rem" }}
     >
-      <img src={labrador} className="card-img-top hotel_image" alt="..." />
+      <img
+        src="https://picsum.photos/200"
+        className="card-img-top hotel_image"
+        alt="..."
+      />
       <button
-        onClick={() => actions.addFavorites(props.hotel.id)}
+        onClick={() => actions.addFavorites(props.hotel.id, props.hotel.name)}
         className="favoritesBtn"
       >
         <FontAwesomeIcon icon={faHeart} className="favorites_icon" />

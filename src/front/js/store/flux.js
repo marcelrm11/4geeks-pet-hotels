@@ -154,6 +154,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             const data = await response.json();
             console.log(data);
             setStore({ signupSuccessful: true });
+            setTimeout(() => setStore({ signupSuccessful: false }), 4000);
             return true;
           }
           throw Error(response.statusText);
@@ -183,8 +184,27 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       addFavorites: (id) => {
+        const store = getStore();
         console.log(id);
+        store.hotels.map((hotel) => {
+          if (hotel.id === id && !store.favorites.find((f) => f.id === id)) {
+            setStore({
+              favorites: [
+                ...store.favorites,
+                { id: hotel.id, name: hotel.name },
+              ],
+            });
+          }
+        });
+        localStorage.setItem("favorites", JSON.stringify(store.favorites));
+        console.log(store.favorites);
       },
+
+      deleteFavorites: (id) => {
+				const store = getStore();
+				let deleteFav = store.favorites.filter((element) => element.id !== id)
+				setStore({favorites: [...deleteFav]})
+			},
 
       handleValidateHotelForm: (ev, hotelData) => {
         const actions = getActions();
