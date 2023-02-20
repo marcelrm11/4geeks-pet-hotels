@@ -14,6 +14,11 @@ export const Home = () => {
           ? `Hola, ${store.user.first_name}!`
           : `Bienvenido a PetCasa`}
       </h2>
+      {store.signupSuccessful ? (
+        <h4>signup successful, verify your email and log in</h4>
+      ) : (
+        ""
+      )}
 
       <section className="home_image_searchbar">
         <figure className="home_img_container">
