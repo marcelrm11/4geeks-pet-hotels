@@ -14,6 +14,8 @@ export const AddHotel = () => {
     country: "",
     location: "",
     zip_code: "",
+    hotel_owner_id: "",
+    photo: ""
   });
 
   const handleChange = (ev) => {

@@ -32,8 +32,8 @@ export const SignUpForm = ({ hotelData, handleChange, handleValidate }) => {
               <React.Fragment key={field}>
                 <Input
                   type={
-                    field.includes("password")
-                      ? "password"
+                    field.includes("photo")
+                      ? "file"
                       : field.includes("email")
                       ? "email"
                       : "text"
