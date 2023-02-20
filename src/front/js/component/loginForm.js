@@ -29,34 +29,35 @@ export const LoginForm = ({ credentials, onChange, onLogin }) => {
         );
       })}
       <p className="password_forget">Forgot your password?</p>
-      <Button
-        buttonClass={"log-btn access_btn"}
-        onClick={onLogin}
-        data-bs-dismiss="modal"
-      >
-        <Link to="/" className="log_color">
-          Log In
-        </Link>
-      </Button>
-      <Button
-        buttonClass={"log-btn log_socialMedia"}
-        onClick={onLogin}
-        data-bs-dismiss="modal"
-      >
-        <Link to="/" className="log_color">
-          Log In with Google
-        </Link>
-      </Button>
-      <Button
-        buttonClass={"log-btn log_socialMedia"}
-        onClick={onLogin}
-        data-bs-dismiss="modal"
-      >
-        <Link to="/" className="log_color">
-          Log In with Facebook
-        </Link>
-      </Button>
-      <div className="footer"></div>
+      <div className="log_in_buttons">
+        <Button
+          buttonClass={"general_button red_Btn"}
+          onClick={onLogin}
+          data-bs-dismiss="modal"
+        >
+          <Link to="/" className="white_letter">
+            Log In
+          </Link>
+        </Button>
+        <Button
+          buttonClass={"general_button log_socialMedia google_log_in"}
+          onClick={onLogin}
+          data-bs-dismiss="modal"
+        >
+          <Link to="/" className="white_letter">
+            Log In with Google
+          </Link>
+        </Button>
+        <Button
+          buttonClass={"general_button log_socialMedia"}
+          onClick={onLogin}
+          data-bs-dismiss="modal"
+        >
+          <Link to="/" className="white_letter">
+            Log In with Facebook
+          </Link>
+        </Button>
+      </div>
     </form>
   );
 };

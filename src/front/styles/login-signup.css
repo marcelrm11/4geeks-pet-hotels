@@ -12,7 +12,6 @@
 
 .input-container {
   display: grid;
-  place-content: center;
   gap: 2%;
 }
 
@@ -30,34 +29,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.log-btn {
-  min-width: 160px;
-  border: none;
-  border-radius: var(--btnRadius);
-  background-color: var(--salmon);
-}
-
-.access_btn {
-  margin: 1rem 0;
-}
-
-.logIn_access:hover {
-  background-color: var(--darkRed);
+  margin-top: 2rem;
 }
 
 .log_socialMedia {
-  background-color: var(--lightBlue);
+  height: fit-content;
+  background-color: var(--turquoise);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .log_socialMedia:hover {
   background-color: var(--turquoise);
-}
-
-.log_color {
-  color: var(--whiteLetters);
-  font-size: var(--fontSize-XS);
 }
 
 .btn-x {
@@ -69,20 +53,31 @@
   background-color: var(--lightBlue);
 }
 
-.footer {
-  height: 100px;
-  margin: 0.4rem 0;
-}
-
 .signup-img-container {
   width: 100%;
   display: flex;
   justify-content: center;
 }
 .signup_img-container img {
-  border-radius: 3rem;
+  border-radius: 2rem;
   overflow: hidden;
   margin-left: 2rem;
+}
+
+.signUp_title {
+  padding: 0 0 1rem 0;
+}
+
+.log_in_buttons .general_button {
+  min-width: 230px;
+}
+
+.log_in_buttons {
+  margin: 1rem 0 2rem 0;
+}
+
+.google_log_in {
+  margin: 1rem 0;
 }
 
 @media screen and (max-width: 768px) {
@@ -129,7 +124,8 @@
     width: 70%;
     height: fit-content;
     margin-left: 1rem;
-    min-width: 300px;
+    min-width: 330px;
+    margin-top: 2rem;
   }
 
   .signup_img-container img {
@@ -139,11 +135,6 @@
   .signup-input-container {
     display: flex;
     margin-right: 1rem;
-  }
-
-  .signUp_title {
-    margin-top: 0;
-    margin-bottom: 6%;
   }
 
   .inputs_section {
@@ -170,8 +161,12 @@
     margin-bottom: 6%;
   }
 
-  .log-btn {
+  .inputs_section input {
     min-width: 160px;
+  }
+
+  .sign_up_btns .general_button {
+    min-width: 250px;
   }
 }
 
@@ -190,7 +185,6 @@
 
   .signup-input-container {
     justify-content: center;
-    margin-top: 6%;
     margin-left: 2rem;
   }
 
@@ -201,10 +195,6 @@
   .signup-input-container input {
     min-width: 200px;
     min-height: 40px;
-  }
-
-  .log-btn {
-    min-width: 200px;
   }
 }
 

@@ -6,9 +6,15 @@ import { HotelBasicInfo } from "../component/hotelBasicInfo";
 export const PlaceDetailsSearch = ({ details, overallRating }) => {
   return (
     <div className="place_detail_info_section">
-      <figure className="place_detail_img">
-        <img src={cobaya} alt="" />
-      </figure>
+      <div className="hotel_details_images">
+        <figure className="place_detail_img">
+          <img src="https://picsum.photos/200" alt="" />
+        </figure>
+        <figure className="more_detail_images">
+          <img src="https://picsum.photos/200" alt="hotel_images_1" />
+          <img src="https://picsum.photos/200" alt="hotel_images_2" />
+        </figure>
+      </div>
       <div>
         <p>{overallRating}</p>
       </div>

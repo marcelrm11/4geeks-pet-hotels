@@ -7,6 +7,7 @@ import { HotelDescription } from "../component/hotelDescription";
 import { HotelReviews } from "../component/hotelReviews";
 import { PlaceDetailsSearch } from "../component/placeDetailsSearch";
 import { Button } from "../component/button";
+import { Link } from "react-router-dom";
 
 export const Hotel = () => {
   const { store, actions } = useContext(Context);
@@ -35,7 +36,7 @@ export const Hotel = () => {
 
   return (
     <div className="text-center mt-5">
-      <h1 className="hotel_details_section">{`Hotel details`}</h1>
+      <h1 className="hotel_details_section">{`${details.name}`}</h1>
       <div className="flex-container">
         <div className="component1">
           <PlaceDetailsSearch details={details} overallRating={overallRating} />
@@ -43,15 +44,20 @@ export const Hotel = () => {
         <div className="component2">
           <h2>Services</h2>
           <div className="detail_services_section">
-            {services().map((service) => {
-              return <HotelServices service={service} />;
+            {services().map((service, index) => {
+              return <HotelServices key={index} service={service} />;
             })}
           </div>
         </div>
       </div>
-      <HotelDescription description={details.hotel_description} />
-      <Button buttonClass="log-btn access_btn hotel_detail_btn">
-        <span className="log_color">Reserve</span>
+      <HotelDescription
+        name={details.name}
+        description={details.hotel_description}
+      />
+      <Button buttonClass="general_button red_Btn hotel_detail_btn">
+        <Link to="/booking">
+          <span className="white_letter">Reserve</span>
+        </Link>
       </Button>
       <h5>
         Reviews

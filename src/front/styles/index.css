@@ -45,8 +45,14 @@ body {
   overflow-x: hidden;
 }
 
+/*font characteristics*/
+
 .title-font {
   font-family: "Source Sans Pro", sans-serif;
+}
+
+.white_letter {
+  color: white;
 }
 
 input {
@@ -61,468 +67,55 @@ input {
   display: block;
 }
 
-.home_welcome_title {
-  width: fit-content;
-  position: absolute;
-  top: 0%;
-  left: 0%;
-}
+/*buttons*/
 
-.home_search_filter {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-  font-size: var(--fontSize-XS);
-}
-
-.home_pet_select {
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.home_search_date {
-  width: 100%;
-  display: flex;
-}
-
-.date {
-  display: flex;
-  flex-direction: column;
-}
-
-.date select,
-.date input {
-  min-width: 135px;
-  height: 40px;
+.general_button {
+  max-width: 150px;
+  font-size: var(--fontSize-S);
   border: none;
+  border-radius: var(--btnRadius);
 }
 
-.date label {
-  display: flex;
-  flex-direction: start;
-}
-
-/*Navbar*/
-
-.navbar_background {
-  background-color: var(--darkBlue);
-}
-
-.addHotel_Btn {
+.turquoise_Btn {
   border-color: var(--turquoise);
   background-color: var(--turquoise);
   margin-right: 1rem;
 }
 
-.signUp_Btn {
-  border-color: var(--salmon);
-  background-color: var(--salmon);
-}
-
-.signUp_Btn:hover {
-  border-color: var(--darkRed);
-  background-color: var(--darkRed);
-}
-
-.logIn_Btn {
-  border-color: var(--lightBlue);
-  background-color: var(--lightBlue);
-  color: var(--blackLetters);
-  margin-left: 1rem;
-}
-
-.logIn_Btn:hover {
-  border-color: var(--turquoise);
-  background-color: var(--turquoise);
-}
-
-/*login-signup*/
-
-.modal_background {
+.red_Btn:hover {
+  border-color: var(--darkBlue);
   background-color: var(--darkBlue);
-  color: var(--whiteLetters);
-}
-
-.password_forget {
-  color: var(--whiteLetters);
-  margin: 0;
-}
-
-.input-container {
-  display: grid;
-  place-content: center;
-  gap: 2%;
-  margin-top: 10%;
-}
-
-.input-container input {
-  min-width: 200px;
-  max-width: 220px;
-  min-height: 40px;
-  height: auto;
-  border: none;
-  border-radius: var(--btnRadius);
-  background-color: var(--lighterBlue);
-  padding: 2% 5%;
-}
-
-.login_logo_image {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.signup-img-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.log-btn {
-  min-width: 160px;
-  height: 30px;
-  border: none;
-  border-radius: var(--btnRadius);
-  background-color: var(--salmon);
 }
 
 .access_btn {
   margin: 1rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .logIn_access:hover {
   background-color: var(--darkRed);
 }
 
-.log_socialMedia {
-  background-color: var(--lightBlue);
-}
-
-.log_socialMedia:hover {
-  background-color: var(--turquoise);
-}
-
-.log_color {
-  color: var(--whiteLetters);
-  font-size: var(--fontSize-XS);
-}
-
-.btn-x {
+.red_Btn {
+  border-color: var(--salmon);
   background-color: var(--salmon);
-  padding: 0.5rem 1.5rem;
 }
 
-.btn-x:hover {
+.red_Btn:hover {
+  border-color: var(--darkRed);
+  background-color: var(--darkRed);
+}
+
+.blue_Btn {
+  border-color: var(--lightBlue);
   background-color: var(--lightBlue);
+  color: var(--blackLetters);
+  margin-left: 1rem;
 }
 
-.footer {
-  height: 100px;
-  margin: 0.4rem 0;
-}
-
-.signUp_title {
-  padding: 0rem 0 4rem;
-}
-
-.signup_img-container img {
-  border-radius: 3rem;
-  overflow: hidden;
-  margin-left: 2rem;
-}
-
-
-/*media queries*/
-
-@media (max-width: 768px) {
-  .login_logo_image img {
-    width: 60%;
-    height: fit-content;
-  }
-
-  .signup-input-container {
-    display: grid;
-    gap: 3%;
-  }
-
-  .inputs_section {
-    display: grid;
-    place-content: center;
-    grid-template-columns: auto;
-    gap: 3%;
-  }
-
-  .btn_container {
-    min-width: 160px;
-    display: grid;
-    grid-template-columns: auto;
-    gap: 4%;
-    margin: 1rem 6rem;
-  }
-
-  .signup_img-container {
-    display: none;
-  }
-
-  .hotel_form .access_btn {
-    margin: 4rem 0;
-  }
-
-  .hotel_listing_container {
-    display: grid;
-    grid-template-columns: auto;
-    place-content: center;
-  }
-
-  .hotelListing_search_bar {
-    min-width: 280px;
-  }
-
-  .listing_section {
-    grid-template-columns: auto;
-  }
-
-  .listing_date_input input {
-    width: 120px;
-  }
-}
-
-@media (min-width: 769px) {
-  .hotel_listing_container {
-    display: grid;
-    place-content: center;
-  }
-
-  .signup_img-container {
-    display: block;
-  }
-
-  .signup_img-container {
-    width: 70%;
-    height: fit-content;
-    margin-left: 1rem;
-    min-width: 300px;
-  }
-
-  .signup_img-container img {
-    width: 100%;
-  }
-
-  .signup-input-container {
-    display: flex;
-    margin-right: 1rem;
-  }
-
-  .input-container input {
-    min-width: 180px;
-  }
-
-  .signUp_title {
-    margin-top: 0;
-    margin-bottom: 6%;
-  }
-
-  .inputs_section {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6%;
-  }
-
-  .signup_info {
-    margin: 2% 4% 0 0;
-  }
-
-  .access_btn {
-    margin: 5rem 0 0.8rem 0;
-  }
-
-  .btn_container {
-    display: grid;
-    grid-template-columns: auto;
-    place-content: center;
-  }
-
-  .google_signup_btn {
-    margin-bottom: 6%;
-  }
-
-  .log-btn {
-    min-width: 160px;
-    height: 40px;
-  }
-
-  .access_btn {
-    margin: 3rem 0 0.8rem 0;
-  }
-
-  .hotelServices {
-    display: inline-block;
-    padding: 20px;
-  }
-  .hideOnMobile {
-    display: block;
-    background-color: #193236;
-    height: 300px;
-    margin: 20px;
-    border-radius: 10px;
-  }
-  .hideOnMobile * {
-    color: white;
-    font-family: "Source Sans Pro", sans-serif;
-    text-align: left;
-  }
-  .hideOnMobile p:first-child {
-    padding: 40px 0px 0px 20px;
-    text-align: left;
-  }
-  .hideOnMobile p:nth-child(2) {
-    text-align: left;
-    padding: 0px 0px 5px 20px;
-    border-bottom: 1px solid white;
-  }
-  .placeDetailsDateInput {
-    display: inline-flex;
-    margin: 0px;
-  }
-  .bookedServices {
-    text-align: left;
-    padding: 0px 0px 5px 0px;
-    border-bottom: 1px solid white;
-  }
-  .entryDate label,
-  .checkoutDate label {
-    display: block;
-  }
-  .totalEur p {
-    display: inline;
-  }
-  .flex-container {
-    display: flex;
-  }
-
-  .component1 {
-    flex: 1;
-  }
-
-  .components2 {
-    flex: 2;
-    margin-bottom: 3rem;
-  }
-
-  .addHotel_img {
-    margin-top: 9rem;
-  }
-
-  .addHotel_btn_container {
-    margin-top: 2rem;
-  }
-
-  .hotel_form .signUp_title {
-    margin-bottom: 3%;
-  }
-}
-
-@media (min-width: 992px) {
-  .login_logo_image img {
-    max-width: 210px;
-    height: fit-content;
-  }
-
-  .signup_img-container img {
-    width: 70%;
-    min-width: 350px;
-    height: fit-content;
-    margin-left: 3rem;
-  }
-
-  .signup-input-container {
-    justify-content: center;
-    margin-top: 6%;
-    margin-left: 2rem;
-  }
-
-  .signup_info {
-    margin: 2% 15% 0 2%;
-  }
-
-  .signup-input-container input {
-    min-width: 200px;
-    min-height: 40px;
-  }
-
-  .hotel_form .signUp_title {
-    padding: 0rem 0 0rem;
-  }
-
-  .log-btn {
-    min-width: 200px;
-    height: 40px;
-  }
-
-  .listing_section {
-    display: flex;
-  }
-
-  .hotelListing_search_bar {
-    min-width: 180px;
-    margin: 3rem;
-  }
-
-  .listing_search_bar input {
-    width: 280px;
-  }
-
-  .listing_date_input {
-    grid-template-columns: auto;
-    margin: 1rem 0;
-  }
-
-  .entry_date {
-    margin: 1.5rem 0;
-  }
-
-  .entry_date label {
-    padding-right: 0.6rem;
-  }
-
-  .checkout_date label {
-    padding-right: 1.5rem;
-  }
-
-  .booking_container {
-    flex-direction: row;
-  }
-
-  .bookingSub_section {
-    margin: 4rem;
-  }
-
-  .submit_space {
-    min-height: 240px;
-  }
-
-  .preSubmmit_section {
-    padding: 4rem;
-  }
-
-  .addHotel_img {
-    margin-top: 5rem;
-  }
-}
-
-@media (min-width: 1200px) {
-  .hotel_listing_container {
-    grid-template-columns: auto auto;
-    gap: 0 5%;
-    margin-right: 10%;
-  }
-
-  .listing_hotel_btn {
-    width: 200px;
-    height: 40px;
-    background-color: var(--salmon);
-    border: none;
-  }
+.blue_Btn:hover {
+  border-color: var(--turquoise);
+  background-color: var(--turquoise);
 }

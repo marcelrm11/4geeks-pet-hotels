@@ -154,6 +154,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             const data = await response.json();
             console.log(data);
             setStore({ signupSuccessful: true });
+            setTimeout(() => setStore({ signupSuccessful: false }), 4000);
             return true;
           }
           throw Error(response.statusText);

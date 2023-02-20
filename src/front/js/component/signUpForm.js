@@ -56,23 +56,26 @@ export const SignUpForm = ({ formData, handleChange, handleValidate }) => {
             );
           })}
         </div>
-        <div className="btn_container">
-          <Button buttonClass="log-btn access_btn" onClick={handleValidate}>
-            <span className="log_color">Sign up</span>
+        <div className="btn_container sign_up_btns">
+          <Button
+            buttonClass="general_button red_Btn access_btn"
+            onClick={handleValidate}
+          >
+            <span className="white_letter">Sign up</span>
           </Button>
           <Button
-            buttonClass={"log-btn log_socialMedia google_signup_btn"}
+            buttonClass={"general_button log_socialMedia google_signup_btn"}
             data-bs-dismiss="modal"
           >
-            <Link to="/" className="log_color">
+            <Link to="/" className="white_letter">
               Sign up with Google
             </Link>
           </Button>
           <Button
-            buttonClass={"log-btn log_socialMedia"}
+            buttonClass={"general_button log_socialMedia"}
             data-bs-dismiss="modal"
           >
-            <Link to="/" className="log_color">
+            <Link to="/" className="white_letter">
               Sign up with Facebook
             </Link>
           </Button>

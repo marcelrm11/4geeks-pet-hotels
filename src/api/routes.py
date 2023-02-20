@@ -455,7 +455,6 @@ def create_hotel():
 
             hotel_dict = hotel.serialize()
             response = jsonify(hotel_dict)
-            response.headers["Access-Control-Allow-Origin"] = "*"
             return response, 200
         except IntegrityError as e:
             db.session.rollback()
