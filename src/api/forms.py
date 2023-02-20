@@ -1,9 +1,11 @@
 
 import datetime
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, DateTimeField, DateField, DecimalField, IntegerField, DateField, IntegerField
+from wtforms import StringField, PasswordField, DateTimeField, DateField, DecimalField, IntegerField, DateField, IntegerField, SelectField
 from wtforms.validators import InputRequired, Email, Length, EqualTo, Regexp, ValidationError, NumberRange
 import re
+
+from api.models import PetType
 
 password_msg = "Password must contain at least one uppercase, one lowercase, one digit and one special character."
 password_regex = re.compile(
@@ -36,7 +38,8 @@ class ShortUserForm(FlaskForm):
 
 class PetForm(FlaskForm):
     name = StringField("Name", validators=[InputRequired()])
-    pet_type = StringField("Pet Type", validators=[InputRequired()])
+    pet_type = SelectField("Pet Type", choices=[(
+        tag.name, tag.value) for tag in PetType])
     breed = StringField("Breed", validators=[InputRequired()])
     birth_date = StringField("Birth Date", validators=[InputRequired()])
     health = StringField("Health", validators=[InputRequired()])
@@ -53,9 +56,11 @@ class HotelForm(FlaskForm):
                                InputRequired(), Regexp(phone_regex)])
     location = StringField("Location", validators=[InputRequired()])
     services = StringField("Services", validators=[InputRequired()])
-    hotel_description = StringField("Hotel Description", validators=[InputRequired()])
+    hotel_description = StringField(
+        "Hotel Description", validators=[InputRequired()])
     hotel_owner_id = IntegerField(
         "Hotel Owner ID", validators=[InputRequired()])
+
 
 class ReviewForm(FlaskForm):
     review_text = StringField("Review Text", validators=[InputRequired()])
