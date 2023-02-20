@@ -1,38 +1,30 @@
 import React from "react";
+import cobaya from "../../img/cobaya.png";
+import { DetailBooking } from "./detailBooking";
+import { HotelBasicInfo } from "../component/hotelBasicInfo";
 
-export const PlaceDetailsSearch = ({details, overallRating}) => {
-    console.log(overallRating)
-    // const averageRating = (overallRating) => {
-    //     let sum = 0;
-    //     overallRating.map(function (item) {
-    //         sum += item;
-    //       });
-    //     return sum / overallRating.length
-    // }
-    // console.log(averageRating(overallRating))
-    return (
-        <div className="hideOnMobile">
-            <p>{details.name}</p>
-            <p>{overallRating}</p>
-        <div className="placeDetailsDateInput">
-            <div className="entryDate">
-                <label>Llegada</label>
-                <input type="date" id="fecha-entrada" name="fecha-entrada" />
-            </div>
-
-            <div className="checkoutDate">
-                <label>Salida</label>
-                <input type="date" id="fecha-salida" name="fecha-salida" />
-            </div>
-            
+export const PlaceDetailsSearch = ({ details, overallRating }) => {
+  return (
+    <div className="place_detail_info_section">
+      <figure className="place_detail_img">
+        <img src={cobaya} alt="" />
+      </figure>
+      <div>
+        <p>{overallRating}</p>
+      </div>
+      <section className="information_section">
+        <div className="hotel_detail_preBooking">
+          <DetailBooking details={details} />
         </div>
-        <div className="bookedServices">
-            <p>Booked services:</p>
+        <div className="hotel_detail_information">
+          <HotelBasicInfo
+            name={details.name}
+            address={details.location}
+            phone={details.phone_number}
+            email={details.email}
+          />
         </div>
-        <div className="totalEur">
-        <p>Total (EUR)</p>
-        <p>1500</p>
-        </div>
-        </div>
-    )
-}
+      </section>
+    </div>
+  );
+};

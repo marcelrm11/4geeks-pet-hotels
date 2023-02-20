@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import { LoginModal } from "./loginmodal";
-import { Navigate } from "react-router";
+import "../../styles/navbar.css";
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
@@ -25,6 +25,9 @@ export const Navbar = () => {
           <span className="navbar-brand mb-0 h1 title-font">PetCasa</span>
         </Link>
         <div className="ml-auto">
+          <Link to="/addHotel">
+            <button className="btn btn-danger addHotel_Btn">Add hotel</button>
+          </Link>
           {!store.token ? (
             <>
               <Link to="/signup">

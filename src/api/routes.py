@@ -10,6 +10,11 @@ from api.forms import BookingForm, FavoriteForm, InvoiceForm, UserForm, ShortUse
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, set_access_cookies
 from sqlalchemy.exc import IntegrityError, NoForeignKeysError
 import sys
+from werkzeug.utils import secure_filename
+import cloudinary
+import cloudinary.uploader
+
+UPLOAD_FOLDER = '/src/api/img'
 
 api = Blueprint("api", __name__)
 
@@ -334,6 +339,7 @@ def create_owner():
 
             response = jsonify(owner_dict)
             response.headers["Access-Control-Allow-Credentials"] = "true"
+            response.headers["Access-Control-Allow-Origin"] = "*"
             set_access_cookies(response, access_token)
             return response, 200
         except IntegrityError as e:
@@ -435,8 +441,6 @@ def delete_owner(owner_id):
         # HOTELS ----------------------------------------------------------
 
 # CREATE: Hotel ----------------
-
-
 @api.route("/hotel/create", methods=["POST"])
 def create_hotel():
     # ! dangerous to disable the csrf protection
@@ -451,6 +455,7 @@ def create_hotel():
 
             hotel_dict = hotel.serialize()
             response = jsonify(hotel_dict)
+            response.headers["Access-Control-Allow-Origin"] = "*"
             return response, 200
         except IntegrityError as e:
             db.session.rollback()
@@ -464,6 +469,29 @@ def create_hotel():
     else:
         errors = {field: errors[0] for field, errors in form.errors.items()}
         return jsonify({"error": "validation error", "errors": errors}), 400
+
+
+#hotel photo -------------------------------------------------------------------------
+
+@api.route('/hotel/<int:hotel_id>/image', methods=['PUT'])
+def handle_upload(hotel_id):
+
+    # validate that the front-end request was built correctly
+    if 'profile_image' in request.files:
+        # upload file to uploadcare
+        result = cloudinary.uploader.upload(request.files['profile_image'])
+
+        # fetch for the user
+        hotel1 = User.query.get(hotel_id)
+        # update the user with the given cloudinary image URL
+        hotel1.profile_image_url = result['secure_url']
+
+        db.session.add(hotel1)
+        db.session.commit()
+
+        return jsonify(hotel1.serialize()), 200
+    else:
+        raise APIException('Missing profile_image on the FormData')
 
 
 # READ: all hotels ---------------
@@ -480,6 +508,7 @@ def get_hotels():
         return jsonify(response_body), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
 
 # SEARCH: nearby places -------------
 

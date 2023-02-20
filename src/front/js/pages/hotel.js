@@ -1,18 +1,16 @@
 import React, { useContext, useState, useEffect } from "react";
-import "../../styles/home.css";
+import "../../styles/hoteldetail.css";
 import { Context } from "../store/appContext";
 import { useLocation, useParams } from "react-router";
-import { ImageSlider } from "../component/imageSlider";
-import { HotelBasicInfo } from "../component/hotelBasicInfo";
 import { HotelServices } from "../component/hotelServices";
 import { HotelDescription } from "../component/hotelDescription";
 import { HotelReviews } from "../component/hotelReviews";
 import { PlaceDetailsSearch } from "../component/placeDetailsSearch";
+import { Button } from "../component/button";
 
 export const Hotel = () => {
   const { store, actions } = useContext(Context);
   const [details, setDetails] = useState([]);
-  const [photos, setPhotos] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [overallRating, setOverallRating] = useState(0);
   const location = useLocation();
@@ -20,12 +18,10 @@ export const Hotel = () => {
   console.log(location);
   // console.log(photos)
   useEffect(() => {
-    fetch(process.env.BACKEND_URL + location.pathname)
+    fetch(`${process.env.BACKEND_URL}/api${location.pathname}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setDetails(data);
-        setPhotos(data.photos);
         setReviews(data.reviews);
         setOverallRating(data.reviews.map((rev) => rev.rating));
       });
@@ -36,32 +32,30 @@ export const Hotel = () => {
     let splitList = servicesList.replace(/,\s+/g, ",").split(",");
     return splitList;
   };
-  console.log(services());
-
-  // const reviews = reviews.map((review) => {return <HotelReviews review={review}/>})
 
   return (
     <div className="text-center mt-5">
-      {/* <h1>{details.name}</h1> */}
-      <ImageSlider photos={photos} />
+      <h1 className="hotel_details_section">{`Hotel details`}</h1>
       <div className="flex-container">
         <div className="component1">
           <PlaceDetailsSearch details={details} overallRating={overallRating} />
         </div>
-        <div className="components2">
-          <HotelBasicInfo
-            name={details.name}
-            address={details.location}
-            phone={details.phone_number}
-          />
-          {services().map((service) => {
-            return <HotelServices key={service} service={service} />;
-          })}
+        <div className="component2">
+          <h2>Services</h2>
+          <div className="detail_services_section">
+            {services().map((service) => {
+              return <HotelServices service={service} />;
+            })}
+          </div>
         </div>
       </div>
       <HotelDescription description={details.hotel_description} />
+      <Button buttonClass="log-btn access_btn hotel_detail_btn">
+        <span className="log_color">Reserve</span>
+      </Button>
       <h5>
-        Reviews <i className="fa-solid fa-star reviewStar"></i>
+        Reviews
+        <i className="fa-solid fa-star reviewStar"></i>
         <i className="fa-solid fa-star reviewStar"></i>
         <i className="fa-solid fa-star reviewStar"></i>
         <i className="fa-solid fa-star reviewStar"></i>
