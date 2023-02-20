@@ -14,6 +14,8 @@ from werkzeug.utils import secure_filename
 import cloudinary
 import cloudinary.uploader
 
+from api.utils import APIException
+
 UPLOAD_FOLDER = '/src/api/img'
 
 api = Blueprint("api", __name__)
@@ -441,6 +443,8 @@ def delete_owner(owner_id):
         # HOTELS ----------------------------------------------------------
 
 # CREATE: Hotel ----------------
+
+
 @api.route("/hotel/create", methods=["POST"])
 def create_hotel():
     # ! dangerous to disable the csrf protection
@@ -470,7 +474,7 @@ def create_hotel():
         return jsonify({"error": "validation error", "errors": errors}), 400
 
 
-#hotel photo -------------------------------------------------------------------------
+# hotel photo -------------------------------------------------------------------------
 
 # @api.route('/hotel/<int:hotel_id>/image', methods=['PUT'])
 # def handle_upload(hotel_id):
