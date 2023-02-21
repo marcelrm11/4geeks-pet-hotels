@@ -1,11 +1,12 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
+import requests
 import datetime
 import json
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.google_places_api import find_nearby_places
-from api.models import db, User, Pets, Hotel, Booking, Owner, Invoice, Favorite, Room
+from api.models import db, User, Pets, Hotel, Booking, Owner, Invoice, Favorite, Room, Countries_zip_codes
 from api.forms import BookingForm, FavoriteForm, InvoiceForm, UserForm, ShortUserForm, PetForm, HotelForm
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, set_access_cookies
 from sqlalchemy.exc import IntegrityError, NoForeignKeysError
@@ -973,4 +974,33 @@ def get_invoice(invoice_id):
             return jsonify({"error": "invoice not found"}), 404
     except Exception as e:
         print(sys.exc_info())
+        return jsonify({"error": str(e)}), 500
+
+
+@api.route("/restcountries", methods=["GET"])
+def countries():
+    response = requests.get("https://restcountries.com/v3.1/all")
+    data = response.json()
+    countries = []
+    for country in data:
+        countries.append(country['name']['common'])
+    return jsonify(sorted(countries))
+
+
+@api.route("/countries/populatedb", methods=["GET"])
+def populate_countries():
+    try:
+        response = requests.get("https://restcountries.com/v3.1/all")
+        data = response.json()
+        countries = []
+        for country in data:
+            countries.append(country['name']['common'])
+        sorted_countries = sorted(countries)
+        for country in sorted_countries:
+            to_add = Countries_zip_codes(country=country)
+            db.session.add(to_add)
+        db.session.commit()
+        return jsonify({"msg": "success!"})
+    except Exception as e:
+        db.session.rollback()
         return jsonify({"error": str(e)}), 500
