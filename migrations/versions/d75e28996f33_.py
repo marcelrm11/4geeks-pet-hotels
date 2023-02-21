@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: e823e9a48ef8
+Revision ID: d75e28996f33
 Revises: 
-Create Date: 2023-02-20 21:34:21.673651
+Create Date: 2023-02-20 23:56:20.519429
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'e823e9a48ef8'
+revision = 'd75e28996f33'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -71,7 +71,7 @@ def upgrade():
     op.create_table('pets',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=50), nullable=False),
-    sa.Column('pet_type', sa.Enum('DOG', 'CAT', 'RODENT', 'BIRD', 'OTHER', name='pet_type'), nullable=False),
+    sa.Column('pet_type', sa.Enum('DOG', 'CAT', 'RODENT', 'BIRD', 'OTHER', 'ANY', name='pet_type'), nullable=False),
     sa.Column('breed', sa.String(length=50), nullable=False),
     sa.Column('birth_date', sa.String(), nullable=False),
     sa.Column('health', sa.String(length=50), nullable=False),
@@ -100,7 +100,7 @@ def upgrade():
     )
     op.create_table('room',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('pet_type', sa.Enum('DOG', 'CAT', 'RODENT', 'BIRD', 'OTHER', name='pet_type'), nullable=True),
+    sa.Column('pet_type', sa.Enum('DOG', 'CAT', 'RODENT', 'BIRD', 'OTHER', 'ANY', name='pet_type'), nullable=True),
     sa.Column('hotel_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['hotel_id'], ['hotel.id'], ),
     sa.PrimaryKeyConstraint('id')

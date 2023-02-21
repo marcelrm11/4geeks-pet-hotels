@@ -50,7 +50,8 @@ class PetType(Enum):
     CAT = 'cat',
     RODENT = 'rodent',
     BIRD = 'bird',
-    OTHER = 'other'
+    OTHER = 'other',
+    ANY = 'any'
 
 
 class Pets(db.Model):
