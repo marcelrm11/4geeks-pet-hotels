@@ -23,7 +23,7 @@ export const AddHotelData = ({
           altText="logo"
         />
       </div>
-      <div>
+      <div className="add_hotel_div">
         <h1>Add Hotel</h1>
         <div>
           <div className="text_inputs_container">
@@ -33,9 +33,13 @@ export const AddHotelData = ({
                   <Input
                     type={field.includes("email") ? "email" : "text"}
                     id={field}
-                    placeholder={actions.removeUnderscores(
-                      actions.capitalize(field)
-                    )}
+                    placeholder={
+                      field.includes("pet_type")
+                        ? actions.removeUnderscores(
+                            actions.capitalize("Select admited pets")
+                          )
+                        : actions.removeUnderscores(actions.capitalize(field))
+                    }
                     value={value}
                     onChange={handleChange}
                     required

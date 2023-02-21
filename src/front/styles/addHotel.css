@@ -44,7 +44,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 3rem;
+    margin-top: 4rem;
   }
 
   .radio_input {
@@ -91,7 +91,7 @@
   }
 
   .add_hotel_btn_section {
-    margin-top: 6rem;
+    margin-top: 2rem;
   }
 
   .text_inputs_container {
@@ -125,5 +125,15 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+}
+
+@media (min-width: 992px) {
+  .add_hotel_div {
+    margin-right: 18rem;
+  }
+
+  .add_hotel_image {
+    margin-left: 5rem;
   }
 }
