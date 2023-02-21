@@ -457,6 +457,8 @@ def create_hotel():
             db.session.add(hotel)
             db.session.commit()
 
+            print(hotel.pet_type)
+
             hotel_dict = hotel.serialize()
             response = jsonify(hotel_dict)
             return response, 200
@@ -483,6 +485,8 @@ def create_hotel():
 #         if 'profile_image' in request.files:
 #             # upload file to uploadcare
 #             result = cloudinary.uploader.upload(request.files['profile_image'])
+
+#             print(result)
 
 #             # fetch for the user
 #             hotel1 = User.query.get(hotel_id)

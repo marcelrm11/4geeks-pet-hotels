@@ -72,7 +72,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((data) =>
             setStore({ hotels: [...store.hotels, ...data.hotels] })
           );
-
         setStore({ loading: false });
       }, []),
 

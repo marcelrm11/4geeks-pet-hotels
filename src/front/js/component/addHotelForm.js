@@ -14,7 +14,7 @@ export const AddHotelData = ({
   const { store, actions } = useContext(Context);
 
   return (
-    <form className="add_hotel_form" onSubmit={handleValidate}>
+    <form className="add_hotel_form">
       <div className="add_hotel_image">
         <Image
           className="signUp_image"
@@ -31,13 +31,7 @@ export const AddHotelData = ({
               return (
                 <React.Fragment key={field}>
                   <Input
-                    type={
-                      field.includes("photo")
-                        ? "file"
-                        : field.includes("email")
-                        ? "email"
-                        : "text"
-                    }
+                    type={field.includes("email") ? "email" : "text"}
                     id={field}
                     placeholder={actions.removeUnderscores(
                       actions.capitalize(field)
@@ -59,11 +53,13 @@ export const AddHotelData = ({
                   <div className="radio_input">
                     <input
                       className="radio_type_input"
-                      type="radio"
+                      type="checkbox"
                       id="dog"
                       name="pet_type"
                       value="dog"
-                      onChange={handlePetType}
+                      onChange={(e) => {
+                        handlePetType(e);
+                      }}
                     />
                     <label>Dog</label>
                   </div>
@@ -71,11 +67,13 @@ export const AddHotelData = ({
                   <div className="radio_input">
                     <input
                       className="radio_type_input"
-                      type="radio"
+                      type="checkbox"
                       id="cat"
                       name="pet_type"
                       value="cat"
-                      onChange={handlePetType}
+                      onChange={(e) => {
+                        handlePetType(e);
+                      }}
                     />
                     <label>Cat</label>
                   </div>
@@ -83,11 +81,13 @@ export const AddHotelData = ({
                   <div className="radio_input">
                     <input
                       className="radio_type_input"
-                      type="radio"
+                      type="checkbox"
                       id="rodent"
                       name="pet_type"
                       value="rodent"
-                      onChange={handlePetType}
+                      onChange={(e) => {
+                        handlePetType(e);
+                      }}
                     />
                     <label>Rodent</label>
                   </div>
@@ -95,11 +95,13 @@ export const AddHotelData = ({
                   <div className="radio_input">
                     <input
                       className="radio_type_input"
-                      type="radio"
+                      type="checkbox"
                       id="bird"
                       name="pet_type"
                       value="bird"
-                      onChange={handlePetType}
+                      onChange={(e) => {
+                        handlePetType(e);
+                      }}
                     />
                     <label>Bird</label>
                   </div>
@@ -107,11 +109,13 @@ export const AddHotelData = ({
                   <div className="radio_input">
                     <input
                       className="radio_type_input"
-                      type="radio"
+                      type="checkbox"
                       id="others"
                       name="pet_type"
                       value="others"
-                      onChange={handlePetType}
+                      onChange={(e) => {
+                        handlePetType(e);
+                      }}
                     />
                     <label>Others</label>
                   </div>
@@ -121,7 +125,10 @@ export const AddHotelData = ({
           </div>
         </div>
         <div className="btn_container add_hotel_btn_section ">
-          <Button buttonClass="general_button red_Btn addHotel_form_submit">
+          <Button
+            buttonClass="general_button red_Btn addHotel_form_submit"
+            onClick={handleValidate}
+          >
             <span className="white_letter">Add hotel</span>
           </Button>
         </div>

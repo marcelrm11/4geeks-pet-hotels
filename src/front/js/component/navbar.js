@@ -32,7 +32,7 @@ export const Navbar = () => {
           </Link>
           {!store.token ? (
             <>
-              <Link to="/signup">
+              <Link to="/selectSignup">
                 <button className="btn btn-danger general_button red_Btn">
                   Sign Up
                 </button>

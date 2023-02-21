@@ -56,6 +56,8 @@ class HotelForm(FlaskForm):
     location = StringField("Location", validators=[InputRequired()])
     services = StringField("Services", validators=[InputRequired()])
     base_price = StringField("Price", validators=[InputRequired()])
+    pet_type = StringField("pet_type", validators=[InputRequired()])
+    #profile_image = StringField("profile_image")
     hotel_description = StringField("Hotel Description", validators=[InputRequired()])
     hotel_owner_id = IntegerField(
         "Hotel Owner ID", validators=[InputRequired()])

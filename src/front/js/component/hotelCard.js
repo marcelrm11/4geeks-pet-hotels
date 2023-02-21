@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,6 +6,9 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 const HotelCard = (props) => {
   const { store, actions } = useContext(Context);
+  const [pets, sePets] = useState([]);
+
+  console.log(props.hotel);
 
   return (
     <div
@@ -34,7 +37,7 @@ const HotelCard = (props) => {
         </div>
         <hr />
         <p className="card-text">{props.hotel.location}</p>
-        <p>25€ noche</p>
+        <p>{props.hotel.price}€ per night</p>
         <div className="hotel_listing_btnCotainer">
           <Link to={`/hotel/${props.hotel.id}`}>
             <button className="btn btn-primary listing_hotel_btn">

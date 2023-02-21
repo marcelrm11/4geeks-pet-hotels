@@ -8,6 +8,7 @@ import injectContext from "./store/appContext";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { Signup } from "./pages/signup";
+import { SelectSignup } from "./pages/selectSignup";
 import { Hotel } from "./pages/hotel";
 import { AddHotel } from "./pages/addHotel";
 import { Booking } from "./pages/booking.js";
@@ -26,6 +27,7 @@ const Layout = () => {
             <Route element={<Home />} path="/" />
             <Route element={<AddHotel />} path="/addHotel" />
             <Route element={<Signup />} path="/signup" />
+            <Route element={<SelectSignup />} path="/selectSignup" />
             <Route element={<HotelListing />} path="/hotelListing" />
             <Route element={<Hotel />} path="/hotel/:id" />
             <Route element={<AddHotel />} path="/addHotel" />
