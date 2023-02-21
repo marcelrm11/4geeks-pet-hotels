@@ -1,0 +1,23 @@
+.user_card,
+.owner_card {
+  width: 300px;
+  height: fit-content;
+}
+
+.user_intro_container,
+.owner_intro_container {
+  width: 100%;
+  height: fit-content;
+}
+
+.user_img_container,
+.owner_img_container {
+  width: 100%;
+  height: fit-content;
+}
+
+.user_img_container img,
+.owner_img_container img {
+  width: 100%;
+  height: fit-content;
+}

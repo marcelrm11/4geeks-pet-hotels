@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import "../../styles/hoteldetail.css";
 import { Context } from "../store/appContext";
-import { useLocation, useParams } from "react-router";
+import { useLocation } from "react-router";
 import { HotelServices } from "../component/hotelServices";
 import { HotelDescription } from "../component/hotelDescription";
 import { HotelReviews } from "../component/hotelReviews";
@@ -15,7 +15,6 @@ export const Hotel = () => {
   const [reviews, setReviews] = useState([]);
   const [overallRating, setOverallRating] = useState(0);
   const location = useLocation();
-  const { id } = useParams();
   console.log(location);
   // console.log(photos)
   useEffect(() => {

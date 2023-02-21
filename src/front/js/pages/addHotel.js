@@ -1,12 +1,20 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../../styles/addHotel.css";
 import { Context } from "../store/appContext";
 import { AddHotelData } from "../component/addHotelForm";
 
 export const AddHotel = () => {
   const { store, actions } = useContext(Context);
-  const [files, setFiles] = useState(null);
-  const [hotelData, setHotelData] = useState({
+
+  const [petType, setPetType] = useState({
+    dog: false,
+    cat: false,
+    rodent: false,
+    bird: false,
+    others: false,
+  });
+
+  const [hotelData, setHotelData] = useState(() => ({
     name: "",
     email: "",
     location: "",
@@ -14,35 +22,27 @@ export const AddHotel = () => {
     country: "",
     zip_code: "",
     phone_number: "",
-    hotel_description: "lcbqilubfqibfiwbfe",
+    base_price: "",
+    hotel_description: "",
     hotel_owner_id: "", // hay que tomar el owner id
-    //photo: "",
-  });
+    pet_type: [],
 
-  // const uploadImage = (e) => {
-  //   e.preventDefault();
-  //   // we are about to send this to the backend.
-  //   console.log("This are the files", files);
-  //   let body = new FormData();
-  //   body.append("profile_image", files[0]);
-  //   const options = {
-  //     body,
-  //     method: "POST",
-  //   };
-  //   // you need to have the user_id in the localStorage
-  //   const currentHotelId = localStorage.getItem("hotel_id");
-  //   fetch(
-  //     `${process.env.BACKEND_URL}/api/hotel/${currentHotelId}/image`,
-  //     options
-  //   )
-  //     .then((resp) => resp.json())
-  //     .then((data) => console.log("Success!!!!", data))
-  //     .catch((error) => console.error("ERRORRRRRR!!!", error));
-  // };
+    //photo: "",
+  }));
 
   const handleChange = (ev) => {
-    //setFiles(ev.target.files);
     setHotelData({ ...hotelData, [ev.target.name]: ev.target.value });
+  };
+
+  const handlePetType = (ev) => {
+    const pet = ev.target.value;
+    const updatedPetType = { ...petType, [pet]: !petType[pet] };
+    console.log("this", updatedPetType);
+    const selectedPetTypes = Object.keys(updatedPetType).filter(
+      (pet) => updatedPetType[pet]
+    );
+    setPetType(updatedPetType);
+    setHotelData({ ...hotelData, pet_type: selectedPetTypes.join(",") });
   };
 
   return store.addHotelSuccessful ? (
@@ -55,7 +55,7 @@ export const AddHotel = () => {
     <div className="text-center mt-5">
       <div className="forms">
         <AddHotelData
-          //uploadImage={uploadImage}
+          handlePetType={handlePetType}
           hotelData={hotelData}
           handleChange={handleChange}
           handleValidate={(e) => actions.handleValidateHotelForm(e, hotelData)}

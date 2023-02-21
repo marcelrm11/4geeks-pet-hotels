@@ -1,12 +1,70 @@
+.add_hotel_form {
+  display: flex;
+}
+
+.text_inputs_container input {
+  max-width: 200px;
+  height: 40px;
+  padding: 1rem;
+  background-color: var(--lighterBlue);
+  border: none;
+  border-radius: 0.5rem;
+}
+
+.btn_container {
+  place-content: center;
+}
+
 @media (max-width: 768px) {
   .addHotel_form_submit {
     margin-top: 2rem;
   }
+
+  .add_hotel_form {
+    flex-direction: column;
+  }
+
+  .text_inputs_container {
+    display: grid;
+    grid-template-columns: auto;
+    gap: 1%;
+    margin: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .radio_inputs_container {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 1%;
+  }
+
+  .pet_type_input_container {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+  }
+
+  .radio_input {
+    width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
 }
 
 @media (min-width: 769px) {
+  .fill_text_inputs {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+
   .add_hotel_img {
     width: 80%;
+    margin: 4rem 0rem;
   }
 
   .add_hotel_img img {
@@ -24,7 +82,7 @@
     margin: 0 1rem 0 7rem;
   }
 
-  .add_hotel input {
+  .hotel_data_input {
     width: 155px;
   }
 
@@ -32,7 +90,40 @@
     margin: 2% 18% 0 0;
   }
 
-  .add_hotel_btn_section{
-    margin-top: 4rem;
+  .add_hotel_btn_section {
+    margin-top: 6rem;
+  }
+
+  .text_inputs_container {
+    display: grid;
+    grid-template-columns: auto auto;
+    margin: 0 2rem 0 0;
+  }
+
+  .text_inputs_container input {
+    margin: 0.5rem;
+  }
+
+  .add_hotel_image {
+    margin-left: 1rem;
+  }
+
+  .pet_type_input_container {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 1rem 0 0;
+  }
+
+  .radio_inputs_container {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 0.5rem;
+  }
+
+  .radio_input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }
