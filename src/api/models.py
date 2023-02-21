@@ -133,10 +133,12 @@ class Hotel(db.Model):
     phone_number = db.Column(db.String(), nullable=False)
     location = db.Column(db.String(70), nullable=False)
     services = db.Column(db.String(100), nullable=False)
+    base_price = db.Column(db.Float(precision=2), nullable=False)
     profile_image_url = db.Column(db.String(255), unique=False, nullable=True)
     hotel_description = db.Column(db.String(500), nullable=False)
     hotel_owner_id = db.Column(
         db.Integer, db.ForeignKey("owner.id"), nullable=False)
+    pet = db.Column(db.ARRAY(db.String))
     hotel_bookings = db.relationship("Booking", backref=db.backref("hotel"))
     invoices = db.relationship("Invoice", backref=db.backref("hotel"))
     favorites = db.relationship("Favorite", backref=db.backref("hotel"))
@@ -156,6 +158,8 @@ class Hotel(db.Model):
             "country": self.country,
             "zip_code": self.zip_code,
             "profile_image_url": self.profile_image_url,
+            "price": self.base_price, 
+            "pet": self.pet,
             "rooms": [r.serialize() for r in self.rooms],
             "services": self.services,
             "hotel_description": self.hotel_description,

@@ -5,61 +5,72 @@ const HotelListinSearch = () => {
   return (
     <div className="hotelListing_search_bar">
       <div>
-        <label>Tipo de mascota </label>
+        <label>Pet Type </label>
         <div className="radio_inputs">
           <div className="radio_input_container">
             <input
               className="radio_type_input"
               type="radio"
-              id="perro"
+              id="dog"
               name="pet-type"
-              value="perro"
+              value="dog"
             />
-            <label>Perro</label>
+            <label>Dog</label>
           </div>
 
           <div className="radio_input_container">
             <input
               className="radio_type_input"
               type="radio"
-              id="gato"
+              id="cat"
               name="pet-type"
-              value="gato"
+              value="cat"
             />
-            <label>Gato</label>
+            <label>Cat</label>
           </div>
 
           <div className="radio_input_container">
             <input
               className="radio_type_input"
               type="radio"
-              id="roedor"
+              id="rodent"
               name="pet-type"
-              value="roedor"
+              value="rodent"
             />
-            <label>Roedor</label>
+            <label>Rodent</label>
           </div>
 
           <div className="radio_input_container">
             <input
               className="radio_type_input"
               type="radio"
-              id="ave"
+              id="bird"
               name="pet-type"
-              value="ave"
+              value="bird"
             />
-            <label>Ave</label>
+            <label>Bird</label>
+          </div>
+
+          <div className="radio_input_container">
+            <input
+              className="radio_type_input"
+              type="radio"
+              id="otros"
+              name="pet-type"
+              value="otros"
+            />
+            <label>Others</label>
           </div>
         </div>
       </div>
       <div className="listing_date_input">
         <div className="entry_date">
-          <label>Fecha de entrada</label>
+          <label>Entry date</label>
           <input type="date" id="fecha-entrada" name="fecha-entrada" />
         </div>
 
         <div className="checkout_date">
-          <label>Fecha de salida</label>
+          <label>Checkout date</label>
           <input type="date" id="fecha-salida" name="fecha-salida" />
         </div>
       </div>

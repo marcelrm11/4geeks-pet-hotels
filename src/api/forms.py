@@ -12,6 +12,8 @@ password_error_msg = "Passwords must match."
 zip_code_regex = r"^\d{3,10}$"
 phone_regex = r"^\d{8,14}$"
 phone_msg = "Phone number is invalid."
+price_regex = r"^\€?[0-9]+(,[0-9][0-9])?$"
+price_msg = "Price syntax invalid"
 
 
 class UserForm(FlaskForm):
@@ -53,6 +55,7 @@ class HotelForm(FlaskForm):
                                InputRequired(), Regexp(phone_regex)])
     location = StringField("Location", validators=[InputRequired()])
     services = StringField("Services", validators=[InputRequired()])
+    base_price = StringField("Price", validators=[InputRequired()])
     hotel_description = StringField("Hotel Description", validators=[InputRequired()])
     hotel_owner_id = IntegerField(
         "Hotel Owner ID", validators=[InputRequired()])

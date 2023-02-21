@@ -5,8 +5,17 @@ import { AddHotelData } from "../component/addHotelForm";
 
 export const AddHotel = () => {
   const { store, actions } = useContext(Context);
-  const [files, setFiles] = useState(null);
-  const [hotelData, setHotelData] = useState({
+  //const [files, setFiles] = useState(null);
+
+  const [petType, setPetType] = useState({
+    dog: false,
+    cat: false,
+    rodent: false,
+    bird: false,
+    others: false,
+  });
+
+  const [hotelData, setHotelData] = useState(() => ({
     name: "",
     email: "",
     location: "",
@@ -14,10 +23,12 @@ export const AddHotel = () => {
     country: "",
     zip_code: "",
     phone_number: "",
-    hotel_description: "lcbqilubfqibfiwbfe",
+    base_price: "",
+    hotel_description: "",
     hotel_owner_id: "", // hay que tomar el owner id
+    pet_type: "",
     //photo: "",
-  });
+  }));
 
   // const uploadImage = (e) => {
   //   e.preventDefault();
@@ -42,7 +53,28 @@ export const AddHotel = () => {
 
   const handleChange = (ev) => {
     //setFiles(ev.target.files);
+    console.log(ev.target.name);
     setHotelData({ ...hotelData, [ev.target.name]: ev.target.value });
+  };
+
+  const handlePetType = (ev) => {
+    const pet = ev.target.value;
+    setPetType((prevPetType) => {
+      const updatedPetType = { ...prevPetType, [pet]: !prevPetType[pet] };
+      const selectedPetTypes = Object.keys(updatedPetType).filter(
+        (pet) => updatedPetType[pet]
+      );
+      console.log(selectedPetTypes);
+      setHotelData((prevHotelData) => {
+        const updatedHotelData = {
+          ...prevHotelData,
+          pet_type: selectedPetTypes,
+        };
+        console.log(updatedHotelData);
+        return updatedHotelData;
+      });
+      return updatedPetType;
+    });
   };
 
   return store.addHotelSuccessful ? (
@@ -56,6 +88,8 @@ export const AddHotel = () => {
       <div className="forms">
         <AddHotelData
           //uploadImage={uploadImage}
+          petType={petType}
+          handlePetType={handlePetType}
           hotelData={hotelData}
           handleChange={handleChange}
           handleValidate={(e) => actions.handleValidateHotelForm(e, hotelData)}

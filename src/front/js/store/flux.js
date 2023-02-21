@@ -201,10 +201,10 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       deleteFavorites: (id) => {
-				const store = getStore();
-				let deleteFav = store.favorites.filter((element) => element.id !== id)
-				setStore({favorites: [...deleteFav]})
-			},
+        const store = getStore();
+        let deleteFav = store.favorites.filter((element) => element.id !== id);
+        setStore({ favorites: [...deleteFav] });
+      },
 
       handleValidateHotelForm: (ev, hotelData) => {
         const actions = getActions();
@@ -225,13 +225,15 @@ const getState = ({ getStore, getActions, setStore }) => {
             }
           }
         }
+        if (!hotelData.pet_type || hotelData.pet_type.length === 0) {
+          newErrors["pet_type"] = "Please select at least one pet type.";
+        }
         if (Object.keys(newErrors).length === 0) {
           actions.handleAddHotelData(hotelData);
         } else {
           setStore({ errors: newErrors });
           console.log("errors", newErrors);
         }
-
         return Object.keys(newErrors).length === 0;
       },
 
