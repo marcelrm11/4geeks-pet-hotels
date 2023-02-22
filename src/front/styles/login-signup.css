@@ -1,4 +1,7 @@
 /*login-signup*/
+.forms {
+  min-height: 600px;
+}
 
 .modal_background {
   background-color: var(--darkBlue);
@@ -119,6 +122,10 @@ select {
   .access_btn {
     margin: 1.5rem 0;
   }
+
+  .forms {
+    min-height: 900px;
+  }
 }
 
 @media screen and (min-width: 769px) {
@@ -173,6 +180,13 @@ select {
 
   .sign_up_btns .general_button {
     min-width: 250px;
+  }
+
+  .owner_signup_img {
+    min-width: 400px;
+    margin-top: 5rem;
+    display: flex;
+    border-radius: 50%;
   }
 }
 

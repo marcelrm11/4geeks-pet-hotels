@@ -4,3 +4,15 @@
   background-color: var(--darkBlue);
 }
 
+.nav_buttons {
+  display: flex;
+}
+
+.nav_buttons .blue_Btn {
+  height: 37px;
+}
+
+.dropdown-toggle {
+  height: 37px;
+  margin-left: 1rem;
+}

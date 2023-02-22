@@ -24,12 +24,7 @@ export const Navbar = () => {
         <Link to="/">
           <span className="navbar-brand mb-0 h1 title-font">PetCasa</span>
         </Link>
-        <div className="ml-auto">
-          <Link to="/addHotel">
-            <button className="btn btn-danger general_button turquoise_Btn">
-              Add hotel
-            </button>
-          </Link>
+        <div className="ml-auto nav_buttons">
           {!store.token ? (
             <>
               <Link to="/selectSignup">
@@ -62,6 +57,41 @@ export const Navbar = () => {
               </button>
             </Link>
           )}
+          <div className="dropdown">
+            <p
+              className="btn btn-secondary dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Buttons
+            </p>
+
+            <ul className="dropdown-menu">
+              <li>
+                <Link to="/addHotel" className="dropdown-item">
+                  <button className="btn btn-danger general_button turquoise_Btn">
+                    Add hotel
+                  </button>
+                </Link>
+              </li>
+              <li>
+                <Link to="/hotelListing" className="dropdown-item">
+                  <button className="btn btn-danger addHotel_Btn">
+                    Hotel list
+                  </button>
+                </Link>
+              </li>
+              <li>
+                <Link to="/favorites" className="dropdown-item">
+                  <button className="btn btn-danger addHotel_Btn">
+                    Favorites
+                  </button>
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </nav>

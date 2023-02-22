@@ -72,7 +72,7 @@ select {
 
 .general_button {
   max-width: 180px;
-  font-size: var(--fontSize-S);
+  font-size: var(--fontSize-XS);
   border: none;
   border-radius: var(--btnRadius);
 }
@@ -86,6 +86,18 @@ select {
 .red_Btn:hover {
   border-color: var(--darkBlue);
   background-color: var(--darkBlue);
+}
+
+.light_Btn {
+  border-color: var(--lighterBlue);
+  background-color: var(--lighterBlue);
+  color: black;
+}
+
+.light_Btn:hover {
+  border-color: var(--lightBlue);
+  background-color: var(--lightBlue);
+  color: black;
 }
 
 .access_btn {
