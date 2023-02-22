@@ -448,8 +448,13 @@ def delete_owner(owner_id):
 
 
 @api.route("/hotel/create", methods=["POST"])
+@jwt_required()
 def create_hotel():
     # ! dangerous to disable the csrf protection
+    current_owner_email = get_jwt_identity()
+    current_owner = Owner.query.filter_by(email=current_owner_email).first()
+    if not current_owner:
+        return jsonify({"error": "invalid owner"}), 403
     form = HotelForm(meta={"csrf": False})
     if form.validate_on_submit():
         try:
