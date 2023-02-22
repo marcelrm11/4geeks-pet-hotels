@@ -5,6 +5,8 @@
   --salmon: #fb5652;
   --darkRed: #702625;
   --turquoise: #00968c;
+  --darkerTurquoise: #007069;
+  --mediumBlue: #2a555c;
   --lighterBlue: #def2f1;
   --darkBlue: #193236;
   --lightBlue: #90bcba;
@@ -72,6 +74,7 @@ select {
 
 .general_button {
   max-width: 180px;
+  height: 40px;
   font-size: var(--fontSize-XS);
   border: none;
   border-radius: var(--btnRadius);
@@ -131,4 +134,42 @@ select {
 .blue_Btn:hover {
   border-color: var(--turquoise);
   background-color: var(--turquoise);
+}
+
+/*display*/
+
+.d_flex_col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.d_flex_row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.display-grid {
+  display: grid;
+  place-content: center;
+}
+
+/*padding*/
+
+.one_pad {
+  padding: 1rem;
+}
+
+/*border*/
+
+.round_border {
+  border-radius: 50%;
+}
+
+.border-style {
+  border: none;
+  border-radius: 1rem;
 }

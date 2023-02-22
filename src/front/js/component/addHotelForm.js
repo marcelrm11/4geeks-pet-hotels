@@ -130,7 +130,7 @@ export const AddHotelData = ({
         </div>
         <div className="btn_container add_hotel_btn_section ">
           <Button
-            buttonClass="general_button red_Btn addHotel_form_submit"
+            buttonClass="red_Btn addHotel_form_submit"
             onClick={handleValidate}
           >
             <span className="white_letter">Add hotel</span>

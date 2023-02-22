@@ -20,7 +20,7 @@ export const Booking = () => {
           <h2>Fecha</h2>
           <h2>Mascota</h2>
           <hr />
-          <Button buttonClass="red_Btn general_button">
+          <Button buttonClass="red_Btn">
             <span className="white_letter">Reserve</span>
           </Button>
           <div className="submit_space"></div>

@@ -70,6 +70,13 @@ export const Navbar = () => {
 
             <ul className="dropdown-menu">
               <li>
+                <Link to="/profile" className="dropdown-item">
+                  <button className="btn btn-danger general_button turquoise_Btn">
+                    Profile
+                  </button>
+                </Link>
+              </li>
+              <li>
                 <Link to="/addHotel" className="dropdown-item">
                   <button className="btn btn-danger general_button turquoise_Btn">
                     Add hotel

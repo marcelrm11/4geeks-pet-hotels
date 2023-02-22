@@ -1,0 +1,89 @@
+.account_section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.account_left_section,
+.account_right_section {
+  width: 95%;
+  max-width: 400px;
+  min-height: 300px;
+  max-height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.account_right_section {
+  background-color: var(--turquoise);
+  padding: 1rem;
+  margin: 1rem 1rem 0 1rem;
+  border-radius: 1rem 1rem 0 0;
+}
+
+.account_left_section {
+  background-color: var(--mediumBlue);
+  padding: 1rem;
+  margin: 0 1rem 1rem 1rem;
+  border-radius: 0 0 1rem 1rem;
+}
+
+.account_user_background,
+.account_info_background {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  border: none;
+  border-radius: 1rem;
+}
+
+.account_user_profile,
+.account_info_profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 1rem;
+}
+
+.account_user_profile figure {
+  width: 100%;
+  height: fit-content;
+  display: grid;
+  place-items: center;
+}
+
+.account_user_profile figure img {
+  width: 90%;
+  height: fit-content;
+  border-radius: 50%;
+}
+
+@media (min-width: 769px) {
+  .account_section {
+    flex-direction: row;
+  }
+
+  .account_left_section,
+  .account_right_section {
+    min-width: 380px;
+    max-width: 400px;
+    min-height: 325px;
+    max-height: 350px;
+  }
+
+  .account_right_section {
+    margin: 1rem 1rem 0 1rem;
+    border-radius: 1rem 1rem 0 0;
+  }
+  
+  .account_left_section {
+    margin: 0 1rem 1rem 1rem;
+    border-radius: 0 0 1rem 1rem;
+  }
+}

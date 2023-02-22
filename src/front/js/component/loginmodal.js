@@ -4,7 +4,7 @@ import { LoginForm } from "./loginForm";
 import "../../styles/login-signup.css";
 
 export const LoginModal = ({ credentials, onChange, onLogin }) => {
-  const { store } = useContext(Context);
+  const { store, actions } = useContext(Context);
   return (
     <>
       <div
@@ -31,6 +31,18 @@ export const LoginModal = ({ credentials, onChange, onLogin }) => {
               ></button>
             </div>
             <div className="modal-body modal_background">
+              <button
+                onClick={() => actions.handleSelectType(false)}
+                className="btn btn-danger general_button light_Btn"
+              >
+                Sign up as user
+              </button>
+              <button
+                onClick={() => actions.handleSelectType(true)}
+                className="btn btn-danger general_button light_Btn"
+              >
+                Sign up as owner
+              </button>
               <LoginForm
                 onLogin={onLogin}
                 onChange={onChange}

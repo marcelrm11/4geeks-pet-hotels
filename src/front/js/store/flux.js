@@ -9,6 +9,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       countryList: [],
       favorites: [],
       hotels: [],
+      is_owner: true,
       regexs: {
         passwordRegex:
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,32})/,
@@ -23,11 +24,22 @@ const getState = ({ getStore, getActions, setStore }) => {
       user: {
         email: "",
       },
+
+      owner: {
+        email: "",
+      },
     },
     actions: {
+      handleSelectType: (boolean) => {
+        const store = getStore();
+        setStore({ is_owner: boolean });
+        console.log(store.is_owner);
+      },
+
       login: async (e, email, password) => {
         const store = getStore();
         e.preventDefault();
+        const endpoint = store.is_owner ? "/api/login/owner" : "/api/login";
         const opt = {
           method: "POST",
           headers: {
@@ -37,14 +49,10 @@ const getState = ({ getStore, getActions, setStore }) => {
             email: email,
             password: password,
           }),
-          //mode: "no-cors",
         };
 
         try {
-          const response = await fetch(
-            process.env.BACKEND_URL + "/api/login",
-            opt
-          );
+          const response = await fetch(process.env.BACKEND_URL + endpoint, opt);
 
           const data = await response.json();
           console.log(data, response.status);
@@ -52,19 +60,66 @@ const getState = ({ getStore, getActions, setStore }) => {
             throw Error(data.error);
           } else {
             sessionStorage.setItem("token", data.access_token);
-            // console.log(sessionStorage.getItem("token"));
-            sessionStorage.setItem("user", JSON.stringify(data.user));
-            // console.log(JSON.parse(sessionStorage.getItem("user")));
-            setStore({
-              token: data.access_token,
-              user: data.user,
-            });
+            if (!is_owner) {
+              sessionStorage.setItem("user", JSON.stringify(data.user));
+              setStore({
+                token: data.access_token,
+                user: data.user,
+              });
+            } else {
+              sessionStorage.setItem("owner", JSON.stringify(data.owner));
+              setStore({
+                token: data.access_token,
+                owner: data.owner,
+              });
+            }
           }
         } catch (error) {
           setStore({ errors: error.errors });
           console.error(error, store.errors);
         }
       },
+
+      // login: async (e, email, password) => {
+      //   const store = getStore();
+      //   e.preventDefault();
+      //   const opt = {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({
+      //       email: email,
+      //       password: password,
+      //     }),
+      //     //mode: "no-cors",
+      //   };
+
+      //   try {
+      //     const response = await fetch(
+      //       process.env.BACKEND_URL + "/api/login",
+      //       opt
+      //     );
+
+      //     const data = await response.json();
+      //     console.log(data, response.status);
+      //     if (response.status !== 200) {
+      //       throw Error(data.error);
+      //     } else {
+      //       sessionStorage.setItem("token", data.access_token);
+      //       // console.log(sessionStorage.getItem("token"));
+      //       sessionStorage.setItem("user", JSON.stringify(data.user));
+      //       // console.log(JSON.parse(sessionStorage.getItem("user")));
+      //       setStore({
+      //         token: data.access_token,
+      //         user: data.user,
+      //       });
+      //     }
+      //   } catch (error) {
+      //     setStore({ errors: error.errors });
+      //     console.error(error, store.errors);
+      //   }
+      // },
 
       listing: () => {
         const store = getStore();
@@ -144,6 +199,68 @@ const getState = ({ getStore, getActions, setStore }) => {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify(formData),
+              //mode: "no-cors", //? are we sure?
+            }
+          );
+          console.log(response);
+          // const cookies = response.headers.get("set-cookie");
+          // console.log(cookies);
+          if (response.ok) {
+            const data = await response.json();
+            console.log(data);
+            setStore({ signupSuccessful: true });
+            setTimeout(() => setStore({ signupSuccessful: false }), 4000);
+            return true;
+          }
+          throw Error(response.statusText);
+        } catch (e) {
+          console.log("error:", e);
+        }
+      },
+
+      handleValidateOwnerForm: (ev, ownerData) => {
+        const actions = getActions();
+        const regexs = getStore().regexs;
+        ev.preventDefault();
+        let newErrors = {};
+        for (let field in ownerData) {
+          const camelField = actions.kebabToCamel(field);
+          if (ownerData[field] === "") {
+            newErrors[field] = `${field} is required`;
+          } else if (
+            ["email", "password", "zip_code", "phone_number"].includes(field)
+          ) {
+            if (!regexs[`${camelField}Regex`].test(ownerData[field])) {
+              newErrors[field] = `Invalid ${actions.removeUnderscores(field)}!`;
+            }
+          }
+          if (ownerData.password !== ownerData.confirm_password) {
+            newErrors.confirm_password = "Passwords do not match";
+          }
+        }
+        if (Object.keys(newErrors).length === 0) {
+          actions.handleSignupOwnerClick(ownerData);
+        } else {
+          setStore({ errors: newErrors });
+          console.log("errors", newErrors);
+        }
+
+        return Object.keys(newErrors).length === 0;
+      },
+
+      handleSignupOwnerClick: async (ownerData) => {
+        console.log("sent form:", ownerData);
+        const store = getStore();
+        store.signupSuccessful = false;
+        try {
+          const response = await fetch(
+            process.env.BACKEND_URL + "/api/signup/owner",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(ownerData),
               //mode: "no-cors", //? are we sure?
             }
           );

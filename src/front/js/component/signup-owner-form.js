@@ -6,7 +6,8 @@ import { Image } from "./image";
 import { Link } from "react-router-dom";
 import pug from "../../img/pug.jpg";
 
-export const SignUpOwnerForm = ({ formData, handleChange, handleValidate }) => {
+
+export const SignUpOwnerForm = ({ ownerData, handleChange, handleValidate }) => {
   const { store, actions } = useContext(Context);
 
   return (
@@ -25,10 +26,10 @@ export const SignUpOwnerForm = ({ formData, handleChange, handleValidate }) => {
           <input
             type="hidden"
             id="crsf_token"
-            value={formData.crsf_token}
+            value={ownerData.crsf_token}
             onChange={handleChange}
           />
-          {Object.entries(formData).map(([field, value]) => {
+          {Object.entries(ownerData).map(([field, value]) => {
             return (
               <Input
                 key={field}
@@ -58,13 +59,13 @@ export const SignUpOwnerForm = ({ formData, handleChange, handleValidate }) => {
         </div>
         <div className="btn_container sign_up_btns">
           <Button
-            buttonClass="general_button red_Btn access_btn"
+            buttonClass="red_Btn access_btn"
             onClick={handleValidate}
           >
             <span className="white_letter">Sign up</span>
           </Button>
           <Button
-            buttonClass={"general_button log_socialMedia google_signup_btn"}
+            buttonClass={"log_socialMedia google_signup_btn"}
             data-bs-dismiss="modal"
           >
             <Link to="/" className="white_letter">
@@ -72,7 +73,7 @@ export const SignUpOwnerForm = ({ formData, handleChange, handleValidate }) => {
             </Link>
           </Button>
           <Button
-            buttonClass={"general_button log_socialMedia"}
+            buttonClass={"log_socialMedia"}
             data-bs-dismiss="modal"
           >
             <Link to="/" className="white_letter">

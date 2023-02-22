@@ -53,7 +53,7 @@ export const Hotel = () => {
         name={details.name}
         description={details.hotel_description}
       />
-      <Button buttonClass="general_button red_Btn hotel_detail_btn">
+      <Button buttonClass="red_Btn hotel_detail_btn">
         <Link to="/booking">
           <span className="white_letter">Reserve</span>
         </Link>

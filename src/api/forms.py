@@ -37,6 +37,11 @@ class ShortUserForm(FlaskForm):
     password = PasswordField("Password", validators=[InputRequired(), Length(
         min=8), Regexp(password_regex, message=password_msg)])
 
+class ShortOwnerForm(FlaskForm):
+    email = StringField("Email", validators=[InputRequired(), Email()])
+    password = PasswordField("Password", validators=[InputRequired(), Length(
+        min=8), Regexp(password_regex, message=password_msg)])
+
 
 class PetForm(FlaskForm):
     name = StringField("Name", validators=[InputRequired()])

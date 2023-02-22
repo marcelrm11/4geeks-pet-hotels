@@ -77,7 +77,7 @@ const HotelListinSearch = () => {
       <div className="home_search_bar date">
         <label>Search</label>
         <input className="home_search_input" type="text" placeholder="Search" />
-        <Button buttonClass="general_button search_btn red_Btn">
+        <Button buttonClass="search_btn red_Btn">
           <span className="white_letter">Search</span>
         </Button>
       </div>

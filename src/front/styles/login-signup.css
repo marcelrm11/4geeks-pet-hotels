@@ -2,7 +2,7 @@
 .forms {
   min-height: 600px;
 }
-
+ 
 .modal_background {
   background-color: var(--darkBlue);
   color: var(--whiteLetters);

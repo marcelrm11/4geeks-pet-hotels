@@ -6,6 +6,7 @@ import { Image } from "./image";
 import { Link } from "react-router-dom";
 import signupImage from "../../img/signup_image.jpg";
 
+
 export const SignUpForm = ({ formData, handleChange, handleValidate }) => {
   const { store, actions } = useContext(Context);
 
@@ -58,13 +59,13 @@ export const SignUpForm = ({ formData, handleChange, handleValidate }) => {
         </div>
         <div className="btn_container sign_up_btns">
           <Button
-            buttonClass="general_button red_Btn access_btn"
+            buttonClass="red_Btn access_btn"
             onClick={handleValidate}
           >
             <span className="white_letter">Sign up</span>
           </Button>
           <Button
-            buttonClass={"general_button log_socialMedia google_signup_btn"}
+            buttonClass={"log_socialMedia google_signup_btn"}
             data-bs-dismiss="modal"
           >
             <Link to="/" className="white_letter">
@@ -72,7 +73,7 @@ export const SignUpForm = ({ formData, handleChange, handleValidate }) => {
             </Link>
           </Button>
           <Button
-            buttonClass={"general_button log_socialMedia"}
+            buttonClass={"log_socialMedia"}
             data-bs-dismiss="modal"
           >
             <Link to="/" className="white_letter">

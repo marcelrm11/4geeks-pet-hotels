@@ -2,12 +2,9 @@
 .owner_card {
   width: 85%;
   height: fit-content;
-  border: none;
-  border-radius: 1rem;
   margin: 2rem 0;
   color: var(--whiteLetters);
   font-size: var(--fontSize-XS);
-  transition: all 5s;
 }
 
 .user_card {
@@ -16,23 +13,6 @@
 
 .owner_card {
   background-color: var(--darkRed);
-}
-
-.cards_section {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.user_intro_container,
-.owner_intro_container {
-  width: 100%;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .cards_title {
@@ -47,24 +27,10 @@
   height: fit-content;
 }
 
-.user_img_container img,
-.owner_img_container img {
-  width: 100%;
-  height: fit-content;
-  border-radius: 50%;
-}
-
 .owner_paragraph,
 .user_paragraph {
   padding: 1.5rem;
   margin: 0;
-}
-
-.sign_btn_cards {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin: 1rem 0;
 }
 
 @media (min-width: 769px) {
@@ -72,15 +38,10 @@
   .owner_card {
     width: 80%;
     display: flex;
-    transition: all 5s;
     min-height: 250px;
-    padding: 1rem;
   }
 
   .paragraph_container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     text-align: justify;
   }
 
@@ -92,28 +53,12 @@
     min-width: 165px;
     height: 60px;
   }
-
-  .user_intro_container,
-  .owner_intro_container {
-    background-color: #ffe6a6;
-    border-radius: 1rem;
-    color: black;
-    min-width: 150px;
-  }
 }
 
 @media (min-width: 992px) {
   .user_card,
   .owner_card {
     width: 55%;
-    display: flex;
-    transition: all 5s;
     min-height: 250px;
-    padding: 1rem;
-  }
-
-  .user_intro_container,
-  .owner_intro_container {
-    min-width: 180px;
   }
 }

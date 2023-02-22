@@ -27,7 +27,7 @@ export const DetailBooking = ({ details }) => {
             <p>Total (EUR)</p>
             <p>1500</p>
           </div>
-          <Button buttonClass="general_button red_Btn reserve_btn">
+          <Button buttonClass="red_Btn reserve_btn">
             <span className="white_letter">Reserve</span>
           </Button>
         </div>

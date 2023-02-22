@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import { Input } from "./input.js";
 import { Image } from "./image";
@@ -8,6 +8,11 @@ import logo from "../../img/dog_logo.png";
 
 export const LoginForm = ({ credentials, onChange, onLogin }) => {
   const { store, actions } = useContext(Context);
+  const [button] = useState([
+    {
+      
+    }
+  ])
 
   return (
     <form className="input-container">
@@ -16,6 +21,12 @@ export const LoginForm = ({ credentials, onChange, onLogin }) => {
         src={logo}
         altText="logo"
       />
+      <input
+            type="hidden"
+            id="is_owner"
+            name="is_owner"
+            value={store.is_owner}
+          />
       {Object.entries(credentials).map(([field, value]) => {
         return (
           <Input
@@ -31,7 +42,7 @@ export const LoginForm = ({ credentials, onChange, onLogin }) => {
       <p className="password_forget">Forgot your password?</p>
       <div className="log_in_buttons">
         <Button
-          buttonClass={"general_button red_Btn"}
+          buttonClass={"red_Btn"}
           onClick={onLogin}
           data-bs-dismiss="modal"
         >
@@ -40,7 +51,7 @@ export const LoginForm = ({ credentials, onChange, onLogin }) => {
           </Link>
         </Button>
         <Button
-          buttonClass={"general_button log_socialMedia google_log_in"}
+          buttonClass={"log_socialMedia google_log_in"}
           onClick={onLogin}
           data-bs-dismiss="modal"
         >
@@ -49,7 +60,7 @@ export const LoginForm = ({ credentials, onChange, onLogin }) => {
           </Link>
         </Button>
         <Button
-          buttonClass={"general_button log_socialMedia"}
+          buttonClass={"log_socialMedia"}
           onClick={onLogin}
           data-bs-dismiss="modal"
         >
