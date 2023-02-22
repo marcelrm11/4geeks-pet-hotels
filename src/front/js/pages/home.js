@@ -31,16 +31,6 @@ export const Home = () => {
             src={landing_image}
             alt="dog welcoming image"
           />
-          <div className="home_shortcut_btn">
-            <Link to="/hotelListing">
-              <button className="btn btn-danger addHotel_Btn">
-                Hotel list
-              </button>
-            </Link>
-            <Link to="/favorites">
-              <button className="btn btn-danger addHotel_Btn">Favorites</button>
-            </Link>
-          </div>
         </figure>
       </section>
 
