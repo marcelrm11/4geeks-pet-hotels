@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { Context } from "../store/appContext";
 export const Input = ({
   type = "text",
   placeholder,
@@ -9,17 +10,34 @@ export const Input = ({
   required = false,
   children,
 }) => {
+  const { store, actions } = useContext(Context);
+  useEffect(actions.setCountryList, []);
+
   return (
     <div className="d-inline position-relative">
-      <input
-        type={type}
-        name={name}
-        placeholder={placeholder}
-        id={id}
-        value={value}
-        onChange={onChange}
-        required={required}
-      />
+      {name === "country" ? (
+        <select
+          name={name}
+          className="py-0"
+          onChange={onChange}
+          required={required}
+          value={value}
+        >
+          {store.countryList.map((c) => (
+            <option key={c}>{c}</option>
+          ))}
+        </select>
+      ) : (
+        <input
+          type={type}
+          name={name}
+          placeholder={placeholder}
+          id={id}
+          value={value}
+          onChange={onChange}
+          required={required}
+        />
+      )}
       {children}
     </div>
   );

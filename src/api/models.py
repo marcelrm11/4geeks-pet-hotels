@@ -143,9 +143,9 @@ class Hotel(db.Model):
     phone_number = db.Column(db.String(), nullable=False)
     location = db.Column(db.String(70), nullable=False)
     services = db.Column(db.String(100), nullable=False)
-    base_price = db.Column(db.Float(precision=2), nullable=False)
-    #profile_image = db.Column(db.String(255), unique=False, nullable=True)
-    hotel_description = db.Column(db.String(500), nullable=False)
+    base_price = db.Column(db.Numeric(precision=2), nullable=False)
+    # profile_image = db.Column(db.String(255), unique=False, nullable=True)
+    hotel_description = db.Column(db.Text(), nullable=False)
     hotel_owner_id = db.Column(
         db.Integer, db.ForeignKey("owner.id"), nullable=False)
     pet_type = db.Column(db.String(100))
@@ -167,8 +167,8 @@ class Hotel(db.Model):
             "phone_number": self.phone_number,
             "country": self.country,
             "zip_code": self.zip_code,
-            #"profile_image": self.profile_image,
-            "price": self.base_price, 
+            # "profile_image": self.profile_image,
+            "price": self.base_price,
             "pet_type": self.pet_type,
             "rooms": [r.serialize() for r in self.rooms],
             "services": self.services,
@@ -183,7 +183,7 @@ class Review(db.Model):
     __tablename__ = "review"
     id = db.Column(db.Integer, primary_key=True)
     review_text = db.Column(db.String(200), nullable=False)
-    rating = db.Column(db.Float(precision=2), nullable=False)
+    rating = db.Column(db.Numeric(precision=2), nullable=False)
     date = db.Column(db.DateTime, nullable=False,
                      default=datetime.datetime.now)
     author_id = db.Column(
@@ -235,7 +235,7 @@ class Booking(db.Model):
                             default=datetime.datetime.now)
     entry_date = db.Column(db.DateTime, nullable=False)
     checkout_date = db.Column(db.DateTime, nullable=False)
-    price = db.Column(db.Float(precision=2), nullable=False)
+    price = db.Column(db.Numeric(precision=2), nullable=False)
     currency = db.Column(db.String(20), nullable=False, default="euro")
     invoice = db.relationship("Invoice", backref=db.backref("booking"))
 
@@ -266,7 +266,7 @@ class Invoice(db.Model):
         "booking.id"), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.id"), nullable=False)
-    amount = db.Column(db.Float(precision=2), nullable=False)
+    amount = db.Column(db.Numeric(precision=2), nullable=False)
     currency = db.Column(db.String(20), nullable=False, default="euro")
     billing_address = db.Column(db.String(80), nullable=False)
     payment_ref = db.Column(db.String(), nullable=True)

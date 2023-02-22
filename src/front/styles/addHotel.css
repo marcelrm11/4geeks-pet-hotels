@@ -2,8 +2,9 @@
   display: flex;
 }
 
-.text_inputs_container input {
-  max-width: 200px;
+.text_inputs_container input,
+select {
+  width: 200px;
   height: 40px;
   padding: 1rem;
   background-color: var(--lighterBlue);
@@ -100,7 +101,8 @@
     margin: 0 2rem 0 0;
   }
 
-  .text_inputs_container input {
+  .text_inputs_container input,
+  select {
     margin: 0.5rem;
   }
 

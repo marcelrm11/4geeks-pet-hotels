@@ -6,6 +6,7 @@ const getState = ({ getStore, getActions, setStore }) => {
     store: {
       token: null,
       loading: true,
+      countryList: [],
       favorites: [],
       hotels: [],
       regexs: {
@@ -65,7 +66,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      listing: useEffect(() => {
+      listing: () => {
         const store = getStore();
         fetch(process.env.BACKEND_URL + "/api/hotels")
           .then((response) => response.json())
@@ -73,7 +74,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             setStore({ hotels: [...store.hotels, ...data.hotels] })
           );
         setStore({ loading: false });
-      }, []),
+      },
 
       showModal: () => {
         console.log("trying to show modal");
@@ -180,6 +181,21 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       removeUnderscores: (word) => {
         return word.replaceAll("_", " ");
+      },
+      setCountryList: () => {
+        fetch("https://restcountries.com/v3.1/all")
+          .then((res) => res.json())
+          .then((data) => {
+            let tempCountryList = [];
+            for (let country of data) {
+              tempCountryList.push(country.name.common);
+            }
+            tempCountryList.sort();
+            setStore({ countryList: tempCountryList });
+          })
+          .catch((e) => {
+            console.log(e);
+          });
       },
 
       addFavorites: (id) => {
