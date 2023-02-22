@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
+import { CustomSelect } from "./customSelect";
 export const Input = ({
   type = "text",
   placeholder,
@@ -16,17 +17,16 @@ export const Input = ({
   return (
     <div className="d-inline position-relative">
       {name === "country" ? (
-        <select
+        <CustomSelect
           name={name}
-          className="py-0"
           onChange={onChange}
           required={required}
+          defaultOption="select-country"
           value={value}
+          list={store.countryList}
         >
-          {store.countryList.map((c) => (
-            <option key={c}>{c}</option>
-          ))}
-        </select>
+          Select a country
+        </CustomSelect>
       ) : (
         <input
           type={type}
