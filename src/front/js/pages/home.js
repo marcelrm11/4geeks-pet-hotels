@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import landing_image from "../../img/homeLandingImage.jpeg";
-import { Link } from "react-router-dom";
 import HotelCard from "../component/hotelCard";
 
 export const Home = () => {
