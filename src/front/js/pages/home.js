@@ -8,6 +8,7 @@ export const Home = () => {
   const { store, actions } = useContext(Context);
 
   const hotelsInfo = [];
+  useEffect(actions.listing, []);
   for (let i = 0; i < store.hotels.length && i < 3; i++) {
     hotelsInfo.push(<HotelCard hotel={store.hotels[i]} key={i} index={i} />);
   }

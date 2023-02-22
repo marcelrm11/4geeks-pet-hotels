@@ -63,8 +63,9 @@ def handle_login():
 @api.route("/user/account", methods=["GET"])
 @jwt_required()
 def access_account():
-    current_user = get_jwt_identity()
-    return jsonify(logged_in_as=current_user), 200
+    current_user_email = get_jwt_identity()
+    user = User.query.filter_by(email=current_user_email).first()
+    return jsonify(logged_in_as=user.serialize()), 200
 
 # Logout -----------------
 
