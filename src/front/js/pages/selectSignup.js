@@ -38,8 +38,10 @@ export const SelectSignup = () => {
           <div className="paragraph_container d_flex_row">
             <p className={`${item.type}_paragraph`}>{item.welcome}</p>
           </div>
-          <Link to="/signup" className="white_letter one_pad w-100 d_flex_row">
-            {" "}
+          <Link
+            to={`/signup/${item.type}`}
+            className="white_letter one_pad w-100 d_flex_row"
+          >
             <Button buttonClass={"btn btn-primary light_Btn "}>Go!</Button>
           </Link>
         </div>
