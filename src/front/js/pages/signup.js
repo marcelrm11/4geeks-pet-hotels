@@ -12,7 +12,7 @@ export const Signup = () => {
     email: "",
     password: "",
     confirm_password: "",
-    country: "",
+    country: "select-country",
     zip_code: "",
     phone_number: "",
   });

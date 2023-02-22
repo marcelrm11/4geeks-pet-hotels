@@ -7,8 +7,8 @@ import json
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.google_places_api import find_nearby_places
 from api.models import db, User, Pets, Hotel, Booking, Owner, Invoice, Favorite, Room, Countries_zip_codes
-from api.forms import BookingForm, FavoriteForm, InvoiceForm, UserForm, ShortUserForm, PetForm, HotelForm, ShortOwnerForm
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, set_access_cookies
+from api.forms import BookingForm, FavoriteForm, InvoiceForm, UserForm, ShortUserForm, PetForm, HotelForm
+from flask_jwt_extended import create_access_token, current_user, jwt_required, get_jwt_identity, set_access_cookies, verify_jwt_in_request
 from sqlalchemy.exc import IntegrityError, NoForeignKeysError
 import sys
 from werkzeug.utils import secure_filename
@@ -93,8 +93,9 @@ def handle_login():
 @api.route("/user/account", methods=["GET"])
 @jwt_required()
 def access_account():
-    current_user = get_jwt_identity()
-    return jsonify(logged_in_as=current_user), 200
+    current_user_email = get_jwt_identity()
+    user = User.query.filter_by(email=current_user_email).first()
+    return jsonify(logged_in_as=user.serialize()), 200
 
 # Logout -----------------
 
@@ -477,8 +478,13 @@ def delete_owner(owner_id):
 
 
 @api.route("/hotel/create", methods=["POST"])
+# @jwt_required()
 def create_hotel():
     # ! dangerous to disable the csrf protection
+    # current_owner_email = get_jwt_identity()
+    # current_owner = Owner.query.filter_by(email=current_owner_email).first()
+    # if not current_owner:
+    #     return jsonify({"error": "invalid owner"}), 403
     form = HotelForm(meta={"csrf": False})
     if form.validate_on_submit():
         try:
@@ -542,7 +548,9 @@ def create_hotel():
 
 
 @api.route("/hotels", methods=["GET"])
+@jwt_required()
 def get_hotels():
+    print(get_jwt_identity())
     try:
         hotels = Hotel.query.all()
         hotels_list = [hotel.serialize() for hotel in hotels]

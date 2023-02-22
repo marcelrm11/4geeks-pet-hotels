@@ -19,7 +19,7 @@ export const AddHotel = () => {
     email: "",
     location: "",
     services: "",
-    country: "",
+    country: "select-country",
     zip_code: "",
     phone_number: "",
     base_price: "",

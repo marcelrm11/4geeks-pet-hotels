@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button } from "../component/button";
+import { CustomSelect } from "./customSelect";
+import { Context } from "../store/appContext";
 
-const HotelListinSearch = () => {
+const HotelListinSearch = ({ filters, onChange }) => {
+  const { store } = useContext(Context);
   return (
     <div className="hotelListing_search_bar">
       <div>
@@ -12,7 +15,7 @@ const HotelListinSearch = () => {
               className="radio_type_input"
               type="radio"
               id="dog"
-              name="pet-type"
+              name="petTypes"
               value="dog"
             />
             <label>Dog</label>
@@ -23,7 +26,7 @@ const HotelListinSearch = () => {
               className="radio_type_input"
               type="radio"
               id="cat"
-              name="pet-type"
+              name="petTypes"
               value="cat"
             />
             <label>Cat</label>
@@ -34,7 +37,7 @@ const HotelListinSearch = () => {
               className="radio_type_input"
               type="radio"
               id="rodent"
-              name="pet-type"
+              name="petTypes"
               value="rodent"
             />
             <label>Rodent</label>
@@ -45,7 +48,7 @@ const HotelListinSearch = () => {
               className="radio_type_input"
               type="radio"
               id="bird"
-              name="pet-type"
+              name="petTypes"
               value="bird"
             />
             <label>Bird</label>
@@ -56,7 +59,7 @@ const HotelListinSearch = () => {
               className="radio_type_input"
               type="radio"
               id="otros"
-              name="pet-type"
+              name="petTypes"
               value="otros"
             />
             <label>Others</label>
@@ -66,20 +69,41 @@ const HotelListinSearch = () => {
       <div className="listing_date_input">
         <div className="entry_date">
           <label>Entry date</label>
-          <input type="date" id="fecha-entrada" name="fecha-entrada" />
+          <input
+            type="date"
+            id="fecha-entrada"
+            name="entryDate"
+            onChange={onChange}
+            value={filters.entryDate}
+          />
         </div>
 
         <div className="checkout_date">
           <label>Checkout date</label>
-          <input type="date" id="fecha-salida" name="fecha-salida" />
+          <input
+            type="date"
+            id="fecha-salida"
+            name="checkoutDate"
+            onChange={onChange}
+            value={filters.checkoutDate}
+          />
         </div>
       </div>
       <div className="home_search_bar date">
-        <label>Search</label>
-        <input className="home_search_input" type="text" placeholder="Search" />
-        <Button buttonClass="search_btn red_Btn">
+        <label>Country</label>
+        <CustomSelect
+          name="country"
+          onChange={onChange}
+          required={false}
+          defaultOption="select-country"
+          value={filters.country}
+          list={store.countryList}
+        >
+          Select a country
+        </CustomSelect>
+        {/* <Button buttonClass="search_btn red_Btn">
           <span className="white_letter">Search</span>
-        </Button>
+        </Button> */}
       </div>
     </div>
   );
