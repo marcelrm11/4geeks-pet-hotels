@@ -3,7 +3,7 @@ import { Button } from "../component/button";
 import { CustomSelect } from "./customSelect";
 import { Context } from "../store/appContext";
 
-const HotelListinSearch = ({ filters, onChange }) => {
+const HotelListinSearch = ({ filters, onChange, onClick }) => {
   const { store } = useContext(Context);
   return (
     <div className="hotelListing_search_bar">
@@ -101,9 +101,12 @@ const HotelListinSearch = ({ filters, onChange }) => {
         >
           Select a country
         </CustomSelect>
-        {/* <Button buttonClass="general_button search_btn red_Btn">
-          <span className="white_letter">Search</span>
-        </Button> */}
+        <Button
+          buttonClass="general_button search_btn red_Btn"
+          onClick={onClick}
+        >
+          <span className="white_letter">Apply Filters</span>
+        </Button>
       </div>
     </div>
   );
