@@ -19,7 +19,8 @@
   gap: 2%;
 }
 
-.input-container input {
+.input-container input,
+select {
   width: 100%;
   max-width: 230px;
   min-height: 40px;

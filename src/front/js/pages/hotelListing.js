@@ -8,9 +8,7 @@ import "../../styles/hotelListing.css";
 export const HotelListing = () => {
   const { store, actions } = useContext(Context);
 
-  useEffect(() => {
-    actions.listing;
-  }, []);
+  useEffect(actions.listing, []);
 
   const hotelsInfo = store.hotels.map((hotel, index) => {
     return <HotelCard hotel={hotel} key={index} index={index} />;

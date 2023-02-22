@@ -55,7 +55,8 @@ body {
   color: white;
 }
 
-input {
+input,
+select {
   font-size: 0.8rem;
   margin-top: 0.4em;
 }

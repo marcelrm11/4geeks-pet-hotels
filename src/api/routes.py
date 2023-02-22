@@ -977,30 +977,30 @@ def get_invoice(invoice_id):
         return jsonify({"error": str(e)}), 500
 
 
-@api.route("/restcountries", methods=["GET"])
-def countries():
-    response = requests.get("https://restcountries.com/v3.1/all")
-    data = response.json()
-    countries = []
-    for country in data:
-        countries.append(country['name']['common'])
-    return jsonify(sorted(countries))
+# @api.route("/restcountries", methods=["GET"])
+# def countries():
+#     response = requests.get("https://restcountries.com/v3.1/all")
+#     data = response.json()
+#     countries = []
+#     for country in data:
+#         countries.append(country['name']['common'])
+#     return jsonify(sorted(countries))
 
 
-@api.route("/countries/populatedb", methods=["GET"])
-def populate_countries():
-    try:
-        response = requests.get("https://restcountries.com/v3.1/all")
-        data = response.json()
-        countries = []
-        for country in data:
-            countries.append(country['name']['common'])
-        sorted_countries = sorted(countries)
-        for country in sorted_countries:
-            to_add = Countries_zip_codes(country=country)
-            db.session.add(to_add)
-        db.session.commit()
-        return jsonify({"msg": "success!"})
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({"error": str(e)}), 500
+# @api.route("/countries/populatedb", methods=["GET"])
+# def populate_countries():
+#     try:
+#         response = requests.get("https://restcountries.com/v3.1/all")
+#         data = response.json()
+#         countries = []
+#         for country in data:
+#             countries.append(country['name']['common'])
+#         sorted_countries = sorted(countries)
+#         for country in sorted_countries:
+#             to_add = Countries_zip_codes(country=country)
+#             db.session.add(to_add)
+#         db.session.commit()
+#         return jsonify({"msg": "success!"})
+#     except Exception as e:
+#         db.session.rollback()
+#         return jsonify({"error": str(e)}), 500
