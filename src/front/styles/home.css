@@ -36,6 +36,15 @@
   text-align: justify;
 }
 
+.vl-container {
+  margin-bottom: 5rem;
+}
+
+.vl-container h4,
+.vl-container p {
+  width: 200px;
+}
+
 @media (max-width: 768px) {
   .home_hotels {
     flex-direction: column;
@@ -43,5 +52,20 @@
 
   .home_image {
     display: none;
+  }
+}
+
+@media (min-width: 769px) {
+  .value_section {
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+
+  .vl-container {
+    margin-bottom: 0;
+  }
+
+  .home_welcome_info {
+    text-align: center;
   }
 }
