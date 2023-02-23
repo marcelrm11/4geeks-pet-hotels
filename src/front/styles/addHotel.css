@@ -6,6 +6,10 @@
 select {
   width: 200px;
   height: 40px;
+  background-color: var(--lighterBlue);
+  border: none;
+  border-radius: 0.3rem;
+  padding: 1rem;
 }
 
 .radio_inputs input {
@@ -76,14 +80,18 @@ select {
     margin: 1rem 1rem 0 0;
   }
 
+  .pet_type_checkbox {
+    display: flex;
+    justify-content: space-evenly;
+  }
 }
 
 @media (min-width: 992px) {
   .add_hotel_div {
-    margin-right: 18rem;
+    margin-right: 10rem;
   }
 
   .add_hotel_image {
-    margin-left: 5rem;
+    margin-left: 10rem;
   }
 }

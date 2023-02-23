@@ -18,7 +18,7 @@ export const AddHotelData = ({
     return (
       <div key={index} className="radio_input d_flex_col ">
         <input
-          className="radio_type_input d_flex_col"
+          className="radio_type_input d_flex_col round_border"
           type="checkbox"
           id={item}
           name="pet_type"
@@ -45,12 +45,11 @@ export const AddHotelData = ({
       <div className="add_hotel_div">
         <h1>Add Hotel</h1>
         <div>
-          <div className="text_inputs_container dp-grid-o-cl gp-o">
+          <div className="text_inputs_container dp-grid-o-cl gp-o border-style-two">
             {Object.entries(hotelData).map(([field, value]) => {
               return (
                 <React.Fragment key={field}>
                   <Input
-                    className="bg-lighter-blue border-style-two one_pad"
                     type={field.includes("email") ? "email" : "text"}
                     id={field}
                     placeholder={
@@ -73,7 +72,9 @@ export const AddHotelData = ({
             <div>
               <div className="pet_type_input_container d_flex_col ">
                 <label className="d_flex_row">Pet Type </label>
-                <div className="dp-grid-t-cl gp-o">{petsInput}</div>
+                <div className="dp-grid-t-cl gp-o pet_type_checkbox w-100 one_pad">
+                  {petsInput}
+                </div>
               </div>
             </div>
           </div>

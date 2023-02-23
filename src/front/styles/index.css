@@ -270,3 +270,9 @@ select {
 .white_letter {
   color: white;
 }
+
+/*input width*/
+
+.input-width {
+  width: 180px;
+}

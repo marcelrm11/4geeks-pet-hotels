@@ -81,7 +81,6 @@ select {
   }
 
   .signup-input-container {
-    display: grid;
     gap: 3%;
   }
 
@@ -94,9 +93,7 @@ select {
   }
 
   .btn_container {
-    min-width: 160px;
-    display: grid;
-    grid-template-columns: auto;
+    max-width: 200px;
     gap: 4%;
   }
 
@@ -123,11 +120,11 @@ select {
     height: fit-content;
     margin-left: 1rem;
     min-width: 330px;
-    margin-top: 2rem;
+    margin-top: 5rem;
   }
 
   .signup_img-container img {
-    width: 100%;
+    width: 85%;
   }
 
   .signup-input-container {
@@ -138,7 +135,8 @@ select {
   .inputs_section {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 6%;
+    gap: 2%;
+    min-height: 265px;
   }
 
   .signup_info {
@@ -150,17 +148,21 @@ select {
   }
 
   .btn_container {
-    display: grid;
-    grid-template-columns: auto;
+    gap: 6%;
     place-content: center;
+    margin-top: 1rem;
   }
 
   .google_signup_btn {
     margin-bottom: 6%;
   }
 
+  .input-section {
+    margin-left: 1rem;
+  }
+
   .inputs_section input {
-    min-width: 160px;
+    width: 200px;
   }
 
   .sign_up_btns .general_button {

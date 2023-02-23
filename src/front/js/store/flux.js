@@ -28,6 +28,21 @@ const getState = ({ getStore, getActions, setStore }) => {
       owner: {
         email: "",
       },
+
+      button: [
+        {
+          btn_class: "log_socialMedia google_signup_btn",
+          type: "Sign up with Google",
+          redirect: "/",
+          link_class: "white_letter",
+        },
+        { 
+          btn_class: "log_socialMedia",
+          type: "Sign up with Facebook",
+          redirect: "/",
+          link_class: "white_letter",
+        },
+      ]
     },
     actions: {
       handleSelectType: (boolean) => {

@@ -31,6 +31,24 @@
   padding: 0.5rem;
 }
 
+.home_search_bar select {
+  background-color: white;
+  margin: 0.5rem 0;
+}
+
+.home_search_bar input {
+  margin: 0.5rem 0;
+}
+
+.radio_input_container input {
+  margin: 0 1.3rem;
+}
+
+.radio_input_container label {
+  text-align: center;
+  width: 100%;
+}
+
 .listing_section label {
   margin-bottom: 0.5rem;
 }
@@ -180,7 +198,6 @@
 }
 
 @media (max-width: 768px) {
-
   .hotelListing_search_bar {
     min-width: 300px;
   }

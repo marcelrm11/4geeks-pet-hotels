@@ -31,9 +31,17 @@
   font-size: 0.5rem;
 }
 
+.home_welcome_info {
+  padding: 2rem;
+  text-align: justify;
+}
+
 @media (max-width: 768px) {
   .home_hotels {
     flex-direction: column;
   }
-}
 
+  .home_image {
+    display: none;
+  }
+}

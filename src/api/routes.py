@@ -548,9 +548,7 @@ def create_hotel():
 
 
 @api.route("/hotels", methods=["GET"])
-@jwt_required()
 def get_hotels():
-    print(get_jwt_identity())
     try:
         hotels = Hotel.query.all()
         hotels_list = [hotel.serialize() for hotel in hotels]

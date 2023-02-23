@@ -56,13 +56,13 @@ const HotelListinSearch = ({ filters, onChange }) => {
   });
 
   return (
-    <div className="hotelListing_search_bar d_flex_col one_pad mg-1 bg-lighter-blue">
+    <div className="align-items-start hotelListing_search_bar d_flex_col one_pad mg-1 bg-lighter-blue">
       <div>
         <label>Pet Type </label>
-        <div className="d-flex">{petsInput}</div>
+        <div className="d-flex w-100">{petsInput}</div>
       </div>
       <div className="listing_date_input dp-grid"></div>
-      <div className="home_search_bar d_flex_col date">
+      <div className="align-items-start home_search_bar d_flex_col date">
         {dates_input}
         <label>Country</label>
         <CustomSelect

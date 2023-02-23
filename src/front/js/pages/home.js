@@ -8,11 +8,12 @@ export const Home = () => {
   const { store, actions } = useContext(Context);
 
   const [hotelsInfo, setHotelsInfo] = useState([]);
-  useEffect(actions.listing, []);
 
-  for (let i = 0; i < store.hotels.length && i < 3; i++) {
-    setHotelsInfo(<HotelCard hotel={store.hotels[i]} key={i} index={i} />);
-  } 
+  useEffect(() => {
+    for (let i = 0; i < store.hotels.length && i < 3; i++) {
+      setHotelsInfo(<HotelCard hotel={store.hotels[i]} key={i} index={i} />);
+    }
+  }, []);
 
   return (
     <div className="text-center mt-5">
@@ -35,7 +36,9 @@ export const Home = () => {
         </figure>
       </section>
 
-      <section className="home_hotels w-100 d-flex">{hotelsInfo}</section>
+      <section className="home_hotels w-100 d-flex align-items-center">
+        {hotelsInfo}
+      </section>
 
       <section className="home_welcome_info">
         <div>
@@ -47,7 +50,7 @@ export const Home = () => {
             rest assured that your furry friend is in good hands and receiving
             the care and attention they deserve.
           </p>
-          <hr />
+          <hr className="hr" />
         </div>
       </section>
 

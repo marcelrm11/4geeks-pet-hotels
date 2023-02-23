@@ -6,19 +6,32 @@ import { Image } from "./image";
 import { Link } from "react-router-dom";
 import pug from "../../img/pug.jpg";
 
-
-export const SignUpOwnerForm = ({ ownerData, handleChange, handleValidate }) => {
+export const SignUpOwnerForm = ({
+  ownerData,
+  handleChange,
+  handleValidate,
+}) => {
   const { store, actions } = useContext(Context);
 
+  const button_type = store.button.map((item, index) => {
+    return (
+      <Button key={index} buttonClass={item.btn_class} data-bs-dismiss="modal">
+        <Link to={item.redirect} className={item.link_class}>
+          {item.type}
+        </Link>
+      </Button>
+    );
+  });
+
   return (
-    <form className="signup-input-container input-container">
+    <form className="signup-input-container input-container dp-grid dp-g-center">
       <div>
         <Image
           className="signUp_image"
           figureClass="signup_img-container owner_signup_img"
           src={pug}
           altText="logo"
-        /> 
+        />
       </div>
       <div className="signup_info">
         <h1 className="signUp_title title-font">Join us now</h1>
@@ -57,29 +70,11 @@ export const SignUpOwnerForm = ({ ownerData, handleChange, handleValidate }) => 
             );
           })}
         </div>
-        <div className="btn_container sign_up_btns">
-          <Button
-            buttonClass="red_Btn access_btn"
-            onClick={handleValidate}
-          >
+        <div className="btn_container dp-grid-o-cl sign_up_btns">
+          <Button buttonClass="red_Btn access_btn" onClick={handleValidate}>
             <span className="white_letter">Sign up</span>
           </Button>
-          <Button
-            buttonClass={"log_socialMedia google_signup_btn"}
-            data-bs-dismiss="modal"
-          >
-            <Link to="/" className="white_letter">
-              Sign up with Google
-            </Link>
-          </Button>
-          <Button
-            buttonClass={"log_socialMedia"}
-            data-bs-dismiss="modal"
-          >
-            <Link to="/" className="white_letter">
-              Sign up with Facebook
-            </Link>
-          </Button>
+          {button_type}
         </div>
       </div>
     </form>

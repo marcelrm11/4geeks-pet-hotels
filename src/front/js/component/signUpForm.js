@@ -9,22 +9,7 @@ import signupImage from "../../img/signup_image.jpg";
 export const SignUpForm = ({ formData, handleChange, handleValidate }) => {
   const { store, actions } = useContext(Context);
 
-  const [button] = useState([
-    {
-      btn_class: "log_socialMedia google_signup_btn",
-      type: "Sign up with Google",
-      redirect: "/",
-      link_class: "white_letter",
-    },
-    { 
-      btn_class: "log_socialMedia",
-      type: "Sign up with Facebook",
-      redirect: "/",
-      link_class: "white_letter",
-    },
-  ]);
-
-  const button_type = button.map((item, index) => {
+  const button_type = store.button.map((item, index) => {
     return (
       <Button key={index} buttonClass={item.btn_class} data-bs-dismiss="modal">
         <Link to={item.redirect} className={item.link_class}>
@@ -35,7 +20,7 @@ export const SignUpForm = ({ formData, handleChange, handleValidate }) => {
   });
 
   return (
-    <form className="signup-input-container input-container">
+    <form className="signup-input-container input-container dp-grid dp-g-center">
       <div>
         <Image
           className="signUp_image"
@@ -81,7 +66,7 @@ export const SignUpForm = ({ formData, handleChange, handleValidate }) => {
             );
           })}
         </div>
-        <div className="btn_container sign_up_btns">
+        <div className="btn_container dp-grid-o-cl sign_up_btns">
           <Button buttonClass="red_Btn access_btn" onClick={handleValidate}>
             <span className="white_letter">Sign up</span>
           </Button>
