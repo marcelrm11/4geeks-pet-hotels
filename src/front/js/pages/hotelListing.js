@@ -27,9 +27,11 @@ export const HotelListing = () => {
   if (store.loading) return <h1>Loading</h1>;
 
   return (
-    <div className="listing_section">
+    <div className="listing_section dp-grid font-xs dp-g-center">
       <HotelListingSearch filters={searchFilters} onChange={handleChange} />
-      <div className="hotel_listing_container">{hotelsInfo}</div>
+      <div className="hotel_listing_container dp-grid-o-cl dp-g-center">
+        {hotelsInfo}
+      </div>
     </div>
   );
 };

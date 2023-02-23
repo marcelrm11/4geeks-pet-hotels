@@ -14,7 +14,7 @@ export const HotelServices = ({ service }) => {
       ) : service === "Guardería de día" ? (
         <p>
           <WiDayCloudy className="service_container" /> {service}
-        </p>
+        </p> 
       ) : service === "Paseo para perros" ? (
         <p>
           <GiWalkingBoot className="service_container" /> {service}

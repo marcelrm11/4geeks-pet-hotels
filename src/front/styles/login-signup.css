@@ -2,20 +2,8 @@
 .forms {
   min-height: 600px;
 }
- 
-.modal_background {
-  background-color: var(--darkBlue);
-  color: var(--whiteLetters);
-}
-
-.password_forget {
-  color: var(--whiteLetters);
-  margin: 0;
-}
 
 .input-container {
-  display: grid;
-  place-content: center;
   gap: 2%;
 }
 
@@ -32,9 +20,6 @@ select {
 }
 
 .login_logo_image {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   margin-top: 2rem;
 }
 

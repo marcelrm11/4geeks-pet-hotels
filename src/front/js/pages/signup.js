@@ -19,7 +19,7 @@ export const Signup = () => {
 
   const handleChange = (ev) => {
     setFormData({ ...formData, [ev.target.name]: ev.target.value });
-  };
+  }; 
 
   return store.signupSuccessful ? (
     <Navigate to="/" />

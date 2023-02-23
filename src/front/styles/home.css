@@ -3,91 +3,18 @@
   width: 14rem !important;
 }
 
-.home_image_searchbar {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 .home_img_container {
-  width: 100%;
   max-height: 450px;
   position: relative;
 }
 
-.home_shortcut_btn {
-  position: absolute;
-  top: 15%;
-  right: 15%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 1rem;
-}
-
-.home_shortcut_btn button {
-  margin: 1rem;
-}
-
 .home_image {
-  width: 100%;
   max-height: 420px;
   object-fit: cover;
   object-position: top;
 }
 
-.home_image_info_searchBar {
-  width: 40%;
-  min-height: 200px;
-  border-radius: 1rem;
-  position: absolute;
-  top: 45%;
-  right: 2%;
-  background-color: var(--lighterBlue);
-}
-
-.home_welcome_title {
-  width: fit-content;
-  position: absolute;
-  top: 0%;
-  left: 0%;
-}
-
-.home_search_filter {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-  font-size: var(--fontSize-XS);
-}
-
-.home_pet_select {
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.home_search_date {
-  width: 100%;
-  display: flex;
-}
-
-.home_search_bar {
-  position: relative;
-}
-
-.home_search_bar button {
-  position: absolute;
-  top: -30%;
-  right: 0%;
-}
-
 .home_hotels {
-  display: flex;
-  width: 100%;
   justify-content: space-evenly;
 }
 
@@ -104,52 +31,9 @@
   font-size: 0.5rem;
 }
 
-.card-title {
-  font-size: 1rem;
-}
-
 @media (max-width: 768px) {
-  .home_welcome_title {
-    top: 28%;
-    left: 50%;
-  }
-
-  .home_image_info_searchBar {
-    position: static;
-    width: 90%;
-    margin: 1rem;
-  }
-
-  .home_search_bar button {
-    max-width: 130px;
-    top: -6%;
-  }
-
-  .home_search_date {
-    flex-direction: column;
-  }
-
   .home_hotels {
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
   }
 }
 
-@media (min-width: 769px) {
-  .home_image_info_searchBar {
-    position: static;
-    width: 90%;
-    margin: 1rem;
-  }
-
-  .home_search_date {
-    flex-direction: column;
-  }
-}
-
-@media (min-width: 992px) {
-  .home_search_bar button {
-    top: -56%;
-  }
-}

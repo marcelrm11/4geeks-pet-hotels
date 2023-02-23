@@ -1,10 +1,34 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import { LoginForm } from "./loginForm";
 import "../../styles/login-signup.css";
 
 export const LoginModal = ({ credentials, onChange, onLogin }) => {
   const { store, actions } = useContext(Context);
+
+  const [button] = useState([
+    {
+      onclick: () => actions.handleSelectType(true),
+      name: "Sign up as owner",
+    }, 
+    {
+      onclick: () => actions.handleSelectType(false),
+      name: "Sign up as user",
+    },
+  ]);
+
+  const button_type = button.map((item, index) => {
+    return (
+      <button
+        key={index}
+        onClick={item.onclick}
+        className={`btn btn-danger general_button light_Btn`}
+      >
+        {item.name}
+      </button>
+    );
+  });
+
   return (
     <>
       <div
@@ -16,9 +40,9 @@ export const LoginModal = ({ credentials, onChange, onLogin }) => {
       >
         <div className="modal-dialog">
           <div className="modal-content">
-            <div className="modal-header modal_background">
+            <div className="modal-header bg-darkBlue white_letter">
               <h1
-                className="modal-title fs-5 modal_background"
+                className="modal-title fs-5 bg-darkBlue white_letter"
                 id="loginModalLabel"
               >
                 Log in
@@ -30,19 +54,8 @@ export const LoginModal = ({ credentials, onChange, onLogin }) => {
                 aria-label="Close"
               ></button>
             </div>
-            <div className="modal-body modal_background">
-              <button
-                onClick={() => actions.handleSelectType(false)}
-                className="btn btn-danger general_button light_Btn"
-              >
-                Sign up as user
-              </button>
-              <button
-                onClick={() => actions.handleSelectType(true)}
-                className="btn btn-danger general_button light_Btn"
-              >
-                Sign up as owner
-              </button>
+            <div className="modal-body bg-darkBlue white_letter">
+              {button_type}
               <LoginForm
                 onLogin={onLogin}
                 onChange={onChange}

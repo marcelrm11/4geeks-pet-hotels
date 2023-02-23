@@ -13,6 +13,25 @@ export const AddHotelData = ({
 }) => {
   const { store, actions } = useContext(Context);
 
+  const [checkInput] = useState(["dog", "cat", "rodent", "bird", "others"]);
+  const petsInput = checkInput.map((item, index) => {
+    return (
+      <div key={index} className="radio_input d_flex_col ">
+        <input
+          className="radio_type_input d_flex_col"
+          type="checkbox"
+          id={item}
+          name="pet_type"
+          value={item}
+          onChange={(e) => {
+            handlePetType(e);
+          }}
+        />
+        <label>{item}</label>
+      </div>
+    );
+  });
+
   return (
     <form className="add_hotel_form">
       <div className="add_hotel_image">
@@ -26,11 +45,12 @@ export const AddHotelData = ({
       <div className="add_hotel_div">
         <h1>Add Hotel</h1>
         <div>
-          <div className="text_inputs_container">
+          <div className="text_inputs_container dp-grid-o-cl gp-o">
             {Object.entries(hotelData).map(([field, value]) => {
               return (
                 <React.Fragment key={field}>
                   <Input
+                    className="bg-lighter-blue border-style-two one_pad"
                     type={field.includes("email") ? "email" : "text"}
                     id={field}
                     placeholder={
@@ -51,79 +71,9 @@ export const AddHotelData = ({
           </div>
           <div>
             <div>
-              <div className="pet_type_input_container">
-                <label>Pet Type </label>
-                <div className="radio_inputs_container">
-                  <div className="radio_input">
-                    <input
-                      className="radio_type_input"
-                      type="checkbox"
-                      id="dog"
-                      name="pet_type"
-                      value="dog"
-                      onChange={(e) => {
-                        handlePetType(e);
-                      }}
-                    />
-                    <label>Dog</label>
-                  </div>
-
-                  <div className="radio_input">
-                    <input
-                      className="radio_type_input"
-                      type="checkbox"
-                      id="cat"
-                      name="pet_type"
-                      value="cat"
-                      onChange={(e) => {
-                        handlePetType(e);
-                      }}
-                    />
-                    <label>Cat</label>
-                  </div>
-
-                  <div className="radio_input">
-                    <input
-                      className="radio_type_input"
-                      type="checkbox"
-                      id="rodent"
-                      name="pet_type"
-                      value="rodent"
-                      onChange={(e) => {
-                        handlePetType(e);
-                      }}
-                    />
-                    <label>Rodent</label>
-                  </div>
-
-                  <div className="radio_input">
-                    <input
-                      className="radio_type_input"
-                      type="checkbox"
-                      id="bird"
-                      name="pet_type"
-                      value="bird"
-                      onChange={(e) => {
-                        handlePetType(e);
-                      }}
-                    />
-                    <label>Bird</label>
-                  </div>
-
-                  <div className="radio_input">
-                    <input
-                      className="radio_type_input"
-                      type="checkbox"
-                      id="others"
-                      name="pet_type"
-                      value="others"
-                      onChange={(e) => {
-                        handlePetType(e);
-                      }}
-                    />
-                    <label>Others</label>
-                  </div>
-                </div>
+              <div className="pet_type_input_container d_flex_col ">
+                <label className="d_flex_row">Pet Type </label>
+                <div className="dp-grid-t-cl gp-o">{petsInput}</div>
               </div>
             </div>
           </div>

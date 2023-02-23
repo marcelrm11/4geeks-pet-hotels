@@ -30,6 +30,7 @@ export const AddHotel = () => {
     //photo: "",
   }));
 
+  
   const handleChange = (ev) => {
     setHotelData({ ...hotelData, [ev.target.name]: ev.target.value });
   };

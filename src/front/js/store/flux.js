@@ -80,47 +80,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      // login: async (e, email, password) => {
-      //   const store = getStore();
-      //   e.preventDefault();
-      //   const opt = {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify({
-      //       email: email,
-      //       password: password,
-      //     }),
-      //     //mode: "no-cors",
-      //   };
-
-      //   try {
-      //     const response = await fetch(
-      //       process.env.BACKEND_URL + "/api/login",
-      //       opt
-      //     );
-
-      //     const data = await response.json();
-      //     console.log(data, response.status);
-      //     if (response.status !== 200) {
-      //       throw Error(data.error);
-      //     } else {
-      //       sessionStorage.setItem("token", data.access_token);
-      //       // console.log(sessionStorage.getItem("token"));
-      //       sessionStorage.setItem("user", JSON.stringify(data.user));
-      //       // console.log(JSON.parse(sessionStorage.getItem("user")));
-      //       setStore({
-      //         token: data.access_token,
-      //         user: data.user,
-      //       });
-      //     }
-      //   } catch (error) {
-      //     setStore({ errors: error.errors });
-      //     console.error(error, store.errors);
-      //   }
-      // },
-
       listing: () => {
         const store = getStore();
         fetch(process.env.BACKEND_URL + "/api/hotels")

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import landing_image from "../../img/homeLandingImage.jpeg";
@@ -7,11 +7,12 @@ import HotelCard from "../component/hotelCard";
 export const Home = () => {
   const { store, actions } = useContext(Context);
 
-  const hotelsInfo = [];
+  const [hotelsInfo, setHotelsInfo] = useState([]);
   useEffect(actions.listing, []);
+
   for (let i = 0; i < store.hotels.length && i < 3; i++) {
-    hotelsInfo.push(<HotelCard hotel={store.hotels[i]} key={i} index={i} />);
-  }
+    setHotelsInfo(<HotelCard hotel={store.hotels[i]} key={i} index={i} />);
+  } 
 
   return (
     <div className="text-center mt-5">
@@ -24,17 +25,17 @@ export const Home = () => {
         ""
       )}
 
-      <section className="home_image_searchbar">
-        <figure className="home_img_container">
+      <section className="w-100 d_flex_col">
+        <figure className="home_img_container w-100">
           <img
-            className="home_image"
+            className="home_image w-100"
             src={landing_image}
             alt="dog welcoming image"
           />
         </figure>
       </section>
 
-      <section className="home_hotels">{hotelsInfo}</section>
+      <section className="home_hotels w-100 d-flex">{hotelsInfo}</section>
 
       <section className="home_welcome_info">
         <div>

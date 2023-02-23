@@ -16,7 +16,7 @@
   --btnRadius: 3px;
   --fontSize-XS: 1rem;
   --fontSize-S: 1.4rem;
-  --fontSize-m: 2rem;
+  --fontSize-M: 2rem;
   --fontSize-L: 2.4rem;
 }
 
@@ -51,10 +51,6 @@ body {
 
 .title-font {
   font-family: "Source Sans Pro", sans-serif;
-}
-
-.white_letter {
-  color: white;
 }
 
 input,
@@ -157,13 +153,53 @@ select {
   place-content: center;
 }
 
+.dp-grid-o-cl {
+  display: grid;
+  grid-template-columns: auto;
+}
+
+.dp-grid-t-cl {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.dp-grid {
+  display: grid;
+}
+/*reminder: cambiar clases btn_container*/
+.dp-g-center {
+  place-content: center;
+}
+
 /*padding*/
 
 .one_pad {
   padding: 1rem;
 }
 
+.pd-cero {
+  padding: 0;
+}
+
+.pd-o-h {
+  padding: 1.5rem;
+}
+
+/*margin*/
+
+.mg-1 {
+  margin: 1rem;
+}
+
+.mg-cero {
+  margin: 0;
+}
+
 /*border*/
+
+.rd-1 {
+  border-radius: 1rem;
+}
 
 .round_border {
   border-radius: 50%;
@@ -172,4 +208,65 @@ select {
 .border-style {
   border: none;
   border-radius: 1rem;
+}
+
+.border-style-two {
+  border: none;
+  border-radius: 0.5rem;
+}
+
+/*background colors*/
+
+.bg-darkBlue {
+  background-color: var(--darkBlue);
+}
+
+.bg-lighter-blue {
+  background-color: var(--lighterBlue);
+}
+
+.bg-turquoise {
+  background-color: var(--turquoise);
+}
+
+/*gaps*/
+
+.gp-o {
+  gap: 1%;
+}
+
+/*fonts*/
+
+.font-xs {
+  font-size: var(--fontSize-XS);
+}
+
+.font-s {
+  font-size: var(--fontSize-S);
+}
+
+.font-m {
+  font-size: var(--fontSize-M);
+}
+
+.font-l {
+  font-size: var(--fontSize-L);
+}
+
+/*text*/
+
+.txt-start {
+  text-align: start;
+}
+
+.txt-center {
+  text-align: center;
+}
+
+.salmon {
+  color: var(--salmon);
+}
+
+.white_letter {
+  color: white;
 }

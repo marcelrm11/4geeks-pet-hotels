@@ -20,7 +20,7 @@ export const SignupOwner = () => {
 
   const handleChange = (ev) => {
     setownerData({ ...ownerData, [ev.target.name]: ev.target.value });
-  };
+  }; 
 
   return store.signupSuccessful ? (
     <Navigate to="/" />

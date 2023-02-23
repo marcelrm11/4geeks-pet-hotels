@@ -18,6 +18,43 @@ export const Navbar = () => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
+  const [button] = useState([
+    {
+      to: "/profile",
+      button_color: "turquoise_Btn",
+      name: "Profile",
+    },
+    {
+      to: "/addHotel",
+      button_color: "turquoise_Btn",
+      name: "Add hotel",
+    },
+    {
+      to: "/hotelListing",
+      button_color: "red_Btn",
+      name: "Hotel list",
+    },
+    {
+      to: "/favorites",
+      button_color: "red_Btn",
+      name: "Favorites",
+    },
+  ]);
+
+  const button_type = button.map((item, index) => {
+    return (
+      <li key={index}>
+        <Link to={item.to} className="dropdown-item">
+          <button
+            className={`btn btn-danger general_button ${item.button_color}`}
+          >
+            {item.name}
+          </button>
+        </Link>
+      </li>
+    );
+  });
+
   return (
     <nav className="navbar navbar_background">
       <div className="container">
@@ -68,36 +105,7 @@ export const Navbar = () => {
               Buttons
             </p>
 
-            <ul className="dropdown-menu">
-              <li>
-                <Link to="/profile" className="dropdown-item">
-                  <button className="btn btn-danger general_button turquoise_Btn">
-                    Profile
-                  </button>
-                </Link>
-              </li>
-              <li>
-                <Link to="/addHotel" className="dropdown-item">
-                  <button className="btn btn-danger general_button turquoise_Btn">
-                    Add hotel
-                  </button>
-                </Link>
-              </li>
-              <li>
-                <Link to="/hotelListing" className="dropdown-item">
-                  <button className="btn btn-danger addHotel_Btn">
-                    Hotel list
-                  </button>
-                </Link>
-              </li>
-              <li>
-                <Link to="/favorites" className="dropdown-item">
-                  <button className="btn btn-danger addHotel_Btn">
-                    Favorites
-                  </button>
-                </Link>
-              </li>
-            </ul>
+            <ul className="dropdown-menu">{button_type}</ul>
           </div>
         </div>
       </div>

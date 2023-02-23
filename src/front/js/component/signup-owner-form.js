@@ -18,7 +18,7 @@ export const SignUpOwnerForm = ({ ownerData, handleChange, handleValidate }) => 
           figureClass="signup_img-container owner_signup_img"
           src={pug}
           altText="logo"
-        />
+        /> 
       </div>
       <div className="signup_info">
         <h1 className="signUp_title title-font">Join us now</h1>

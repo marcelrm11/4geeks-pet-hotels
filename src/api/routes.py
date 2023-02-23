@@ -7,7 +7,7 @@ import json
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.google_places_api import find_nearby_places
 from api.models import db, User, Pets, Hotel, Booking, Owner, Invoice, Favorite, Room, Countries_zip_codes
-from api.forms import BookingForm, FavoriteForm, InvoiceForm, UserForm, ShortUserForm, PetForm, HotelForm
+from api.forms import BookingForm, FavoriteForm, InvoiceForm, UserForm, ShortUserForm, ShortOwnerForm, PetForm, HotelForm
 from flask_jwt_extended import create_access_token, current_user, jwt_required, get_jwt_identity, set_access_cookies, verify_jwt_in_request
 from sqlalchemy.exc import IntegrityError, NoForeignKeysError
 import sys

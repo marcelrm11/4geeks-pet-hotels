@@ -38,7 +38,7 @@ export const SignUpForm = ({ hotelData, handleChange, handleValidate }) => {
                       ? "email"
                       : "text"
                   }
-                  id={field}
+                  id={field} 
                   placeholder={actions.removeUnderscores(
                     actions.capitalize(field)
                   )}

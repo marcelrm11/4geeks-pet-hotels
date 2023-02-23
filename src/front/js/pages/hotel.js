@@ -40,15 +40,15 @@ export const Hotel = () => {
         <div className="component1">
           <PlaceDetailsSearch details={details} overallRating={overallRating} />
         </div>
-        <div className="component2">
+        <div className="w-100 d_flex_col">
           <h2>Services</h2>
-          <div className="detail_services_section">
+          <div className="detail_services_section w-100 d-flex">
             {services().map((service, index) => {
               return <HotelServices key={index} service={service} />;
             })}
           </div>
         </div>
-      </div>
+      </div> 
       <HotelDescription
         name={details.name}
         description={details.hotel_description}
@@ -58,12 +58,12 @@ export const Hotel = () => {
           <span className="white_letter">Reserve</span>
         </Link>
       </Button>
-      <h5>
+      <h5 className="reviewStar">
         Reviews
-        <i className="fa-solid fa-star reviewStar"></i>
-        <i className="fa-solid fa-star reviewStar"></i>
-        <i className="fa-solid fa-star reviewStar"></i>
-        <i className="fa-solid fa-star reviewStar"></i>
+        <i className="fa-solid fa-star"></i>
+        <i className="fa-solid fa-star"></i>
+        <i className="fa-solid fa-star"></i>
+        <i className="fa-solid fa-star"></i>
       </h5>
       {reviews.map((review) => {
         return <HotelReviews review={review} />;
