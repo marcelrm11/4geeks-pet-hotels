@@ -4,10 +4,10 @@ import "../../styles/account.css";
 export const Account = () => {
   return (
     <>
-      <div className="account_section">
-        <section className="account_right_section">
-          <div className="account_user_background">
-            <div className="account_user_profile">
+      <div className="account_section w-100 d_flex_col">
+        <section className="account_right_section d_flex_col">
+          <div className="account_user_background d_flex_col border-style">
+            <div className="account_user_profile d_flex_col">
               <figure>
                 <img src="https://picsum.photos/200" />
               </figure>
@@ -16,9 +16,9 @@ export const Account = () => {
             </div>
           </div>
         </section>
-        <section className="account_left_section">
-          <div className="account_info_background">
-            <div className="account_info_profile">
+        <section className="account_left_section d_flex_col">
+          <div className="account_info_background d_flex_col border-style">
+            <div className="account_info_profile d_flex_col">
               <h2>your account</h2>
               <p>email</p>
               <p>password</p>
