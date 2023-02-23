@@ -36,19 +36,23 @@ const getState = ({ getStore, getActions, setStore }) => {
           redirect: "/",
           link_class: "white_letter",
         },
-        { 
+        {
           btn_class: "log_socialMedia",
           type: "Sign up with Facebook",
           redirect: "/",
           link_class: "white_letter",
         },
-      ]
+      ],
     },
     actions: {
       handleSelectType: (boolean) => {
         const store = getStore();
         setStore({ is_owner: boolean });
         console.log(store.is_owner);
+
+        const div = document.getElementById("login-div"); 
+        div.classList.add("login_inputs");
+        div.classList.remove("select_type");
       },
 
       login: async (e, email, password) => {

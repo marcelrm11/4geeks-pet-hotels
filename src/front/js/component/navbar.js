@@ -13,6 +13,9 @@ export const Navbar = () => {
 
   const handleLogin = (e) => {
     actions.login(e, credentials.email, credentials.password);
+    const div = document.getElementById("login-div");
+    div.classList.remove("login_inputs");
+    div.classList.add("select_type");
   };
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });

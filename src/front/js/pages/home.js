@@ -40,6 +40,8 @@ export const Home = () => {
     }
   }, []);
 
+  useEffect(actions.listing, []);
+
   const bs_values = values.map((item, index) => {
     return (
       <div className="d_flex_col  mg-1 vl-container" key={index}>

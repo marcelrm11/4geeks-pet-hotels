@@ -1,4 +1,21 @@
 /*login-signup*/
+
+.select_type {
+  display: none;
+}
+
+.login_inputs {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+.login_inputs div {
+  width: 230px;
+}
+
 .forms {
   min-height: 600px;
 }
@@ -179,7 +196,7 @@ select {
 
 @media screen and (min-width: 992px) {
   .login_logo_image img {
-    max-width: 210px;
+    max-width: 100px;
     height: fit-content;
   }
 
