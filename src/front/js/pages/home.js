@@ -29,7 +29,8 @@ export const Home = () => {
     {
       img: faHeart,
       value: "Trust and security",
-      description: "Trust us to lovingly care for your pet as if it were our own",
+      description:
+        "Trust us to lovingly care for your pet as if it were our own",
     },
   ]);
 
@@ -92,7 +93,7 @@ export const Home = () => {
       </section>
 
       <section className="home_value">
-        <div className="value_section d_flex_col bg-darkBlue white_letter mg-1 border-style one_pad">
+        <div className="value_section d_flex_col bg-darkBlue white_letter mg-tb one_pad">
           {bs_values}
         </div>
       </section>
