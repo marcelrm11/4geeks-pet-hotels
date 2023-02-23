@@ -38,6 +38,10 @@ select {
   .radio_input {
     width: 80px;
   }
+
+  .pet_type_checkbox {
+    place-content: center;
+  }
 }
 
 @media (min-width: 769px) {

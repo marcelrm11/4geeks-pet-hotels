@@ -1,11 +1,10 @@
 .favorites {
   gap: 4%;
-  margin-top: 3rem;
 }
 
 .favorites_card {
   margin: 2rem;
-} 
+}
 
 .card {
   border: none;
@@ -22,7 +21,6 @@
 @media (max-width: 768px) {
   .favorites {
     grid-template-columns: auto;
-    margin-top: 6rem;
     gap: 3%;
   }
 }

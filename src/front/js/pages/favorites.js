@@ -23,7 +23,7 @@ export const Favorites = () => {
             className="card-img-top"
             alt="..."
           />
-          <div className="card-body">
+          <div className="card-body white_letter">
             <h5 className="card-title">{item.name}</h5>
             <hr />
             <Link className="d_flex_row" to={`/hotel/${item.id}`}>
