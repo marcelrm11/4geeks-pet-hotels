@@ -53,11 +53,15 @@ export const Home = () => {
     );
   });
 
+  // store.token && store.user
+  //         ? `Hola, ${store.user.first_name}!`
+  //         : (store.token && store.owner)
+  //         ? `Hola, ${store.owner.first_name}!`
+  //         :
+
   return (
     <div className="text-center mt-5">
-      <h2 className="title-font">
-        {store.token ? `Hola, ${store.user.name}!` : `Welcome to PetCasa`}
-      </h2>
+      <h2 className="title-font">{`Welcome to PetCasa`}</h2>
       {store.signupSuccessful ? (
         <h4>signup successful, verify your email and log in</h4>
       ) : (

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { Home } from "./pages/home";
@@ -18,12 +18,14 @@ import { Profile } from "./pages/profile";
 import { Account } from "./pages/account";
 
 const Layout = () => {
-
-  const { store, actions } = useContext(Context)
+  const { store, actions } = useContext(Context);
 
   const basename = process.env.BASENAME || "";
-
-  actions.getUserFromSessionStorage();
+  
+  useEffect(() => {
+    actions.getUserFromSessionStorage();
+    actions.tokenSessionStore();
+  },[])
 
   return (
     <div>

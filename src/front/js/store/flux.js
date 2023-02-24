@@ -78,13 +78,15 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(data, response.status);
 
           if (!store.is_owner) {
-            sessionStorage.setItem("user", JSON.stringify(data.user));
+            localStorage.setItem("user", JSON.stringify(data.user));
+            localStorage.setItem("token", JSON.stringify(data.access_token));
             setStore({
               token: data.access_token,
               user: data.user,
             });
           } else {
-            sessionStorage.setItem("owner", JSON.stringify(data.owner));
+            localStorage.setItem("owner", JSON.stringify(data.owner));
+            localStorage.setItem("token", JSON.stringify(data.access_token));
             setStore({
               token: data.access_token,
               owner: data.owner,
@@ -132,8 +134,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       getUserFromSessionStorage: () => {
-        const user = sessionStorage.getItem("user");
-        const owner = sessionStorage.getItem("owner");
+        const user = localStorage.getItem("user");
+        const owner = localStorage.getItem("owner");
         try {
           if (user == true) {
             parsedUser = JSON.parse();
@@ -149,7 +151,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       tokenSessionStore: () => {
-        const token = sessionStorage.getItem("token");
+        const token = localStorage.getItem("token");
         if (token) setStore({ token: token });
       },
 
@@ -278,8 +280,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       logout: () => {
-        sessionStorage.removeItem("token");
-        sessionStorage.removeItem("user");
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
         setStore({ token: null, user: {} });
       },
       // helper functions
