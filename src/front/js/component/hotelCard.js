@@ -8,7 +8,7 @@ const HotelCard = (props) => {
   const { store, actions } = useContext(Context);
   const [pets, sePets] = useState([]);
 
-  console.log(props.hotel);
+  // console.log(props.hotel);
 
   return (
     <div
