@@ -40,8 +40,6 @@ export const Home = () => {
     }
   }, []);
 
-  useEffect(actions.listing, []);
-
   const bs_values = values.map((item, index) => {
     return (
       <div className="d_flex_col  mg-1 vl-container" key={index}>
@@ -58,7 +56,7 @@ export const Home = () => {
   return (
     <div className="text-center mt-5">
       <h2 className="title-font">
-        {store.token ? `Hola, ${store.user.first_name}!` : `Welcome to PetCasa`}
+        {store.token ? `Hola, ${store.user.name}!` : `Welcome to PetCasa`}
       </h2>
       {store.signupSuccessful ? (
         <h4>signup successful, verify your email and log in</h4>

@@ -9,6 +9,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       countryList: [],
       favorites: [],
       hotels: [],
+      homeHotels: [],
       is_owner: true,
       regexs: {
         passwordRegex:
@@ -75,23 +76,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 
           const data = await response.json();
           console.log(data, response.status);
-          if (response.status !== 200) {
-            throw Error(data.error);
+
+          if (!store.is_owner) {
+            sessionStorage.setItem("user", JSON.stringify(data.user));
+            setStore({
+              token: data.access_token,
+              user: data.user,
+            });
           } else {
-            sessionStorage.setItem("token", data.access_token);
-            if (!is_owner) {
-              sessionStorage.setItem("user", JSON.stringify(data.user));
-              setStore({
-                token: data.access_token,
-                user: data.user,
-              });
-            } else {
-              sessionStorage.setItem("owner", JSON.stringify(data.owner));
-              setStore({
-                token: data.access_token,
-                owner: data.owner,
-              });
-            }
+            sessionStorage.setItem("owner", JSON.stringify(data.owner));
+            setStore({
+              token: data.access_token,
+              owner: data.owner,
+            });
           }
         } catch (error) {
           setStore({ errors: error.errors });
@@ -120,8 +117,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           }
         }
 
-        console.log(url);
-
         fetch(url)
           .then((response) => response.json())
           .then((data) => setStore({ hotels: data.hotels }));
@@ -138,16 +133,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       getUserFromSessionStorage: () => {
         const user = sessionStorage.getItem("user");
+        const owner = sessionStorage.getItem("owner");
         try {
-          if (user) {
-            const parsedUser = JSON.parse(user);
+          if (user == true) {
+            parsedUser = JSON.parse();
             setStore({ user: parsedUser });
+          } else if (owner == true) {
+            parsedOwner = JSON.parse();
+            setStore({ owner: parsedOwner });
           }
         } catch (error) {
           console.error("Error parsing user from session storage:", error);
-          setStore({ user: { email: "" } });
+          setStore({ user: { email: "" }, owner: { email: "" } });
         }
       },
+
       tokenSessionStore: () => {
         const token = sessionStorage.getItem("token");
         if (token) setStore({ token: token });
