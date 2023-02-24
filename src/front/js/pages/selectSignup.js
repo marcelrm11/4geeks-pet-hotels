@@ -6,7 +6,7 @@ import { Button } from "../component/button";
 import "../../styles/signup-cards.css";
 
 export const SelectSignup = () => {
-  const [selectSignUp] = useState([
+  const [selectSignUp, setSelectSignUp] = useState([
     {
       type: "user",
       img: avatar_user,

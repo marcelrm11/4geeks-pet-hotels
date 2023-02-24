@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button } from "./button";
 
 export const DetailBooking = ({ details }) => {
-  const [dates] = useState([
+  const [dates, setDates] = useState([
     {
       label: "Entry date",
       name: "entryDate",

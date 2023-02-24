@@ -39,7 +39,7 @@ export const LoginForm = ({ credentials, onChange, onLogin }) => {
     );
   });
 
-  const [button] = useState([
+  const [button, setButton] = useState([
     {
       btn_class: "red_Btn ",
       type: "Log In",

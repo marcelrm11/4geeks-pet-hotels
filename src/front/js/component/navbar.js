@@ -21,7 +21,7 @@ export const Navbar = () => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
-  const [button] = useState([
+  const [button, setButton] = useState([
     {
       to: "/profile",
       button_color: "turquoise_Btn",

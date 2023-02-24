@@ -5,8 +5,8 @@ import { Context } from "../store/appContext";
 const HotelListinSearch = ({ filters, onChange }) => {
   const { store } = useContext(Context);
 
-  const [checkInput] = useState(["dog", "cat", "rodent", "bird", "others"]);
-  const [datesInput] = useState([
+  const [checkInput, setCheckInput] = useState(["dog", "cat", "rodent", "bird", "others"]);
+  const [datesInput, setDatesInput] = useState([
     {
       div_class: "entry_date",
       label: "Entry date",

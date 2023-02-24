@@ -14,7 +14,7 @@ export const Home = () => {
   const { store, actions } = useContext(Context);
 
   const [hotelsInfo, setHotelsInfo] = useState([]);
-  const [values] = useState([
+  const [values, setValues] = useState([
     {
       img: faShieldHeart,
       value: "Commitment to animal welfare",
