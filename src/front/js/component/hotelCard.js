@@ -8,7 +8,7 @@ const HotelCard = (props) => {
   const { store, actions } = useContext(Context);
   const [pets, sePets] = useState([]);
 
-  // console.log(props.hotel);
+  console.log("props", props.hotel);
 
   return (
     <div
@@ -24,7 +24,7 @@ const HotelCard = (props) => {
       <button
         onClick={() => actions.addFavorites(props.hotel.id, props.hotel.name)}
         className="favoritesBtn"
-      > 
+      >
         <FontAwesomeIcon icon={faHeart} className="favorites_icon font-s" />
       </button>
       <div className="white_letter card-body">
@@ -34,7 +34,7 @@ const HotelCard = (props) => {
             <FontAwesomeIcon className="stars" icon={faHeart} />
             4.6
           </span>
-        </div> 
+        </div>
         <hr />
         <p className="card-text">{props.hotel.location}</p>
         <p>{props.hotel.price}€ per night</p>

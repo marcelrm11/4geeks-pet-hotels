@@ -1,12 +1,13 @@
 import React, { useContext, useState } from "react";
 import { CustomSelect } from "./customSelect";
 import { Context } from "../store/appContext";
+import { Button } from "./button";
 
-const HotelListinSearch = ({ filters, onChange, onClick }) => {
+const HotelListinSearch = ({ filters, onChange, onClick, onPetChange}) => {
   const { store } = useContext(Context);
 
-  const [checkInput, setCheckInput] = useState(["dog", "cat", "rodent", "bird", "others"]);
-  const [datesInput, setDatesInput] = useState([
+  const checkInput = ["dog", "cat", "rodent", "bird", "others"];
+  const datesInput = [
     {
       div_class: "entry_date",
       label: "Entry date",
@@ -21,7 +22,7 @@ const HotelListinSearch = ({ filters, onChange, onClick }) => {
       name: "checkoutDate",
       value: filters.checkoutDate,
     },
-  ]);
+  ];
 
   const dates_input = datesInput.map((item, index) => {
     return (
@@ -40,15 +41,15 @@ const HotelListinSearch = ({ filters, onChange, onClick }) => {
   });
 
   const petsInput = checkInput.map((item, index) => {
-    console.log(item);
     return (
       <div key={index} className="radio_input_container">
         <input
           className="radio_type_input round_border d_flex_row"
           type="checkbox"
           id={item}
-          name="pet_type"
+          name="petTypes"
           value={item}
+          onChange={onPetChange}
         />
         <label>{item}</label>
       </div>

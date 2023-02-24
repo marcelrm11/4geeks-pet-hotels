@@ -50,7 +50,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         setStore({ is_owner: boolean });
         console.log(store.is_owner);
 
-        const div = document.getElementById("login-div"); 
+        const div = document.getElementById("login-div");
         div.classList.add("login_inputs");
         div.classList.remove("select_type");
       },
@@ -106,10 +106,22 @@ const getState = ({ getStore, getActions, setStore }) => {
         //   añadir los filters a la url
         // }
         if (searchFilters) {
+          url += `?`;
           if (searchFilters.country !== "select-country") {
-            url += `?country=${searchFilters.country}`;
+            url += `country=${searchFilters.country}`;
+          }
+
+          const petsObj = searchFilters.petTypes;
+
+          for (let pet in petsObj) {
+            if (petsObj[pet]) {
+              url += `&${pet}=true`;
+            }
           }
         }
+
+        console.log(url);
+
         fetch(url)
           .then((response) => response.json())
           .then((data) => setStore({ hotels: data.hotels }));

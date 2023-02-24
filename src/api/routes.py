@@ -554,11 +554,24 @@ def get_hotels():
         country = request.args.get('country')
         if country:
             queryset = queryset.filter_by(country=country)
+
+        pets = []
+        for pet in ["dog", "cat", "rodent", "bird", "others"]:
+            if request.args.get(pet):
+                pets.append(pet)
+        
+        print(pets)
+
+        if len(pets) > 0:
+            for pet in pets:
+                queryset = queryset.filter(Hotel.pet_type.contains(pet))
+        
         hotels = queryset.all()
         hotels_list = [hotel.serialize() for hotel in hotels]
         response_body = {
             "hotels": hotels_list
         }
+
         return jsonify(response_body), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500

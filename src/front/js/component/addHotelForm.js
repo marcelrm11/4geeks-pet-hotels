@@ -12,8 +12,8 @@ export const AddHotelData = ({
   handlePetType,
 }) => {
   const { store, actions } = useContext(Context);
-
-  const [checkInput, setCheckInput] = useState(["dog", "cat", "rodent", "bird", "others"]);
+ 
+  const checkInput = ["dog", "cat", "rodent", "bird", "others"];
   const petsInput = checkInput.map((item, index) => {
     return (
       <div key={index} className="radio_input d_flex_col ">
