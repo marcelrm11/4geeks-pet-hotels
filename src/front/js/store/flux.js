@@ -99,13 +99,20 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      listing: () => {
+      listing: (searchFilters) => {
         const store = getStore();
-        fetch(process.env.BACKEND_URL + "/api/hotels")
+        let url = process.env.BACKEND_URL + "/api/hotels";
+        // for (let [key,value] in Object.entries(searchFilters)) {
+        //   añadir los filters a la url
+        // }
+        if (searchFilters) {
+          if (searchFilters.country !== "select-country") {
+            url += `?country=${searchFilters.country}`;
+          }
+        }
+        fetch(url)
           .then((response) => response.json())
-          .then((data) =>
-            setStore({ hotels: [...store.hotels, ...data.hotels] })
-          );
+          .then((data) => setStore({ hotels: data.hotels }));
         setStore({ loading: false });
       },
 
