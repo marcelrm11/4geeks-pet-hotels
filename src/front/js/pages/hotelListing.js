@@ -7,6 +7,8 @@ import "../../styles/hotelListing.css";
 
 export const HotelListing = () => {
   const { store, actions } = useContext(Context);
+  const [entryDate, setEntryDate] = useState("");
+  const [checkOutDate, setCheckOutDate] = useState("");
   const [searchFilters, setSearchFilters] = useState({
     petTypes: {
       dog: false,
@@ -16,7 +18,7 @@ export const HotelListing = () => {
       others: false,
     },
     entryDate: "",
-    checkoutDate: "",
+    checkOutDate: "",
     country: "select-country",
   });
 
@@ -29,6 +31,26 @@ export const HotelListing = () => {
   const handleClick = (e) => {
     e.preventDefault();
     actions.listing(searchFilters);
+  };
+
+  const handleEntry = (e) => {
+    setSearchFilters({
+      ...searchFilters.entryDate,
+      [e.target.name]: e.target.value,
+    });
+    setEntryDate({
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleCheckOut = (e) => {
+    setSearchFilters({
+      ...searchFilters.checkoutDate,
+      [e.target.name]: e.target.value,
+    });
+    setCheckOutDate({
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handlePetTypeChange = (ev) => {
@@ -49,6 +71,10 @@ export const HotelListing = () => {
   return (
     <div className="listing_section dp-grid font-xs dp-g-center">
       <HotelListingSearch
+        entryDate={entryDate}
+        checkOutDate={checkOutDate}
+        onEntry={handleEntry}
+        onCheackOut={handleCheckOut}
         onPetChange={handlePetTypeChange}
         filters={searchFilters}
         onChange={handleChange}

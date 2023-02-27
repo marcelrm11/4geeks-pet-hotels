@@ -72,14 +72,24 @@ select {
 
 /*buttons*/
 
+.red_bg {
+  color: var(--salmon);
+}
+
+.transparent_bg {
+  color: white;
+  opacity: 0.8;
+}
+
 .buttons {
   width: 100px;
   margin: 0 1rem;
 }
 
 .general_button {
+  min-width: 88px;
   max-width: 180px;
-  height: 40px;
+  height: 37px;
   font-size: var(--fontSize-XS);
   border: none;
   border-radius: var(--btnRadius);
@@ -89,9 +99,10 @@ select {
   border-color: var(--turquoise);
   background-color: var(--turquoise);
   margin-right: 1rem;
+  transition: all 1s;
 }
 
-.red_Btn:hover {
+.turquoise_Btn:hover {
   border-color: var(--darkBlue);
   background-color: var(--darkBlue);
 }
@@ -100,6 +111,7 @@ select {
   border-color: var(--lighterBlue);
   background-color: var(--lighterBlue);
   color: black;
+  transition: all 1s;
 }
 
 .light_Btn:hover {
@@ -122,6 +134,7 @@ select {
 .red_Btn {
   border-color: var(--salmon);
   background-color: var(--salmon);
+  transition: all 1s;
 }
 
 .red_Btn:hover {
@@ -209,7 +222,7 @@ select {
 }
 
 /*border*/
- 
+
 .rd-1 {
   border-radius: 1rem;
 }

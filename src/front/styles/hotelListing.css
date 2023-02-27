@@ -175,6 +175,7 @@
 }
 
 .favorites_icon:hover {
+  cursor: pointer;
   color: var(--salmon);
 }
 
@@ -195,6 +196,10 @@
 
 .stars {
   margin-right: 0.3rem;
+}
+
+.search_btn {
+  margin-top: 1rem;
 }
 
 @media (max-width: 768px) {

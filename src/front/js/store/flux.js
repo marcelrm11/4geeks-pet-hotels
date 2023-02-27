@@ -397,6 +397,13 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("error:", e);
         }
       },
+
+      handleFavColor: () => {
+        const icon = document.getElementById("favorites_color");
+        if (icon.style.color == "transparent_bg") {
+          icon.classList.toggle("red_bg");
+        }
+      },
     },
   };
 };

@@ -6,7 +6,6 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 const HotelCard = (props) => {
   const { store, actions } = useContext(Context);
-  const [pets, sePets] = useState([]);
 
   console.log("props", props.hotel);
 
@@ -25,7 +24,7 @@ const HotelCard = (props) => {
         onClick={() => actions.addFavorites(props.hotel.id, props.hotel.name)}
         className="favoritesBtn"
       >
-        <FontAwesomeIcon icon={faHeart} className="favorites_icon font-s" />
+        <FontAwesomeIcon id="favorites_color" icon={faHeart} onClick={() => actions.handleFavColor()} className="transparent_bg favorites_icon font-s" />
       </button>
       <div className="white_letter card-body">
         <div className="hotel_title_section d-fle">

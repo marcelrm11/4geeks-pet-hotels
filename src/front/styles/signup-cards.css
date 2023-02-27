@@ -1,18 +1,40 @@
 .user_card,
 .owner_card {
   width: 85%;
+  max-width: 320px;
   height: fit-content;
   margin: 2rem 0;
   color: var(--whiteLetters);
   font-size: var(--fontSize-XS);
+  background-position: right;
+  background-size: 200%;
+  transition: background-position 0.2s ease-in;
+  border: none;
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.5);
+  transition: all 1s;
 }
 
 .user_card {
-  background-color: var(--salmon);
+  background-image: linear-gradient(
+    to left,
+    var(--salmon) 50%,
+    var(--darkRed) 50%
+  );
+}
+
+.user_card:hover,
+.owner_card:hover {
+  background-position: left;
+  box-shadow: none;
+  transform: scale(1.1);
 }
 
 .owner_card {
-  background-color: var(--darkRed);
+  background-image: linear-gradient(
+    to left,
+    var(--turquoise) 50%,
+    var(--mediumBlue) 50%
+  );
 }
 
 .cards_title {
@@ -27,6 +49,11 @@
   height: fit-content;
 }
 
+.user_img_container img,
+.owner_img_container img {
+  max-width: 200px;
+}
+
 .owner_paragraph,
 .user_paragraph {
   padding: 1.5rem;
@@ -37,6 +64,7 @@
   .user_card,
   .owner_card {
     width: 80%;
+    max-width: none;
     display: flex;
     min-height: 250px;
   }

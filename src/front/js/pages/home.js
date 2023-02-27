@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import landing_image from "../../img/homeLandingImage.jpeg";
+import mobile_home from "../../img/mobile_home.jpg";
 import HotelCard from "../component/hotelCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -42,8 +43,9 @@ export const Home = () => {
 
   const bs_values = values.map((item, index) => {
     return (
-      <div className="d_flex_col  mg-1 vl-container" key={index}>
+      <div className="value_space d_flex_col mg-1 vl-container" key={index}>
         <FontAwesomeIcon
+          id="value_icon"
           className="font-l salmon bg-lighter-blue one_pad round_border"
           icon={item.img}
         />
@@ -52,12 +54,6 @@ export const Home = () => {
       </div>
     );
   });
-
-  // store.token && store.user
-  //         ? `Hola, ${store.user.first_name}!`
-  //         : (store.token && store.owner)
-  //         ? `Hola, ${store.owner.first_name}!`
-  //         :
 
   return (
     <div className="text-center mt-5">
@@ -73,6 +69,13 @@ export const Home = () => {
           <img
             className="home_image w-100"
             src={landing_image}
+            alt="dog welcoming image"
+          />
+        </figure>
+        <figure className="mobile_img_container">
+          <img
+            className="mobile_image w-100"
+            src={mobile_home}
             alt="dog welcoming image"
           />
         </figure>

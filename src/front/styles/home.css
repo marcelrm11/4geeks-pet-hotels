@@ -1,4 +1,13 @@
 /*home section*/
+
+.home_all_section {
+  position: relative;
+}
+
+.home_all_section .title-font {
+  position: absolute;
+}
+
 .home_hotels .card {
   width: 14rem !important;
 }
@@ -45,7 +54,33 @@
   width: 200px;
 }
 
+.value_space {
+  border-radius: 0.3rem;
+  width: 30%;
+  padding: 1rem;
+  transition: all 2s;
+}
+
+#value_icon {
+  transition: all 2s;
+}
+
+#value_icon:hover {
+  transform: scale(1.2);
+}
+
+.value_space:hover {
+  background-color: var(--turquoise);
+}
+
 @media (max-width: 768px) {
+  .mobile_image {
+    display: block;
+    min-height: 260px;
+    object-fit: cover;
+    object-position: top;
+  }
+
   .home_hotels {
     flex-direction: column;
   }
@@ -56,6 +91,10 @@
 }
 
 @media (min-width: 769px) {
+  .mobile_image {
+    display: none;
+  }
+
   .value_section {
     flex-direction: row;
     justify-content: space-evenly;

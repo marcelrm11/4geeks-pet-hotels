@@ -3,7 +3,16 @@ import { CustomSelect } from "./customSelect";
 import { Context } from "../store/appContext";
 import { Button } from "./button";
 
-const HotelListinSearch = ({ filters, onChange, onClick, onPetChange}) => {
+const HotelListinSearch = ({
+  filters,
+  onChange,
+  onClick,
+  onPetChange,
+  onCheackOut,
+  onEntry,
+  entryDate,
+  checkOutDate
+}) => {
   const { store } = useContext(Context);
 
   const checkInput = ["dog", "cat", "rodent", "bird", "others"];
@@ -13,14 +22,16 @@ const HotelListinSearch = ({ filters, onChange, onClick, onPetChange}) => {
       label: "Entry date",
       id: "entry-date",
       name: "entryDate",
-      value: filters.entryDate,
+      value: entryDate,
+      change: onEntry,
     },
     {
       div_class: "checkout_date",
       label: "Checkout date",
       id: "checkout-date",
       name: "checkoutDate",
-      value: filters.checkoutDate,
+      value: checkOutDate,
+      change: onCheackOut,
     },
   ];
 
@@ -33,7 +44,7 @@ const HotelListinSearch = ({ filters, onChange, onClick, onPetChange}) => {
           type="date"
           id={item.id}
           name={item.name}
-          onChange={onChange}
+          onChange={item.change}
           value={item.value}
         />
       </div>
@@ -65,6 +76,7 @@ const HotelListinSearch = ({ filters, onChange, onClick, onPetChange}) => {
       <div className="listing_date_input dp-grid"></div>
       <div className="align-items-start home_search_bar d_flex_col date">
         {dates_input}
+        <p>days</p>
         <label>Country</label>
         <CustomSelect
           name="country"
