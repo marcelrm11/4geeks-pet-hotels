@@ -11,7 +11,8 @@ const HotelListinSearch = ({
   onCheackOut,
   onEntry,
   entryDate,
-  checkOutDate
+  checkOutDate,
+  differenceInDays,
 }) => {
   const { store } = useContext(Context);
 
@@ -76,7 +77,7 @@ const HotelListinSearch = ({
       <div className="listing_date_input dp-grid"></div>
       <div className="align-items-start home_search_bar d_flex_col date">
         {dates_input}
-        <p>days</p>
+        <p id="total_days" className="active">{differenceInDays}days</p>
         <label>Country</label>
         <CustomSelect
           name="country"

@@ -4,6 +4,7 @@ import HotelCard from "../component/hotelCard";
 import HotelListingSearch from "../component/hotelListingSearch";
 import { Context } from "../store/appContext";
 import "../../styles/hotelListing.css";
+import moment from "moment";
 
 export const HotelListing = () => {
   const { store, actions } = useContext(Context);
@@ -34,24 +35,24 @@ export const HotelListing = () => {
   };
 
   const handleEntry = (e) => {
+    const formattedDate = moment(e.target.value).format("YYYY-MM-DD");
     setSearchFilters({
-      ...searchFilters.entryDate,
-      [e.target.name]: e.target.value,
+      ...searchFilters,
+      entryDate: formattedDate,
     });
-    setEntryDate({
-      [e.target.name]: e.target.value,
-    });
+    setEntryDate(formattedDate);
   };
 
   const handleCheckOut = (e) => {
+    const formattedDate = moment(e.target.value).format("YYYY-MM-DD");
     setSearchFilters({
-      ...searchFilters.checkoutDate,
-      [e.target.name]: e.target.value,
+      ...searchFilters,
+      checkoutDate: formattedDate,
     });
-    setCheckOutDate({
-      [e.target.name]: e.target.value,
-    });
+    setCheckOutDate(formattedDate);
   };
+
+  const differenceInDays = moment(checkOutDate).diff(moment(entryDate), "days");
 
   const handlePetTypeChange = (ev) => {
     const pet = ev.target.value;
@@ -71,6 +72,7 @@ export const HotelListing = () => {
   return (
     <div className="listing_section dp-grid font-xs dp-g-center">
       <HotelListingSearch
+        differenceInDays={differenceInDays}
         entryDate={entryDate}
         checkOutDate={checkOutDate}
         onEntry={handleEntry}
