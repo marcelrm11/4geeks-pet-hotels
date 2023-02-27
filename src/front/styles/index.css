@@ -241,6 +241,11 @@ select {
   border-radius: 0.5rem;
 }
 
+.border-style-three {
+  border: none;
+  border-radius: 0.3rem;
+}
+
 /*background colors*/
 
 .bg-darkBlue {

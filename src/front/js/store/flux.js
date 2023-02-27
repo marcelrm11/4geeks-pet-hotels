@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import moment from "moment";
 
 const getState = ({ getStore, getActions, setStore }) => {
   return {
@@ -29,6 +30,10 @@ const getState = ({ getStore, getActions, setStore }) => {
       owner: {
         email: "",
       },
+
+      entryDate: "dd/mm/yyyy",
+      checkOutDate: "dd/mm/yyyy",
+      differenceInDays: 0,
 
       button: [
         {
@@ -403,6 +408,36 @@ const getState = ({ getStore, getActions, setStore }) => {
         if (icon.style.color == "transparent_bg") {
           icon.classList.toggle("red_bg");
         }
+      },
+
+      handleEntry: (e) => {
+        const actions = getActions()
+        const formattedDate = moment(e.target.value).format("YYYY-MM-DD");
+        actions.handleEntryDate(formattedDate);
+      },
+
+      handleCheckOut: (e) => {
+        const actions = getActions()
+        const formattedDate = moment(e.target.value).format("YYYY-MM-DD");
+        actions.handleCheckOutDate(formattedDate);
+      },
+
+      handleCheckOutDate: (formattedDate) => {
+        const store = getStore();
+        setStore({ checkOutDate: formattedDate });
+        setStore({
+          differenceInDays: moment(store.checkOutDate).diff(
+            moment(store.entryDate),
+            "days"
+          ),
+        });
+      },
+      handleEntryDate: (formattedDate) => {
+        const store = getStore();
+        if (store.entryDate || store.entryDate != "") {
+          setStore({ entryDate: formattedDate });
+        }
+        console.log(store.entryDate);
       },
     },
   };

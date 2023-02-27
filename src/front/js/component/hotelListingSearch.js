@@ -2,55 +2,12 @@ import React, { useContext, useState } from "react";
 import { CustomSelect } from "./customSelect";
 import { Context } from "../store/appContext";
 import { Button } from "./button";
+import { Dates } from "./date";
 
-const HotelListinSearch = ({
-  filters,
-  onChange,
-  onClick,
-  onPetChange,
-  onCheackOut,
-  onEntry,
-  entryDate,
-  checkOutDate,
-  differenceInDays,
-}) => {
+const HotelListinSearch = ({ filters, onChange, onClick, onPetChange }) => {
   const { store } = useContext(Context);
 
   const checkInput = ["dog", "cat", "rodent", "bird", "others"];
-  const datesInput = [
-    {
-      div_class: "entry_date",
-      label: "Entry date",
-      id: "entry-date",
-      name: "entryDate",
-      value: entryDate,
-      change: onEntry,
-    },
-    {
-      div_class: "checkout_date",
-      label: "Checkout date",
-      id: "checkout-date",
-      name: "checkoutDate",
-      value: checkOutDate,
-      change: onCheackOut,
-    },
-  ];
-
-  const dates_input = datesInput.map((item, index) => {
-    return (
-      <div key={index} className={item.div_class}>
-        <label>{item.label}</label>
-        <input
-          className="border-style-two"
-          type="date"
-          id={item.id}
-          name={item.name}
-          onChange={item.change}
-          value={item.value}
-        />
-      </div>
-    );
-  });
 
   const petsInput = checkInput.map((item, index) => {
     return (
@@ -76,8 +33,10 @@ const HotelListinSearch = ({
       </div>
       <div className="listing_date_input dp-grid"></div>
       <div className="align-items-start home_search_bar d_flex_col date">
-        {dates_input}
-        <p id="total_days" className="active">{differenceInDays}days</p>
+        <Dates />
+        <p className="red_bg">
+          {store.differenceInDays ? store.differenceInDays + " nights" : ""}
+        </p>
         <label>Country</label>
         <CustomSelect
           name="country"

@@ -10,10 +10,21 @@ export const AddHotelData = ({
   handleChange,
   handleValidate,
   handlePetType,
+  handleServices,
 }) => {
   const { store, actions } = useContext(Context);
- 
+
   const checkInput = ["dog", "cat", "rodent", "bird", "others"];
+  const servicesInputs = [
+    "Overnight",
+    "Daycare",
+    "Walking",
+    "Veterinarian",
+    "Transportation",
+    "Training",
+    "others",
+  ];
+
   const petsInput = checkInput.map((item, index) => {
     return (
       <div key={index} className="radio_input d_flex_col ">
@@ -25,6 +36,24 @@ export const AddHotelData = ({
           value={item}
           onChange={(e) => {
             handlePetType(e);
+          }}
+        />
+        <label>{item}</label>
+      </div>
+    );
+  });
+
+  const services = servicesInputs.map((item, index) => {
+    return (
+      <div key={index} className="radio_input services_input d_flex_col ">
+        <input
+          className="radio_type_input d_flex_col round_border"
+          type="checkbox"
+          id={item}
+          name="pet_type"
+          value={item}
+          onChange={(e) => {
+            handleServices(e);
           }}
         />
         <label>{item}</label>
@@ -74,6 +103,12 @@ export const AddHotelData = ({
                 <label className="d_flex_row">Pet Type </label>
                 <div className="dp-grid-t-cl gp-o pet_type_checkbox w-100 one_pad">
                   {petsInput}
+                </div>
+              </div>
+              <div className="pet_type_input_container d_flex_col ">
+                <label className="d_flex_row">Services </label>
+                <div className="dp-grid-t-cl gp-o pet_type_checkbox services_checkbox w-100 one_pad">
+                  {services}
                 </div>
               </div>
             </div>

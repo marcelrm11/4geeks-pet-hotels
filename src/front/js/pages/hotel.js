@@ -16,7 +16,6 @@ export const Hotel = () => {
   const [overallRating, setOverallRating] = useState(0);
   const location = useLocation();
   console.log(location);
-  // console.log(photos)
   useEffect(() => {
     fetch(`${process.env.BACKEND_URL}/api${location.pathname}`)
       .then((res) => res.json())
@@ -40,7 +39,7 @@ export const Hotel = () => {
         <div className="component1">
           <PlaceDetailsSearch details={details} overallRating={overallRating} />
         </div>
-        <div className="w-100 d_flex_col">
+        <div className="w-100 d_flex_col mg-4">
           <h2>Services</h2>
           <div className="detail_services_section w-100 d-flex">
             {services().map((service, index) => {
@@ -48,12 +47,12 @@ export const Hotel = () => {
             })}
           </div>
         </div>
-      </div> 
+      </div>
       <HotelDescription
         name={details.name}
         description={details.hotel_description}
       />
-      <Button buttonClass="red_Btn hotel_detail_btn">
+      <Button buttonClass="mg-4 red_Btn hotel_detail_btn">
         <Link to="/booking">
           <span className="white_letter">Reserve</span>
         </Link>

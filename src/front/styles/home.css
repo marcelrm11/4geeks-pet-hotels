@@ -73,6 +73,25 @@
   background-color: var(--turquoise);
 }
 
+.detail_dates_container .entry_date,
+.detail_dates_container .checkout_date {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  padding: 0.5rem;
+}
+
+.detail_dates_container .entry_date input,
+.detail_dates_container .checkout_date input {
+  min-width: 180px;
+  height: 37px;
+}
+
+.detail_dates_container .entry_date label,
+.detail_dates_container .checkout_date label {
+  text-align: start;
+}
+
 @media (max-width: 768px) {
   .mobile_image {
     display: block;

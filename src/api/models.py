@@ -155,6 +155,7 @@ class Hotel(db.Model):
     hotel_owner_id = db.Column(
         db.Integer, db.ForeignKey("owner.id"), nullable=False)
     pet_type = db.Column(db.String(100))
+    room = db.Column(db.Integer, nullable=False)
     hotel_bookings = db.relationship("Booking", backref=db.backref("hotel"))
     invoices = db.relationship("Invoice", backref=db.backref("hotel"))
     favorites = db.relationship("Favorite", backref=db.backref("hotel"))
@@ -176,6 +177,7 @@ class Hotel(db.Model):
             # "profile_image": self.profile_image,
             "price": self.base_price,
             "pet_type": self.pet_type,
+            "room": self.room,
             "rooms": [r.serialize() for r in self.rooms],
             "services": self.services,
             "hotel_description": self.hotel_description,

@@ -8,6 +8,11 @@
   border-radius: 1rem;
 }
 
+.date_booking {
+  min-width: 180px;
+  min-height: 37px;
+}
+
 .reviewStar i {
   color: var(--salmon);
   padding-left: 0.2rem;
@@ -89,7 +94,7 @@
 }
 
 .place_detail_img {
-  width: 55%;
+  width: 70%;
   height: fit-content;
 }
 
@@ -107,7 +112,7 @@
   width: 100%;
   height: 100%;
   border-radius: 1rem;
-  margin: 0.8rem;
+  margin: 0.8rem 0 0.8rem 0.5rem;
 }
 
 .description_container {
@@ -123,10 +128,6 @@
 }
 
 @media (max-width: 768px) {
-  .hotel_detail_preBooking {
-    display: none;
-  }
-
   .hotel_detail_information {
     display: flex;
     justify-content: center;
@@ -147,6 +148,14 @@
 
   .detail_services_section {
     padding-left: 8rem;
+  }
+
+  .mg-4 {
+    margin: 4rem 0;
+  }
+
+  .hotel_detail_preBooking {
+    margin: 1rem 0 4rem 0;
   }
 }
 
