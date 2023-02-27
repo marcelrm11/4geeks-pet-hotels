@@ -14,15 +14,15 @@ export const AddHotel = () => {
     others: false,
   });
 
-  const [ services, setServices ] = useState({
+  const [services, setServices] = useState({
     Overnight: false,
     Daycare: false,
-    Dog_walking: false, 
-    Veterinarian: false, 
-    Transportation: false, 
-    Training: false, 
-    others: false
-  })
+    Dog_walking: false,
+    Veterinarian: false,
+    Transportation: false,
+    Training: false,
+    more: false,
+  });
 
   const [hotelData, setHotelData] = useState(() => ({
     name: "",

@@ -364,6 +364,9 @@ const getState = ({ getStore, getActions, setStore }) => {
         if (!hotelData.pet_type || hotelData.pet_type.length === 0) {
           newErrors["pet_type"] = "Please select at least one pet type.";
         }
+        if (!hotelData.services || hotelData.services.length === 0) {
+          newErrors["services"] = "Please select at least one services.";
+        }
         if (Object.keys(newErrors).length === 0) {
           actions.handleAddHotelData(hotelData);
         } else {
@@ -389,10 +392,10 @@ const getState = ({ getStore, getActions, setStore }) => {
             }
           );
 
-          console.log(response);
+          console.log("response", response);
           if (response.ok) {
             const data = await response.json();
-            console.log(data);
+            console.log("data", data);
             setStore({ addHotelSuccessful: true });
             setTimeout(() => setStore({ addHotelSuccessful: false }), 4000);
             return true;
@@ -411,13 +414,13 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       handleEntry: (e) => {
-        const actions = getActions()
+        const actions = getActions();
         const formattedDate = moment(e.target.value).format("YYYY-MM-DD");
         actions.handleEntryDate(formattedDate);
       },
 
       handleCheckOut: (e) => {
-        const actions = getActions()
+        const actions = getActions();
         const formattedDate = moment(e.target.value).format("YYYY-MM-DD");
         actions.handleCheckOutDate(formattedDate);
       },
