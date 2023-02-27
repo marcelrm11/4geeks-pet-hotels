@@ -1,93 +1,29 @@
 /*home section*/
+
+.home_all_section {
+  position: relative;
+}
+
+.home_all_section .title-font {
+  position: absolute;
+}
+
 .home_hotels .card {
   width: 14rem !important;
 }
 
-.home_image_searchbar {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 .home_img_container {
-  width: 100%;
   max-height: 450px;
   position: relative;
 }
 
-.home_shortcut_btn {
-  position: absolute;
-  top: 15%;
-  right: 15%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 1rem;
-}
-
-.home_shortcut_btn button {
-  margin: 1rem;
-}
-
 .home_image {
-  width: 100%;
   max-height: 420px;
   object-fit: cover;
   object-position: top;
 }
 
-.home_image_info_searchBar {
-  width: 40%;
-  min-height: 200px;
-  border-radius: 1rem;
-  position: absolute;
-  top: 45%;
-  right: 2%;
-  background-color: var(--lighterBlue);
-}
-
-.home_welcome_title {
-  width: fit-content;
-  position: absolute;
-  top: 0%;
-  left: 0%;
-}
-
-.home_search_filter {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-  font-size: var(--fontSize-XS);
-}
-
-.home_pet_select {
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.home_search_date {
-  width: 100%;
-  display: flex;
-}
-
-.home_search_bar {
-  position: relative;
-}
-
-.home_search_bar button {
-  position: absolute;
-  top: -30%;
-  right: 0%;
-}
-
 .home_hotels {
-  display: flex;
-  width: 100%;
   justify-content: space-evenly;
 }
 
@@ -104,52 +40,90 @@
   font-size: 0.5rem;
 }
 
-.card-title {
-  font-size: 1rem;
+.home_welcome_info {
+  padding: 2rem;
+  text-align: justify;
+}
+
+.vl-container {
+  margin-bottom: 5rem;
+}
+
+.vl-container h4,
+.vl-container p {
+  width: 200px;
+}
+
+.value_space {
+  border-radius: 0.3rem;
+  width: 30%;
+  padding: 1rem;
+  transition: all 2s;
+}
+
+#value_icon {
+  transition: all 2s;
+}
+
+#value_icon:hover {
+  transform: scale(1.2);
+}
+
+.value_space:hover {
+  background-color: var(--turquoise);
+}
+
+.detail_dates_container .entry_date,
+.detail_dates_container .checkout_date {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  padding: 0.5rem;
+}
+
+.detail_dates_container .entry_date input,
+.detail_dates_container .checkout_date input {
+  min-width: 180px;
+  height: 37px;
+}
+
+.detail_dates_container .entry_date label,
+.detail_dates_container .checkout_date label {
+  text-align: start;
 }
 
 @media (max-width: 768px) {
-  .home_welcome_title {
-    top: 28%;
-    left: 50%;
-  }
-
-  .home_image_info_searchBar {
-    position: static;
-    width: 90%;
-    margin: 1rem;
-  }
-
-  .home_search_bar button {
-    max-width: 130px;
-    top: -6%;
-  }
-
-  .home_search_date {
-    flex-direction: column;
+  .mobile_image {
+    display: block;
+    min-height: 260px;
+    object-fit: cover;
+    object-position: top;
   }
 
   .home_hotels {
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  }
+
+  .home_image {
+    display: none;
   }
 }
 
 @media (min-width: 769px) {
-  .home_image_info_searchBar {
-    position: static;
-    width: 90%;
-    margin: 1rem;
+  .mobile_image {
+    display: none;
   }
 
-  .home_search_date {
-    flex-direction: column;
+  .value_section {
+    flex-direction: row;
+    justify-content: space-evenly;
   }
-}
 
-@media (min-width: 992px) {
-  .home_search_bar button {
-    top: -56%;
+  .vl-container {
+    margin-bottom: 0;
+  }
+
+  .home_welcome_info {
+    text-align: center;
   }
 }

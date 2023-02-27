@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import moment from "moment";
 
 const getState = ({ getStore, getActions, setStore }) => {
   return {
@@ -9,6 +10,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       countryList: [],
       favorites: [],
       hotels: [],
+      homeHotels: [],
+      is_owner: true,
       regexs: {
         passwordRegex:
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,32})/,
@@ -23,11 +26,45 @@ const getState = ({ getStore, getActions, setStore }) => {
       user: {
         email: "",
       },
+
+      owner: {
+        email: "",
+      },
+
+      entryDate: "dd/mm/yyyy",
+      checkOutDate: "dd/mm/yyyy",
+      differenceInDays: 0,
+
+      button: [
+        {
+          btn_class: "log_socialMedia google_signup_btn",
+          type: "Sign up with Google",
+          redirect: "/",
+          link_class: "white_letter",
+        },
+        {
+          btn_class: "log_socialMedia",
+          type: "Sign up with Facebook",
+          redirect: "/",
+          link_class: "white_letter",
+        },
+      ],
     },
     actions: {
+      handleSelectType: (boolean) => {
+        const store = getStore();
+        setStore({ is_owner: boolean });
+        console.log(store.is_owner);
+
+        const div = document.getElementById("login-div");
+        div.classList.add("login_inputs");
+        div.classList.remove("select_type");
+      },
+
       login: async (e, email, password) => {
         const store = getStore();
         e.preventDefault();
+        const endpoint = store.is_owner ? "/api/login/owner" : "/api/login";
         const opt = {
           method: "POST",
           headers: {
@@ -37,27 +74,27 @@ const getState = ({ getStore, getActions, setStore }) => {
             email: email,
             password: password,
           }),
-          //mode: "no-cors",
         };
 
         try {
-          const response = await fetch(
-            process.env.BACKEND_URL + "/api/login",
-            opt
-          );
+          const response = await fetch(process.env.BACKEND_URL + endpoint, opt);
 
           const data = await response.json();
           console.log(data, response.status);
-          if (response.status !== 200) {
-            throw Error(data.error);
-          } else {
-            sessionStorage.setItem("token", data.access_token);
-            // console.log(sessionStorage.getItem("token"));
-            sessionStorage.setItem("user", JSON.stringify(data.user));
-            // console.log(JSON.parse(sessionStorage.getItem("user")));
+
+          if (!store.is_owner) {
+            localStorage.setItem("user", JSON.stringify(data.user));
+            localStorage.setItem("token", JSON.stringify(data.access_token));
             setStore({
               token: data.access_token,
               user: data.user,
+            });
+          } else {
+            localStorage.setItem("owner", JSON.stringify(data.owner));
+            localStorage.setItem("token", JSON.stringify(data.access_token));
+            setStore({
+              token: data.access_token,
+              owner: data.owner,
             });
           }
         } catch (error) {
@@ -73,10 +110,20 @@ const getState = ({ getStore, getActions, setStore }) => {
         //   añadir los filters a la url
         // }
         if (searchFilters) {
+          url += `?`;
           if (searchFilters.country !== "select-country") {
-            url += `?country=${searchFilters.country}`;
+            url += `country=${searchFilters.country}`;
+          }
+
+          const petsObj = searchFilters.petTypes;
+
+          for (let pet in petsObj) {
+            if (petsObj[pet]) {
+              url += `&${pet}=true`;
+            }
           }
         }
+
         fetch(url)
           .then((response) => response.json())
           .then((data) => setStore({ hotels: data.hotels }));
@@ -92,19 +139,24 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       getUserFromSessionStorage: () => {
-        const user = sessionStorage.getItem("user");
+        const user = localStorage.getItem("user");
+        const owner = localStorage.getItem("owner");
         try {
-          if (user) {
-            const parsedUser = JSON.parse(user);
+          if (user == true) {
+            parsedUser = JSON.parse();
             setStore({ user: parsedUser });
+          } else if (owner == true) {
+            parsedOwner = JSON.parse();
+            setStore({ owner: parsedOwner });
           }
         } catch (error) {
           console.error("Error parsing user from session storage:", error);
-          setStore({ user: { email: "" } });
+          setStore({ user: { email: "" }, owner: { email: "" } });
         }
       },
+
       tokenSessionStore: () => {
-        const token = sessionStorage.getItem("token");
+        const token = localStorage.getItem("token");
         if (token) setStore({ token: token });
       },
 
@@ -170,9 +222,71 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
+      handleValidateOwnerForm: (ev, ownerData) => {
+        const actions = getActions();
+        const regexs = getStore().regexs;
+        ev.preventDefault();
+        let newErrors = {};
+        for (let field in ownerData) {
+          const camelField = actions.kebabToCamel(field);
+          if (ownerData[field] === "") {
+            newErrors[field] = `${field} is required`;
+          } else if (
+            ["email", "password", "zip_code", "phone_number"].includes(field)
+          ) {
+            if (!regexs[`${camelField}Regex`].test(ownerData[field])) {
+              newErrors[field] = `Invalid ${actions.removeUnderscores(field)}!`;
+            }
+          }
+          if (ownerData.password !== ownerData.confirm_password) {
+            newErrors.confirm_password = "Passwords do not match";
+          }
+        }
+        if (Object.keys(newErrors).length === 0) {
+          actions.handleSignupOwnerClick(ownerData);
+        } else {
+          setStore({ errors: newErrors });
+          console.log("errors", newErrors);
+        }
+
+        return Object.keys(newErrors).length === 0;
+      },
+
+      handleSignupOwnerClick: async (ownerData) => {
+        console.log("sent form:", ownerData);
+        const store = getStore();
+        store.signupSuccessful = false;
+        try {
+          const response = await fetch(
+            process.env.BACKEND_URL + "/api/signup/owner",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(ownerData),
+              //mode: "no-cors", //? are we sure?
+            }
+          );
+          console.log(response);
+          // const cookies = response.headers.get("set-cookie");
+          // console.log(cookies);
+          if (response.ok) {
+            const data = await response.json();
+            console.log(data);
+            setStore({ signupSuccessful: true });
+            setTimeout(() => setStore({ signupSuccessful: false }), 4000);
+            return true;
+          }
+          throw Error(response.statusText);
+        } catch (e) {
+          console.log("error:", e);
+        }
+      },
+
       logout: () => {
-        sessionStorage.removeItem("token");
-        sessionStorage.removeItem("user");
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
         setStore({ token: null, user: {} });
       },
       // helper functions
@@ -287,6 +401,43 @@ const getState = ({ getStore, getActions, setStore }) => {
         } catch (e) {
           console.log("error:", e);
         }
+      },
+
+      handleFavColor: () => {
+        const icon = document.getElementById("favorites_color");
+        if (icon.style.color == "transparent_bg") {
+          icon.classList.toggle("red_bg");
+        }
+      },
+
+      handleEntry: (e) => {
+        const actions = getActions()
+        const formattedDate = moment(e.target.value).format("YYYY-MM-DD");
+        actions.handleEntryDate(formattedDate);
+      },
+
+      handleCheckOut: (e) => {
+        const actions = getActions()
+        const formattedDate = moment(e.target.value).format("YYYY-MM-DD");
+        actions.handleCheckOutDate(formattedDate);
+      },
+
+      handleCheckOutDate: (formattedDate) => {
+        const store = getStore();
+        setStore({ checkOutDate: formattedDate });
+        setStore({
+          differenceInDays: moment(store.checkOutDate).diff(
+            moment(store.entryDate),
+            "days"
+          ),
+        });
+      },
+      handleEntryDate: (formattedDate) => {
+        const store = getStore();
+        if (store.entryDate || store.entryDate != "") {
+          setStore({ entryDate: formattedDate });
+        }
+        console.log(store.entryDate);
       },
     },
   };

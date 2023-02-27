@@ -14,11 +14,20 @@ export const AddHotel = () => {
     others: false,
   });
 
+  const [ services, setServices ] = useState({
+    Overnight: false,
+    Daycare: false,
+    Dog_walking: false, 
+    Veterinarian: false, 
+    Transportation: false, 
+    Training: false, 
+    others: false
+  })
+
   const [hotelData, setHotelData] = useState(() => ({
     name: "",
     email: "",
     location: "",
-    services: "",
     country: "select-country",
     zip_code: "",
     phone_number: "",
@@ -26,6 +35,7 @@ export const AddHotel = () => {
     hotel_description: "",
     hotel_owner_id: "", // hay que tomar el owner id
     pet_type: [],
+    services: [],
 
     //photo: "",
   }));
@@ -45,6 +55,17 @@ export const AddHotel = () => {
     setHotelData({ ...hotelData, pet_type: selectedPetTypes.join(",") });
   };
 
+  const handleServices = (ev) => {
+    const service = ev.target.value;
+    const updatedService = { ...services, [service]: !services[service] };
+    console.log("this", updatedService);
+    const selectedServices = Object.keys(updatedService).filter(
+      (service) => updatedService[service]
+    );
+    setServices(updatedService);
+    setHotelData({ ...hotelData, services: selectedServices.join(",") });
+  };
+
   return store.addHotelSuccessful ? (
     <>
       <div className="successful_hotel_added">
@@ -55,6 +76,7 @@ export const AddHotel = () => {
     <div className="text-center mt-5">
       <div className="forms">
         <AddHotelData
+          handleServices={handleServices}
           handlePetType={handlePetType}
           hotelData={hotelData}
           handleChange={handleChange}

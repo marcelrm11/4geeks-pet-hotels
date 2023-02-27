@@ -8,5 +8,5 @@ export const HotelReviews = ({ review }) => {
             <p>{review.date}</p>
             <p>{review.review_text}</p>
         </div>
-    )
+    ) 
 }

@@ -1,24 +1,19 @@
-.place_detail_info_section {
-  width: 100vw;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 .place_detail_img {
   width: 90%;
   height: fit-content;
 }
 
 .place_detail_img img {
-  width: 100%;
   height: 100%;
   border-radius: 1rem;
 }
 
-.reviewStar {
+.date_booking {
+  min-width: 180px;
+  min-height: 37px;
+}
+
+.reviewStar i {
   color: var(--salmon);
   padding-left: 0.2rem;
 }
@@ -27,21 +22,10 @@
   margin-bottom: 2rem;
 }
 
-.component2 {
-  width: 100%;
-  height: fit-content;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
 .basicInfo {
-  background-color: var(--lighterBlue);
   border-radius: 1rem;
   width: 90%;
   height: max-content;
-  padding: 1rem;
   text-align: start;
 }
 
@@ -69,38 +53,24 @@
 }
 
 .detail_services_section {
-  display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: start;
-  width: 100%;
   padding: 0 2rem;
 }
 
 .place_details_booking {
   display: block;
-}
-
-.place_details_booking {
-  background-color: var(--turquoise);
   min-width: 300px;
-  border-radius: 1rem;
-  padding: 1rem;
 }
 
 .detail_dates_container input {
   width: 150px;
-  background-color: var(--lighterBlue);
-  border-radius: 0.5rem;
-  border: none;
   height: 40px;
-  padding: 1rem;
 }
 
 .dates_div {
-  display: flex;
   flex-direction: column;
-  text-align: start;
   padding: 0.5rem 1rem;
 }
 
@@ -119,33 +89,16 @@
 }
 
 .detail_price {
-  display: flex;
   justify-content: space-between;
   padding: 0.5rem 1rem;
 }
 
-.reserve_btn {
-  margin: 0;
-}
-
-.component2 {
-  margin-top: 2rem;
-}
-
-.hotel_details_images {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .place_detail_img {
-  width: 55%;
+  width: 70%;
   height: fit-content;
 }
 
 .place_detail_img img {
-  width: 100%;
   height: 100%;
   margin-top: 0.8rem;
 }
@@ -159,15 +112,10 @@
   width: 100%;
   height: 100%;
   border-radius: 1rem;
-  margin: 0.8rem;
+  margin: 0.8rem 0 0.8rem 0.5rem;
 }
 
 .description_container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   text-align: justify;
 }
 
@@ -180,10 +128,6 @@
 }
 
 @media (max-width: 768px) {
-  .hotel_detail_preBooking {
-    display: none;
-  }
-
   .hotel_detail_information {
     display: flex;
     justify-content: center;
@@ -191,9 +135,6 @@
 
   .hotelDescription {
     text-align: justify;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 
   .detail_dates_container input {
@@ -208,6 +149,14 @@
   .detail_services_section {
     padding-left: 8rem;
   }
+
+  .mg-4 {
+    margin: 4rem 0;
+  }
+
+  .hotel_detail_preBooking {
+    margin: 1rem 0 4rem 0;
+  }
 }
 
 @media (min-width: 769px) {
@@ -221,9 +170,7 @@
   }
 
   .information_section {
-    display: flex;
     justify-content: space-evenly;
-    padding: 1rem;
     margin-left: 1rem;
   }
 

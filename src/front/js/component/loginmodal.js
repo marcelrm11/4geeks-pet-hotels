@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import { LoginForm } from "./loginForm";
 import "../../styles/login-signup.css";
 
 export const LoginModal = ({ credentials, onChange, onLogin }) => {
-  const { store } = useContext(Context);
+  const { store, actions } = useContext(Context);
+
   return (
     <>
       <div
@@ -16,9 +17,9 @@ export const LoginModal = ({ credentials, onChange, onLogin }) => {
       >
         <div className="modal-dialog">
           <div className="modal-content">
-            <div className="modal-header modal_background">
+            <div className="modal-header bg-darkBlue white_letter">
               <h1
-                className="modal-title fs-5 modal_background"
+                className="modal-title fs-5 bg-darkBlue white_letter"
                 id="loginModalLabel"
               >
                 Log in
@@ -30,7 +31,7 @@ export const LoginModal = ({ credentials, onChange, onLogin }) => {
                 aria-label="Close"
               ></button>
             </div>
-            <div className="modal-body modal_background">
+            <div className="modal-body bg-darkBlue white_letter">
               <LoginForm
                 onLogin={onLogin}
                 onChange={onChange}

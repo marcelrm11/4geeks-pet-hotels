@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
-
 import { Home } from "./pages/home";
-import injectContext from "./store/appContext";
+import injectContext, { Context } from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
@@ -15,9 +14,18 @@ import { AddHotel } from "./pages/addHotel";
 import { Booking } from "./pages/booking.js";
 import { HotelListing } from "./pages/hotelListing";
 import { Favorites } from "./pages/favorites.js";
+import { Profile } from "./pages/profile";
+import { Account } from "./pages/account";
 
 const Layout = () => {
+  const { store, actions } = useContext(Context);
+
   const basename = process.env.BASENAME || "";
+  
+  useEffect(() => {
+    actions.getUserFromSessionStorage();
+    actions.tokenSessionStore();
+  },[])
 
   return (
     <div>
@@ -26,16 +34,16 @@ const Layout = () => {
           <Navbar />
           <Routes>
             <Route element={<Home />} path="/" />
-            <Route element={<AddHotel />} path="/addHotel" />
-            <Route element={<Signup />} path="/signup" />
+            <Route element={<Signup />} path="/signup/user" />
             <Route element={<SelectSignup />} path="/selectSignup" />
             <Route element={<SignupOwner />} path="/signup/owner" />
+            <Route element={<Profile />} path="/profile" />
+            <Route element={<AddHotel />} path="/addHotel" />
             <Route element={<HotelListing />} path="/hotelListing" />
             <Route element={<Hotel />} path="/hotel/:id" />
-            <Route element={<AddHotel />} path="/addHotel" />
             <Route element={<Booking />} path="/booking" />
             <Route element={<Favorites />} path="/favorites" />
-            <Route element={<HotelListing />} path="/hotelListing" />
+            <Route element={<Account />} path="/account" />
             <Route element={<h1>Not found!</h1>} />
           </Routes>
           <Footer />

@@ -10,7 +10,7 @@ export const Favorites = () => {
 
   const favorites = store.favorites.map((item, index) => {
     return (
-      <div key={index} className="favorites_card">
+      <div key={index} className="favorites_card d_flex_row">
         <div className="card" style={{ width: "16rem" }}>
           <button
             onClick={() => actions.deleteFavorites(item.id)}
@@ -23,10 +23,10 @@ export const Favorites = () => {
             className="card-img-top"
             alt="..."
           />
-          <div className="card-body">
+          <div className="card-body white_letter">
             <h5 className="card-title">{item.name}</h5>
-            <hr/>
-            <Link className="button_details_favorites" to={`/hotel/${item.id}`}>
+            <hr />
+            <Link className="d_flex_row" to={`/hotel/${item.id}`}>
               <button className="btn btn-primary size listing_hotel_btn">
                 View details
               </button>
@@ -39,8 +39,8 @@ export const Favorites = () => {
 
   return (
     <>
-      <h2 className="favorites_title">Your favorites</h2>
-      <div className="favorites">{favorites}</div>;
+      <h2 className="favorites_title txt-center">Your favorites</h2>
+      <div className="favorites dp-grid-t-cl dp-g-center">{favorites}</div>;
     </>
   );
 };

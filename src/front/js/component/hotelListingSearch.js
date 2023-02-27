@@ -1,95 +1,42 @@
-import React, { useContext } from "react";
-import { Button } from "../component/button";
+import React, { useContext, useState } from "react";
 import { CustomSelect } from "./customSelect";
 import { Context } from "../store/appContext";
+import { Button } from "./button";
+import { Dates } from "./date";
 
-const HotelListinSearch = ({ filters, onChange, onClick }) => {
+const HotelListinSearch = ({ filters, onChange, onClick, onPetChange }) => {
   const { store } = useContext(Context);
+
+  const checkInput = ["dog", "cat", "rodent", "bird", "others"];
+
+  const petsInput = checkInput.map((item, index) => {
+    return (
+      <div key={index} className="radio_input_container">
+        <input
+          className="radio_type_input round_border d_flex_row"
+          type="checkbox"
+          id={item}
+          name="petTypes"
+          value={item}
+          onChange={onPetChange}
+        />
+        <label>{item}</label>
+      </div>
+    );
+  });
+
   return (
-    <div className="hotelListing_search_bar">
+    <div className="align-items-start hotelListing_search_bar d_flex_col one_pad mg-1 bg-lighter-blue">
       <div>
         <label>Pet Type </label>
-        <div className="radio_inputs">
-          <div className="radio_input_container">
-            <input
-              className="radio_type_input"
-              type="radio"
-              id="dog"
-              name="petTypes"
-              value="dog"
-            />
-            <label>Dog</label>
-          </div>
-
-          <div className="radio_input_container">
-            <input
-              className="radio_type_input"
-              type="radio"
-              id="cat"
-              name="petTypes"
-              value="cat"
-            />
-            <label>Cat</label>
-          </div>
-
-          <div className="radio_input_container">
-            <input
-              className="radio_type_input"
-              type="radio"
-              id="rodent"
-              name="petTypes"
-              value="rodent"
-            />
-            <label>Rodent</label>
-          </div>
-
-          <div className="radio_input_container">
-            <input
-              className="radio_type_input"
-              type="radio"
-              id="bird"
-              name="petTypes"
-              value="bird"
-            />
-            <label>Bird</label>
-          </div>
-
-          <div className="radio_input_container">
-            <input
-              className="radio_type_input"
-              type="radio"
-              id="otros"
-              name="petTypes"
-              value="otros"
-            />
-            <label>Others</label>
-          </div>
-        </div>
+        <div className="d-flex w-100">{petsInput}</div>
       </div>
-      <div className="listing_date_input">
-        <div className="entry_date">
-          <label>Entry date</label>
-          <input
-            type="date"
-            id="fecha-entrada"
-            name="entryDate"
-            onChange={onChange}
-            value={filters.entryDate}
-          />
-        </div>
-
-        <div className="checkout_date">
-          <label>Checkout date</label>
-          <input
-            type="date"
-            id="fecha-salida"
-            name="checkoutDate"
-            onChange={onChange}
-            value={filters.checkoutDate}
-          />
-        </div>
-      </div>
-      <div className="home_search_bar date">
+      <div className="listing_date_input dp-grid"></div>
+      <div className="align-items-start home_search_bar d_flex_col date">
+        <Dates />
+        <p className="red_bg">
+          {store.differenceInDays ? store.differenceInDays + " nights" : ""}
+        </p>
         <label>Country</label>
         <CustomSelect
           name="country"

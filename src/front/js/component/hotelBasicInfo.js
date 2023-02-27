@@ -2,7 +2,7 @@ import React from "react";
 
 export const HotelBasicInfo = ({ name, phone, address, email }) => {
   return (
-    <div className="basicInfo">
+    <div className="basicInfo bg-lighter-blue one_pad w-100">
       <h2>{name}</h2>
       <hr className="hr" />
       <p>{address}</p>

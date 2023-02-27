@@ -10,8 +10,56 @@ export const AddHotelData = ({
   handleChange,
   handleValidate,
   handlePetType,
+  handleServices,
 }) => {
   const { store, actions } = useContext(Context);
+
+  const checkInput = ["dog", "cat", "rodent", "bird", "others"];
+  const servicesInputs = [
+    "Overnight",
+    "Daycare",
+    "Walking",
+    "Veterinarian",
+    "Transportation",
+    "Training",
+    "others",
+  ];
+
+  const petsInput = checkInput.map((item, index) => {
+    return (
+      <div key={index} className="radio_input d_flex_col ">
+        <input
+          className="radio_type_input d_flex_col round_border"
+          type="checkbox"
+          id={item}
+          name="pet_type"
+          value={item}
+          onChange={(e) => {
+            handlePetType(e);
+          }}
+        />
+        <label>{item}</label>
+      </div>
+    );
+  });
+
+  const services = servicesInputs.map((item, index) => {
+    return (
+      <div key={index} className="radio_input services_input d_flex_col ">
+        <input
+          className="radio_type_input d_flex_col round_border"
+          type="checkbox"
+          id={item}
+          name="pet_type"
+          value={item}
+          onChange={(e) => {
+            handleServices(e);
+          }}
+        />
+        <label>{item}</label>
+      </div>
+    );
+  });
 
   return (
     <form className="add_hotel_form">
@@ -26,7 +74,7 @@ export const AddHotelData = ({
       <div className="add_hotel_div">
         <h1>Add Hotel</h1>
         <div>
-          <div className="text_inputs_container">
+          <div className="text_inputs_container dp-grid-o-cl gp-o border-style-two">
             {Object.entries(hotelData).map(([field, value]) => {
               return (
                 <React.Fragment key={field}>
@@ -51,86 +99,24 @@ export const AddHotelData = ({
           </div>
           <div>
             <div>
-              <div className="pet_type_input_container">
-                <label>Pet Type </label>
-                <div className="radio_inputs_container">
-                  <div className="radio_input">
-                    <input
-                      className="radio_type_input"
-                      type="checkbox"
-                      id="dog"
-                      name="pet_type"
-                      value="dog"
-                      onChange={(e) => {
-                        handlePetType(e);
-                      }}
-                    />
-                    <label>Dog</label>
-                  </div>
-
-                  <div className="radio_input">
-                    <input
-                      className="radio_type_input"
-                      type="checkbox"
-                      id="cat"
-                      name="pet_type"
-                      value="cat"
-                      onChange={(e) => {
-                        handlePetType(e);
-                      }}
-                    />
-                    <label>Cat</label>
-                  </div>
-
-                  <div className="radio_input">
-                    <input
-                      className="radio_type_input"
-                      type="checkbox"
-                      id="rodent"
-                      name="pet_type"
-                      value="rodent"
-                      onChange={(e) => {
-                        handlePetType(e);
-                      }}
-                    />
-                    <label>Rodent</label>
-                  </div>
-
-                  <div className="radio_input">
-                    <input
-                      className="radio_type_input"
-                      type="checkbox"
-                      id="bird"
-                      name="pet_type"
-                      value="bird"
-                      onChange={(e) => {
-                        handlePetType(e);
-                      }}
-                    />
-                    <label>Bird</label>
-                  </div>
-
-                  <div className="radio_input">
-                    <input
-                      className="radio_type_input"
-                      type="checkbox"
-                      id="others"
-                      name="pet_type"
-                      value="others"
-                      onChange={(e) => {
-                        handlePetType(e);
-                      }}
-                    />
-                    <label>Others</label>
-                  </div>
+              <div className="pet_type_input_container d_flex_col ">
+                <label className="d_flex_row">Pet Type </label>
+                <div className="dp-grid-t-cl gp-o pet_type_checkbox w-100 one_pad">
+                  {petsInput}
+                </div>
+              </div>
+              <div className="pet_type_input_container d_flex_col ">
+                <label className="d_flex_row">Services </label>
+                <div className="dp-grid-t-cl gp-o pet_type_checkbox services_checkbox w-100 one_pad">
+                  {services}
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="btn_container add_hotel_btn_section ">
+        <div className="add_hotel_btn_section ">
           <Button
-            buttonClass="general_button red_Btn addHotel_form_submit"
+            buttonClass="red_Btn addHotel_form_submit"
             onClick={handleValidate}
           >
             <span className="white_letter">Add hotel</span>

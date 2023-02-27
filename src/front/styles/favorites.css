@@ -1,19 +1,9 @@
 .favorites {
-  display: grid;
-  grid-template-columns: auto auto;
-  place-content: center;
   gap: 4%;
-  margin-top: 3rem;
 }
 
 .favorites_card {
   margin: 2rem;
-}
-
-.favorites .favorites_card {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .card {
@@ -25,20 +15,12 @@
 }
 
 .favorites_title {
-  text-align: center;
   margin: 1rem 0;
-}
-
-.button_details_favorites {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 @media (max-width: 768px) {
   .favorites {
     grid-template-columns: auto;
-    margin-top: 6rem;
     gap: 3%;
   }
 }

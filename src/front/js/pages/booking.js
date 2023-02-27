@@ -6,26 +6,25 @@ import { Context } from "../store/appContext";
 import { useParams } from "react-router";
 
 export const Booking = () => {
-
-  const { store, actions } = useContext(Context)
+  const { store, actions } = useContext(Context);
 
   return (
     <>
-      <div className="booking_container">
+      <div className="d_flex_col">
         <div className="preSubmmit_section">
           <h1>Enviar reserva</h1>
-          <h2>Tu reserva</h2>
+          <h2 className="font-s">Tu reserva</h2>
           <hr />
           <h2>Nombre del alojamiento</h2>
           <h2>Fecha</h2>
           <h2>Mascota</h2>
           <hr />
-          <Button buttonClass="red_Btn general_button">
+          <Button buttonClass="red_Btn">
             <span className="white_letter">Reserve</span>
           </Button>
           <div className="submit_space"></div>
         </div>
-        <div className="bookingSub_section">
+        <div className="bookingSub_section bg-darkBlue white_letter d_flex_col">
           <BookingSubmit />
         </div>
       </div>

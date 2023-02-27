@@ -8,9 +8,15 @@ import "../../styles/hotelListing.css";
 export const HotelListing = () => {
   const { store, actions } = useContext(Context);
   const [searchFilters, setSearchFilters] = useState({
-    petTypes: [],
+    petTypes: {
+      dog: false,
+      cat: false,
+      rodent: false,
+      bird: false,
+      others: false,
+    },
     entryDate: "",
-    checkoutDate: "",
+    checkOutDate: "",
     country: "select-country",
   });
 
@@ -19,9 +25,37 @@ export const HotelListing = () => {
   const handleChange = (e) => {
     setSearchFilters({ ...searchFilters, [e.target.name]: [e.target.value] });
   };
+
   const handleClick = (e) => {
     e.preventDefault();
     actions.listing(searchFilters);
+  };
+
+  // const handleEntry = (e) => {
+  //   const formattedDate = moment(e.target.value).format("YYYY-MM-DD");
+  //   // setSearchFilters({
+  //   //   ...searchFilters,
+  //   //   entryDate: formattedDate,
+  //   // });
+  //   actions.handleEntryDate(formattedDate);
+  // };
+
+  // const handleCheckOut = (e) => {
+  //   const formattedDate = moment(e.target.value).format("YYYY-MM-DD");
+  //   // setSearchFilters({
+  //   //   ...searchFilters,
+  //   //   checkOutDate: formattedDate,
+  //   // });
+  //   actions.handleCheckOutDate(formattedDate);
+  // };
+
+  const handlePetTypeChange = (ev) => {
+    const pet = ev.target.value;
+    const updatedPetTypes = {
+      ...searchFilters.petTypes,
+      [pet]: !searchFilters.petTypes[pet],
+    };
+    setSearchFilters({ ...searchFilters, petTypes: updatedPetTypes });
   };
 
   const hotelsInfo = store.hotels.map((hotel, index) => {
@@ -31,13 +65,16 @@ export const HotelListing = () => {
   if (store.loading) return <h1>Loading</h1>;
 
   return (
-    <div className="listing_section">
+    <div className="listing_section dp-grid font-xs dp-g-center">
       <HotelListingSearch
+        onPetChange={handlePetTypeChange}
         filters={searchFilters}
         onChange={handleChange}
         onClick={(e) => handleClick(e, searchFilters)}
       />
-      <div className="hotel_listing_container">{hotelsInfo}</div>
+      <div className="hotel_listing_container dp-grid-o-cl dp-g-center">
+        {hotelsInfo}
+      </div>
     </div>
   );
 };

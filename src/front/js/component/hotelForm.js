@@ -38,7 +38,7 @@ export const SignUpForm = ({ hotelData, handleChange, handleValidate }) => {
                       ? "email"
                       : "text"
                   }
-                  id={field}
+                  id={field} 
                   placeholder={actions.removeUnderscores(
                     actions.capitalize(field)
                   )}
@@ -52,8 +52,8 @@ export const SignUpForm = ({ hotelData, handleChange, handleValidate }) => {
           })}
         </div>
         <div className="btn_container">
-          <Button buttonClass="log-btn access_btn" onClick={handleValidate}>
-            <span className="log_color">Add hotel</span>
+          <Button buttonClass="access_btn" onClick={handleValidate}>
+            <span className="white_letters">Add hotel</span>
           </Button>
         </div>
       </div>

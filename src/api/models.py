@@ -16,6 +16,8 @@ class User(db.Model):
                           nullable=False, default=False)
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
+    is_owner = db.Column(db.Boolean(), unique=False,
+                          nullable=False, default=False)
     country = db.Column(db.String(30), nullable=False)
     zip_code = db.Column(db.String(30), nullable=False)
     phone_number = db.Column(db.String(20), nullable=False)
@@ -37,6 +39,7 @@ class User(db.Model):
             "country": self.country,
             "phone_number": self.phone_number,
             "zip_code": self.zip_code,
+            "is_owner": False,
             "user_pets": [pet.serialize() for pet in self.user_pets],
             # could we remove this?
             "user_bookings": [booking.serialize() for booking in self.user_bookings],
@@ -110,6 +113,8 @@ class Owner(db.Model):
                           nullable=False, default=False)
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
+    is_owner = db.Column(db.Boolean(), unique=False,
+                          nullable=False, default=True)
     country = db.Column(db.String(30), nullable=False)
     zip_code = db.Column(db.String(30), nullable=False)
     phone_number = db.Column(db.String(), nullable=False)
@@ -128,6 +133,7 @@ class Owner(db.Model):
             "country": self.country,
             "phone_number": self.phone_number,
             "zip_code": self.zip_code,
+            "is_owner": True,
             "hotels": [h.serialize() for h in self.hotels],
             "bookings": {"id": b.id for b in self.bookings}
         }
@@ -149,6 +155,7 @@ class Hotel(db.Model):
     hotel_owner_id = db.Column(
         db.Integer, db.ForeignKey("owner.id"), nullable=False)
     pet_type = db.Column(db.String(100))
+    room = db.Column(db.Integer, nullable=False)
     hotel_bookings = db.relationship("Booking", backref=db.backref("hotel"))
     invoices = db.relationship("Invoice", backref=db.backref("hotel"))
     favorites = db.relationship("Favorite", backref=db.backref("hotel"))
@@ -170,6 +177,7 @@ class Hotel(db.Model):
             # "profile_image": self.profile_image,
             "price": self.base_price,
             "pet_type": self.pet_type,
+            "room": self.room,
             "rooms": [r.serialize() for r in self.rooms],
             "services": self.services,
             "hotel_description": self.hotel_description,

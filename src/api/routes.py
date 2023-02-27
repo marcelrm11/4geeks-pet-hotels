@@ -7,7 +7,7 @@ import json
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.google_places_api import find_nearby_places
 from api.models import db, User, Pets, Hotel, Booking, Owner, Invoice, Favorite, Room, Countries_zip_codes
-from api.forms import BookingForm, FavoriteForm, InvoiceForm, UserForm, ShortUserForm, PetForm, HotelForm
+from api.forms import BookingForm, FavoriteForm, InvoiceForm, UserForm, ShortUserForm, ShortOwnerForm, PetForm, HotelForm
 from flask_jwt_extended import create_access_token, current_user, jwt_required, get_jwt_identity, set_access_cookies, verify_jwt_in_request
 from sqlalchemy.exc import IntegrityError, NoForeignKeysError
 import sys
@@ -27,6 +27,36 @@ api = Blueprint("api", __name__)
 # AUTHENTICATION ----------------------------------------------
 # Login -------------
 
+@api.route("/login/owner", methods=["POST"])
+def handle_owner_login():
+    form = ShortOwnerForm(meta={"csrf": False})
+    if form.validate_on_submit():
+        try:
+            email = form.email.data
+            password = form.password.data
+            owner = Owner.query.filter_by(email=email).one_or_none()
+
+            if not owner:
+                raise Exception("No owner with this email")
+            elif owner.password != password:
+                raise Exception("Wrong password")
+
+            access_token = create_access_token(identity=email)
+            response = jsonify({
+                "msg": "login successful",
+                "access_token": access_token,
+                "owner": owner.serialize()
+            })
+            mode: 'no-cors'
+            response.headers["Access-Control-Allow-Credentials"] = "true"
+            #response.headers["Access-Control-Allow-Origin"] = "*"
+            set_access_cookies(response, access_token)
+            return response, 200
+        except Exception as e:
+            return jsonify({"error": str(e)}), 401
+    else:
+        errors = {field: errors[0] for field, errors in form.errors.items()}
+        return jsonify({"error": "validation error", "errors": errors}), 400
 
 @api.route("/login", methods=["POST"])
 def handle_login():
@@ -343,7 +373,7 @@ def create_owner():
 
             response = jsonify(owner_dict)
             response.headers["Access-Control-Allow-Credentials"] = "true"
-            response.headers["Access-Control-Allow-Origin"] = "*"
+            #response.headers["Access-Control-Allow-Origin"] = "*"
             set_access_cookies(response, access_token)
             return response, 200
         except IntegrityError as e:
@@ -524,11 +554,24 @@ def get_hotels():
         country = request.args.get('country')
         if country:
             queryset = queryset.filter_by(country=country)
+
+        pets = []
+        for pet in ["dog", "cat", "rodent", "bird", "others"]:
+            if request.args.get(pet):
+                pets.append(pet)
+        
+        print(pets)
+
+        if len(pets) > 0:
+            for pet in pets:
+                queryset = queryset.filter(Hotel.pet_type.contains(pet))
+        
         hotels = queryset.all()
         hotels_list = [hotel.serialize() for hotel in hotels]
         response_body = {
             "hotels": hotels_list
         }
+
         return jsonify(response_body), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500

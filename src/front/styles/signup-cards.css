@@ -1,38 +1,40 @@
 .user_card,
 .owner_card {
   width: 85%;
+  max-width: 320px;
   height: fit-content;
-  border: none;
-  border-radius: 1rem;
   margin: 2rem 0;
   color: var(--whiteLetters);
   font-size: var(--fontSize-XS);
-  transition: all 5s;
+  background-position: right;
+  background-size: 200%;
+  transition: background-position 0.2s ease-in;
+  border: none;
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.5);
+  transition: all 1s;
 }
 
 .user_card {
-  background-color: var(--salmon);
+  background-image: linear-gradient(
+    to left,
+    var(--salmon) 50%,
+    var(--darkRed) 50%
+  );
+}
+
+.user_card:hover,
+.owner_card:hover {
+  background-position: left;
+  box-shadow: none;
+  transform: scale(1.1);
 }
 
 .owner_card {
-  background-color: var(--darkRed);
-}
-
-.cards_section {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.user_intro_container,
-.owner_intro_container {
-  width: 100%;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  background-image: linear-gradient(
+    to left,
+    var(--turquoise) 50%,
+    var(--mediumBlue) 50%
+  );
 }
 
 .cards_title {
@@ -49,9 +51,7 @@
 
 .user_img_container img,
 .owner_img_container img {
-  width: 100%;
-  height: fit-content;
-  border-radius: 50%;
+  max-width: 200px;
 }
 
 .owner_paragraph,
@@ -60,27 +60,16 @@
   margin: 0;
 }
 
-.sign_btn_cards {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin: 1rem 0;
-}
-
 @media (min-width: 769px) {
   .user_card,
   .owner_card {
     width: 80%;
+    max-width: none;
     display: flex;
-    transition: all 5s;
     min-height: 250px;
-    padding: 1rem;
   }
 
   .paragraph_container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     text-align: justify;
   }
 
@@ -92,28 +81,12 @@
     min-width: 165px;
     height: 60px;
   }
-
-  .user_intro_container,
-  .owner_intro_container {
-    background-color: #ffe6a6;
-    border-radius: 1rem;
-    color: black;
-    min-width: 150px;
-  }
 }
 
 @media (min-width: 992px) {
   .user_card,
   .owner_card {
     width: 55%;
-    display: flex;
-    transition: all 5s;
     min-height: 250px;
-    padding: 1rem;
-  }
-
-  .user_intro_container,
-  .owner_intro_container {
-    min-width: 180px;
   }
 }

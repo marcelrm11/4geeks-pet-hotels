@@ -6,9 +6,8 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 const HotelCard = (props) => {
   const { store, actions } = useContext(Context);
-  const [pets, sePets] = useState([]);
 
-  // console.log(props.hotel);
+  console.log("props", props.hotel);
 
   return (
     <div
@@ -25,11 +24,11 @@ const HotelCard = (props) => {
         onClick={() => actions.addFavorites(props.hotel.id, props.hotel.name)}
         className="favoritesBtn"
       >
-        <FontAwesomeIcon icon={faHeart} className="favorites_icon" />
+        <FontAwesomeIcon id="favorites_color" icon={faHeart} onClick={() => actions.handleFavColor()} className="transparent_bg favorites_icon font-s" />
       </button>
-      <div className="card-body">
-        <div className="hotel_title_section">
-          <h5 className="card-title">{props.hotel.name}</h5>
+      <div className="white_letter card-body">
+        <div className="hotel_title_section d-fle">
+          <h5 className="font-xs">{props.hotel.name}</h5>
           <span className="hotel_stars">
             <FontAwesomeIcon className="stars" icon={faHeart} />
             4.6
@@ -38,9 +37,9 @@ const HotelCard = (props) => {
         <hr />
         <p className="card-text">{props.hotel.location}</p>
         <p>{props.hotel.price}€ per night</p>
-        <div className="hotel_listing_btnCotainer">
+        <div className="hotel_listing_btnCotainer mg-1 dp-grid dp-g-center">
           <Link to={`/hotel/${props.hotel.id}`}>
-            <button className="btn btn-primary listing_hotel_btn">
+            <button className="btn btn-primary general_button red_Btn">
               View details
             </button>
           </Link>

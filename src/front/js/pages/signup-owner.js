@@ -4,9 +4,10 @@ import { Context } from "../store/appContext";
 import { SignUpOwnerForm } from "../component/signup-owner-form";
 import { Navigate } from "react-router";
 
+
 export const SignupOwner = () => {
   const { store, actions } = useContext(Context);
-  const [formData, setFormData] = useState({
+  const [ownerData, setownerData] = useState({
     first_name: "",
     last_name: "",
     email: "",
@@ -18,8 +19,8 @@ export const SignupOwner = () => {
   });
 
   const handleChange = (ev) => {
-    setFormData({ ...formData, [ev.target.name]: ev.target.value });
-  };
+    setownerData({ ...ownerData, [ev.target.name]: ev.target.value });
+  }; 
 
   return store.signupSuccessful ? (
     <Navigate to="/" />
@@ -27,9 +28,9 @@ export const SignupOwner = () => {
     <div className="text-center mt-4">
       <div className="forms">
         <SignUpOwnerForm
-          formData={formData}
+          ownerData={ownerData}
           handleChange={handleChange}
-          handleValidate={(e) => actions.handleValidateForm(e, formData)}
+          handleValidate={(e) => actions.handleValidateOwnerForm(e, ownerData)}
         />
       </div>
     </div>
