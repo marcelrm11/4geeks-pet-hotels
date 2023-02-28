@@ -321,7 +321,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       addFavorites: (id) => {
         const store = getStore();
-        console.log(id);
+        const actions = getActions();
         store.hotels.map((hotel) => {
           if (hotel.id === id && !store.favorites.find((f) => f.id === id)) {
             setStore({
@@ -332,8 +332,11 @@ const getState = ({ getStore, getActions, setStore }) => {
             });
           }
         });
-        localStorage.setItem("favorites", JSON.stringify(store.favorites));
-        console.log(store.favorites);
+      },
+
+      handleFavColor: (hotel_id) => {
+        const icon = document.getElementById("favorites_color");
+        icon.classList.toggle("red_bg");
       },
 
       deleteFavorites: (id) => {
@@ -405,12 +408,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         } catch (e) {
           console.log("error:", e);
         }
-      },
-
-      handleFavColor: () => {
-        const icon = document.getElementById("favorites_color");
-          icon.classList.add("red_bg");
-          icon.classList.remove("transparent_bg");
       },
 
       handleEntry: (e) => {

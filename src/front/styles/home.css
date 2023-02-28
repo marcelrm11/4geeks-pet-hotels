@@ -61,18 +61,6 @@
   transition: all 2s;
 }
 
-#value_icon {
-  transition: all 2s;
-}
-
-#value_icon:hover {
-  transform: scale(1.2);
-}
-
-.value_space:hover {
-  background-color: var(--turquoise);
-}
-
 .detail_dates_container .entry_date,
 .detail_dates_container .checkout_date {
   display: flex;

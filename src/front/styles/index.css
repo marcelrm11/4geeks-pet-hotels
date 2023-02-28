@@ -77,7 +77,7 @@ select {
 /*buttons*/
 
 .red_bg {
-  color: var(--salmon);
+  color: var(--salmon) !important;
 }
 
 .transparent_bg {
