@@ -373,6 +373,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           setStore({ errors: newErrors });
           console.log("errors", newErrors);
         }
+        hotel;
         return Object.keys(newErrors).length === 0;
       },
 
@@ -408,9 +409,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       handleFavColor: () => {
         const icon = document.getElementById("favorites_color");
-        if (icon.style.color == "transparent_bg") {
-          icon.classList.toggle("red_bg");
-        }
+          icon.classList.add("red_bg");
+          icon.classList.remove("transparent_bg");
       },
 
       handleEntry: (e) => {

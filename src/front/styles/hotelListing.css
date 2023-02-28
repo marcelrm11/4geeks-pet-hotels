@@ -176,7 +176,6 @@
 
 .favorites_icon:hover {
   cursor: pointer;
-  color: var(--salmon);
 }
 
 .listing_hotel_btn {
