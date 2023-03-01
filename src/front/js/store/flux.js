@@ -321,7 +321,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       addFavorites: (id) => {
         const store = getStore();
-        console.log(id);
+        const actions = getActions();
         store.hotels.map((hotel) => {
           if (hotel.id === id && !store.favorites.find((f) => f.id === id)) {
             setStore({
@@ -332,8 +332,11 @@ const getState = ({ getStore, getActions, setStore }) => {
             });
           }
         });
-        localStorage.setItem("favorites", JSON.stringify(store.favorites));
-        console.log(store.favorites);
+      },
+
+      handleFavColor: (hotel_id) => {
+        const icon = document.getElementById("favorites_color");
+        icon.classList.toggle("red_bg");
       },
 
       deleteFavorites: (id) => {
@@ -364,12 +367,16 @@ const getState = ({ getStore, getActions, setStore }) => {
         if (!hotelData.pet_type || hotelData.pet_type.length === 0) {
           newErrors["pet_type"] = "Please select at least one pet type.";
         }
+        if (!hotelData.services || hotelData.services.length === 0) {
+          newErrors["services"] = "Please select at least one services.";
+        }
         if (Object.keys(newErrors).length === 0) {
           actions.handleAddHotelData(hotelData);
         } else {
           setStore({ errors: newErrors });
           console.log("errors", newErrors);
         }
+        hotel;
         return Object.keys(newErrors).length === 0;
       },
 
@@ -389,10 +396,10 @@ const getState = ({ getStore, getActions, setStore }) => {
             }
           );
 
-          console.log(response);
+          console.log("response", response);
           if (response.ok) {
             const data = await response.json();
-            console.log(data);
+            console.log("data", data);
             setStore({ addHotelSuccessful: true });
             setTimeout(() => setStore({ addHotelSuccessful: false }), 4000);
             return true;
@@ -400,13 +407,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           throw Error(response.statusText);
         } catch (e) {
           console.log("error:", e);
-        }
-      },
-
-      handleFavColor: () => {
-        const icon = document.getElementById("favorites_color");
-        if (icon.style.color == "transparent_bg") {
-          icon.classList.toggle("red_bg");
         }
       },
 

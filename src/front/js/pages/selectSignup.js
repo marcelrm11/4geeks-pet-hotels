@@ -1,53 +1,60 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import avatar_user from "../../img/7309667.jpg";
-import avatar_owner from "../../img/7309681.jpg";
-import { Button } from "../component/button";
 import "../../styles/signup-cards.css";
+import { Context } from "../store/appContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaw, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 
 export const SelectSignup = () => {
+  const { store, actions } = useContext(Context);
   const [selectSignUp, setSelectSignUp] = useState([
     {
       type: "user",
-      img: avatar_user,
-      welcome:
-        "Join our pet hotels page as a registered user to access exclusive deals and discounts, book your pet's stay online, and manage your account from anywhere.",
+      welcome: [
+        "Access to a wide selection of pets hotels.",
+        "Reviews and ratings from other users.",
+        "Customized profiles for your pets.",
+      ],
     },
     {
       type: "owner",
-      img: avatar_owner,
-      welcome:
-        "Welcome to our pet hotels page! We are thrilled to offer you the opportunity to publish your pet hotel on our platform and reach a wider audience of pet owners looking for top-quality pet accommodations.",
+      welcome: [
+        "Increase visibility and bookings at your hotel.",
+        "Reservation management and communication tools.",
+        "Advertise your hotel on the platform and reach new users.",
+      ],
     },
   ]);
 
   const selectCard = selectSignUp.map((item, index) => {
+    const list = item.welcome.map((item, index) => {
+      return (
+        <li key={index}>
+          <FontAwesomeIcon className="check_icon" icon={faCircleCheck} />
+          {item}
+        </li>
+      );
+    });
     return (
       <div className="d_flex_col" key={index}>
-        <div className={`${item.type}_card border-style one_pad`}>
-          <div className={`w-100 d_flex_col`}>
-            <p className="cards_title">{item.type}</p>
-            <figure className={`${item.type}_img_container`}>
-              <img
-                className={`w-100 round_border`}
-                src={item.img}
-                alt={`${item.type} representative image`}
-              />
-            </figure>
+        <Link to={`/signup/${item.type}`} className="one_pad w-100 d_flex_row">
+          <div className={`${item.type}_card border-style-three one_pad`}>
+            <div className={`w-100 d_flex_col`}></div>
+            <p className="cards_title font-s">
+              {/* <FontAwesomeIcon className="paw_icon" icon={faPaw} /> */}
+              {actions.capitalize(item.type)}
+            </p>
+            <div className="paragraph_container d_flex_row">
+              <ul className={`${item.type}_paragraph`}>{list}</ul>
+            </div>
+            <button className="btn btn-primary general_button light_Btn">
+              Select
+            </button>
           </div>
-          <div className="paragraph_container d_flex_row">
-            <p className={`${item.type}_paragraph`}>{item.welcome}</p>
-          </div>
-          <Link
-            to={`/signup/${item.type}`}
-            className="white_letter one_pad w-100 d_flex_row"
-          >
-            <Button buttonClass={"btn btn-primary light_Btn "}>Go!</Button>
-          </Link>
-        </div>
+        </Link>
       </div>
     );
   });
 
-  return <div>{selectCard}</div>;
+  return <div className="cards_all_container">{selectCard}</div>;
 };

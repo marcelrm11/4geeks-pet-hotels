@@ -141,7 +141,7 @@ select {
   }
 
   .signup_img-container img {
-    width: 85%;
+    width: 65%;
   }
 
   .signup-input-container {
@@ -201,7 +201,6 @@ select {
   }
 
   .signup_img-container img {
-    width: 70%;
     min-width: 350px;
     height: fit-content;
     margin-left: 3rem;
@@ -213,7 +212,7 @@ select {
   }
 
   .signup_info {
-    margin: 2% 15% 0 2%;
+    margin: 2% 15% 0 0;
   }
 
   .signup-input-container input {

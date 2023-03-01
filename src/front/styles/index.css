@@ -31,6 +31,10 @@ a {
   color: var(--whiteLetters);
 }
 
+li {
+  list-style: none;
+}
+
 a:hover {
   color: var(--whiteLetters);
 }
@@ -73,7 +77,7 @@ select {
 /*buttons*/
 
 .red_bg {
-  color: var(--salmon);
+  color: var(--salmon) !important;
 }
 
 .transparent_bg {

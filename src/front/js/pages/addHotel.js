@@ -21,7 +21,7 @@ export const AddHotel = () => {
     Veterinarian: false,
     Transportation: false,
     Training: false,
-    others: false,
+    more: false,
   });
 
   const [hotelData, setHotelData] = useState(() => ({

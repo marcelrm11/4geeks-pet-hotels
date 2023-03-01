@@ -496,8 +496,15 @@ def create_hotel():
             db.session.add(hotel)
             db.session.commit()
 
+<<<<<<< HEAD
+=======
+            print(hotel_data)
+
+>>>>>>> development
             hotel_dict = hotel.serialize()
             response = jsonify(hotel_dict)
+            response.headers["Access-Control-Allow-Credentials"] = "true"
+            response.headers["Access-Control-Allow-Origin"] = "*"
             return response, 200
         except IntegrityError as e:
             print(e)
