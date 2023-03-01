@@ -17,7 +17,7 @@ class User(db.Model):
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
     is_owner = db.Column(db.Boolean(), unique=False,
-                          nullable=False, default=False)
+                         nullable=False, default=False)
     country = db.Column(db.String(30), nullable=False)
     zip_code = db.Column(db.String(30), nullable=False)
     phone_number = db.Column(db.String(20), nullable=False)
@@ -114,7 +114,7 @@ class Owner(db.Model):
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
     is_owner = db.Column(db.Boolean(), unique=False,
-                          nullable=False, default=True)
+                         nullable=False, default=True)
     country = db.Column(db.String(30), nullable=False)
     zip_code = db.Column(db.String(30), nullable=False)
     phone_number = db.Column(db.String(), nullable=False)
@@ -155,7 +155,6 @@ class Hotel(db.Model):
     hotel_owner_id = db.Column(
         db.Integer, db.ForeignKey("owner.id"), nullable=False)
     pet_type = db.Column(db.String(100))
-    room = db.Column(db.Integer, nullable=False)
     hotel_bookings = db.relationship("Booking", backref=db.backref("hotel"))
     invoices = db.relationship("Invoice", backref=db.backref("hotel"))
     favorites = db.relationship("Favorite", backref=db.backref("hotel"))

@@ -14,15 +14,15 @@ export const AddHotel = () => {
     others: false,
   });
 
-  const [ services, setServices ] = useState({
+  const [services, setServices] = useState({
     Overnight: false,
     Daycare: false,
-    Dog_walking: false, 
-    Veterinarian: false, 
-    Transportation: false, 
-    Training: false, 
-    others: false
-  })
+    Dog_walking: false,
+    Veterinarian: false,
+    Transportation: false,
+    Training: false,
+    others: false,
+  });
 
   const [hotelData, setHotelData] = useState(() => ({
     name: "",
@@ -33,7 +33,7 @@ export const AddHotel = () => {
     phone_number: "",
     base_price: "",
     hotel_description: "",
-    hotel_owner_id: "", // hay que tomar el owner id
+    hotel_owner_id: JSON.parse(localStorage.getItem("owner"))?.id || "", // hay que tomar el owner id
     pet_type: [],
     services: [],
 

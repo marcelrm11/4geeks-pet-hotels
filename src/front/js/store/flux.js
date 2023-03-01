@@ -411,13 +411,13 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       handleEntry: (e) => {
-        const actions = getActions()
+        const actions = getActions();
         const formattedDate = moment(e.target.value).format("YYYY-MM-DD");
         actions.handleEntryDate(formattedDate);
       },
 
       handleCheckOut: (e) => {
-        const actions = getActions()
+        const actions = getActions();
         const formattedDate = moment(e.target.value).format("YYYY-MM-DD");
         actions.handleCheckOutDate(formattedDate);
       },
