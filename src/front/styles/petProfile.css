@@ -40,6 +40,12 @@ p {
 }
 
 .content {
-  justify-content: space-between;
+  justify-content: space-evenly;
   margin: 1rem 0;
+}
+
+@media (min-width: 769px) {
+  .pet_section {
+    flex-direction: row;
+  }
 }

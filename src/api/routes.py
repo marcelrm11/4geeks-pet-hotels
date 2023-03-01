@@ -254,6 +254,8 @@ def create_pet():
 
             pet_dict = pet.serialize()
             response = jsonify(pet_dict)
+            response.headers["Access-Control-Allow-Credentials"] = "true"
+            response.headers["Access-Control-Allow-Origin"] = "*"
             return response, 200
         except IntegrityError as e:
             db.session.rollback()

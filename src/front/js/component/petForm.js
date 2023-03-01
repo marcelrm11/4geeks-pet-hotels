@@ -5,11 +5,7 @@ import { Button } from "./button";
 import { Image } from "./image";
 import pug from "../../img/pug.jpg";
 
-export const SignUpOwnerForm = ({
-  ownerData,
-  handleChange,
-  handleValidate,
-}) => {
+export const PetForm = ({ petData, handleChange, handleValidate }) => {
   const { store, actions } = useContext(Context);
 
   return (
@@ -23,25 +19,13 @@ export const SignUpOwnerForm = ({
         />
       </div>
       <div className="signup_info">
-        <h1 className="signUp_title title-font">Join us now</h1>
+        <h1 className="signUp_title title-font">Add pet</h1>
         <div className="inputs_section">
-          <input
-            type="hidden"
-            id="crsf_token"
-            value={ownerData.crsf_token}
-            onChange={handleChange}
-          />
-          {Object.entries(ownerData).map(([field, value]) => {
+          {Object.entries(petData).map(([field, value]) => {
             return (
               <Input
                 key={field}
-                type={
-                  field.includes("password")
-                    ? "password"
-                    : field.includes("email")
-                    ? "email"
-                    : "text"
-                }
+                type={field}
                 id={field}
                 placeholder={actions.removeUnderscores(
                   actions.capitalize(field)
@@ -61,7 +45,7 @@ export const SignUpOwnerForm = ({
         </div>
         <div className="btn_container dp-grid-o-cl sign_up_btns">
           <Button buttonClass="red_Btn access_btn" onClick={handleValidate}>
-            <span className="white_letter">Sign up</span>
+            <span className="white_letter">Add pet</span>
           </Button>
         </div>
       </div>

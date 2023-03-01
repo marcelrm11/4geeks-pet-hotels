@@ -22,6 +22,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       errors: {},
       signupSuccessful: false,
       addHotelSuccessful: false,
+      CreatedSuccesfully: false,
       showModal: false,
       user: {
         email: "",
@@ -438,6 +439,54 @@ const getState = ({ getStore, getActions, setStore }) => {
           setStore({ entryDate: formattedDate });
         }
         console.log(store.entryDate);
+      },
+
+      handleValidatePetForm: (ev, petData) => {
+        const actions = getActions();
+        ev.preventDefault();
+        let newErrors = {};
+        for (let field in petData) {
+          if (petData[field] === "") {
+            newErrors[field] = `${field} is required`;
+          } 
+        }
+        if (Object.keys(newErrors).length === 0) {
+          actions.handleAddpetData(petData);
+        } else {
+          setStore({ errors: newErrors });
+          console.log("errors", newErrors);
+        }
+        return Object.keys(newErrors).length === 0;
+      },
+
+      handleAddpetData: async (petData) => {
+        console.log("sent form:", petData);
+        const store = getStore();
+        store.CreatedSuccesfully = false;
+        try {
+          const response = await fetch(
+            process.env.BACKEND_URL + "/api/pet/create",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(petData),
+            }
+          );
+
+          console.log("response", response);
+          if (response.ok) {
+            const data = await response.json();
+            console.log("data", data);
+            setStore({ CreatedSuccesfully: true });
+            setTimeout(() => setStore({ CreatedSuccesfully: false }), 4000);
+            return true;
+          }
+          throw Error(response.statusText);
+        } catch (e) {
+          console.log("error:", e);
+        }
       },
     },
   };
