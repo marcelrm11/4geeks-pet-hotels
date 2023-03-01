@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import "../../styles/addHotel.css";
 import { Context } from "../store/appContext";
 import { AddHotelData } from "../component/addHotelForm";
+import { Navigate } from "react-router";
 
 export const AddHotel = () => {
   const { store, actions } = useContext(Context);
@@ -33,7 +34,7 @@ export const AddHotel = () => {
     phone_number: "",
     base_price: "",
     hotel_description: "",
-    hotel_owner_id: "", // hay que tomar el owner id
+    hotel_owner_id: JSON.parse(localStorage.getItem("owner"))?.id || "", // hay que tomar el owner id
     pet_type: [],
     services: [],
 
@@ -67,11 +68,7 @@ export const AddHotel = () => {
   };
 
   return store.addHotelSuccessful ? (
-    <>
-      <div className="successful_hotel_added">
-        <h2>Your hotel was added successfuly</h2>
-      </div>
-    </>
+    <Navigate to="/" />
   ) : (
     <div className="text-center mt-5">
       <div className="forms">

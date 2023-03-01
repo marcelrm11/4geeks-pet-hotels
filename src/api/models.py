@@ -17,7 +17,7 @@ class User(db.Model):
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
     is_owner = db.Column(db.Boolean(), unique=False,
-                          nullable=False, default=False)
+                         nullable=False, default=False)
     country = db.Column(db.String(30), nullable=False)
     zip_code = db.Column(db.String(30), nullable=False)
     phone_number = db.Column(db.String(20), nullable=False)
@@ -115,7 +115,7 @@ class Owner(db.Model):
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
     is_owner = db.Column(db.Boolean(), unique=False,
-                          nullable=False, default=True)
+                         nullable=False, default=True)
     country = db.Column(db.String(30), nullable=False)
     zip_code = db.Column(db.String(30), nullable=False)
     phone_number = db.Column(db.String(), nullable=False)

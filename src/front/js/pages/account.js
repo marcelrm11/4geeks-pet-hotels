@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import "../../styles/account.css";
+import { Context } from "../store/appContext";
 
 export const Account = () => {
+  const { store } = useContext(Context);
+  console.log(store.user);
   return (
     <>
       <div className="account_section w-100 d_flex_col">

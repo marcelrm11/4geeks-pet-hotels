@@ -36,10 +36,12 @@ export const Home = () => {
   ]);
 
   useEffect(() => {
+    actions.listing();
+    console.log("store hotels:", store.hotels);
     for (let i = 0; i < store.hotels.length && i < 3; i++) {
-      setHotelsInfo(<HotelCard hotel={store.hotels[i]} key={i} index={i} />);
+      setHotelsInfo(store.hotels);
     }
-  }, []);
+  }, [store.hotels.length]);
 
   const bs_values = values.map((item, index) => {
     return (
@@ -82,7 +84,11 @@ export const Home = () => {
       </section>
 
       <section className="home_hotels w-100 d-flex align-items-center">
-        {hotelsInfo}
+        {hotelsInfo.map((h, i) => {
+          if (i < 3) {
+            return <HotelCard hotel={h} key={h.id} />;
+          }
+        })}
       </section>
 
       <section className="home_welcome_info">
