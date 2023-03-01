@@ -120,6 +120,7 @@
 }
 
 .card_section {
+  position: relative;
   margin: 3rem 0;
   border: none;
   overflow: hidden;
@@ -164,6 +165,7 @@
 .favoritesBtn:hover {
   background-color: transparent;
   border: transparent;
+  color: var(--salmon);
 }
 
 .favorites_icon {

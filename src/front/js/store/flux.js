@@ -132,7 +132,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         fetch(url)
           .then((response) => response.json())
-          .then((data) => setStore({ hotels: data.hotels }));
+          .then((data) => {
+            console.log(data);
+            setStore({ hotels: data.hotels });
+          });
         setStore({ loading: false });
       },
 

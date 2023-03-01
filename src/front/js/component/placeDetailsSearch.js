@@ -8,11 +8,15 @@ export const PlaceDetailsSearch = ({ details, overallRating }) => {
     <div className=" w-100 d_flex_col">
       <div className="hotel_details_images w-100 d_flex_row">
         <figure className="place_detail_img">
-          <img className="w-100" src="https://picsum.photos/200" alt="" />
+          <img
+            className="w-100"
+            src="https://picsum.photos/200?random=1"
+            alt=""
+          />
         </figure>
         <figure className="more_detail_images">
-          <img src="https://picsum.photos/200" alt="hotel_images_1" />
-          <img src="https://picsum.photos/200" alt="hotel_images_2" />
+          <img src="https://picsum.photos/200?random=2" alt="hotel_images_1" />
+          <img src="https://picsum.photos/200?random=3" alt="hotel_images_2" />
         </figure>
       </div>
       <div>
