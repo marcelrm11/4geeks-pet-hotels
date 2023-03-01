@@ -44,6 +44,14 @@ a:hover {
   margin: 20px auto;
 }
 
+/*forms display none inputs*/
+
+#gender,
+#pet_type,
+#services {
+  display: none;
+}
+
 body {
   width: 100vw;
   height: 100vh;

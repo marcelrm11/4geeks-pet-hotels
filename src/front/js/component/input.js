@@ -15,7 +15,7 @@ export const Input = ({
   useEffect(actions.setCountryList, []);
 
   return (
-    <div className="d-inline position-relative">
+    <>
       {name === "country" ? (
         <CustomSelect
           name={name}
@@ -39,6 +39,8 @@ export const Input = ({
         />
       )}
       {children}
-    </div>
+    </>
   );
 };
+
+// div className="d-inline position-relative"

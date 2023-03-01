@@ -5,7 +5,7 @@ from wtforms import StringField, PasswordField, DateTimeField, DateField, Decima
 from wtforms.validators import InputRequired, Email, Length, EqualTo, Regexp, ValidationError, NumberRange
 import re
 
-from api.models import PetType
+# from api.models import PetType
 
 password_msg = "Password must contain at least one uppercase, one lowercase, one digit and one special character."
 password_regex = re.compile(
@@ -45,12 +45,12 @@ class ShortOwnerForm(FlaskForm):
 
 class PetForm(FlaskForm):
     name = StringField("Name", validators=[InputRequired()])
-    pet_type = SelectField("Pet Type", choices=[(
-        tag.name, tag.value) for tag in PetType])
+    pet_type = StringField("Pet_type", validators=[InputRequired()])
     breed = StringField("Breed", validators=[InputRequired()])
-    birth_date = StringField("Birth Date", validators=[InputRequired()])
+    birth_date = StringField("Birth_date", validators=[InputRequired()])
     health = StringField("Health", validators=[InputRequired()])
-    pet_owner_id = IntegerField("Pet Owner ID", validators=[InputRequired()])
+    gender = StringField("Gender", validators=[InputRequired()])
+    pet_owner_id = IntegerField("Pet_owner_id", validators=[InputRequired()])
 
 
 class HotelForm(FlaskForm):

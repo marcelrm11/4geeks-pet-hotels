@@ -48,23 +48,23 @@ class User(db.Model):
         }
 
 
-class PetType(Enum):
-    DOG = 'dog',
-    CAT = 'cat',
-    RODENT = 'rodent',
-    BIRD = 'bird',
-    OTHER = 'other',
-    ANY = 'any'
-
+# class PetType(Enum):
+#     DOG = 'dog',
+#     CAT = 'cat',
+#     RODENT = 'rodent',
+#     BIRD = 'bird',
+#     OTHER = 'other',
+#     ANY = 'any'
 
 class Pets(db.Model):
     __tablename__ = "pets"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
-    pet_type = db.Column(db.Enum(PetType, name='pet_type'), nullable=False)
+    pet_type = db.Column(db.String(50), nullable=False)
     breed = db.Column(db.String(50), nullable=False, default="N/A")
     birth_date = db.Column(db.String(), nullable=False)
     health = db.Column(db.String(50), nullable=False)
+    gender = db.Column(db.String(50), nullable=False)
     pet_owner_id = db.Column(
         db.Integer, db.ForeignKey("user.id"), nullable=False)
     bookings = db.relationship("Booking", backref=db.backref("pets"))
@@ -79,6 +79,7 @@ class Pets(db.Model):
             "pet_type": self.pet_type,
             "breed": self.breed,
             "birth_date": self.birth_date,
+            "gender": self.gender,
             "health": self.health,
             "pet_owner_id": self.pet_owner_id
         }
@@ -215,7 +216,6 @@ class Review(db.Model):
 class Room(db.Model):
     __tablename__ = "room"
     id = db.Column(db.Integer, primary_key=True)
-    pet_type = db.Column(db.Enum(PetType, name='pet_type'), default='any')
     hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.id"), nullable=False)
     bookings = db.relationship("Booking", backref=db.backref("room"))
 

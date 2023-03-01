@@ -44,6 +44,10 @@ p {
   margin: 1rem 0;
 }
 
+.pet_type_input_container input {
+  min-width: none;
+}
+
 @media (min-width: 769px) {
   .pet_section {
     flex-direction: row;

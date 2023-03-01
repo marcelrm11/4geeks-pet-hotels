@@ -35,7 +35,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       entryDate: "dd/mm/yyyy",
       checkOutDate: "dd/mm/yyyy",
       differenceInDays: 0,
-
+      pets: [],
       button: [
         {
           btn_class: "log_socialMedia google_signup_btn",
@@ -50,6 +50,8 @@ const getState = ({ getStore, getActions, setStore }) => {
           link_class: "white_letter",
         },
       ],
+
+      checkInput: ["dog", "cat", "rodent", "bird", "others"],
     },
     actions: {
       handleSelectType: (boolean) => {
@@ -322,7 +324,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       addFavorites: (id) => {
         const store = getStore();
-        const actions = getActions();
         store.hotels.map((hotel) => {
           if (hotel.id === id && !store.favorites.find((f) => f.id === id)) {
             setStore({
@@ -446,9 +447,9 @@ const getState = ({ getStore, getActions, setStore }) => {
         ev.preventDefault();
         let newErrors = {};
         for (let field in petData) {
-          if (petData[field] === "") {
+          if ((petData[field] === "") | []) {
             newErrors[field] = `${field} is required`;
-          } 
+          }
         }
         if (Object.keys(newErrors).length === 0) {
           actions.handleAddpetData(petData);
@@ -476,6 +477,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
 
           console.log("response", response);
+
           if (response.ok) {
             const data = await response.json();
             console.log("data", data);
@@ -486,6 +488,25 @@ const getState = ({ getStore, getActions, setStore }) => {
           throw Error(response.statusText);
         } catch (e) {
           console.log("error:", e);
+        }
+      },
+
+      getAllPets: async () => {
+        const store = getStore();
+
+        try {
+          const response = await fetch(process.env.BACKEND_URL + "/api/pets");
+          if (response.ok) {
+            const data = await response.json();
+            setStore({ pets: data.pets });
+            console.log("data", data);
+            console.log(store.pets);
+            return data;
+          } else {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+        } catch (error) {
+          console.error("Error fetching data: ", error);
         }
       },
     },
