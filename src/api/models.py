@@ -63,6 +63,7 @@ class Pets(db.Model):
     pet_type = db.Column(db.String(50), nullable=False)
     breed = db.Column(db.String(50), nullable=False, default="N/A")
     birth_date = db.Column(db.String(), nullable=False)
+    age = db.Column(db.Integer, nullable=True)
     health = db.Column(db.String(50), nullable=False)
     gender = db.Column(db.String(50), nullable=False)
     pet_owner_id = db.Column(
@@ -81,6 +82,8 @@ class Pets(db.Model):
             "birth_date": self.birth_date,
             "gender": self.gender,
             "health": self.health,
+            "age": self.age,
+            
             "pet_owner_id": self.pet_owner_id
         }
 
