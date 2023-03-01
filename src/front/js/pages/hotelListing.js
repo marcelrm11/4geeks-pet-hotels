@@ -31,23 +31,6 @@ export const HotelListing = () => {
     actions.listing(searchFilters);
   };
 
-  // const handleEntry = (e) => {
-  //   const formattedDate = moment(e.target.value).format("YYYY-MM-DD");
-  //   // setSearchFilters({
-  //   //   ...searchFilters,
-  //   //   entryDate: formattedDate,
-  //   // });
-  //   actions.handleEntryDate(formattedDate);
-  // };
-
-  // const handleCheckOut = (e) => {
-  //   const formattedDate = moment(e.target.value).format("YYYY-MM-DD");
-  //   // setSearchFilters({
-  //   //   ...searchFilters,
-  //   //   checkOutDate: formattedDate,
-  //   // });
-  //   actions.handleCheckOutDate(formattedDate);
-  // };
 
   const handlePetTypeChange = (ev) => {
     const pet = ev.target.value;

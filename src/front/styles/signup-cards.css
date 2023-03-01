@@ -17,8 +17,8 @@
 .user_card {
   background-image: linear-gradient(
     to left,
-    var(--salmon) 50%,
-    var(--darkRed) 50%
+    var(--mediumBlue) 50%,
+    var(--darkBlue) 50%
   );
 }
 
@@ -33,40 +33,45 @@
   background-image: linear-gradient(
     to left,
     var(--turquoise) 50%,
-    var(--mediumBlue) 50%
+    var(--darkBlue) 50%
   );
 }
 
+.check_icon {
+  margin-right: 0.5rem;
+}
+
 .cards_title {
-  padding: 1.5rem;
+  padding: 0.5rem;
   margin: 0;
-}
-
-.user_img_container,
-.owner_img_container {
-  width: 70%;
-  min-width: 150px;
-  height: fit-content;
-}
-
-.user_img_container img,
-.owner_img_container img {
-  max-width: 200px;
 }
 
 .owner_paragraph,
 .user_paragraph {
-  padding: 1.5rem;
+  padding: 0 0.5rem;
   margin: 0;
 }
 
+.paragraph_container {
+  line-height: 1.5rem;
+}
+
+.paragraph_container li {
+  margin: 1rem 0;
+}
+
 @media (min-width: 769px) {
+  .cards_all_container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
   .user_card,
   .owner_card {
-    width: 80%;
-    max-width: none;
-    display: flex;
-    min-height: 250px;
+    min-width: 300px;
+    max-height: 350px;
   }
 
   .paragraph_container {

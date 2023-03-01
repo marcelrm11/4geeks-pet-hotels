@@ -22,7 +22,7 @@ export const AddHotelData = ({
     "Veterinarian",
     "Transportation",
     "Training",
-    "others",
+    "more",
   ];
 
   const petsInput = checkInput.map((item, index) => {

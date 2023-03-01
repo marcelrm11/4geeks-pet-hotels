@@ -46,18 +46,18 @@ export const LoginForm = ({ credentials, onChange, onLogin }) => {
       redirect: "/",
       link_class: "white_letter",
     },
-    {
-      btn_class: "  mg-tb  log_socialMedia google_signup_btn ",
-      type: "Sign up with Google",
-      redirect: "/",
-      link_class: "white_letter",
-    },
-    {
-      btn_class: " log_socialMedia ",
-      type: "Sign up with Facebook",
-      redirect: "/",
-      link_class: "white_letter",
-    },
+    // {
+    //   btn_class: "  mg-tb  log_socialMedia google_signup_btn ",
+    //   type: "Sign up with Google",
+    //   redirect: "/",
+    //   link_class: "white_letter",
+    // },
+    // {
+    //   btn_class: " log_socialMedia ",
+    //   type: "Sign up with Facebook",
+    //   redirect: "/",
+    //   link_class: "white_letter",
+    // },
   ]);
 
   const button_type = button.map((item, index) => {
