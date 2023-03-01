@@ -68,11 +68,7 @@ export const AddHotel = () => {
   };
 
   return store.addHotelSuccessful ? (
-    <>
-      <div className="successful_hotel_added">
-        <h2>Your hotel was added successfuly</h2>
-      </div>
-    </>
+    <Navigate to="/" />
   ) : (
     <div className="text-center mt-5">
       <div className="forms">

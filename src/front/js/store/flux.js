@@ -21,6 +21,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       errors: {},
       signupSuccessful: false,
+      loginSuccessful: false,
+      logoutSuccessful: false,
       addHotelSuccessful: false,
       showModal: false,
       user: {
@@ -97,6 +99,10 @@ const getState = ({ getStore, getActions, setStore }) => {
               owner: data.owner,
             });
           }
+          setStore({ loginSuccessful: true });
+          setTimeout(() => {
+            setStore({ loginSuccessful: false });
+          }, 3000);
         } catch (error) {
           setStore({ errors: error.errors });
           console.error(error, store.errors);
@@ -271,9 +277,9 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(response);
           // const cookies = response.headers.get("set-cookie");
           // console.log(cookies);
+          const data = await response.json();
+          console.log(data);
           if (response.ok) {
-            const data = await response.json();
-            console.log(data);
             setStore({ signupSuccessful: true });
             setTimeout(() => setStore({ signupSuccessful: false }), 4000);
             return true;
@@ -287,7 +293,10 @@ const getState = ({ getStore, getActions, setStore }) => {
       logout: () => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
-        setStore({ token: null, user: {} });
+        setStore({ token: null, user: {}, logoutSuccessful: true });
+        setTimeout(() => {
+          setStore({ logoutSuccessful: false });
+        }, 3000);
       },
       // helper functions
       camelToKebab: (word) => {
