@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import "../../styles/addHotel.css";
 import { Context } from "../store/appContext";
 import { AddHotelData } from "../component/addHotelForm";
+import { Navigate } from "react-router";
 
 export const AddHotel = () => {
   const { store, actions } = useContext(Context);

@@ -48,7 +48,7 @@ def handle_owner_login():
                 "access_token": access_token,
                 "owner": owner.serialize()
             })
-            mode: 'no-cors'
+            # mode: 'no-cors'
             response.headers["Access-Control-Allow-Credentials"] = "true"
             # response.headers["Access-Control-Allow-Origin"] = "*"
             set_access_cookies(response, access_token)
@@ -495,12 +495,6 @@ def create_hotel():
             hotel = Hotel(**hotel_data)
             db.session.add(hotel)
             db.session.commit()
-
-<<<<<<< HEAD
-=======
-            print(hotel_data)
-
->>>>>>> development
             hotel_dict = hotel.serialize()
             response = jsonify(hotel_dict)
             response.headers["Access-Control-Allow-Credentials"] = "true"

@@ -376,7 +376,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           setStore({ errors: newErrors });
           console.log("errors", newErrors);
         }
-        hotel;
+        // hotel;
         return Object.keys(newErrors).length === 0;
       },
 
@@ -397,11 +397,13 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
 
           console.log("response", response);
+          const data = await response.json();
+          console.log("data", data);
           if (response.ok) {
-            const data = await response.json();
-            console.log("data", data);
             setStore({ addHotelSuccessful: true });
-            setTimeout(() => setStore({ addHotelSuccessful: false }), 4000);
+            setTimeout(() => {
+              setStore({ addHotelSuccessful: false });
+            }, 4000);
             return true;
           }
           throw Error(response.statusText);
