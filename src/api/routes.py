@@ -254,12 +254,16 @@ def create_pet():
             db.session.add(pet)
             db.session.commit()
 
+            print(pet)
+
             pet_dict = pet.serialize()
             response = jsonify(pet_dict)
+            # response.headers["Access-Control-Allow-Credentials"] = "true"
+            # response.headers["Access-Control-Allow-Origin"] = "*"
             return response, 200
         except IntegrityError as e:
             db.session.rollback()
-            return jsonify({"error": "database information check failed"}), 400
+            return jsonify({"error": "database information check failed", "ms": str(e)}), 400
         except Exception as e:
             db.session.rollback()
             print(sys.exc_info())

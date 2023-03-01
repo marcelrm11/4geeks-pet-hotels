@@ -11,11 +11,13 @@ import { SignupOwner } from "./pages/signup-owner";
 import { SelectSignup } from "./pages/selectSignup";
 import { Hotel } from "./pages/hotel";
 import { AddHotel } from "./pages/addHotel";
+import { AddPet } from "./pages/addPet";
 import { Booking } from "./pages/booking.js";
 import { HotelListing } from "./pages/hotelListing";
 import { Favorites } from "./pages/favorites.js";
 import { Profile } from "./pages/profile";
 import { Account } from "./pages/account";
+import { PetProfile } from "./pages/petProfile";
 
 const Layout = () => {
   const { store, actions } = useContext(Context);
@@ -38,7 +40,9 @@ const Layout = () => {
             <Route element={<SelectSignup />} path="/selectSignup" />
             <Route element={<SignupOwner />} path="/signup/owner" />
             <Route element={<Profile />} path="/profile" />
+            <Route element={<PetProfile />} path="/petProfile" />
             <Route element={<AddHotel />} path="/addHotel" />
+            <Route element={<AddPet />} path="/addPet" />
             <Route element={<HotelListing />} path="/hotelListing" />
             <Route element={<Hotel />} path="/hotel/:id" />
             <Route element={<Booking />} path="/booking" />

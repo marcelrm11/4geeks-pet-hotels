@@ -3,7 +3,6 @@ import { Context } from "../store/appContext";
 import { Input } from "./input.js";
 import { Button } from "./button";
 import { Image } from "./image";
-import { Link } from "react-router-dom";
 import pug from "../../img/pug.jpg";
 
 export const SignUpOwnerForm = ({
@@ -12,16 +11,6 @@ export const SignUpOwnerForm = ({
   handleValidate,
 }) => {
   const { store, actions } = useContext(Context);
-
-  // const button_type = store.button.map((item, index) => {
-  //   return (
-  //     <Button key={index} buttonClass={item.btn_class} data-bs-dismiss="modal">
-  //       <Link to={item.redirect} className={item.link_class}>
-  //         {item.type}
-  //       </Link>
-  //     </Button>
-  //   );
-  // });
 
   return (
     <form className="signup-input-container input-container dp-grid dp-g-center">
@@ -74,7 +63,6 @@ export const SignUpOwnerForm = ({
           <Button buttonClass="red_Btn access_btn" onClick={handleValidate}>
             <span className="white_letter">Sign up</span>
           </Button>
-          {/* {button_type} */}
         </div>
       </div>
     </form>

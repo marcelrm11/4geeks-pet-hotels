@@ -14,7 +14,6 @@ export const AddHotelData = ({
 }) => {
   const { store, actions } = useContext(Context);
 
-  const checkInput = ["dog", "cat", "rodent", "bird", "others"];
   const servicesInputs = [
     "Overnight",
     "Daycare",
@@ -25,7 +24,7 @@ export const AddHotelData = ({
     "more",
   ];
 
-  const petsInput = checkInput.map((item, index) => {
+  const petsInput = store.checkInput.map((item, index) => {
     return (
       <div key={index} className="radio_input d_flex_col ">
         <input

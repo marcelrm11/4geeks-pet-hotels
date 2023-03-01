@@ -44,6 +44,14 @@ a:hover {
   margin: 20px auto;
 }
 
+/*forms display none inputs*/
+
+#gender,
+#pet_type,
+#services {
+  display: none;
+}
+
 body {
   width: 100vw;
   height: 100vh;
@@ -257,7 +265,7 @@ select {
 }
 
 .bg-lighter-blue {
-  background-color: var(--lighterBlue);
+  background-color: var(--lighterBlue) !important;
 }
 
 .bg-turquoise {
@@ -304,6 +312,10 @@ select {
 
 .white_letter {
   color: white;
+}
+
+.bold {
+  font-weight: bold;
 }
 
 /*input width*/

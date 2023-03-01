@@ -1,7 +1,9 @@
 .profile_card_section {
   background-color: var(--darkBlue);
   width: 90%;
+  min-width: 320px;
   min-height: 180px;
+  max-height: 180px;
   border: none;
   border-radius: 0.5rem;
   padding: 1rem;
