@@ -257,7 +257,7 @@ select {
 }
 
 .bg-lighter-blue {
-  background-color: var(--lighterBlue);
+  background-color: var(--lighterBlue) !important;
 }
 
 .bg-turquoise {
@@ -304,6 +304,10 @@ select {
 
 .white_letter {
   color: white;
+}
+
+.bold {
+  font-weight: bold;
 }
 
 /*input width*/

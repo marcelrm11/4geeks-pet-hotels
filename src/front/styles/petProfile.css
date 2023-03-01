@@ -1,0 +1,45 @@
+.pet_profile_img_container {
+  max-width: 400px;
+}
+
+.pets_profile_info {
+  width: 100%;
+  max-width: 350px;
+  padding: 0.5rem 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  color: rgba(0, 0, 0, 1);
+  justify-content: space-around;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+p {
+  margin: 0;
+}
+
+.pets_profile_description {
+  padding: 0 1rem;
+  text-align: justify;
+}
+
+.pets_profile_text {
+  flex-direction: row !important;
+  align-items: center;
+}
+
+.pet_details {
+  max-width: 80px;
+  max-height: 80px;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.content {
+  justify-content: space-between;
+  margin: 1rem 0;
+}
