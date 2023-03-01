@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,35 +6,50 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 const HotelCard = (props) => {
   const { store, actions } = useContext(Context);
+  let userFavorites = [];
+  const [heartClass, setHeartClass] = useState(
+    "transparent_bg favorites_icon font-s favoritesBtn"
+  );
+  const notInitialRender = useRef(false);
+  useEffect(() => {
+    if (notInitialRender.current) {
+      console.log("favorites:", store.user.favorites);
+      for (let fav of store.user.favorites) {
+        userFavorites.push(fav.hotel_id);
+      }
+      const extraClass = userFavorites.includes(props.hotel.id)
+        ? " red_bg"
+        : "";
+
+      setHeartClass((prev) => prev + extraClass);
+    } else {
+      notInitialRender.current = true;
+    }
+  }, [store.user.favorites?.length]);
 
   return (
     <div
-      key={props.index}
+      key={props.hotel.id}
       className="card card_section"
       style={{ width: "16rem" }}
     >
       <img
-        src="https://picsum.photos/200"
+        src={`https://picsum.photos/id/${props.hotel.id}/200`}
         className="card-img-top hotel_image"
         alt="..."
       />
-      <button
+      <FontAwesomeIcon
+        id="favorites_color"
+        icon={faHeart}
         onClick={() => actions.addFavorites(props.hotel.id, props.hotel.name)}
-        className="favoritesBtn"
-      >
-        <FontAwesomeIcon
-          id="favorites_color"
-          icon={faHeart}
-          onClick={() => actions.handleFavColor()}
-          className="transparent_bg favorites_icon font-s"
-        />
-      </button>
+        className={heartClass}
+      />
       <div className="white_letter card-body">
         <div className="hotel_title_section d-fle">
           <h5 className="font-xs">{props.hotel.name}</h5>
           <span className="hotel_stars">
             <FontAwesomeIcon className="stars" icon={faHeart} />
-            4.6
+            {(Math.random() + 3.5).toFixed(1)}
           </span>
         </div>
         <hr />

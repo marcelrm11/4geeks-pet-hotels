@@ -48,10 +48,7 @@ const HotelListinSearch = ({ filters, onChange, onClick, onPetChange }) => {
         >
           Select a country
         </CustomSelect>
-        <Button
-          buttonClass="general_button search_btn red_Btn"
-          onClick={onClick}
-        >
+        <Button buttonClass="search_btn red_Btn" onClick={onClick}>
           <span className="white_letter">Apply Filters</span>
         </Button>
       </div>

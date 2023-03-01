@@ -31,7 +31,6 @@ export const HotelListing = () => {
     actions.listing(searchFilters);
   };
 
-
   const handlePetTypeChange = (ev) => {
     const pet = ev.target.value;
     const updatedPetTypes = {
@@ -41,8 +40,8 @@ export const HotelListing = () => {
     setSearchFilters({ ...searchFilters, petTypes: updatedPetTypes });
   };
 
-  const hotelsInfo = store.hotels.map((hotel, index) => {
-    return <HotelCard hotel={hotel} key={index} index={index} />;
+  const hotelsInfo = store.hotels.map((hotel) => {
+    return <HotelCard hotel={hotel} key={hotel.id} />;
   });
 
   if (store.loading) return <h1>Loading</h1>;

@@ -60,6 +60,19 @@ export const AddHotelData = ({
       </div>
     );
   });
+  // const services = (
+  //   <select
+  //     name="services"
+  //     className="py-0"
+  //     onChange={handleServices}
+  //     value={services}
+  //     multiple
+  //   >
+  //     {servicesInputs.map((s) => (
+  //       <option key={s}>{s}</option>
+  //     ))}
+  //   </select>
+  // );
 
   return (
     <form className="add_hotel_form">
@@ -76,25 +89,43 @@ export const AddHotelData = ({
         <div>
           <div className="text_inputs_container dp-grid-o-cl gp-o border-style-two">
             {Object.entries(hotelData).map(([field, value]) => {
-              return (
-                <React.Fragment key={field}>
-                  <Input
-                    type={field.includes("email") ? "email" : "text"}
-                    id={field}
-                    placeholder={
-                      field.includes("pet_type")
-                        ? actions.removeUnderscores(
-                            actions.capitalize("Select admited pets")
-                          )
-                        : actions.removeUnderscores(actions.capitalize(field))
-                    }
-                    value={value}
-                    onChange={handleChange}
-                    required
-                  />
-                  {store.errors[field] && <p>{store.errors[field]}</p>}
-                </React.Fragment>
-              );
+              if (!["hotel_owner_id", "pet_type", "services"].includes(field)) {
+                return (
+                  <React.Fragment key={field}>
+                    {field === "hotel_description" ? (
+                      <div>
+                        <textarea
+                          id={field}
+                          name={field}
+                          rows="6"
+                          cols="21"
+                          placeholder="Write a short description of your facilities"
+                          value={value}
+                          onChange={handleChange}
+                        />
+                      </div>
+                    ) : (
+                      <Input
+                        type={field === "email" ? "email" : "text"}
+                        id={field}
+                        placeholder={
+                          field.includes("pet_type")
+                            ? actions.removeUnderscores(
+                                actions.capitalize("Select admited pets")
+                              )
+                            : actions.removeUnderscores(
+                                actions.capitalize(field)
+                              )
+                        }
+                        value={value}
+                        onChange={handleChange}
+                        required
+                      />
+                    )}
+                    {store.errors[field] && <p>{store.errors[field]}</p>}
+                  </React.Fragment>
+                );
+              }
             })}
           </div>
           <div>

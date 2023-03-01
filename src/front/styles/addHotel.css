@@ -16,6 +16,15 @@ select {
   margin: 0.5rem 1.2rem;
 }
 
+textarea {
+  background-color: var(--lighterBlue);
+  border: none;
+  border-radius: 0.3rem;
+  padding: 1rem;
+  font-size: 0.8rem;
+  margin-top: 0.4em;
+}
+
 @media (max-width: 768px) {
   .addHotel_form_submit {
     margin-top: 2rem;
@@ -37,7 +46,7 @@ select {
 
   .radio_input {
     width: 80px;
-     margin: 1rem 2rem;
+    margin: 1rem 2rem;
   }
 
   .pet_type_checkbox {

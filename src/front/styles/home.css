@@ -89,7 +89,7 @@
   }
 
   .home_hotels {
-    flex-direction: column;
+    flex-wrap: wrap;
   }
 
   .home_image {

@@ -21,11 +21,11 @@ const Layout = () => {
   const { store, actions } = useContext(Context);
 
   const basename = process.env.BASENAME || "";
-  
+
   useEffect(() => {
     actions.getUserFromSessionStorage();
     actions.tokenSessionStore();
-  },[])
+  }, []);
 
   return (
     <div>

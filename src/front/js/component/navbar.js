@@ -59,59 +59,83 @@ export const Navbar = () => {
   });
 
   return (
-    <nav className="navbar navbar_background">
-      <div className="container">
-        <Link to="/">
-          <span className="navbar-brand mb-0 h1 title-font">PetCasa</span>
-        </Link>
-        <div className="ml-auto nav_buttons">
-          {!store.token ? (
-            <>
-              <Link to="/selectSignup">
-                <button className="btn btn-danger general_button red_Btn">
-                  Sign Up
+    <>
+      <nav className="navbar navbar_background">
+        <div className="container">
+          <Link to="/">
+            <span className="navbar-brand mb-0 h1 title-font">PetCasa</span>
+          </Link>
+          <div className="ml-auto nav_buttons">
+            {!store.token ? (
+              <>
+                <Link to="/selectSignup">
+                  <button className="btn btn-danger general_button red_Btn">
+                    Sign Up
+                  </button>
+                </Link>
+
+                <button
+                  type="button"
+                  className="btn btn-primary blue_Btn general_button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#loginModal"
+                >
+                  Log In
+                </button>
+                <LoginModal
+                  onLogin={handleLogin}
+                  onChange={handleChange}
+                  credentials={credentials}
+                />
+              </>
+            ) : (
+              <Link to="/">
+                <button
+                  onClick={() => actions.logout()}
+                  className="btn btn-danger"
+                >
+                  Log out
                 </button>
               </Link>
-
-              <button
-                type="button"
-                className="btn btn-primary blue_Btn general_button"
-                data-bs-toggle="modal"
-                data-bs-target="#loginModal"
+            )}
+            <div className="dropdown">
+              <p
+                className="btn btn-secondary dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
               >
-                Log In
-              </button>
-              <LoginModal
-                onLogin={handleLogin}
-                onChange={handleChange}
-                credentials={credentials}
-              />
-            </>
-          ) : (
-            <Link to="/">
-              <button
-                onClick={() => actions.logout()}
-                className="btn btn-danger"
-              >
-                Log out
-              </button>
-            </Link>
-          )}
-          <div className="dropdown">
-            <p
-              className="btn btn-secondary dropdown-toggle"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Buttons
-            </p>
+                Buttons
+              </p>
 
-            <ul className="dropdown-menu">{button_type}</ul>
+              <ul className="dropdown-menu">{button_type}</ul>
+            </div>
           </div>
         </div>
+      </nav>
+      <div className="alerts">
+        {store.signupSuccessful && (
+          <div className="alert alert-success" role="alert">
+            Your profile was created successfuly. Please, log in.
+          </div>
+        )}
+        {store.loginSuccessful && (
+          <div className="alert alert-success" role="alert">
+            Login was successful.
+          </div>
+        )}
+        {store.logoutSuccessful && (
+          <div className="alert alert-secondary" role="alert">
+            Logged out successfully. See you next time!
+          </div>
+        )}
+        {store.addHotelSuccessful && (
+          <div className="alert alert-success" role="alert">
+            Your hotel was added successfuly.
+          </div>
+        )}
       </div>
-    </nav>
+    </>
   );
 };

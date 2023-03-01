@@ -27,6 +27,7 @@ api = Blueprint("api", __name__)
 # AUTHENTICATION ----------------------------------------------
 # Login -------------
 
+
 @api.route("/login/owner", methods=["POST"])
 def handle_owner_login():
     form = ShortOwnerForm(meta={"csrf": False})
@@ -47,9 +48,9 @@ def handle_owner_login():
                 "access_token": access_token,
                 "owner": owner.serialize()
             })
-            mode: 'no-cors'
+            # mode: 'no-cors'
             response.headers["Access-Control-Allow-Credentials"] = "true"
-            #response.headers["Access-Control-Allow-Origin"] = "*"
+            # response.headers["Access-Control-Allow-Origin"] = "*"
             set_access_cookies(response, access_token)
             return response, 200
         except Exception as e:
@@ -57,6 +58,7 @@ def handle_owner_login():
     else:
         errors = {field: errors[0] for field, errors in form.errors.items()}
         return jsonify({"error": "validation error", "errors": errors}), 400
+
 
 @api.route("/login", methods=["POST"])
 def handle_login():
@@ -373,7 +375,7 @@ def create_owner():
 
             response = jsonify(owner_dict)
             response.headers["Access-Control-Allow-Credentials"] = "true"
-            #response.headers["Access-Control-Allow-Origin"] = "*"
+            # response.headers["Access-Control-Allow-Origin"] = "*"
             set_access_cookies(response, access_token)
             return response, 200
         except IntegrityError as e:
@@ -493,17 +495,15 @@ def create_hotel():
             hotel = Hotel(**hotel_data)
             db.session.add(hotel)
             db.session.commit()
-
-            print(hotel_data)
-
             hotel_dict = hotel.serialize()
             response = jsonify(hotel_dict)
             response.headers["Access-Control-Allow-Credentials"] = "true"
             response.headers["Access-Control-Allow-Origin"] = "*"
             return response, 200
         except IntegrityError as e:
+            print(e)
             db.session.rollback()
-            return jsonify({"error": "database information check failed"}), 400
+            return jsonify({"error": str(e)}), 400
         except Exception as e:
             db.session.rollback()
             print(sys.exc_info())
@@ -561,13 +561,13 @@ def get_hotels():
         for pet in ["dog", "cat", "rodent", "bird", "others"]:
             if request.args.get(pet):
                 pets.append(pet)
-        
+
         print(pets)
 
         if len(pets) > 0:
             for pet in pets:
                 queryset = queryset.filter(Hotel.pet_type.contains(pet))
-        
+
         hotels = queryset.all()
         hotels_list = [hotel.serialize() for hotel in hotels]
         response_body = {
