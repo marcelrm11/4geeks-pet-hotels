@@ -50,6 +50,9 @@ p {
 
 @media (min-width: 769px) {
   .pet_section {
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 2%;
+    margin: 3rem 0;
   }
 }

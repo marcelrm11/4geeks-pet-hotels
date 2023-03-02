@@ -1,10 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../../styles/account.css";
 import { Context } from "../store/appContext";
 
 export const Account = () => {
-  const { store } = useContext(Context);
-  console.log(store.user);
+  const { store, actions } = useContext(Context);
+
+  const user = store.user;
+  console.log("user", store.user);
+
   return (
     <>
       <div className="account_section w-100 d_flex_col">
@@ -14,7 +17,7 @@ export const Account = () => {
               <figure>
                 <img src="https://picsum.photos/200" />
               </figure>
-              <p>name</p>
+              <p>{`${user.first_name} ${user.last_name}`}</p>
               <p>info</p>
             </div>
           </div>
@@ -23,9 +26,9 @@ export const Account = () => {
           <div className="account_info_background d_flex_col border-style">
             <div className="account_info_profile d_flex_col">
               <h2>your account</h2>
-              <p>email</p>
-              <p>password</p>
-              <p>location</p>
+              <p>{user.email}</p>
+              <p>Change password</p>
+              <p>{user.country}</p>
             </div>
           </div>
         </section>
