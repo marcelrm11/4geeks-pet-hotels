@@ -976,6 +976,21 @@ def add_favorite():
         errors = {field: errors[0] for field, errors in form.errors.items()}
         return jsonify({"error": "validation error", "errors": errors}), 400
 
+# GET: check if favorite exists -------
+
+
+@api.route("/favorite/<int:hotel_id>/<int:user_id>", methods=["GET"])
+def check_favorite(hotel_id, user_id):
+    try:
+        favorite = Favorite.query.filter_by(
+            hotel_id=hotel_id).filter_by(user_id=user_id).one_or_none()
+        if favorite:
+            return jsonify({"favorite": favorite.serialize()}), 200
+        else:
+            return jsonify({"msg": "favorite not found"}), 404
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 # DELETE: remove favorite --------------
 
 

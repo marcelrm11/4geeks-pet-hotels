@@ -176,7 +176,7 @@ class Hotel(db.Model):
             "country": self.country,
             "zip_code": self.zip_code,
             # "profile_image": self.profile_image,
-            "price": self.base_price,
+            "base_price": self.base_price,
             "pet_type": self.pet_type,
             # "room": self.room,
             "rooms": [r.serialize() for r in self.rooms],

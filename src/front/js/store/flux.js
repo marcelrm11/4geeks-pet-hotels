@@ -107,6 +107,22 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
+      updateUser: async (userId, token) => {
+        const response = await fetch(
+          process.env.BACKEND_URL + `/api/user/${userId}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log(response);
+        const userData = await response.json();
+        setStore({ user: userData });
+        localStorage.setItem("user", JSON.stringify(userData));
+      },
+
       listing: (searchFilters) => {
         const store = getStore();
         let url = process.env.BACKEND_URL + "/api/hotels";
@@ -318,7 +334,11 @@ const getState = ({ getStore, getActions, setStore }) => {
         return word.replaceAll("_", " ");
       },
       setCountryList: () => {
-        fetch("https://restcountries.com/v3.1/all")
+        fetch("https://restcountries.com/v3.1/all", {
+          headers: {
+            "Access-Control-Allow-Origin": "true",
+          },
+        })
           .then((res) => res.json())
           .then((data) => {
             let tempCountryList = [];
@@ -333,24 +353,46 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
       },
 
-      addFavorites: async (hotelId, userId) => {
-        const store = getStore();
-        const response = await fetch(
-          process.env.BACKEND_URL + "/api/favorite/create/",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              user_id: userId,
-              hotel_id: hotelId,
-            }),
-          }
+      toggleFavorite: async (hotelId, userId) => {
+        const actions = getActions();
+        const resFavorite = await fetch(
+          process.env.BACKEND_URL + `/api/favorite/${hotelId}/${userId}`
         );
-        console.log(response);
-        const data = await response.json();
-        console.log(data);
+        console.log(resFavorite);
+        const dataFavorite = await resFavorite.json();
+        console.log(dataFavorite);
+        if (resFavorite.ok) {
+          // favorite exists in db
+          const response = await fetch(
+            process.env.BACKEND_URL +
+              `/api/favorite/${dataFavorite.favorite.id}/delete`,
+            {
+              method: "DELETE",
+            }
+          );
+          console.log(response);
+          const data = await response.json();
+          console.log(data);
+        } else if (resFavorite.status === 404) {
+          // fav doesn't exist
+          const response = await fetch(
+            process.env.BACKEND_URL + "/api/favorite/create/",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                user_id: userId,
+                hotel_id: hotelId,
+              }),
+            }
+          );
+          console.log(response);
+          const data = await response.json();
+          console.log(data);
+        }
+        actions.updateUser(userId);
         // // store.hotels.map((hotel) => {
         // //   if (hotel.id === hotelId && !store.favorites.find((f) => f.id === hotelId)) {
         // //     setStore({
@@ -361,17 +403,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         // //     });
         // //   }
         // // });
-      },
-
-      handleFavColor: (hotel_id) => {
-        const icon = document.getElementById("favorites_color");
-        icon.classList.toggle("red_bg");
-      },
-
-      deleteFavorites: (id) => {
-        const store = getStore();
-        let deleteFav = store.favorites.filter((element) => element.id !== id);
-        setStore({ favorites: [...deleteFav] });
       },
 
       handleValidateHotelForm: (ev, hotelData) => {

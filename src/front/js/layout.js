@@ -29,6 +29,7 @@ const Layout = () => {
     console.log("layout use effect to fetch storage info");
     actions.getUserFromSessionStorage();
     actions.tokenSessionStore();
+    actions.updateUser(store.user.id, store.token);
   }, [store.user?.id]);
 
   return (
