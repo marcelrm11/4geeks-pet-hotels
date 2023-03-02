@@ -178,11 +178,11 @@ const getState = ({ getStore, getActions, setStore }) => {
         try {
           if (user !== null) {
             console.log("user == true, so parsing and setting");
-            const parsedUser = JSON.parse(useruser);
+            const parsedUser = JSON.parse(user);
             setStore({ user: parsedUser, userType: "user" });
           } else if (owner == true) {
             console.log("owner == true, so parsing and setting");
-            const parsedOwner = JSON.parse(ownerowner);
+            const parsedOwner = JSON.parse(owner);
             setStore({ owner: parsedOwner, userType: "owner" });
           }
         } catch (error) {

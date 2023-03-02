@@ -10,22 +10,22 @@ const HotelCard = (props) => {
   const [heartClass, setHeartClass] = useState(
     "transparent_bg favorites_icon font-s favoritesBtn"
   );
-  useEffect(() => {
-    if (store.user.favorites.length > 0) {
-      console.log("favorites:", store.user.favorites);
-      for (let fav of store.user.favorites) {
-        userFavorites.push(fav.hotel_id);
-      }
-      const extraClass = userFavorites.includes(props.hotel.id)
-        ? " red_bg"
-        : "";
-      setHeartClass((prev) => prev + extraClass);
-    } else {
-      setHeartClass("transparent_bg favorites_icon font-s favoritesBtn");
-    }
-  }, [store.user.favorites?.length]);
-  console.log("hotel card for:", props.hotel);
-  console.log("store user:", store.user);
+  // useEffect(() => {
+  //   if (store.user.favorites.length > 0) {
+  //     console.log("favorites:", store.user.favorites);
+  //     for (let fav of store.user.favorites) {
+  //       userFavorites.push(fav.hotel_id);
+  //     }
+  //     const extraClass = userFavorites.includes(props.hotel.id)
+  //       ? " red_bg"
+  //       : "";
+  //     setHeartClass((prev) => prev + extraClass);
+  //   } else {
+  //     setHeartClass("transparent_bg favorites_icon font-s favoritesBtn");
+  //   }
+  // }, [store.user.favorites?.length]);
+  // console.log("hotel card for:", props.hotel);
+  // console.log("store user:", store.user);
   return (
     <div
       key={props.hotel.id}
