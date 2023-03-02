@@ -20,14 +20,16 @@ import { Account } from "./pages/account";
 import { PetProfile } from "./pages/petProfile";
 
 const Layout = () => {
+  console.log("layout renders");
   const { store, actions } = useContext(Context);
 
   const basename = process.env.BASENAME || "";
 
   useEffect(() => {
+    console.log("layout use effect to fetch storage info");
     actions.getUserFromSessionStorage();
     actions.tokenSessionStore();
-  }, []);
+  }, [store.user?.id]);
 
   return (
     <div>

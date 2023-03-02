@@ -26,7 +26,8 @@ const HotelCard = (props) => {
       notInitialRender.current = true;
     }
   }, [store.user.favorites?.length]);
-
+  console.log("hotel card for:", props.hotel);
+  console.log("store user:", store.user);
   return (
     <div
       key={props.hotel.id}
@@ -41,7 +42,7 @@ const HotelCard = (props) => {
       <FontAwesomeIcon
         id="favorites_color"
         icon={faHeart}
-        onClick={() => actions.addFavorites(props.hotel.id, props.hotel.name)}
+        onClick={() => actions.addFavorites(props.hotel.id, store.user.id)}
         className={heartClass}
       />
       <div className="white_letter card-body">

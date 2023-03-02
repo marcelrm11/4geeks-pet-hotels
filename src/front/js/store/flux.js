@@ -26,13 +26,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       addHotelSuccessful: false,
       CreatedSuccesfully: false,
       showModal: false,
-      user: {
-        email: "",
-      },
-
-      owner: {
-        email: "",
-      },
+      user: {},
+      owner: {},
 
       entryDate: "dd/mm/yyyy",
       checkOutDate: "dd/mm/yyyy",
@@ -151,19 +146,23 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       getUserFromSessionStorage: () => {
+        console.log("getting user from LocalStorage");
         const user = localStorage.getItem("user");
+        console.log("user is:", user);
         const owner = localStorage.getItem("owner");
         try {
-          if (user == true) {
-            parsedUser = JSON.parse();
+          if (user !== null) {
+            console.log("user == true, so parsing and setting");
+            const parsedUser = JSON.parse(user);
             setStore({ user: parsedUser });
           } else if (owner == true) {
-            parsedOwner = JSON.parse();
+            console.log("owner == true, so parsing and setting");
+            const parsedOwner = JSON.parse(owner);
             setStore({ owner: parsedOwner });
           }
         } catch (error) {
           console.error("Error parsing user from session storage:", error);
-          setStore({ user: { email: "" }, owner: { email: "" } });
+          setStore({ user: {}, owner: {} });
         }
       },
 
@@ -334,18 +333,34 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
       },
 
-      addFavorites: (id) => {
+      addFavorites: async (hotelId, userId) => {
         const store = getStore();
-        store.hotels.map((hotel) => {
-          if (hotel.id === id && !store.favorites.find((f) => f.id === id)) {
-            setStore({
-              favorites: [
-                ...store.favorites,
-                { id: hotel.id, name: hotel.name },
-              ],
-            });
+        const response = await fetch(
+          process.env.BACKEND_URL + "/api/favorite/create/",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              user_id: userId,
+              hotel_id: hotelId,
+            }),
           }
-        });
+        );
+        console.log(response);
+        const data = await response.json();
+        console.log(data);
+        // // store.hotels.map((hotel) => {
+        // //   if (hotel.id === hotelId && !store.favorites.find((f) => f.id === hotelId)) {
+        // //     setStore({
+        // //       favorites: [
+        // //         ...store.favorites,
+        // //         { hotelId: hotelId, userId: userId },
+        // //       ],
+        // //     });
+        // //   }
+        // // });
       },
 
       handleFavColor: (hotel_id) => {
