@@ -339,7 +339,6 @@ def update_pet(pet_id):
 
 
 @api.route("/pet/<int:pet_id>/delete", methods=["DELETE"])
-@jwt_required()
 def delete_pet(pet_id):
     try:
         pet = Pets.query.filter_by(id=pet_id).first()

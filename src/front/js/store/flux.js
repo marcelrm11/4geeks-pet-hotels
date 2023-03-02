@@ -619,6 +619,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       handleDeletePet: async (pet_id, petData) => {
         console.log("old data", petData);
+        const store = getStore();
         try {
           const response = await fetch(
             `${process.env.BACKEND_URL}/api/pet/${pet_id}/delete`,
@@ -631,7 +632,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.log("data", data);
             setStore({ deletedSuccesfully: true });
             setTimeout(() => setStore({ deletedSuccesfully: false }), 1000);
-            const store = getStore();
             let deletePet = store.pets.filter(
               (element) => element.id !== pet_id
             );
