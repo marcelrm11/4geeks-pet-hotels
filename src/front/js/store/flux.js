@@ -334,7 +334,11 @@ const getState = ({ getStore, getActions, setStore }) => {
         return word.replaceAll("_", " ");
       },
       setCountryList: () => {
-        fetch("https://restcountries.com/v3.1/all")
+        fetch("https://restcountries.com/v3.1/all", {
+          headers: {
+            "Access-Control-Allow-Origin": "true",
+          },
+        })
           .then((res) => res.json())
           .then((data) => {
             let tempCountryList = [];
@@ -399,17 +403,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         // //     });
         // //   }
         // // });
-      },
-
-      handleFavColor: (hotel_id) => {
-        const icon = document.getElementById("favorites_color");
-        icon.classList.toggle("red_bg");
-      },
-
-      deleteFavorites: (id) => {
-        const store = getStore();
-        let deleteFav = store.favorites.filter((element) => element.id !== id);
-        setStore({ favorites: [...deleteFav] });
       },
 
       handleValidateHotelForm: (ev, hotelData) => {

@@ -53,7 +53,7 @@ const HotelCard = (props) => {
         </div>
         <hr />
         <p className="card-text">{props.hotel.location}</p>
-        <p>{props.hotel.price}€ per night</p>
+        <p>{props.hotel.base_price}€ per night</p>
         <div className="hotel_listing_btnCotainer mg-1 dp-grid dp-g-center">
           <Link to={`/hotel/${props.hotel.id}`}>
             <button className="btn btn-primary general_button red_Btn">

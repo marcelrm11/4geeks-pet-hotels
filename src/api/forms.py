@@ -37,6 +37,7 @@ class ShortUserForm(FlaskForm):
     password = PasswordField("Password", validators=[InputRequired(), Length(
         min=8), Regexp(password_regex, message=password_msg)])
 
+
 class ShortOwnerForm(FlaskForm):
     email = StringField("Email", validators=[InputRequired(), Email()])
     password = PasswordField("Password", validators=[InputRequired(), Length(
@@ -66,8 +67,9 @@ class HotelForm(FlaskForm):
     base_price = StringField("Price", validators=[InputRequired()])
     pet_type = StringField("pet_type", validators=[InputRequired()])
     services = StringField("services", validators=[InputRequired()])
-    #profile_image = StringField("profile_image")
-    hotel_description = StringField("Hotel Description", validators=[InputRequired()])
+    # profile_image = StringField("profile_image")
+    hotel_description = StringField(
+        "Hotel Description", validators=[InputRequired()])
     hotel_owner_id = IntegerField(
         "Hotel Owner ID", validators=[InputRequired()])
 
@@ -101,7 +103,7 @@ class BookingForm(FlaskForm):
     entry_date = DateField("Entry Date", validators=[InputRequired()])
     checkout_date = DateField("Checkout Date", validators=[
                               InputRequired(), checkout_date_validator])
-    price = DecimalField("Price", validators=[InputRequired()])
+    base_price = DecimalField("Price", validators=[InputRequired()])
     currency = StringField("Currency", default="euro")
 
 

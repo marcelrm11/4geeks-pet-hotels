@@ -127,6 +127,12 @@
   padding: 2rem;
 }
 
+.modal-body {
+  gap: 0.5%;
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
 @media (max-width: 768px) {
   .hotel_detail_information {
     display: flex;
