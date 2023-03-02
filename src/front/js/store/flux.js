@@ -28,13 +28,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       editeddSuccesfully: false,
       deletedSuccesfully: false,
       showModal: false,
-      user: {
-        email: "",
-      },
-
-      owner: {
-        email: "",
-      },
+      user: {},
+      owner: {},
       userType: "",
 
       entryDate: "dd/mm/yyyy",
@@ -121,6 +116,22 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
+      updateUser: async (userId, token) => {
+        const response = await fetch(
+          process.env.BACKEND_URL + `/api/user/${userId}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log(response);
+        const userData = await response.json();
+        setStore({ user: userData });
+        localStorage.setItem("user", JSON.stringify(userData));
+      },
+
       listing: (searchFilters) => {
         const store = getStore();
         let url = process.env.BACKEND_URL + "/api/hotels";
@@ -160,19 +171,23 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       getUserFromSessionStorage: () => {
+        console.log("getting user from LocalStorage");
         const user = localStorage.getItem("user");
+        console.log("user is:", user);
         const owner = localStorage.getItem("owner");
         try {
-          if (user == true) {
-            parsedUser = JSON.parse(user);
+          if (user !== null) {
+            console.log("user == true, so parsing and setting");
+            const parsedUser = JSON.parse(useruser);
             setStore({ user: parsedUser, userType: "user" });
           } else if (owner == true) {
-            parsedOwner = JSON.parse(owner);
+            console.log("owner == true, so parsing and setting");
+            const parsedOwner = JSON.parse(ownerowner);
             setStore({ owner: parsedOwner, userType: "owner" });
           }
         } catch (error) {
           console.error("Error parsing user from session storage:", error);
-          setStore({ user: { email: "" }, owner: { email: "" } });
+          setStore({ user: {}, owner: {} });
         }
       },
 
@@ -328,7 +343,11 @@ const getState = ({ getStore, getActions, setStore }) => {
         return word.replaceAll("_", " ");
       },
       setCountryList: () => {
-        fetch("https://restcountries.com/v3.1/all")
+        fetch("https://restcountries.com/v3.1/all", {
+          headers: {
+            "Access-Control-Allow-Origin": "true",
+          },
+        })
           .then((res) => res.json())
           .then((data) => {
             let tempCountryList = [];
@@ -343,29 +362,56 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
       },
 
-      addFavorites: (id) => {
-        const store = getStore();
-        store.hotels.map((hotel) => {
-          if (hotel.id === id && !store.favorites.find((f) => f.id === id)) {
-            setStore({
-              favorites: [
-                ...store.favorites,
-                { id: hotel.id, name: hotel.name },
-              ],
-            });
-          }
-        });
-      },
-
-      handleFavColor: (hotel_id) => {
-        const icon = document.getElementById("favorites_color");
-        icon.classList.toggle("red_bg");
-      },
-
-      deleteFavorites: (id) => {
-        const store = getStore();
-        let deleteFav = store.favorites.filter((element) => element.id !== id);
-        setStore({ favorites: [...deleteFav] });
+      toggleFavorite: async (hotelId, userId) => {
+        const actions = getActions();
+        const resFavorite = await fetch(
+          process.env.BACKEND_URL + `/api/favorite/${hotelId}/${userId}`
+        );
+        console.log(resFavorite);
+        const dataFavorite = await resFavorite.json();
+        console.log(dataFavorite);
+        if (resFavorite.ok) {
+          // favorite exists in db
+          const response = await fetch(
+            process.env.BACKEND_URL +
+              `/api/favorite/${dataFavorite.favorite.id}/delete`,
+            {
+              method: "DELETE",
+            }
+          );
+          console.log(response);
+          const data = await response.json();
+          console.log(data);
+        } else if (resFavorite.status === 404) {
+          // fav doesn't exist
+          const response = await fetch(
+            process.env.BACKEND_URL + "/api/favorite/create/",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                user_id: userId,
+                hotel_id: hotelId,
+              }),
+            }
+          );
+          console.log(response);
+          const data = await response.json();
+          console.log(data);
+        }
+        actions.updateUser(userId);
+        // // store.hotels.map((hotel) => {
+        // //   if (hotel.id === hotelId && !store.favorites.find((f) => f.id === hotelId)) {
+        // //     setStore({
+        // //       favorites: [
+        // //         ...store.favorites,
+        // //         { hotelId: hotelId, userId: userId },
+        // //       ],
+        // //     });
+        // //   }
+        // // });
       },
 
       handleValidateHotelForm: (ev, hotelData) => {

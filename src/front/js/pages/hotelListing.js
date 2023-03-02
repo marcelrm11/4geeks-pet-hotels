@@ -40,9 +40,12 @@ export const HotelListing = () => {
     setSearchFilters({ ...searchFilters, petTypes: updatedPetTypes });
   };
 
-  const hotelsInfo = store.hotels.map((hotel) => {
-    return <HotelCard hotel={hotel} key={hotel.id} />;
-  });
+  let hotelsInfo = [];
+  if (store.hotels?.length > 0) {
+    hotelsInfo = store.hotels.map((hotel) => {
+      return <HotelCard hotel={hotel} key={hotel.id} />;
+    });
+  }
 
   if (store.loading) return <h1>Loading</h1>;
 

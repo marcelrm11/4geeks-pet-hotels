@@ -24,7 +24,7 @@ export const DetailBooking = ({ details }) => {
           <hr />
           <div className="detail_price d-flex">
             <p>Total (EUR)</p>
-            <p>{parseInt(details.price) * store.differenceInDays}</p>
+            <p>{parseInt(details.base_price) * store.differenceInDays}</p>
           </div>
           <Button buttonClass="red_Btn mg-cero">
             <span className="white_letter">Reserve</span>

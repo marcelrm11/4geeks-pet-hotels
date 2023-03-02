@@ -10,9 +10,8 @@ const HotelCard = (props) => {
   const [heartClass, setHeartClass] = useState(
     "transparent_bg favorites_icon font-s favoritesBtn"
   );
-  const notInitialRender = useRef(false);
   useEffect(() => {
-    if (notInitialRender.current) {
+    if (store.user.favorites.length > 0) {
       console.log("favorites:", store.user.favorites);
       for (let fav of store.user.favorites) {
         userFavorites.push(fav.hotel_id);
@@ -20,13 +19,13 @@ const HotelCard = (props) => {
       const extraClass = userFavorites.includes(props.hotel.id)
         ? " red_bg"
         : "";
-
       setHeartClass((prev) => prev + extraClass);
     } else {
-      notInitialRender.current = true;
+      setHeartClass("transparent_bg favorites_icon font-s favoritesBtn");
     }
   }, [store.user.favorites?.length]);
-
+  console.log("hotel card for:", props.hotel);
+  console.log("store user:", store.user);
   return (
     <div
       key={props.hotel.id}
@@ -41,7 +40,7 @@ const HotelCard = (props) => {
       <FontAwesomeIcon
         id="favorites_color"
         icon={faHeart}
-        onClick={() => actions.addFavorites(props.hotel.id, props.hotel.name)}
+        onClick={() => actions.toggleFavorite(props.hotel.id, store.user.id)}
         className={heartClass}
       />
       <div className="white_letter card-body">
@@ -54,7 +53,7 @@ const HotelCard = (props) => {
         </div>
         <hr />
         <p className="card-text">{props.hotel.location}</p>
-        <p>{props.hotel.price}€ per night</p>
+        <p>{props.hotel.base_price}€ per night</p>
         <div className="hotel_listing_btnCotainer mg-1 dp-grid dp-g-center">
           <Link to={`/hotel/${props.hotel.id}`}>
             <button className="btn btn-primary general_button red_Btn">
