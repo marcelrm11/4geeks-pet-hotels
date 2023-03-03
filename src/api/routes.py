@@ -68,7 +68,7 @@ def handle_login():
             email = form.email.data
             password = form.password.data
             user = User.query.filter_by(email=email).one_or_none()
-
+            print(password, user.password)
             if not user:
                 raise Exception("No user with this email")
             elif user.password != password:
@@ -484,7 +484,7 @@ def delete_owner(owner_id):
 
 
 @api.route("/hotel/create", methods=["POST"])
-# @jwt_required()
+@jwt_required()
 def create_hotel():
     # ! dangerous to disable the csrf protection
     # current_owner_email = get_jwt_identity()
@@ -635,6 +635,7 @@ def get_hotel(hotel_id):
 
 
 @ api.route("/hotel/<int:hotel_id>/update", methods=["PUT"])
+@jwt_required()
 def update_hotel(hotel_id):
 
     update_hotel = request.get_json()
@@ -663,6 +664,7 @@ def update_hotel(hotel_id):
 
 
 @ api.route("/hotel/<int:hotel_id>/delete", methods=["DELETE"])
+@jwt_required()
 def delete_hotel(hotel_id):
     try:
         hotel = Hotel.query.filter_by(id=hotel_id).first()

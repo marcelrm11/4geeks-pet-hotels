@@ -24,15 +24,20 @@ const getState = ({ getStore, getActions, setStore }) => {
       loginSuccessful: false,
       logoutSuccessful: false,
       addHotelSuccessful: false,
-      CreatedSuccesfully: false,
+      createdSuccesfully: false,
+      editeddSuccesfully: false,
+      deletedSuccesfully: false,
       showModal: false,
       user: {},
       owner: {},
+      userType: "",
 
       entryDate: "dd/mm/yyyy",
       checkOutDate: "dd/mm/yyyy",
       differenceInDays: 0,
       pets: [],
+      editPet: false,
+      currentPetId: "",
       button: [
         {
           btn_class: "log_socialMedia google_signup_btn",
@@ -80,14 +85,17 @@ const getState = ({ getStore, getActions, setStore }) => {
           const response = await fetch(process.env.BACKEND_URL + endpoint, opt);
 
           const data = await response.json();
-          console.log(data, response.status);
+          console.log("data", data, response.status);
 
           if (!store.is_owner) {
             localStorage.setItem("user", JSON.stringify(data.user));
             localStorage.setItem("token", JSON.stringify(data.access_token));
+            const storedUser = JSON.parse(localStorage.getItem("user"));
+            const storedToken = JSON.parse(localStorage.getItem("token"));
             setStore({
-              token: data.access_token,
-              user: data.user,
+              token: storedToken,
+              user: storedUser,
+              userType: "user",
             });
           } else {
             localStorage.setItem("owner", JSON.stringify(data.owner));
@@ -95,6 +103,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             setStore({
               token: data.access_token,
               owner: data.owner,
+              userType: "owner",
             });
           }
           setStore({ loginSuccessful: true });
@@ -170,11 +179,11 @@ const getState = ({ getStore, getActions, setStore }) => {
           if (user !== null) {
             console.log("user == true, so parsing and setting");
             const parsedUser = JSON.parse(user);
-            setStore({ user: parsedUser });
+            setStore({ user: parsedUser, userType: "user" });
           } else if (owner == true) {
             console.log("owner == true, so parsing and setting");
             const parsedOwner = JSON.parse(owner);
-            setStore({ owner: parsedOwner });
+            setStore({ owner: parsedOwner, userType: "owner" });
           }
         } catch (error) {
           console.error("Error parsing user from session storage:", error);
@@ -184,7 +193,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       tokenSessionStore: () => {
         const token = localStorage.getItem("token");
-        if (token) setStore({ token: token });
+        if (token) setStore({ token: JSON.parse(token) });
       },
 
       handleValidateForm: (ev, formData) => {
@@ -503,6 +512,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       handleValidatePetForm: (ev, petData) => {
+        const store = getStore();
         const actions = getActions();
         ev.preventDefault();
         let newErrors = {};
@@ -511,6 +521,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             newErrors[field] = `${field} is required`;
           }
         }
+
         if (Object.keys(newErrors).length === 0) {
           actions.handleAddpetData(petData);
         } else {
@@ -523,7 +534,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       handleAddpetData: async (petData) => {
         console.log("sent form:", petData);
         const store = getStore();
-        store.CreatedSuccesfully = false;
+        store.createdSuccesfully = false;
         try {
           const response = await fetch(
             process.env.BACKEND_URL + "/api/pet/create",
@@ -541,8 +552,8 @@ const getState = ({ getStore, getActions, setStore }) => {
           if (response.ok) {
             const data = await response.json();
             console.log("data", data);
-            setStore({ CreatedSuccesfully: true });
-            setTimeout(() => setStore({ CreatedSuccesfully: false }), 4000);
+            setStore({ createdSuccesfully: true });
+            setTimeout(() => setStore({ createdSuccesfully: false }), 4000);
             return true;
           }
           throw Error(response.statusText);
@@ -553,7 +564,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       getAllPets: async () => {
         const store = getStore();
-
         try {
           const response = await fetch(process.env.BACKEND_URL + "/api/pets");
           if (response.ok) {
@@ -561,6 +571,71 @@ const getState = ({ getStore, getActions, setStore }) => {
             setStore({ pets: data.pets });
             console.log("data", data);
             console.log(store.pets);
+            return data;
+          } else {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+        } catch (error) {
+          console.error("Error fetching data: ", error);
+        }
+      },
+
+      handleEditPet: (pet_id) => {
+        const store = getStore();
+        const editedPet = store.pets.filter((item) => item.id === pet_id)[0];
+        setStore({ editPet: true });
+        console.log("one", editedPet);
+        setStore({ currentPetId: pet_id });
+      },
+
+      handleEditPetsInfo: async (ev, petData) => {
+        const store = getStore();
+        ev.preventDefault();
+        console.log("old data", petData);
+        try {
+          const response = await fetch(
+            `${process.env.BACKEND_URL}/api/pet/${store.currentPetId}/update`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(petData),
+            }
+          );
+          if (response.ok) {
+            const data = await response.json();
+            console.log("new data", data);
+
+            setStore({ currentPetId: "", editedPet: false });
+            return data;
+          } else {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+        } catch (error) {
+          console.error("Error fetching data: ", error);
+        }
+      },
+
+      handleDeletePet: async (pet_id, petData) => {
+        console.log("old data", petData);
+        const store = getStore();
+        try {
+          const response = await fetch(
+            `${process.env.BACKEND_URL}/api/pet/${pet_id}/delete`,
+            {
+              method: "DELETE",
+            }
+          );
+          if (response.ok) {
+            const data = await response.json();
+            console.log("data", data);
+            setStore({ deletedSuccesfully: true });
+            setTimeout(() => setStore({ deletedSuccesfully: false }), 1000);
+            let deletePet = store.pets.filter(
+              (element) => element.id !== pet_id
+            );
+            setStore({ pets: [...deletePet] });
             return data;
           } else {
             throw new Error(`HTTP error! status: ${response.status}`);

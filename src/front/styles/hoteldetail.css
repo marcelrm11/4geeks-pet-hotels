@@ -166,10 +166,6 @@
 }
 
 @media (min-width: 769px) {
-  .hotel_detail_btn {
-    display: none;
-  }
-
   .place_detail_img {
     width: 50%;
     height: fit-content;

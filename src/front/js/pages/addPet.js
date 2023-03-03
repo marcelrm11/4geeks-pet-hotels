@@ -17,20 +17,27 @@ export const AddPet = () => {
     breed: "",
     birth_date: "",
     health: "",
+    // age: "",
     pet_owner_id: "",
   });
 
-  // const birthDate = item.birth_date;
+  // const [pet_age, setPet_Age] = useState();
 
-    // const petAge = () => {
-    //   const today = moment();
-    //   const b_date = moment(birthDate);
-    //   const age = today.diff(b_date, "years");
-    //   return age;
-    // };
+  // const handleAge = () => {
+  //   const birthDate = item.birth_date;
 
-    // const age = petAge(birthDate);
-    // console.log(`La edad es ${age} años.`);
+  //   const petAge = () => {
+  //     const today = moment();
+  //     const b_date = moment(birthDate);
+  //     const age = today.diff(b_date, "years");
+  //     return age;
+  //   };
+
+  //   setPet_Age(petAge(birthDate));
+  //   setPetData({ ...petData, [age]: pet_age });
+  // };
+
+  // console.log("age", pet_age);
 
   const handleChange = (ev) => {
     setPetData({ ...petData, [ev.target.name]: ev.target.value });
@@ -48,8 +55,8 @@ export const AddPet = () => {
     setPetData({ ...petData, gender: gender });
   };
 
-  return store.CreatedSuccesfully ? (
-    <h1>done</h1> // <Navigate to="/petProfile" />
+  return store.createdSuccesfully ? (
+    <Navigate to="/petProfile" />
   ) : (
     <div className="text-center mt-4">
       <div className="forms">
@@ -59,6 +66,7 @@ export const AddPet = () => {
           petData={petData}
           handleChange={handleChange}
           handleValidate={(e) => actions.handleValidatePetForm(e, petData)}
+          handlePetInfo={(e) => actions.handleEditPetsInfo(e, petData)}
         />
       </div>
     </div>

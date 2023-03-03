@@ -11,6 +11,7 @@ export const PetForm = ({
   handleValidate,
   handlePetType,
   handleGender,
+  handlePetInfo,
 }) => {
   const { store, actions } = useContext(Context);
   const genders = ["Female", "Male"];
@@ -62,7 +63,7 @@ export const PetForm = ({
         />
       </div>
       <div className="add_hotel_div">
-        <h1>Add pet</h1>
+        <h1>{store.editPet === false ? "Add pet" : "Edit pet"}</h1>
         <div>
           <div className="text_inputs_container dp-grid-o-cl gp-o border-style-two">
             {Object.entries(petData).map(([field, value]) => {
@@ -101,9 +102,11 @@ export const PetForm = ({
         <div className="add_hotel_btn_section ">
           <Button
             buttonClass="red_Btn addHotel_form_submit"
-            onClick={handleValidate}
+            onClick={store.editPet === false ? handleValidate : handlePetInfo}
           >
-            <span className="white_letter">Add pet</span>
+            <span className="white_letter">
+              {store.editPet === false ? "Add pet" : "Confirm"}
+            </span>
           </Button>
         </div>
       </div>

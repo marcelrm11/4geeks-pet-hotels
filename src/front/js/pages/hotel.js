@@ -15,7 +15,7 @@ export const Hotel = () => {
   const [reviews, setReviews] = useState([]);
   const [overallRating, setOverallRating] = useState(0);
   const location = useLocation();
-  console.log(location);
+  console.log("location", location);
   useEffect(() => {
     fetch(`${process.env.BACKEND_URL}/api${location.pathname}`)
       .then((res) => res.json())

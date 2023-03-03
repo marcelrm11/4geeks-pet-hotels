@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { Home } from "./pages/home";
@@ -31,6 +31,13 @@ const Layout = () => {
     actions.tokenSessionStore();
     actions.updateUser(store.user.id, store.token);
   }, [store.user?.id]);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      store.user = JSON.parse(storedUser);
+    }
+  }, []);
 
   return (
     <div>

@@ -26,6 +26,14 @@
   box-sizing: border-box;
 }
 
+.inactive {
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
 a {
   text-decoration: none;
   color: var(--whiteLetters);
@@ -83,6 +91,10 @@ select {
 }
 
 /*buttons*/
+
+.icons {
+  cursor: pointer;
+}
 
 .red_bg {
   color: var(--salmon) !important;
@@ -217,6 +229,10 @@ select {
 
 .pd-o-h {
   padding: 1.5rem;
+}
+
+.little_pad {
+  padding: 0.4rem;
 }
 
 /*margin*/
