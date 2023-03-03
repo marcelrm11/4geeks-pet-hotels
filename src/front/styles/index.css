@@ -231,6 +231,10 @@ select {
   padding: 1.5rem;
 }
 
+.little_pad {
+  padding: 0.4rem;
+}
+
 /*margin*/
 
 .mg-tb {

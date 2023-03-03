@@ -1,32 +1,29 @@
 .account_left_section,
 .account_right_section {
   width: 95%;
-  max-width: 400px;
-  min-height: 300px;
-  max-height: 350px;
-  padding: 1rem;
+  max-width: 350px;
 }
 
 .account_right_section {
   background-color: var(--turquoise);
   margin: 1rem 1rem 0 1rem;
-  border-radius: 1rem 1rem 0 0;
+  min-height: 250px;
+  padding: 1rem;
+  position: relative;
 }
 
 .account_left_section {
-  background-color: var(--mediumBlue);
   margin: 0 1rem 1rem 1rem;
   border-radius: 0 0 1rem 1rem;
 }
 
-.account_user_background,
-.account_info_background {
-  width: 90%;
-  background-color: white;
+.options_account_container {
+  background-color: #f8f9fa;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 }
 
-.account_user_profile,
-.account_info_profile {
+.account_user_profile {
   padding-top: 1rem;
 }
 
@@ -38,40 +35,36 @@
 }
 
 .account_user_profile figure img {
-  width: 90%;
+  width: 70%;
+  border: 2px solid var(--mediumBlue);
   height: fit-content;
   border-radius: 50%;
 }
 
-@media (min-width: 769px) {
-  .account_section {
-    flex-direction: row;
-  }
+.options_account {
+  justify-content: space-between;
+  border-bottom: 1px solid #cfc9c9;
+  height: 50px;
+  align-items: center;
+  padding: 0 0.4rem;
+  max-width: 350px;
+  cursor: pointer;
+  color: #423f3f;
+}
 
-  .account_left_section,
-  .account_right_section {
-    min-width: 380px;
-    max-width: 400px;
-    min-height: 325px;
-    max-height: 350px;
-  }
+.icon_pad {
+  padding-right: 0.5rem;
+  color: var(--salmon);
+}
 
-  .account_right_section {
-    margin: 1rem 0 0 1rem;
-    border-radius: 1rem 0 0 1rem;
-  }
+.account_log_out {
+  padding: 3rem 1rem;
+}
 
-  .account_left_section {
-    margin: 1rem 1rem 0 0;
-    border-radius: 0 1rem 1rem 0;
-  }
-
-  .account_user_background,
-  .account_info_background {
-    min-height: 300px;
-  }
-
-  .account_info_profile {
-    line-height: 2rem;
-  }
+.edit_account {
+  position: absolute;
+  top: 4%;
+  right: 3%;
+  color: #423f3f;
+  cursor: pointer;
 }
