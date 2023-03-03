@@ -50,9 +50,6 @@ export const PlaceDetailsSearch = ({ details, overallRating }) => {
             <DetailBooking details={details} />
           </div>
         )}
-        <p style={{ color: "red" }}>
-          La cajita de booking no se muestra si store.is_owner===true
-        </p>
         <br />
         {store.is_owner && <Button onClick={toggleModal}>Edit details</Button>}
         <div className="hotel_detail_information w-100">

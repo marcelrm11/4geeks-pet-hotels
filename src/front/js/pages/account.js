@@ -14,8 +14,11 @@ import { Link } from "react-router-dom";
 
 export const Account = () => {
   const { store, actions } = useContext(Context);
-  const userType = store.userType_local;
-  const user = userType == "owner" ? store.ownerLocal : store.userLocal;
+  const userType = store.userType;
+  console.log(userType);
+  const user_type = userType == "owner" ? store.owner : store.user;
+
+  console.log(store.user);
 
   const userOptions = [
     {
@@ -39,7 +42,7 @@ export const Account = () => {
     {
       name: "Hotels",
       icon: faHotel,
-      link: "/",
+      link: "/ownerHotels",
     },
     {
       name: "Bookings",
@@ -80,8 +83,6 @@ export const Account = () => {
     );
   });
 
-  console.log(user);
-
   return (
     <>
       <div className="account_section w-100 d_flex_col">
@@ -95,17 +96,17 @@ export const Account = () => {
                 />
                 <img src="https://picsum.photos/200" />
               </figure>
-              <p>{`${user.first_name} ${user.last_name}`}</p>
+              <p>{`${user_type.first_name} ${user_type.last_name}`}</p>
             </div>
           </div>
         </section>
         <section className="account_left_section">
           <div className="account_info_background border-style">
             <div className="account_info_profile">
-              <p className="little_pad">{user.email}</p>
-              <p className="little_pad">{user.phone_number}</p>
-              <p className="little_pad">{user.country}</p>
-              <p className="little_pad">{user.zip_code}</p>
+              <p className="little_pad">{user_type.email}</p>
+              <p className="little_pad">{user_type.phone_number}</p>
+              <p className="little_pad">{user_type.country}</p>
+              <p className="little_pad">{user_type.zip_code}</p>
             </div>
           </div>
           <div className="options_account_container d_flex_col w-100">

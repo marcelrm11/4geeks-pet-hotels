@@ -11,7 +11,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       favorites: [],
       hotels: [],
       homeHotels: [],
-      is_owner: true,
+      is_owner: false,
       regexs: {
         passwordRegex:
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,32})/,
@@ -52,9 +52,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           link_class: "white_letter",
         },
       ],
-      userLocal: JSON.parse(localStorage.getItem("user")),
-      ownerLocal: JSON.parse(localStorage.getItem("owner")),
-      userType_local: JSON.parse(localStorage.getItem("userType")),
       checkInput: ["dog", "cat", "rodent", "bird", "others"],
     },
     actions: {
@@ -181,17 +178,22 @@ const getState = ({ getStore, getActions, setStore }) => {
       getUserFromSessionStorage: () => {
         console.log("getting user from LocalStorage");
         const user = localStorage.getItem("user");
+        const userType = localStorage.getItem("userType");
         console.log("user is:", user);
         const owner = localStorage.getItem("owner");
+        const ownerType = localStorage.getItem("userType");
         try {
           if (user !== null) {
             console.log("user == true, so parsing and setting");
             const parsedUser = JSON.parse(user);
-            setStore({ user: parsedUser, userType: "user" });
-          } else if (owner == true) {
+            const parsedUType = JSON.parse(userType);
+            setStore({ user: parsedUser, userType: parsedUType });
+          } else if (owner !== null) {
+            console.log("owner is:", owner);
             console.log("owner == true, so parsing and setting");
             const parsedOwner = JSON.parse(owner);
-            setStore({ owner: parsedOwner, userType: "owner" });
+            const parsedOType = JSON.parse(ownerType);
+            setStore({ owner: parsedOwner, userType: parsedOType });
           }
         } catch (error) {
           console.error("Error parsing user from session storage:", error);
@@ -331,7 +333,15 @@ const getState = ({ getStore, getActions, setStore }) => {
       logout: () => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
-        setStore({ token: null, user: {}, logoutSuccessful: true });
+        localStorage.removeItem("owner");
+        localStorage.removeItem("userType");
+        setStore({
+          token: null,
+          user: {},
+          owner: {},
+          userType: "",
+          logoutSuccessful: true,
+        });
         setTimeout(() => {
           setStore({ logoutSuccessful: false });
         }, 3000);
@@ -596,15 +606,13 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      getAllPets: async () => {
+      getAllPets: async (id) => {
         const store = getStore();
         try {
           const response = await fetch(process.env.BACKEND_URL + "/api/pets");
           if (response.ok) {
             const data = await response.json();
             setStore({ pets: data.pets });
-            console.log("data", data);
-            console.log(store.pets);
             return data;
           } else {
             throw new Error(`HTTP error! status: ${response.status}`);

@@ -27,6 +27,8 @@ export const LoginForm = ({ credentials, onChange, onLogin }) => {
     },
   ]);
 
+  console.log(type);
+
   const selectType = type.map((item, index) => {
     return (
       <button
