@@ -19,21 +19,12 @@ export const PlaceDetailsSearch = ({ details, overallRating }) => {
     setHotelData({ ...hotelData, [ev.target.name]: ev.target.value });
   };
   const handleUpdate = async (e, formData) => {
-    actions.handleValidateHotelForm(e, formData);
-    const response = await fetch(
-      process.env.BACKEND_URL + `/api/hotel/${formData.id}/update`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "some token", //! al loro!
-        },
-        body: JSON.stringify(formData),
-      }
-    );
-    console.log(response);
-    const data = await response.json();
-    console.log(data);
+    if (actions.handleValidateHotelForm(e, formData)) {
+      const update = await actions.updateHotel(formData);
+      if (update) toggleModal();
+    } else {
+      console.log("validation error");
+    }
   };
   return (
     <div className=" w-100 d_flex_col">
@@ -66,10 +57,10 @@ export const PlaceDetailsSearch = ({ details, overallRating }) => {
         {store.is_owner && <Button onClick={toggleModal}>Edit details</Button>}
         <div className="hotel_detail_information w-100">
           <HotelBasicInfo
-            name={details.name}
-            address={details.location}
-            phone={details.phone_number}
-            email={details.email}
+            name={hotelData.name}
+            address={hotelData.location}
+            phone={hotelData.phone_number}
+            email={hotelData.email}
           />
         </div>
       </section>

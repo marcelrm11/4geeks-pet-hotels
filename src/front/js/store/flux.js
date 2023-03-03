@@ -440,13 +440,15 @@ const getState = ({ getStore, getActions, setStore }) => {
           newErrors["services"] = "Please select at least one services.";
         }
         if (Object.keys(newErrors).length === 0) {
-          actions.handleAddHotelData(hotelData);
+          // actions.handleAddHotelData(hotelData);
+          return true;
         } else {
           setStore({ errors: newErrors });
           console.log("errors", newErrors);
         }
         // hotel;
-        return Object.keys(newErrors).length === 0;
+        // return Object.keys(newErrors).length === 0;
+        return false;
       },
 
       handleAddHotelData: async (hotelData) => {
@@ -478,6 +480,29 @@ const getState = ({ getStore, getActions, setStore }) => {
           throw Error(response.statusText);
         } catch (e) {
           console.log("error:", e);
+        }
+      },
+
+      updateHotel: async (formData, token) => {
+        try {
+          const response = await fetch(
+            process.env.BACKEND_URL + `/api/hotel/${formData.id}/update`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`, //! al loro!
+              },
+              body: JSON.stringify(formData),
+            }
+          );
+          console.log(response);
+          const data = await response.json();
+          console.log(data);
+          if (response.ok) return true;
+          else return false;
+        } catch (e) {
+          console.log(e);
         }
       },
 

@@ -73,6 +73,15 @@ export const AddHotelData = ({
   //   </select>
   // );
 
+  const handleClick = (e, hotelData) => {
+    e.preventDefault();
+    if (handleValidate(e, hotelData)) {
+      actions.handleAddHotelData(hotelData);
+    } else {
+      console.log("validation error");
+    }
+  };
+
   return (
     <form className="add_hotel_form">
       <div className="add_hotel_image">
@@ -104,22 +113,24 @@ export const AddHotelData = ({
                         />
                       </div>
                     ) : (
-                      <Input
-                        type={field === "email" ? "email" : "text"}
-                        id={field}
-                        placeholder={
-                          field.includes("pet_type")
-                            ? actions.removeUnderscores(
-                                actions.capitalize("Select admited pets")
-                              )
-                            : actions.removeUnderscores(
-                                actions.capitalize(field)
-                              )
-                        }
-                        value={value}
-                        onChange={handleChange}
-                        required
-                      />
+                      <div>
+                        <Input
+                          type={field === "email" ? "email" : "text"}
+                          id={field}
+                          placeholder={
+                            field.includes("pet_type")
+                              ? actions.removeUnderscores(
+                                  actions.capitalize("Select admited pets")
+                                )
+                              : actions.removeUnderscores(
+                                  actions.capitalize(field)
+                                )
+                          }
+                          value={value}
+                          onChange={handleChange}
+                          required
+                        />
+                      </div>
                     )}
                     {store.errors[field] && <p>{store.errors[field]}</p>}
                   </React.Fragment>
@@ -147,7 +158,7 @@ export const AddHotelData = ({
         <div className="add_hotel_btn_section ">
           <Button
             buttonClass="red_Btn addHotel_form_submit"
-            onClick={handleValidate}
+            onClick={(e) => handleClick(e, hotelData)}
           >
             <span className="white_letter">Add hotel</span>
           </Button>
