@@ -79,7 +79,6 @@ export const Account = () => {
           </div>
         </section>
       </div>
-      <p className="account_log_out">Log out</p>
     </>
   );
 };
