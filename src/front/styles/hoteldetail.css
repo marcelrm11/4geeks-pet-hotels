@@ -133,6 +133,10 @@
   grid-template-columns: auto auto;
 }
 
+.service_container {
+  font-size: 2em;
+}
+
 @media (max-width: 768px) {
   .hotel_detail_information {
     display: flex;

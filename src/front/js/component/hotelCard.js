@@ -33,7 +33,7 @@ const HotelCard = (props) => {
       style={{ width: "16rem" }}
     >
       <img
-        src={`https://picsum.photos/id/${props.hotel.id}/200`}
+        src={`https://picsum.photos/400?random=${props.hotel.id}`}
         className="card-img-top hotel_image"
         alt="..."
       />
