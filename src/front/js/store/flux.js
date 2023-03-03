@@ -631,7 +631,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           if (response.ok) {
             const data = await response.json();
             console.log("new data", data);
-
             setStore({ currentPetId: "", editedPet: false });
             return data;
           } else {
