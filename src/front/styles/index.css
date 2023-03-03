@@ -56,7 +56,8 @@ a:hover {
 
 #gender,
 #pet_type,
-#services {
+#services,
+#pet_owner_id {
   display: none;
 }
 

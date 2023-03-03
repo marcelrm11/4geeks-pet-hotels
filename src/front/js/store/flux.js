@@ -52,7 +52,9 @@ const getState = ({ getStore, getActions, setStore }) => {
           link_class: "white_letter",
         },
       ],
-
+      userLocal: JSON.parse(localStorage.getItem("user")),
+      ownerLocal: JSON.parse(localStorage.getItem("owner")),
+      userType_local: JSON.parse(localStorage.getItem("userType")),
       checkInput: ["dog", "cat", "rodent", "bird", "others"],
     },
     actions: {
@@ -90,20 +92,26 @@ const getState = ({ getStore, getActions, setStore }) => {
           if (!store.is_owner) {
             localStorage.setItem("user", JSON.stringify(data.user));
             localStorage.setItem("token", JSON.stringify(data.access_token));
+            localStorage.setItem("userType", JSON.stringify("user"));
             const storedUser = JSON.parse(localStorage.getItem("user"));
             const storedToken = JSON.parse(localStorage.getItem("token"));
+            const storedUserType = JSON.parse(localStorage.getItem("userType"));
             setStore({
               token: storedToken,
               user: storedUser,
-              userType: "user",
+              userType: storedUserType,
             });
           } else {
             localStorage.setItem("owner", JSON.stringify(data.owner));
             localStorage.setItem("token", JSON.stringify(data.access_token));
+            localStorage.setItem("userType", JSON.stringify("owner"));
+            const storedUser = JSON.parse(localStorage.getItem("owner"));
+            const storedToken = JSON.parse(localStorage.getItem("token"));
+            const storedUserType = JSON.parse(localStorage.getItem("userType"));
             setStore({
-              token: data.access_token,
-              owner: data.owner,
-              userType: "owner",
+              token: storedToken,
+              owner: storedUser,
+              userType: storedUserType,
             });
           }
           setStore({ loginSuccessful: true });
@@ -462,6 +470,7 @@ const getState = ({ getStore, getActions, setStore }) => {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
+                Authorization: "Bearer " + store.token,
               },
               body: JSON.stringify(hotelData),
             }

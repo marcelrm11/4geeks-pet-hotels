@@ -8,16 +8,16 @@ import {
   faHeart,
   faBook,
   faPenToSquare,
+  faHotel,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 export const Account = () => {
   const { store, actions } = useContext(Context);
+  const userType = store.userType_local;
+  const user = userType == "owner" ? store.ownerLocal : store.userLocal;
 
-  const user = store.user;
-  console.log("user", store.user);
-
-  const options = [
+  const userOptions = [
     {
       name: "Pets",
       icon: faPaw,
@@ -34,9 +34,23 @@ export const Account = () => {
       link: "/booking",
     },
   ];
-  const icon_buttons = options.map((item, index) => {
+
+  const ownerOptions = [
+    {
+      name: "Hotels",
+      icon: faHotel,
+      link: "/",
+    },
+    {
+      name: "Bookings",
+      icon: faBook,
+      link: "/",
+    },
+  ];
+
+  const userButtons = userOptions.map((item, index) => {
     return (
-      <Link className="options_account w-100 d-flex" to={item.link}>
+      <Link key={index} className="options_account w-100 d-flex" to={item.link}>
         <div className="options_account w-100 d-flex">
           <span>
             <FontAwesomeIcon className="icon_pad" icon={item.icon} />
@@ -49,6 +63,24 @@ export const Account = () => {
       </Link>
     );
   });
+
+  const ownerButtons = ownerOptions.map((item, index) => {
+    return (
+      <Link key={index} className="options_account w-100 d-flex" to={item.link}>
+        <div className="options_account w-100 d-flex">
+          <span>
+            <FontAwesomeIcon className="icon_pad" icon={item.icon} />
+            {item.name}
+          </span>
+          <span>
+            <FontAwesomeIcon icon={faAngleRight} />
+          </span>
+        </div>
+      </Link>
+    );
+  });
+
+  console.log(user);
 
   return (
     <>
@@ -71,11 +103,13 @@ export const Account = () => {
           <div className="account_info_background border-style">
             <div className="account_info_profile">
               <p className="little_pad">{user.email}</p>
+              <p className="little_pad">{user.phone_number}</p>
               <p className="little_pad">{user.country}</p>
+              <p className="little_pad">{user.zip_code}</p>
             </div>
           </div>
           <div className="options_account_container d_flex_col w-100">
-            {icon_buttons}
+            {userType == "owner" ? ownerButtons : userButtons}
           </div>
         </section>
       </div>
