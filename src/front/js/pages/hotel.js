@@ -49,7 +49,15 @@ export const Hotel = () => {
                 overallRating={overallRating}
               />
             </div>
-            <div className="w-100 d_flex_col mg-4">
+            <div className="w-100 d_flex_col mg-4 mb-5">
+              <h2>Accepted animals</h2>
+              <div className="detail_services_section w-100 d-flex">
+                {details.pet_type.split(",").map((pet) => {
+                  return <HotelServices key={pet} service={pet} />;
+                })}
+              </div>
+            </div>
+            <div className="w-100 d_flex_col mg-4 mb-5">
               <h2>Services</h2>
               <div className="detail_services_section w-100 d-flex">
                 {services().map((service, index) => {
