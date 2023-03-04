@@ -431,12 +431,14 @@ def get_owner(owner_id):
 
 # UPDATE: OWNER ------------------------------------------------------------------
 
-
 @api.route("/owner/<int:owner_id>/update", methods=["PUT"])
 def update_owner(owner_id):
 
     updated_owner = request.get_json()
-    owner = Owner.query.filter_by(id=owner_id).first()
+    owner = Owner.query.filter_by(id=owner_id).one_or_none()
+
+    if not owner:
+        return jsonify({"error": "no user with this id"}), 404
     form = UserForm(obj=updated_owner, meta={"csrf": False})
 
     if form.validate_on_submit():
@@ -452,10 +454,12 @@ def update_owner(owner_id):
             db.session.close()
 
         updated_owner = Owner.query.filter_by(id=owner_id).first()
-        return jsonify({"updated owner": updated_owner.serialize()}), 200
+        return jsonify({"updated_owner": updated_owner.serialize()}), 200
     else:
         errors = {field: errors[0] for field, errors in form.errors.items()}
         return jsonify({"error": "validation error", "errors": errors}), 400
+
+
 
 # DELETE: OWNER -----------------------------------------------------------------
 

@@ -7,7 +7,8 @@ import { Navigate } from "react-router";
 
 export const SignupOwner = () => {
   const { store, actions } = useContext(Context);
-  const [ownerData, setownerData] = useState({
+  const [editingOwner, setEditingOwner] = useState([]);
+  const [ownerData, setOwnerData] = useState({
     first_name: "",
     last_name: "",
     email: "",
@@ -18,8 +19,25 @@ export const SignupOwner = () => {
     phone_number: "",
   });
 
+  useEffect(() => {
+    if (store.editUser) {
+      const user = store.owner
+      const ownerData = {
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        password: "",
+        confirm_password: "",
+        country: user.country,
+        zip_code: user.zip_code,
+        phone_number: user.phone_number,
+      };
+      setOwnerData(ownerData);
+    }
+  }, [store.editUser]);
+
   const handleChange = (ev) => {
-    setownerData({ ...ownerData, [ev.target.name]: ev.target.value });
+    setOwnerData({ ...ownerData, [ev.target.name]: ev.target.value });
   }; 
 
   return store.signupSuccessful ? (
@@ -31,6 +49,7 @@ export const SignupOwner = () => {
           ownerData={ownerData}
           handleChange={handleChange}
           handleValidate={(e) => actions.handleValidateOwnerForm(e, ownerData)}
+          handleUserInfo={(e) => actions.handleEditOwnerInfo(e, ownerData)}
         />
       </div>
     </div>

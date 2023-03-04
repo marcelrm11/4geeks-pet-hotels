@@ -1,5 +1,9 @@
 /*Navbar*/
 
+.logo_image {
+  width: 55%;
+}
+
 .navbar_background {
   background-color: var(--darkBlue);
 }

@@ -19,6 +19,7 @@ export const Account = () => {
   const user_type = userType == "owner" ? store.owner : store.user;
 
   console.log(store.user);
+  console.log("owner", store.owner);
 
   const userOptions = [
     {
@@ -90,10 +91,15 @@ export const Account = () => {
           <div className="account_user_background d_flex_col border-style">
             <div className="account_user_profile d_flex_col">
               <figure>
-                <FontAwesomeIcon
-                  className="edit_account"
-                  icon={faPenToSquare}
-                />
+                <Link
+                  to={userType == "owner" ? "/signup/owner" : "/signup/user"}
+                >
+                  <FontAwesomeIcon
+                    onClick={() => actions.handleEditUser(user_type.id)}
+                    className="edit_account"
+                    icon={faPenToSquare}
+                  />
+                </Link>
                 <img src="https://picsum.photos/200" />
               </figure>
               <p>{`${user_type.first_name} ${user_type.last_name}`}</p>

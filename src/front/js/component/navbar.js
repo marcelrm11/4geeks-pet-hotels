@@ -25,28 +25,31 @@ export const Navbar = () => {
   return (
     <>
       <nav className="navbar navbar_background">
-        <div className="container">
+        <div>
           <Link to="/">
-            <img className="navbar-brand mb-0 h1"/>
+            <img
+              className="logo_image navbar-brand mb-0 h1"
+              src={logo}
+              alt="logo image"
+            />
           </Link>
+        </div>
+        <div className="container justify-content-end w-50">
           <Link to="/hotelListing">
             <span className="navbar-brand mb-0 h1 title-font">Hotels</span>
-          </Link>
-          <Link to="/profile">
-            <span className="navbar-brand mb-0 h1 title-font">Profile</span>
           </Link>
           <div className="ml-auto nav_buttons">
             {!store.token ? (
               <>
                 <Link to="/selectSignup">
-                  <button className="btn btn-danger general_button red_Btn">
+                  <button className="general_button red_Btn white_letter">
                     Sign Up
                   </button>
                 </Link>
 
                 <button
                   type="button"
-                  className="btn btn-primary blue_Btn general_button"
+                  className="blue_Btn general_button"
                   data-bs-toggle="modal"
                   data-bs-target="#loginModal"
                 >
@@ -59,14 +62,21 @@ export const Navbar = () => {
                 />
               </>
             ) : (
-              <Link to="/">
-                <button
-                  onClick={() => actions.logout()}
-                  className="btn btn-danger"
-                >
-                  Log out
-                </button>
-              </Link>
+              <div className="d-flex align-items-center">
+                <Link to="/profile">
+                  <span className="navbar-brand mb-0 h1 title-font">
+                    Profile
+                  </span>
+                </Link>
+                <Link to="/">
+                  <button
+                    onClick={() => actions.logout()}
+                    className="general_button red_Btn "
+                  >
+                    Log out
+                  </button>
+                </Link>
+              </div>
             )}
           </div>
         </div>

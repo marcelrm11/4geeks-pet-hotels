@@ -130,6 +130,7 @@ select {
 .turquoise_Btn:hover {
   border-color: var(--darkBlue);
   background-color: var(--darkBlue);
+  border: none;
 }
 
 .light_Btn {
@@ -143,6 +144,7 @@ select {
   border-color: var(--lightBlue);
   background-color: var(--lightBlue);
   color: black;
+  border: none;
 }
 
 .access_btn {
@@ -154,6 +156,7 @@ select {
 
 .logIn_access:hover {
   background-color: var(--darkRed);
+  border: none;
 }
 
 .red_Btn {
@@ -165,6 +168,7 @@ select {
 .red_Btn:hover {
   border-color: var(--darkRed);
   background-color: var(--darkRed);
+  border: none;
 }
 
 .blue_Btn {
@@ -177,6 +181,7 @@ select {
 .blue_Btn:hover {
   border-color: var(--turquoise);
   background-color: var(--turquoise);
+  border: none;
 }
 
 /*display*/
