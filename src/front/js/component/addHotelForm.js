@@ -122,6 +122,10 @@ export const AddHotelData = ({
                               ? actions.removeUnderscores(
                                   actions.capitalize("Select admited pets")
                                 )
+                              : field.includes("location")
+                              ? actions.removeUnderscores(
+                                  actions.capitalize("Address")
+                                )
                               : actions.removeUnderscores(
                                   actions.capitalize(field)
                                 )

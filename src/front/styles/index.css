@@ -162,7 +162,6 @@ select {
 .red_Btn {
   border-color: var(--salmon);
   background-color: var(--salmon);
-  transition: all 1s;
 }
 
 .red_Btn:hover {
@@ -344,4 +343,15 @@ select {
 
 .input-width {
   width: 180px;
+}
+
+.button_section {
+  width: 200px;
+  background-color: var(--darkBlue);
+  border-top: 2px solid var(--turquoise);
+}
+
+.button_section button {
+  width: 150px;
+  margin: 1rem 0 1rem 0.5rem;
 }

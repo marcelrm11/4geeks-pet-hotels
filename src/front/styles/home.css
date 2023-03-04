@@ -1,5 +1,15 @@
 /*home section*/
 
+.home_info {
+  width: 60%;
+  height: 180px;
+  background-color: var(--salmon);
+}
+
+.home-bg-light {
+  background-color: #a9d8e2;
+}
+
 .home_all_section {
   position: relative;
 }
@@ -15,6 +25,11 @@
 .home_img_container {
   max-height: 450px;
   position: relative;
+  margin: 0;
+}
+
+.mobile_img_container {
+  margin: 0;
 }
 
 .home_image {
@@ -80,6 +95,26 @@
   text-align: start;
 }
 
+.pets_cards {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+}
+
+.pets-cards-section {
+  display: grid;
+  place-items: center;
+}
+
+.pets_text_intro {
+  padding: 2rem;
+  background-color: var(--salmon);
+}
+
+.space {
+  height: 150px;
+}
+
 @media (max-width: 768px) {
   .mobile_image {
     display: block;
@@ -94,6 +129,14 @@
 
   .home_image {
     display: none;
+  }
+
+  .mob-none {
+    display: none;
+  }
+
+  .pets-cards-section {
+    height: 1350px;
   }
 }
 
@@ -113,5 +156,17 @@
 
   .home_welcome_info {
     text-align: center;
+  }
+
+  .pets-cards-section {
+    display: grid;
+    place-items: center;
+    margin: 2rem 0;
+  }
+
+  .pets_introCards {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    margin: 2rem 0;
   }
 }

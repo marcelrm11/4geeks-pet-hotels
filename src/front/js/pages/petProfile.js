@@ -61,13 +61,13 @@ export const PetProfile = () => {
                   <Link to="/addPet">
                     <FontAwesomeIcon
                       onClick={() => actions.handleEditPet(item.id)}
-                      className="red_bg icons"
+                      className="font-s red_bg icons"
                       icon={faPenToSquare}
                     />
                   </Link>
                   <FontAwesomeIcon
                     onClick={() => actions.handleDeletePet(item.id)}
-                    className="red_bg icons"
+                    className="font-s red_bg icons"
                     icon={faEraser}
                   />
                 </>
@@ -81,14 +81,14 @@ export const PetProfile = () => {
 
   return (
     <>
-      <div>
-        <div>
-          <Button buttonClass="mg-4 red_Btn ">
+      <div className="d-flex ownerHotels_container">
+        <div className="button_section">
+          <Button buttonClass="mg-4 blue_Btn ">
             <Link to="/addPet">
               <span className="white_letter">Add pet</span>
             </Link>
           </Button>
-          <Button onClick={() => handleOptions()} buttonClass="mg-4 red_Btn ">
+          <Button onClick={() => handleOptions()} buttonClass="mg-4 blue_Btn ">
             <span className="white_letter">Options</span>
           </Button>
         </div>
