@@ -1,0 +1,24 @@
+.ownerHotels {
+  display: grid;
+  place-items: center;
+}
+
+.ownerHotels_container {
+  flex-direction: column;
+}
+
+@media (min-width: 769px) {
+  .ownerHotels_container {
+    flex-direction: row;
+  }
+  .ownerHotels {
+    grid-template-columns: auto auto;
+  }
+
+}
+
+@media (min-width: 992px) {
+  .ownerHotels {
+    grid-template-columns: auto auto auto;
+  }
+}

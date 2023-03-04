@@ -5,7 +5,7 @@
 .text_inputs_container input,
 select {
   width: 200px;
-  height: 40px;
+  height: 50px;
   background-color: var(--lighterBlue);
   border: none;
   border-radius: 0.3rem;
@@ -79,11 +79,6 @@ textarea {
   .text_inputs_container {
     grid-template-columns: auto auto;
     margin: 0 2rem 0 0;
-  }
-
-  .text_inputs_container input,
-  select {
-    margin: 0.5rem;
   }
 
   .add_hotel_image {

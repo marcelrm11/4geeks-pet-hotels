@@ -11,7 +11,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       favorites: [],
       hotels: [],
       homeHotels: [],
-      is_owner: true,
+      is_owner: false,
       regexs: {
         passwordRegex:
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,32})/,
@@ -30,6 +30,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       showModal: false,
       user: {},
       owner: {},
+      ownerHotels: [],
       userType: "",
 
       entryDate: "dd/mm/yyyy",
@@ -52,10 +53,16 @@ const getState = ({ getStore, getActions, setStore }) => {
           link_class: "white_letter",
         },
       ],
-
       checkInput: ["dog", "cat", "rodent", "bird", "others"],
+      editUser: false,
+      userId: "",
     },
     actions: {
+      handleEditUser: (user_id) => {
+        const store = getStore();
+        setStore({ editUser: true, userId: user_id });
+      },
+
       handleSelectType: (boolean) => {
         const store = getStore();
         setStore({ is_owner: boolean });
@@ -90,23 +97,35 @@ const getState = ({ getStore, getActions, setStore }) => {
           if (!store.is_owner) {
             localStorage.setItem("user", JSON.stringify(data.user));
             localStorage.setItem("token", JSON.stringify(data.access_token));
+            localStorage.setItem("userType", JSON.stringify("user"));
             const storedUser = JSON.parse(localStorage.getItem("user"));
             const storedToken = JSON.parse(localStorage.getItem("token"));
+            const storedUserType = JSON.parse(localStorage.getItem("userType"));
             setStore({
               token: storedToken,
               user: storedUser,
-              userType: "user",
+              userType: storedUserType,
             });
           } else {
             localStorage.setItem("owner", JSON.stringify(data.owner));
             localStorage.setItem("token", JSON.stringify(data.access_token));
+            localStorage.setItem("userType", JSON.stringify("owner"));
+            const storedUser = JSON.parse(localStorage.getItem("owner"));
+            const storedToken = JSON.parse(localStorage.getItem("token"));
+            const storedUserType = JSON.parse(localStorage.getItem("userType"));
             setStore({
-              token: data.access_token,
-              owner: data.owner,
-              userType: "owner",
+              token: storedToken,
+              owner: storedUser,
+              userType: storedUserType,
             });
           }
-          setStore({ loginSuccessful: true });
+
+          localStorage.setItem(
+            "ownerHotels",
+            JSON.stringify(store.owner.hotels)
+          );
+          const parsedHotels = JSON.parse(localStorage.getItem("ownerHotels"));
+          setStore({ loginSuccessful: true, ownerHotels: parsedHotels });
           setTimeout(() => {
             setStore({ loginSuccessful: false });
           }, 3000);
@@ -173,17 +192,28 @@ const getState = ({ getStore, getActions, setStore }) => {
       getUserFromSessionStorage: () => {
         console.log("getting user from LocalStorage");
         const user = localStorage.getItem("user");
+        const userType = localStorage.getItem("userType");
         console.log("user is:", user);
         const owner = localStorage.getItem("owner");
+        const ownerType = localStorage.getItem("userType");
+        const hotels = localStorage.getItem("ownerHotels");
         try {
           if (user !== null) {
             console.log("user == true, so parsing and setting");
             const parsedUser = JSON.parse(user);
-            setStore({ user: parsedUser, userType: "user" });
-          } else if (owner == true) {
+            const parsedUType = JSON.parse(userType);
+            setStore({ user: parsedUser, userType: parsedUType });
+          } else if (owner !== null) {
+            console.log("owner is:", owner);
             console.log("owner == true, so parsing and setting");
             const parsedOwner = JSON.parse(owner);
-            setStore({ owner: parsedOwner, userType: "owner" });
+            const parsedOType = JSON.parse(ownerType);
+            const parsedHotels = JSON.parse(hotels);
+            setStore({
+              owner: parsedOwner,
+              userType: parsedOType,
+              ownerHotels: parsedHotels,
+            });
           }
         } catch (error) {
           console.error("Error parsing user from session storage:", error);
@@ -323,7 +353,17 @@ const getState = ({ getStore, getActions, setStore }) => {
       logout: () => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
-        setStore({ token: null, user: {}, logoutSuccessful: true });
+        localStorage.removeItem("owner");
+        localStorage.removeItem("userType");
+        localStorage.removeItem("ownerHotels");
+        setStore({
+          token: null,
+          user: {},
+          owner: {},
+          userType: "",
+          ownerHotels: [],
+          logoutSuccessful: true,
+        });
         setTimeout(() => {
           setStore({ logoutSuccessful: false });
         }, 3000);
@@ -462,6 +502,7 @@ const getState = ({ getStore, getActions, setStore }) => {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
+                Authorization: "Bearer " + store.token,
               },
               body: JSON.stringify(hotelData),
             }
@@ -471,6 +512,9 @@ const getState = ({ getStore, getActions, setStore }) => {
           const data = await response.json();
           console.log("data", data);
           if (response.ok) {
+            if (data.hotel_owner_id == store.owner.id) {
+              setStore({ ownerHotels: [...store.ownerHotels, data] });
+            }
             setStore({ addHotelSuccessful: true });
             setTimeout(() => {
               setStore({ addHotelSuccessful: false });
@@ -587,15 +631,13 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      getAllPets: async () => {
+      getAllPets: async (id) => {
         const store = getStore();
         try {
           const response = await fetch(process.env.BACKEND_URL + "/api/pets");
           if (response.ok) {
             const data = await response.json();
             setStore({ pets: data.pets });
-            console.log("data", data);
-            console.log(store.pets);
             return data;
           } else {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -631,7 +673,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           if (response.ok) {
             const data = await response.json();
             console.log("new data", data);
-
             setStore({ currentPetId: "", editedPet: false });
             return data;
           } else {
@@ -661,6 +702,63 @@ const getState = ({ getStore, getActions, setStore }) => {
               (element) => element.id !== pet_id
             );
             setStore({ pets: [...deletePet] });
+            return data;
+          } else {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+        } catch (error) {
+          console.error("Error fetching data: ", error);
+        }
+      },
+
+      handleEditUserInfo: async (ev, formData) => {
+        const store = getStore();
+        ev.preventDefault();
+        console.log("old data", formData);
+        try {
+          const response = await fetch(
+            `${process.env.BACKEND_URL}/api/user/${store.userId}/update`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(formData),
+            }
+          );
+          if (response.ok) {
+            const data = await response.json();
+            console.log("new data", data);
+            setStore({ userId: "", editUser: false, user: data });
+            return data;
+          } else {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+        } catch (error) {
+          console.error("Error fetching data: ", error);
+        }
+      },
+      handleEditOwnerInfo: async (ev, ownerData) => {
+        const store = getStore();
+        ev.preventDefault();
+        console.log("old data", ownerData);
+        try {
+          const response = await fetch(
+            `${process.env.BACKEND_URL}/api/owner/${store.userId}/update`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(ownerData),
+            }
+          );
+          if (response.ok) {
+            const data = await response.json();
+            console.log("new data", data.updated_owner);
+            localStorage.setItem("owner", JSON.stringify(data.updated_owner));
+            const storedUser = JSON.parse(localStorage.getItem("owner"));
+            setStore({ userId: "", editUser: false, owner: storedUser });
             return data;
           } else {
             throw new Error(`HTTP error! status: ${response.status}`);
