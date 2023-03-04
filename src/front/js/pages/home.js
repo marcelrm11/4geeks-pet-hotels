@@ -181,7 +181,8 @@ export const Home = () => {
         <div>
           <p className="font-s white_letter pets_text_intro">
             Enjoy peace of mind and explore our amazing pet hotels. Make your
-            vacation even more fun with Pet House!
+            vacation even more fun with Pet House! You can find places for lots
+            of pets
           </p>
         </div>
         <div className="pets_introCards">{intro_cards}</div>
@@ -189,11 +190,11 @@ export const Home = () => {
 
       <section className="mg-1">
         <h2>Find Your Furry Friend's Perfect Place</h2>
-        <Button className="btn red_Btn mg-1">
-          <Link to="/hotelsListing">
+        <Link to="/hotelListing">
+          <Button className="btn red_Btn mg-1">
             <span>See Hotels</span>
-          </Link>
-        </Button>
+          </Button>
+        </Link>
       </section>
     </div>
   );
