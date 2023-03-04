@@ -19,6 +19,7 @@ import { Profile } from "./pages/profile";
 import { Account } from "./pages/account";
 import { PetProfile } from "./pages/petProfile";
 import { OwnerHotels } from "./pages/hotels";
+import { Contact } from "./pages/contact";
 
 const Layout = () => {
   console.log("layout renders");
@@ -60,6 +61,7 @@ const Layout = () => {
             <Route element={<Favorites />} path="/favorites" />
             <Route element={<Account />} path="/account" />
             <Route element={<OwnerHotels />} path="/ownerHotels" />
+            <Route element={<Contact />} path="/contact" />
             <Route element={<h1>Not found!</h1>} />
           </Routes>
           <Footer />
