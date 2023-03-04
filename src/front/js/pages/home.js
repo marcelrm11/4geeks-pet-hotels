@@ -173,13 +173,13 @@ export const Home = () => {
           <hr className="hr" />
         </div>
         <div className="w-50">
-          <img className="w-100" src={vector} alt="home pet image" />
+          <img className="w-75" src={vector} alt="home pet image" />
         </div>
       </section>
 
       <section className="pets-cards-section">
-        <div>
-          <p className="font-s white_letter pets_text_intro">
+        <div className="w-100">
+          <p className="w-100 font-s white_letter pets_text_intro">
             Enjoy peace of mind and explore our amazing pet hotels. Make your
             vacation even more fun with Pet House! You can find places for lots
             of pets

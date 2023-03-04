@@ -14,10 +14,10 @@
   --whiteLetters: #ffffff;
   --lightGrey: #a4b3b3;
   --btnRadius: 3px;
-  --fontSize-XS: 1rem;
-  --fontSize-S: 1.4rem;
-  --fontSize-M: 2rem;
-  --fontSize-L: 2.4rem;
+  --fontSize-XS: 0.8rem;
+  --fontSize-S: 1rem;
+  --fontSize-M: 1.4rem;
+  --fontSize-L: 2rem;
 }
 
 * {
@@ -41,6 +41,14 @@ a {
 
 li {
   list-style: none;
+}
+
+p {
+  font-size: var(--fontSize-XS) !important;
+}
+
+h4 {
+  font-size: var(--fontSize-S);
 }
 
 a:hover {
