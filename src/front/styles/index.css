@@ -335,6 +335,10 @@ select {
   text-align: center;
 }
 
+.txt-justify {
+  text-align: justify;
+}
+
 .salmon {
   color: var(--salmon);
 }

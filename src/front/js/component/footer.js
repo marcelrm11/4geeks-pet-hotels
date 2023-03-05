@@ -21,7 +21,9 @@ export const Footer = () => (
       </Link>
     </div>
     <div>
-      <h5>About Us</h5>
+    <Link to="/aboutUs">
+        <h5>About Us</h5>
+      </Link>
     </div>
 
     <div className="w-100 d_flex_row mg-tb">
