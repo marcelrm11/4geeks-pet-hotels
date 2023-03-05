@@ -1,0 +1,46 @@
+.contact-input {
+  width: 85%;
+  height: 40px;
+  border: none;
+  border-radius: 0.3rem;
+  padding: 1rem;
+}
+
+.contact-text {
+  width: 85%;
+  height: 80px;
+  border: none;
+  border-radius: 0.3rem;
+  background-color: white;
+}
+
+.contact_container {
+  height: 300px;
+}
+
+.input_container {
+  align-items: center;
+  width: 300px;
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.input_container,
+.info_container {
+  display: flex;
+  flex-direction: column;
+}
+
+.info_container {
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.info_container img {
+  width: 200px;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+  .info_container {
+    display: none;
+  }
+}
