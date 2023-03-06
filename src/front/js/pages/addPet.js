@@ -66,6 +66,7 @@ export const AddPet = () => {
     const petType = ev.target.value;
     setSelectedPetType(petType);
     setPetData({ ...petData, pet_type: petType });
+    
   };
 
   const handleGender = (ev) => {

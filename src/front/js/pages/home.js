@@ -106,14 +106,9 @@ export const Home = () => {
 
   return (
     <div className="text-center">
-      {store.signupSuccessful ? (
-        <h4>signup successful, verify your email and log in</h4>
-      ) : (
-        ""
-      )}
       <section className="home-bg-light w-100 d_flex_row">
         <div className="mob-none w-75 d_flex_col">
-          <div className="home_info one_pad border-style d_flex_col white_letter">
+          <div className="home_info one_pad border-style d_flex_col">
             <h2 className="title-font">{`Welcome to Pet House!`}</h2>
             <p>
               Find the perfect place for your furry friend to stay while you're
@@ -141,9 +136,15 @@ export const Home = () => {
 
       <div className="space"></div>
 
+      <Link to="/hotelListing">
+        <Button className="btn red_Btn mg-1 white_letter">
+          <span>See Hotels</span>
+        </Button>
+      </Link>
+
       <section className="home_hotels w-100 d_flex_col align-items-center">
         <h4>Explore Our Featured Pet-Friendly Hotels</h4>
-        <div className="d-flex w-100 justify-content-evenly">
+        <div className="d-flex w-100 justify-content-evenly mob_col">
           {hotelsInfo.map((h, i) => {
             if (i < 3) {
               return <HotelCard hotel={h} key={h.id} />;
@@ -160,8 +161,8 @@ export const Home = () => {
         </div>
       </section>
 
-      <section className="home_welcome_info d_flex_row">
-        <div className="w-50">
+      <section className="home_welcome_info d_flex_row mob_col">
+        <div className="w-50 mob_info">
           <p>
             Ensure your beloved furry companion receives the very best care
             while you're away with our help. We specialize in finding
@@ -172,14 +173,14 @@ export const Home = () => {
           </p>
           <hr className="hr" />
         </div>
-        <div className="w-50">
-          <img className="w-75" src={vector} alt="home pet image" />
+        <div className="w-50 mob_info">
+          <img className="w-75 mob_info" src={vector} alt="home pet image" />
         </div>
       </section>
 
       <section className="pets-cards-section">
         <div className="w-100">
-          <p className="w-100 font-s white_letter pets_text_intro">
+          <p className="w-100 font-s pets_text_intro">
             Enjoy peace of mind and explore our amazing pet hotels. Make your
             vacation even more fun with Pet House! You can find places for lots
             of pets
@@ -191,7 +192,7 @@ export const Home = () => {
       <section className="mg-1">
         <h2>Find Your Furry Friend's Perfect Place</h2>
         <Link to="/hotelListing">
-          <Button className="btn red_Btn mg-1">
+          <Button className="btn red_Btn mg-1 white_letter">
             <span>See Hotels</span>
           </Button>
         </Link>

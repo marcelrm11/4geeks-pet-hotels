@@ -36,6 +36,11 @@
   padding-left: 0.5rem;
 }
 
+.hotel_link:hover,
+.profile-btn:hover {
+  text-decoration: underline;
+}
+
 @media (min-width: 992px) {
   .hotel_link {
     padding: 0;

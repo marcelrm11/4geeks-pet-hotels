@@ -32,11 +32,6 @@ export const Account = () => {
       icon: faHeart,
       link: "/favorites",
     },
-    {
-      name: "Bookings",
-      icon: faBook,
-      link: "/booking",
-    },
   ];
 
   const ownerOptions = [
@@ -44,11 +39,6 @@ export const Account = () => {
       name: "Hotels",
       icon: faHotel,
       link: "/ownerHotels",
-    },
-    {
-      name: "Bookings",
-      icon: faBook,
-      link: "/",
     },
   ];
 

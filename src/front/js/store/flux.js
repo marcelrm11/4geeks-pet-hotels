@@ -27,15 +27,17 @@ const getState = ({ getStore, getActions, setStore }) => {
       createdSuccesfully: false,
       editeddSuccesfully: false,
       deletedSuccesfully: false,
+      updatedSuccesfully: false,
+      invalidData: false,
       showModal: false,
       user: {},
       owner: {},
       ownerHotels: [],
       userType: "",
 
-      entryDate: "dd/mm/yyyy",
-      checkOutDate: "dd/mm/yyyy",
-      differenceInDays: 0,
+      // entryDate: "dd/mm/yyyy",
+      // checkOutDate: "dd/mm/yyyy",
+      // differenceInDays: 0,
       pets: [],
       editPet: false,
       currentPetId: "",
@@ -119,17 +121,27 @@ const getState = ({ getStore, getActions, setStore }) => {
               userType: storedUserType,
             });
           }
-
           localStorage.setItem(
             "ownerHotels",
             JSON.stringify(store.owner.hotels)
           );
-          const parsedHotels = JSON.parse(localStorage.getItem("ownerHotels"));
-          setStore({ loginSuccessful: true, ownerHotels: parsedHotels });
+          const storageHotels = localStorage.getItem("ownerHotels");
+
+          console.log("storage hotels", storageHotels);
+
+          if (storageHotels !== null && storageHotels !== "undefined") {
+            const parsedHotels = JSON.parse(storageHotels);
+            setStore({ ownerHotels: parsedHotels });
+          }
+          setStore({ loginSuccessful: true });
           setTimeout(() => {
             setStore({ loginSuccessful: false });
           }, 3000);
         } catch (error) {
+          setStore({ invalidData: true });
+          setTimeout(() => {
+            setStore({ invalidData: false });
+          }, 3000);
           setStore({ errors: error.errors });
           console.error(error, store.errors);
         }
@@ -674,6 +686,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             const data = await response.json();
             console.log("new data", data);
             setStore({ currentPetId: "", editedPet: false });
+            setStore({ createdSuccesfully: true });
+            setTimeout(() => setStore({ createdSuccesfully: false }), 4000);
             return data;
           } else {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -730,6 +744,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             const data = await response.json();
             console.log("new data", data);
             setStore({ userId: "", editUser: false, user: data });
+            setStore({ updatedSuccesfully: true });
+            setTimeout(() => setStore({ updatedSuccesfully: false }), 4000);
             return data;
           } else {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -759,6 +775,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             localStorage.setItem("owner", JSON.stringify(data.updated_owner));
             const storedUser = JSON.parse(localStorage.getItem("owner"));
             setStore({ userId: "", editUser: false, owner: storedUser });
+            setStore({ updatedSuccesfully: true });
+            setTimeout(() => setStore({ updatedSuccesfully: false }), 4000);
             return data;
           } else {
             throw new Error(`HTTP error! status: ${response.status}`);
