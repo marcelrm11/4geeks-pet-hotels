@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import "../../styles/footer.css";
 
 export const Footer = () => (
@@ -15,10 +16,14 @@ export const Footer = () => (
       <p>Twitter</p>
     </div>
     <div>
-      <h5>Contact Us</h5>
+      <Link to="/contact">
+        <h5>Contact Us</h5>
+      </Link>
     </div>
     <div>
-      <h5>About Us</h5>
+    <Link to="/aboutUs">
+        <h5>About Us</h5>
+      </Link>
     </div>
 
     <div className="w-100 d_flex_row mg-tb">
