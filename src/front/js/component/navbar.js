@@ -3,6 +3,9 @@ import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import { LoginModal } from "./loginmodal";
 import "../../styles/navbar.css";
+import logo from "../../img/logo.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
@@ -21,95 +24,81 @@ export const Navbar = () => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
-  const [button, setButton] = useState([
-    {
-      to: "/profile",
-      button_color: "turquoise_Btn",
-      name: "Profile",
-    },
-    {
-      to: "/addHotel",
-      button_color: "turquoise_Btn",
-      name: "Add hotel",
-    },
-    {
-      to: "/hotelListing",
-      button_color: "red_Btn",
-      name: "Hotel list",
-    },
-    {
-      to: "/favorites",
-      button_color: "red_Btn",
-      name: "Favorites",
-    },
-  ]);
-
-  const button_type = button.map((item, index) => {
-    return (
-      <li key={index}>
-        <Link to={item.to} className="dropdown-item">
-          <button
-            className={`btn btn-danger general_button ${item.button_color}`}
-          >
-            {item.name}
-          </button>
-        </Link>
-      </li>
-    );
-  });
-
   return (
     <>
-      <nav className="navbar navbar_background">
-        <div className="container">
+      <nav className="navbar navbar-expand-lg navbar_background">
+        <div className="container-fluid">
           <Link to="/">
-            <span className="navbar-brand mb-0 h1 title-font">PetCasa</span>
+            <img
+              className="logo_image navbar-brand mb-0 h1"
+              src={logo}
+              alt="logo image"
+            />
           </Link>
-          <div className="ml-auto nav_buttons">
-            {!store.token ? (
-              <>
-                <Link to="/selectSignup">
-                  <button className="btn btn-danger general_button red_Btn">
-                    Sign Up
-                  </button>
-                </Link>
-
-                <button
-                  type="button"
-                  className="btn btn-primary blue_Btn general_button"
-                  data-bs-toggle="modal"
-                  data-bs-target="#loginModal"
-                >
-                  Log In
-                </button>
-                <LoginModal
-                  onLogin={handleLogin}
-                  onChange={handleChange}
-                  credentials={credentials}
-                />
-              </>
-            ) : (
-              <Link to="/">
-                <button
-                  onClick={() => actions.logout()}
-                  className="btn btn-danger"
-                >
-                  Log out
-                </button>
+          <button
+            className="navbar-toggler mg-1"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon">
+              <FontAwesomeIcon className="stars" icon={faBars} />
+            </span>
+          </button>
+          <div
+            className="collapse navbar-collapse justify-content-end"
+            id="navbarSupportedContent"
+          >
+            <div className="container justify-content-end navBar_cont">
+              <Link to="/hotelListing">
+                <span className="navbar-brand mb-0 h1 title-font hotel_link">
+                  Hotels
+                </span>
               </Link>
-            )}
-            <div className="dropdown">
-              <p
-                className="btn btn-secondary dropdown-toggle"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Buttons
-              </p>
+              <div className="ml-auto mg-tb nav_buttons">
+                {!store.token ? (
+                  <>
+                    <Link to="/selectSignup">
+                      <button className="general_button red_Btn white_letter">
+                        Sign Up
+                      </button>
+                    </Link>
 
-              <ul className="dropdown-menu">{button_type}</ul>
+                    <button
+                      type="button"
+                      className="blue_Btn general_button"
+                      data-bs-toggle="modal"
+                      data-bs-target="#loginModal"
+                    >
+                      Log In
+                    </button>
+                    <LoginModal
+                      onLogin={handleLogin}
+                      onChange={handleChange}
+                      credentials={credentials}
+                    />
+                  </>
+                ) : (
+                  <div className="nav_mob d-flex align-items-center">
+                    <Link to="/profile">
+                      <span className="navbar-brand mb-0 h1 title-font">
+                        Profile
+                      </span>
+                    </Link>
+                    <Link to="/">
+                      <button
+                        onClick={() => actions.logout()}
+                        className="general_button red_Btn "
+                      >
+                        Log out
+                      </button>
+                    </Link>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>

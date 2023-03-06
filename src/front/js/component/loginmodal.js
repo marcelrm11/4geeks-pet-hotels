@@ -31,7 +31,7 @@ export const LoginModal = ({ credentials, onChange, onLogin }) => {
                 aria-label="Close"
               ></button>
             </div>
-            <div className="modal-body bg-darkBlue white_letter">
+            <div className="modal-body login_modal_body bg-darkBlue white_letter">
               <LoginForm
                 onLogin={onLogin}
                 onChange={onChange}

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../../styles/login-signup.css";
 import { Context } from "../store/appContext";
 import { PetForm } from "../component/petForm";
@@ -9,6 +9,7 @@ export const AddPet = () => {
 
   const [selectedPetType, setSelectedPetType] = useState("");
   const [selectedGender, setSelectedGender] = useState("");
+  const [editingPet, setEditingPet] = useState([]);
 
   const [petData, setPetData] = useState({
     name: "",
@@ -18,9 +19,27 @@ export const AddPet = () => {
     birth_date: "",
     health: "",
     // age: "",
-    pet_owner_id: "",
+    pet_owner_id: store.user.id,
   });
 
+  useEffect(() => {
+    if (store.editPet) {
+      const pet = store.pets.find((pet) => pet.id === store.currentPetId);
+      setEditingPet([pet]);
+      const petData = {
+        name: pet.name,
+        pet_type: pet.pet_type,
+        gender: pet.gender,
+        breed: pet.breed,
+        birth_date: pet.birth_date,
+        health: pet.health,
+        pet_owner_id: pet.pet_owner_id,
+      };
+      setPetData(petData);
+    }
+  }, [store.editPet]);
+
+  console.log("pet data", petData);
   // const [pet_age, setPet_Age] = useState();
 
   // const handleAge = () => {

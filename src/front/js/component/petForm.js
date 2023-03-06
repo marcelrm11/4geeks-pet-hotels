@@ -4,6 +4,7 @@ import { Input } from "./input.js";
 import { Button } from "./button";
 import { Image } from "./image";
 import choco from "../../img/choco.jpg";
+import { Link } from "react-router-dom";
 
 export const PetForm = ({
   petData,
@@ -73,7 +74,9 @@ export const PetForm = ({
                     type={field}
                     id={field}
                     placeholder={field}
-                    value={value}
+                    value={
+                      field.includes("pet_owner_id") ? store.user.id : value
+                    }
                     onChange={handleChange}
                     required
                   />
@@ -102,10 +105,10 @@ export const PetForm = ({
         <div className="add_hotel_btn_section ">
           <Button
             buttonClass="red_Btn addHotel_form_submit"
-            onClick={store.editPet === false ? handleValidate : handlePetInfo}
+            onClick={store.editPet == false ? handleValidate : handlePetInfo}
           >
             <span className="white_letter">
-              {store.editPet === false ? "Add pet" : "Confirm"}
+              {store.editPet == false ? "Add pet" : "Confirm"}
             </span>
           </Button>
         </div>

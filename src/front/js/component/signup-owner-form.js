@@ -9,6 +9,7 @@ export const SignUpOwnerForm = ({
   ownerData,
   handleChange,
   handleValidate,
+  handleUserInfo,
 }) => {
   const { store, actions } = useContext(Context);
 
@@ -23,7 +24,9 @@ export const SignUpOwnerForm = ({
         />
       </div>
       <div className="signup_info">
-        <h1 className="signUp_title title-font">Join us now</h1>
+        <h1 className="signUp_title title-font">
+          {store.editUser == false ? "Join us now" : "Edit my information"}
+        </h1>
         <div className="inputs_section">
           <input
             type="hidden"
@@ -60,8 +63,13 @@ export const SignUpOwnerForm = ({
           })}
         </div>
         <div className="btn_container dp-grid-o-cl sign_up_btns">
-          <Button buttonClass="red_Btn access_btn" onClick={handleValidate}>
-            <span className="white_letter">Sign up</span>
+          <Button
+            buttonClass="red_Btn access_btn"
+            onClick={store.editUser == false ? handleValidate : handleUserInfo}
+          >
+            <span className="white_letter">
+              {store.editUser == false ? "Sign up" : "Confirm"}
+            </span>
           </Button>
         </div>
       </div>

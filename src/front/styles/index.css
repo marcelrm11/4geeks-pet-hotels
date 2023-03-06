@@ -14,10 +14,10 @@
   --whiteLetters: #ffffff;
   --lightGrey: #a4b3b3;
   --btnRadius: 3px;
-  --fontSize-XS: 1rem;
-  --fontSize-S: 1.4rem;
-  --fontSize-M: 2rem;
-  --fontSize-L: 2.4rem;
+  --fontSize-XS: 0.8rem;
+  --fontSize-S: 1rem;
+  --fontSize-M: 1.4rem;
+  --fontSize-L: 2rem;
 }
 
 * {
@@ -43,6 +43,14 @@ li {
   list-style: none;
 }
 
+p {
+  font-size: var(--fontSize-XS) !important;
+}
+
+h4 {
+  font-size: var(--fontSize-S);
+}
+
 a:hover {
   color: var(--whiteLetters);
 }
@@ -56,7 +64,8 @@ a:hover {
 
 #gender,
 #pet_type,
-#services {
+#services,
+#pet_owner_id {
   display: none;
 }
 
@@ -129,6 +138,7 @@ select {
 .turquoise_Btn:hover {
   border-color: var(--darkBlue);
   background-color: var(--darkBlue);
+  border: none;
 }
 
 .light_Btn {
@@ -142,6 +152,7 @@ select {
   border-color: var(--lightBlue);
   background-color: var(--lightBlue);
   color: black;
+  border: none;
 }
 
 .access_btn {
@@ -153,17 +164,18 @@ select {
 
 .logIn_access:hover {
   background-color: var(--darkRed);
+  border: none;
 }
 
 .red_Btn {
   border-color: var(--salmon);
   background-color: var(--salmon);
-  transition: all 1s;
 }
 
 .red_Btn:hover {
   border-color: var(--darkRed);
   background-color: var(--darkRed);
+  border: none;
 }
 
 .blue_Btn {
@@ -176,6 +188,7 @@ select {
 .blue_Btn:hover {
   border-color: var(--turquoise);
   background-color: var(--turquoise);
+  border: none;
 }
 
 /*display*/
@@ -322,6 +335,10 @@ select {
   text-align: center;
 }
 
+.txt-justify {
+  text-align: justify;
+}
+
 .salmon {
   color: var(--salmon);
 }
@@ -338,4 +355,15 @@ select {
 
 .input-width {
   width: 180px;
+}
+
+.button_section {
+  width: 200px;
+  background-color: var(--darkBlue);
+  border-top: 2px solid var(--turquoise);
+}
+
+.button_section button {
+  width: 150px;
+  margin: 1rem 0 1rem 0.5rem;
 }
