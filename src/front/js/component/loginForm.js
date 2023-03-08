@@ -4,7 +4,7 @@ import { Input } from "./input.js";
 import { Image } from "./image";
 import { Button } from "./button";
 import { Link } from "react-router-dom";
-import logo from "../../img/dog_logo.png";
+import logo from "../../img/logo.png";
 import "../../styles/login-signup.css";
 
 export const LoginForm = ({ credentials, onChange, onLogin }) => {

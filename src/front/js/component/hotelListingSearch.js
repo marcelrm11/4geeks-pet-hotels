@@ -33,10 +33,10 @@ const HotelListinSearch = ({ filters, onChange, onClick, onPetChange }) => {
       </div>
       <div className="listing_date_input dp-grid"></div>
       <div className="align-items-start home_search_bar d_flex_col date">
-        <Dates />
+        {/* <Dates />
         <p className="red_bg">
           {store.differenceInDays ? store.differenceInDays + " nights" : ""}
-        </p>
+        </p> */}
         <label>Country</label>
         <CustomSelect
           name="country"

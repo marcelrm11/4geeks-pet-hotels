@@ -11,7 +11,7 @@ const HotelCard = (props) => {
     "transparent_bg favorites_icon font-s favoritesBtn"
   );
   useEffect(() => {
-    if (store.user.favorites.length > 0) {
+    if (store.user.favorites?.length > 0) {
       console.log("favorites:", store.user.favorites);
       for (let fav of store.user.favorites) {
         userFavorites.push(fav.hotel_id);

@@ -36,12 +36,6 @@ export const Profile = () => {
       title: "Favorites",
       info: "Access the hotels you liked the most.",
     },
-    {
-      link: "/",
-      icon: faBook,
-      title: "Bookings",
-      info: "Easily access the reservations you have made.",
-    },
   ];
 
   const profileOwnerCards = [
@@ -50,12 +44,6 @@ export const Profile = () => {
       icon: faUser,
       title: "Account",
       info: "Access your personal data",
-    },
-    {
-      link: "/",
-      icon: faBook,
-      title: "Bookings",
-      info: "Easily access the reservations made in your hotel.",
     },
     {
       link: "/ownerHotels",
@@ -99,9 +87,13 @@ export const Profile = () => {
 
   return (
     <>
-      <div className="profile_card_container">
-        {userType == "owner" ? showOwnerCard : showUserCard}
-      </div>
+      {store.token ? (
+        <div className="profile_card_container">
+          {userType == "owner" ? showOwnerCard : showUserCard}
+        </div>
+      ) : (
+        <h4 className="d_flex_row w-100 mg-tb">You need to be log in</h4>
+      )}
     </>
   );
 };

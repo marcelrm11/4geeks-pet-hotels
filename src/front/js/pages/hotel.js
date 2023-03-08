@@ -4,16 +4,11 @@ import { Context } from "../store/appContext";
 import { useLocation } from "react-router";
 import { HotelServices } from "../component/hotelServices";
 import { HotelDescription } from "../component/hotelDescription";
-import { HotelReviews } from "../component/hotelReviews";
 import { PlaceDetailsSearch } from "../component/placeDetailsSearch";
-import { Button } from "../component/button";
-import { Link } from "react-router-dom";
 
 export const Hotel = () => {
   const { store, actions } = useContext(Context);
   const [details, setDetails] = useState(undefined);
-  const [reviews, setReviews] = useState([]);
-  const [overallRating, setOverallRating] = useState(0);
   const location = useLocation();
   console.log("location", location);
   useEffect(() => {
@@ -22,8 +17,6 @@ export const Hotel = () => {
       .then((data) => {
         console.log(data);
         setDetails(data);
-        setReviews(data.reviews);
-        setOverallRating(data.reviews.map((rev) => rev.rating));
       });
   }, []);
 
@@ -44,10 +37,7 @@ export const Hotel = () => {
           <h1 className="hotel_details_section">{details.name}</h1>
           <div className="flex-container">
             <div className="component1">
-              <PlaceDetailsSearch
-                details={details}
-                overallRating={overallRating}
-              />
+              <PlaceDetailsSearch details={details} />
             </div>
             <div className="w-100 d_flex_col mg-4 mb-5">
               <h2>Accepted animals</h2>
@@ -70,21 +60,6 @@ export const Hotel = () => {
             name={details.name}
             description={details.hotel_description}
           />
-          <Button buttonClass="mg-4 red_Btn hotel_detail_btn">
-            <Link to="/booking">
-              <span className="white_letter">Reserve</span>
-            </Link>
-          </Button>
-          <h5 className="reviewStar">
-            Reviews
-            <i className="fa-solid fa-star"></i>
-            <i className="fa-solid fa-star"></i>
-            <i className="fa-solid fa-star"></i>
-            <i className="fa-solid fa-star"></i>
-          </h5>
-          {reviews.map((review) => {
-            return <HotelReviews review={review} />;
-          })}
         </>
       )}
     </div>

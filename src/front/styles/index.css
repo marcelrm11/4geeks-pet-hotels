@@ -44,15 +44,19 @@ li {
 }
 
 p {
-  font-size: var(--fontSize-XS) !important;
+  font-size: var(--fontSize-S) !important;
 }
 
 h4 {
-  font-size: var(--fontSize-S);
+  font-size: var(--fontSize-M);
 }
 
 a:hover {
   color: var(--whiteLetters);
+}
+
+.hover:hover {
+  text-decoration: underline;
 }
 
 .forms > input {

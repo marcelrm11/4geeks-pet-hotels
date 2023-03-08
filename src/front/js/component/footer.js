@@ -17,12 +17,12 @@ export const Footer = () => (
     </div>
     <div>
       <Link to="/contact">
-        <h5>Contact Us</h5>
+        <h5 className="hover">Contact Us</h5>
       </Link>
     </div>
     <div>
     <Link to="/aboutUs">
-        <h5>About Us</h5>
+        <h5 className="hover">About Us</h5>
       </Link>
     </div>
 

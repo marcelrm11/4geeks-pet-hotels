@@ -84,7 +84,7 @@ export const Navbar = () => {
                 ) : (
                   <div className="nav_mob d-flex align-items-center">
                     <Link to="/profile">
-                      <span className="navbar-brand mb-0 h1 title-font">
+                      <span className="navbar-brand mb-0 h1 title-font profile-btn">
                         Profile
                       </span>
                     </Link>
@@ -112,6 +112,11 @@ export const Navbar = () => {
         {store.loginSuccessful && (
           <div className="alert alert-success" role="alert">
             Login was successful.
+          </div>
+        )}
+        {store.invalidData && (
+          <div className="alert alert-danger" role="alert">
+            Username or password invalid.
           </div>
         )}
         {store.logoutSuccessful && (

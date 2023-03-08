@@ -51,12 +51,12 @@ export const OwnerHotels = () => {
   return (
     <div className="d-flex ownerHotels_container">
       <div className="button_section">
-        <Button className="blue_Btn">
+        <Button className="blue_Btn btn white_letter">
           <Link to="/addHotel">
             <span>Add hotel</span>
           </Link>
         </Button>
-        <Button className="blue_Btn">
+        <Button className="blue_Btn btn white_letter">
           <span>Options</span>
         </Button>
       </div>
