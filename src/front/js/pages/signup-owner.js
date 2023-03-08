@@ -42,7 +42,8 @@ export const SignupOwner = () => {
 
   return store.signupSuccessful ? (
     <Navigate to="/" />
-  ) : (
+  ) : store.updatedSuccesfully ? (
+    <Navigate to="/account" /> ) : (
     <div className="text-center mt-4">
       <div className="forms">
         <SignUpOwnerForm

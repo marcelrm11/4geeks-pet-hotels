@@ -109,10 +109,10 @@
 }
 
 .more_detail_images img {
-  width: 100%;
+  width: 75%;
   height: 100%;
   border-radius: 1rem;
-  margin: 0.8rem 0 0.8rem 0.5rem;
+  margin: 0.9rem 0 0.8rem 0.5rem;
 }
 
 .description_container {
@@ -167,12 +167,24 @@
   .hotel_detail_preBooking {
     margin: 1rem 0 4rem 0;
   }
+
+  .big_image {
+    width: 95%;
+  }
+
+  .more_detail_images {
+    display: none;
+  }
 }
 
 @media (min-width: 769px) {
   .place_detail_img {
     width: 50%;
     height: fit-content;
+  }
+
+  .big_image {
+    width: 80%;
   }
 
   .information_section {

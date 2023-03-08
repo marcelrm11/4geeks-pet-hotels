@@ -3,7 +3,6 @@
 .home_info {
   width: 60%;
   height: 180px;
-  background-color: var(--salmon);
 }
 
 .home-bg-light {
@@ -108,11 +107,10 @@
 
 .pets_text_intro {
   padding: 2rem;
-  background-color: var(--salmon);
 }
 
 .space {
-  height: 150px;
+  height: 80px;
 }
 
 @media (max-width: 768px) {
@@ -137,6 +135,15 @@
 
   .pets-cards-section {
     height: 1350px;
+  }
+
+  .mob_col {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .mob_info {
+    width: 95% !important;
   }
 }
 
@@ -169,5 +176,4 @@
     grid-template-columns: auto auto auto;
     margin: 2rem 0;
   }
-
 }

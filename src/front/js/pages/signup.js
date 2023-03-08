@@ -20,12 +20,12 @@ export const Signup = () => {
 
   useEffect(() => {
     if (store.editUser) {
-      const user = store.user
+      const user = store.user;
       const formData = {
         first_name: user.first_name,
         last_name: user.last_name,
         email: user.email,
-        password:  "",
+        password: "",
         confirm_password: "",
         country: user.country,
         zip_code: user.zip_code,
@@ -43,6 +43,8 @@ export const Signup = () => {
 
   return store.signupSuccessful ? (
     <Navigate to="/" />
+  ) : store.updatedSuccesfully ? (
+    <Navigate to="/account" />
   ) : (
     <div className="text-center mt-4">
       <div className="forms">

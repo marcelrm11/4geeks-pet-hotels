@@ -39,6 +39,7 @@
 @media (min-width: 769px) {
   .profile_card_section {
     max-width: 425px;
+    margin-right: 1rem;
   }
 
   .profile_card_container {

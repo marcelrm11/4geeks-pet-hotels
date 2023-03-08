@@ -7,7 +7,7 @@ import { Button } from "./button";
 import { Input } from "./input";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
-export const PlaceDetailsSearch = ({ details, overallRating }) => {
+export const PlaceDetailsSearch = ({ details }) => {
   console.log("details:", details);
   const { store, actions } = useContext(Context);
   const [editModal, setEditModal] = useState(false);
@@ -31,27 +31,19 @@ export const PlaceDetailsSearch = ({ details, overallRating }) => {
       <div className="hotel_details_images w-100 d_flex_row">
         <figure className="place_detail_img">
           <img
-            className="w-100"
+            className="big_image"
             src="https://picsum.photos/700?random=1"
             alt=""
           />
         </figure>
         <figure className="more_detail_images">
-          <img src="https://picsum.photos/300?random=2" alt="hotel_images_1" />
-          <img src="https://picsum.photos/300?random=3" alt="hotel_images_2" />
+          <img className="lit_image" src="https://picsum.photos/300?random=2" alt="hotel_images_1" />
+          <img className="lit_image" src="https://picsum.photos/300?random=3" alt="hotel_images_2" />
         </figure>
       </div>
       <div>
-        <p>{overallRating}</p>
       </div>
       <section className="information_section d_flex_col one_pad">
-        {store.is_owner || (
-          <div className="hotel_detail_preBooking">
-            <DetailBooking details={details} />
-          </div>
-        )}
-        <br />
-        {store.is_owner && <Button onClick={toggleModal}>Edit details</Button>}
         <div className="hotel_detail_information w-100">
           <HotelBasicInfo
             name={hotelData.name}
