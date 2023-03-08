@@ -72,39 +72,41 @@ const EditModal = ({ isOpen, toggle, hotelData, onInputChange, onUpdate }) => {
     <Modal isOpen={isOpen} toggle={toggle}>
       <ModalHeader toggle={toggle}>Edit hotel details</ModalHeader>
       <ModalBody className="text_inputs_container">
-        {Object.entries(hotelData).map(([field, value]) => {
-          if (
-            ![
-              "hotel_bookings",
-              "hotel_owner_id",
-              "id",
-              "reviews",
-              "rooms",
-            ].includes(field)
-          ) {
-            return (
-              <React.Fragment key={field}>
-                <Input
-                  type={
-                    field.includes("photo")
-                      ? "file"
-                      : field.includes("email")
-                      ? "email"
-                      : "text"
-                  }
-                  id={field}
-                  placeholder={actions.removeUnderscores(
-                    actions.capitalize(field)
-                  )}
-                  value={value}
-                  onChange={onInputChange}
-                  required
-                />
-                {store.errors[field] && <p>{store.errors[field]}</p>}
-              </React.Fragment>
-            );
-          }
-        })}
+        {hotelData !== undefined
+          ? Object.entries(hotelData).map(([field, value]) => {
+              if (
+                ![
+                  "hotel_bookings",
+                  "hotel_owner_id",
+                  "id",
+                  "reviews",
+                  "rooms",
+                ].includes(field)
+              ) {
+                return (
+                  <React.Fragment key={field}>
+                    <Input
+                      type={
+                        field.includes("photo")
+                          ? "file"
+                          : field.includes("email")
+                          ? "email"
+                          : "text"
+                      }
+                      id={field}
+                      placeholder={actions.removeUnderscores(
+                        actions.capitalize(field)
+                      )}
+                      value={value}
+                      onChange={onInputChange}
+                      required
+                    />
+                    {store.errors[field] && <p>{store.errors[field]}</p>}
+                  </React.Fragment>
+                );
+              }
+            })
+          : ""}
       </ModalBody>
       <ModalFooter>
         <Button onClick={toggle} outline="outline">
