@@ -21,7 +21,7 @@ export const Footer = () => (
       </Link>
     </div>
     <div>
-    <Link to="/aboutUs">
+      <Link to="/aboutUs">
         <h5 className="hover">About Us</h5>
       </Link>
     </div>

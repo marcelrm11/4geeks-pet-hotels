@@ -66,7 +66,6 @@ export const AddPet = () => {
     const petType = ev.target.value;
     setSelectedPetType(petType);
     setPetData({ ...petData, pet_type: petType });
-    
   };
 
   const handleGender = (ev) => {
@@ -75,20 +74,32 @@ export const AddPet = () => {
     setPetData({ ...petData, gender: gender });
   };
 
-  return store.createdSuccesfully ? (
-    <Navigate to="/petProfile" />
-  ) : (
-    <div className="text-center mt-4">
-      <div className="forms">
-        <PetForm
-          handleGender={handleGender}
-          handlePetType={handlePetType}
-          petData={petData}
-          handleChange={handleChange}
-          handleValidate={(e) => actions.handleValidatePetForm(e, petData)}
-          handlePetInfo={(e) => actions.handleEditPetsInfo(e, petData)}
-        />
-      </div>
-    </div>
+  return (
+    <>
+      {store.token && store.userType === "user" ? (
+        store.createdSuccesfully ? (
+          <Navigate to="/petProfile" />
+        ) : (
+          <div className="text-center mt-4">
+            <div className="forms">
+              <PetForm
+                handleGender={handleGender}
+                handlePetType={handlePetType}
+                petData={petData}
+                handleChange={handleChange}
+                handleValidate={(e) =>
+                  actions.handleValidatePetForm(e, petData)
+                }
+                handlePetInfo={(e) => actions.handleEditPetsInfo(e, petData)}
+              />
+            </div>
+          </div>
+        )
+      ) : (
+        <div className="alert alert-danger" role="alert">
+          You Need To Be Logged In As User.
+        </div>
+      )}
+    </>
   );
 };

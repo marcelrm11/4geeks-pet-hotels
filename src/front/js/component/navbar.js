@@ -58,6 +58,13 @@ export const Navbar = () => {
                   Hotels
                 </span>
               </Link>
+{/* 
+              <Link to="/contact">
+                <span className="hover">Contact Us</span>
+              </Link>
+              <Link to="/aboutUs">
+                <span className="hover">About Us</span>
+              </Link> */}
               <div className="ml-auto mg-tb nav_buttons">
                 {!store.token ? (
                   <>

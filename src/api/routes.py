@@ -488,7 +488,7 @@ def delete_owner(owner_id):
 
 
 @api.route("/hotel/create", methods=["POST"])
-@jwt_required()
+# @jwt_required()
 def create_hotel():
     # ! dangerous to disable the csrf protection
     # current_owner_email = get_jwt_identity()

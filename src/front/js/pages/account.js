@@ -76,40 +76,46 @@ export const Account = () => {
 
   return (
     <>
-      <div className="account_section w-100 d_flex_col">
-        <section className="account_right_section border-style d_flex_col">
-          <div className="account_user_background d_flex_col border-style">
-            <div className="account_user_profile d_flex_col">
-              <figure>
-                <Link
-                  to={userType == "owner" ? "/signup/owner" : "/signup/user"}
-                >
-                  <FontAwesomeIcon
-                    onClick={() => actions.handleEditUser(user_type.id)}
-                    className="edit_account"
-                    icon={faPenToSquare}
-                  />
-                </Link>
-                <img src="https://picsum.photos/200" />
-              </figure>
-              <p>{`${user_type.first_name} ${user_type.last_name}`}</p>
+      {store.token ? (
+        <div className="account_section w-100 d_flex_col">
+          <section className="account_right_section border-style d_flex_col">
+            <div className="account_user_background d_flex_col border-style">
+              <div className="account_user_profile d_flex_col">
+                <figure>
+                  <Link
+                    to={userType == "owner" ? "/signup/owner" : "/signup/user"}
+                  >
+                    <FontAwesomeIcon
+                      onClick={() => actions.handleEditUser(user_type.id)}
+                      className="edit_account"
+                      icon={faPenToSquare}
+                    />
+                  </Link>
+                  <img src="https://picsum.photos/200" />
+                </figure>
+                <p>{`${user_type.first_name} ${user_type.last_name}`}</p>
+              </div>
             </div>
-          </div>
-        </section>
-        <section className="account_left_section">
-          <div className="account_info_background border-style">
-            <div className="account_info_profile">
-              <p className="little_pad">{user_type.email}</p>
-              <p className="little_pad">{user_type.phone_number}</p>
-              <p className="little_pad">{user_type.country}</p>
-              <p className="little_pad">{user_type.zip_code}</p>
+          </section>
+          <section className="account_left_section">
+            <div className="account_info_background border-style">
+              <div className="account_info_profile">
+                <p className="little_pad">{user_type.email}</p>
+                <p className="little_pad">{user_type.phone_number}</p>
+                <p className="little_pad">{user_type.country}</p>
+                <p className="little_pad">{user_type.zip_code}</p>
+              </div>
             </div>
-          </div>
-          <div className="options_account_container d_flex_col w-100">
-            {userType == "owner" ? ownerButtons : userButtons}
-          </div>
-        </section>
-      </div>
+            <div className="options_account_container d_flex_col w-100">
+              {userType == "owner" ? ownerButtons : userButtons}
+            </div>
+          </section>
+        </div>
+      ) : (
+        <div className="alert alert-danger" role="alert">
+          You need to be log in.
+        </div>
+      )}
     </>
   );
 };

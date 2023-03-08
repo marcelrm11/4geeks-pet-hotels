@@ -92,7 +92,9 @@ export const Profile = () => {
           {userType == "owner" ? showOwnerCard : showUserCard}
         </div>
       ) : (
-        <h4 className="d_flex_row w-100 mg-tb">You need to be log in</h4>
+        <div className="alert alert-danger" role="alert">
+          You need to be log in.
+        </div>
       )}
     </>
   );

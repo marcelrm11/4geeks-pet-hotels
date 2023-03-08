@@ -12,8 +12,16 @@ export const Favorites = () => {
 
   return (
     <>
-      <h2 className="favorites_title txt-center">Your favorites</h2>
-      <div className="favorites dp-grid-t-cl dp-g-center">{favorites}</div>;
+      {store.token && store.userType === "user" ? (
+        <>
+          <h2 className="favorites_title txt-center">Your favorites</h2>
+          <div className="favorites dp-grid-t-cl dp-g-center">{favorites}</div>
+        </>
+      ) : (
+        <div className="alert alert-danger" role="alert">
+          You Need To Be Logged In As User.
+        </div>
+      )}
     </>
   );
 };

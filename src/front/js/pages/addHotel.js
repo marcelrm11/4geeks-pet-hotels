@@ -67,19 +67,31 @@ export const AddHotel = () => {
     setHotelData({ ...hotelData, services: selectedServices.join(",") });
   };
 
-  return store.addHotelSuccessful ? (
-    <Navigate to="/" />
-  ) : (
-    <div className="text-center mt-5">
-      <div className="forms">
-        <AddHotelData
-          handleServices={handleServices}
-          handlePetType={handlePetType}
-          hotelData={hotelData}
-          handleChange={handleChange}
-          handleValidate={(e) => actions.handleValidateHotelForm(e, hotelData)}
-        />
-      </div>
-    </div>
+  return (
+    <>
+      {store.token && store.userType === "owner" ? (
+        store.addHotelSuccessful ? (
+          <Navigate to="/" />
+        ) : (
+          <div className="text-center mt-5">
+            <div className="forms">
+              <AddHotelData
+                handleServices={handleServices}
+                handlePetType={handlePetType}
+                hotelData={hotelData}
+                handleChange={handleChange}
+                handleValidate={(e) =>
+                  actions.handleValidateHotelForm(e, hotelData)
+                }
+              />
+            </div>
+          </div>
+        )
+      ) : (
+        <div className="alert alert-danger" role="alert">
+          You Need To Be Logged In As Owner.
+        </div>
+      )}
+    </>
   );
 };

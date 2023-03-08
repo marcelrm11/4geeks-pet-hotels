@@ -81,21 +81,30 @@ export const PetProfile = () => {
 
   return (
     <>
-      <div className="d-flex ownerHotels_container">
-        <div className="button_section">
-          <Button buttonClass="mg-4 blue_Btn ">
-            <Link to="/addPet">
-              <span className="white_letter">Add pet</span>
-            </Link>
-          </Button>
-          <Button onClick={() => handleOptions()} buttonClass="mg-4 blue_Btn ">
-            <span className="white_letter">Options</span>
-          </Button>
+      {store.token && store.userType === "user" ? (
+        <div className="d-flex ownerHotels_container">
+          <div className="button_section">
+            <Button buttonClass="mg-4 blue_Btn ">
+              <Link to="/addPet">
+                <span className="white_letter">Add pet</span>
+              </Link>
+            </Button>
+            <Button
+              onClick={() => handleOptions()}
+              buttonClass="mg-4 blue_Btn "
+            >
+              <span className="white_letter">Options</span>
+            </Button>
+          </div>
+          <section className="pet_section d_flex_col w-100 mg-tb">
+            {petsInfo}
+          </section>
         </div>
-        <section className="pet_section d_flex_col w-100 mg-tb">
-          {petsInfo}
-        </section>
-      </div>
+      ) : (
+        <div className="alert alert-danger" role="alert">
+          You Need To Be Logged In As User.
+        </div>
+      )}
     </>
   );
 };
