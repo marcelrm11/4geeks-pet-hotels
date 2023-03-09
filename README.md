@@ -52,7 +52,7 @@ $ flask mock-hotels
 1. Install the packages: `$ npm install`
 2. Start the webpack dev server `$ npm run start`
 
-## Components aad Views
+## Components and Views
 
 The frontend is distributed into composable view components. Some of the components are designed to be reusable throughout the app.
 
@@ -80,4 +80,4 @@ You can contact me at marcelrm11@gmail.com.
 
 ## Credits
 
-This project was built using a 4Geeks Academy boilerplate. For more information, see [this github repo](https://gitpod.io#https://github.com/4GeeksAcademy/react-flask-hello.git)
+This project was built using a 4Geeks Academy boilerplate. For more information, see [this github repo](https://gitpod.io#https://github.com/4GeeksAcademy/react-flask-hello.git).
