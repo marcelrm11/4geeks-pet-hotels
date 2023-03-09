@@ -1,55 +1,24 @@
-# WebApp boilerplate with React JS and Flask API
+# PetHouse: pet boarding marketplace
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io#https://github.com/4GeeksAcademy/react-flask-hello.git)
+> PetHouse is the first digital marketplace for users to find the best boarding facilities for their pets, whenever they are travelling or need to leave them in the best care. It is a full stack project built with React and Python/Flask.
 
-> Documentation: https://start.4geeksacademy.com/
+## Background
 
-<p align="center">
-<a href="https://www.loom.com/share/f37c6838b3f1496c95111e515e83dd9b"><img src="https://github.com/4GeeksAcademy/flask-rest-hello/blob/main/docs/assets/how-to.png?raw=true?raw=true" /></a>
-</p>
+This is the capstone group project for the Full Stack Development bootcamp at 4Geeks Academy. The other two members were @vicky22 and @Nicolettastr.
 
-- React.js front end and python/flask backend for your web application.
-- Extensive documentation [here](https://start.4geeksacademy.com/).
-- Integrated with Pipenv for package managing.
-- Fast deloyment to heroku [in just a few steps here](https://start.4geeksacademy.com/backend/deploy-heroku-posgres).
-- Use of .env file.
-- SQLAlchemy integration for database abstraction.
+## Usage
 
-### Styles
+There are two types of user: "users" and "owners". The former are those who have a pet and want to find a place to leave them during their absence; the latter are the people who manage the boarding facilities and want to get higher exposure to potential clients.
+The idea is that owners register their "hotels" (boarding facilities) so that they appear in search results, where users can browse, search and filter hotels with different criteria.
+Each hotel has a detailed view where the user can see all its information, including contact details.
+Currently, the user should contact the hotel owner outside of the app. Plans to integrate booking and payment features are on the roadmap.
+The user can also create a pet profile, although it is not still used to personalize the user experience.
 
-You can update the `styles/index.scss` or create new `.scss` files inside `styles/` and import them into your current scss or js files depending on your needs.
-
-### Components
-
-Add more files into your `./src/js/components` or styles folder as you need them and import them into your current files as needed.
-
-💡Note: There is an example using the Context API inside `views/demo.js`;
-
-### Views (Components)
-
-Add more files into your `./src/js/views` and import them in `./src/js/layout.jsx`.
-
-### Context
-
-This boilerplate comes with a centralized general Context API. The file `./src/js/store/flux.js` has a base structure for the store, we encourage you to change it and adapt it to your needs.
-
-React Context [docs](https://reactjs.org/docs/context.html)
-BreathCode Lesson [view](https://content.breatheco.de/lesson/react-hooks-explained)
-
-The `Provider` is already set. You can consume from any component using the useContext hook to get the `store` and `actions` from the Context. Check `/views/demo.js` to see a demo.
-
-```jsx
-import { Context } from "../store/appContext";
-const MyComponentSuper = () => {
-    //here you use useContext to get store and actions
-    const { store, actions } = useContext(Context);
-    return <div>{/* you can use your actions or store inside the html */}</div>;
-};
-```
+## Installation
 
 ### Back-End Manual Installation:
 
-It is recomended to install the backend first, make sure you have Python 3.8, Pipenv and a database engine (Posgress recomended)
+It is recomended to install the backend first, make sure you have Python 3.10, Pipenv and a database engine (Posgress recomended)
 
 1. Install the python packages: `$ pipenv install`
 2. Create a .env file based on the .env.example: `$ cp .env.example .env`
@@ -61,39 +30,54 @@ It is recomended to install the backend first, make sure you have Python 3.8, Pi
 | MySQL     | mysql://username:password@localhost:port/example    |
 | Postgress | postgres://username:password@localhost:5432/example |
 
-4. Migrate the migrations: `$ pipenv run migrate` (skip if you have not made changes to the models on the `./src/api/models.py`)
-5. Run the migrations: `$ pipenv run upgrade`
-6. Run the application: `$ pipenv run start`
+1. Migrate the migrations: `$ pipenv run migrate`
+2. Run the migrations: `$ pipenv run upgrade`
+3. Run the application: `$ pipenv run start`
 
 ### Backend Populate Table Users
 
-To insert test users in the database execute the following command:
+To insert mock data in the database execute the following commands:
 
-```sh
-$ flask insert-test-users 5
+```shell
+$ flask mock-users
+$ flask mock-pets
+$ flask mock-owners
+$ flask mock-hotels
 ```
-
-And you will see the following message:
-
-```
-  Creating test users
-  test_user1@test.com created.
-  test_user2@test.com created.
-  test_user3@test.com created.
-  test_user4@test.com created.
-  test_user5@test.com created.
-  Users created successfully!
-```
-
-To update with all yours tables you can edit the file app.py and go to the line 80 to insert the code to populate others tables
 
 ### Front-End Manual Installation:
 
--   Make sure you are using node version 14+ and that you have already successfully installed and runned the backend.
+- Make sure you are using node version 14+ and that you have already successfully installed and runned the backend.
 
 1. Install the packages: `$ npm install`
-2. Start coding! start the webpack dev server `$ npm run start`
+2. Start the webpack dev server `$ npm run start`
 
-## Publish your website!
+## Components aad Views
 
-This boilerplate it's 100% read to deploy with Render.com and Heroku in a matter of minutes. Please read the [official documentation about it](https://start.4geeksacademy.com/deploy).
+The frontend is distributed into composable view components. Some of the components are designed to be reusable throughout the app.
+
+## Database Models
+
+Data models are created using SQLAlchemy and PostgreSQL. Every element is represented by a model, which has relationships to the other models (actual sub-models). For instance, the owner model is the parent of the hotel model.
+Database inputs are validated using WTForms.
+
+## API endpoints
+
+In general, there is an endpoint for every action of the CRUD in each model. For instance, it is possible to create a user (sign up), get the user details, edit user details and delete the user account.
+
+## Authentication
+
+Users and owners can log into their accounts to manage their profile and see private information, such as their details. They can also save favorites and create pet profiles. Owners can create and edit their hotels.
+Log in authentication is handled with JWT-extended for Flask.
+
+## Contact info
+
+You can contact me at marcelrm11@gmail.com.
+
+## License
+
+[MIT](https://opensource.org/licenses/MIT)
+
+## Credits
+
+This project was built using a 4Geeks Academy boilerplate. For more information, see [this github repo](https://gitpod.io#https://github.com/4GeeksAcademy/react-flask-hello.git)

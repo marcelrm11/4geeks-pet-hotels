@@ -1,41 +1,15 @@
 
-import click
 from api.models import Hotel, Owner, db, User, Pets
-
-"""
-In this file, you can add as many commands as you want using the @app.cli.command decorator
-Flask commands are usefull to run cronjobs or tasks outside of the API but sill in integration 
-with youy database, for example: Import the price of bitcoin every night as 12am
-"""
 
 
 def setup_commands(app):
-    """ 
-    This is an example command "insert-test-users" that you can run from the command line
-    by typing: $ flask insert-test-users 5
-    Note: 5 is the number of users to add
-    """
-    @app.cli.command("insert-test-users")  # name of our command
-    @click.argument("count")  # argument of out command
-    def insert_test_data(count):
-        print("Creating test users")
-        for x in range(1, int(count) + 1):
-            user = User()
-            user.email = "test_user" + str(x) + "@test.com"
-            user.password = "123456"
-            user.is_active = True
-            db.session.add(user)
-            db.session.commit()
-            print("User: ", user.email, " created.")
 
-        print("All test users created")
-
-        # Insert the code to populate others tables if needed
+    # Insert the code to populate others tables if needed
 
     @app.cli.command("mock-users")
     def insert_mock_users():
         user1 = User(email='john.doe@example.com', password='P@ssword123', confirm_password='P@ssword123', is_active=True,
-                     first_name='John', last_name='Doe', is_owner=False, country='USA', zip_code='12345', phone_number='123-456-7890')
+                     first_name='John', last_name='Doe', is_owner=False, country='United States', zip_code='12345', phone_number='123-456-7890')
         db.session.add(user1)
         user2 = User(email='jane.doe@example.com', password='Qwerty123$', confirm_password='Qwerty123$', is_active=True,
                      first_name='Jane', last_name='Doe', is_owner=False, country='Canada', zip_code='A1A 1A1', phone_number='555-555-5555')
@@ -65,8 +39,8 @@ def setup_commands(app):
         # create an owner
         owner1 = Owner(
             email='owner1@example.com',
-            password='password1',
-            confirm_password='password1',
+            password='Passw0rd!',
+            confirm_password='Passw0rd!',
             is_active=True,
             first_name='John',
             last_name='Doe',
@@ -78,8 +52,8 @@ def setup_commands(app):
         # create another owner
         owner2 = Owner(
             email='owner2@example.com',
-            password='password2',
-            confirm_password='password2',
+            password='Passw0rd!',
+            confirm_password='Passw0rd!',
             is_active=True,
             first_name='Jane',
             last_name='Doe',
