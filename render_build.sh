@@ -3,11 +3,9 @@
 set -o errexit
 
 npm install
-
-source ./.venv/bin/activate
-pipenv install -r requirements.txt
+npm run build
+pipenv install
 
 pipenv run upgrade
 
-pipenv run start
-npm run build
+
